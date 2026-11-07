@@ -28,3 +28,9 @@ Supplied healthcare feed is LA-only (3,620 records), so statewide healthcare nee
 Deferrals with concrete triggers live in DATA_VERIFICATION.md; phases 3–6 remain in the full target. No sponsor integration or account work begun.
 
 One worker: facility-sources, gpt-6.1-terra medium; reviewed and integrated local branch. Worker network failures were resolved with bounded main-session requests. Branch/worktree retained. Remaining weekly allowance unknown; no further workers launched.
+
+## Interactive split — 2026-11-07
+
+User now authorizes a separate interactive frontend session. Main owns backend/data/shared contracts/configuration and integration; frontend/atlas-interactive owns rendering/UI/interactions. See FRONTEND_HANDOFF.md for exact owned paths, real sample and the :3001 → :3000 proxy. No frontend agent launched. Baseline local tag frontend-handoff-v1 identifies the starting commit. No frontend merge while edits are active without a user-coordinated checkpoint. Backend updates are logged in BACKEND_CHANGES.md.
+
+Handoff preparation checks: 10 backend tests, TypeScript, and targeted rendered-map interaction test passed after palette extraction. Subsequent proxy setup verification is recorded in BACKEND_CHANGES.md.

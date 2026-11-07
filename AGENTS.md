@@ -8,6 +8,17 @@ Bounded Codex CLI workers through `$parallel-worktrees`, Worktrunk worktrees, an
 
 Keep all work local. No push, publication, deployment, purchases, billing/global configuration changes, or revival of archived investigations. If credentials or paid access block a source, finish independent work and document the specific blocker.
 
+## Interactive frontend split — authorized 2026-11-07
+
+The user opens their own frontend session; do not launch a frontend worker. Backend/integration owner works in the main worktree, frontend owner in `frontend/atlas-interactive`. See `docs/FRONTEND_HANDOFF.md` before edits. These ownership rules supersede the earlier sequential-solo rule for this explicitly authorized two-session arrangement.
+
+- Backend owner: `app/api/**`, `data/**`, `scripts/**`, `src/data.ts`, `src/spatial.ts`, `src/domain.ts` (shared types and numeric/comparison correctness helpers), `src/contracts/**`, backend tests outside `tests/ui/**`, backend/status/handoff documentation.
+- Frontend owner: `app/**` EXCEPT `app/api/**`, `src/AtlasMap.tsx`, `src/map-theme.ts`, new `src/components/**`, `src/hooks/**`, `src/styles/**`, `src/frontend/**`, `public/ui/**`, `tests/ui/**`, `playwright.config.ts`, `.hallmark/**`, and `docs/FRONTEND_PROGRESS.md`.
+- Backend/integration owner exclusively owns `package.json`, lockfiles, `next.config.*`, `tsconfig.json`, `.gitignore`, `.gitattributes`, AGENTS.md, shared types, and other root configuration. Frontend requests changes through the user; do not edit concurrently or install new dependencies unilaterally. `npm ci` from the baseline lockfile is allowed. Framework-generated `next-env.d.ts` and ignored `.next/**` are per-worktree generated artifacts; do not hand-edit or treat their dev/build churn as feature work.
+- Frontend owns application entry points `app/page.tsx` and `app/layout.tsx`. Backend must not edit those after the baseline without an explicit ownership handoff.
+- Backend :3000; frontend :3001 proxies `/api/*` to :3000. Keep browser requests relative; do not copy or change backend data in the frontend tree. Backend interface updates are additive and logged in `docs/BACKEND_CHANGES.md`; breaking changes require an explicit integration checkpoint through the user.
+- Integration remains with the main session. Do not merge/rebase/cherry-pick active frontend edits without coordinating with the user. Agree on a checkpoint, review full diff, commit owned paths, merge, then run combined checks. No automated frontend agent is authorized by this split.
+
 ## Working agreement
 
 - Read README.md and the four linked planning documents before substantive work.
@@ -21,3 +32,13 @@ Keep all work local. No push, publication, deployment, purchases, billing/global
 - Keep exact lookup boundaries separate from simplified display geometry.
 - Record scope deferrals explicitly; do not delete them from the full target.
 - Do not claim builds, tests, responsiveness, accessibility, or data checks passed unless actually performed.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+## This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

@@ -3,7 +3,8 @@ import { useEffect, useRef, useState } from "react";
 import * as maplibregl from "maplibre-gl";
 import type { GeoJSONSource, Map as GLMap } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
-import { palette, Selection } from "./domain";
+import type { Selection } from "./domain";
+import { palette } from "./map-theme";
 export default function AtlasMap({
   location,
   letter,

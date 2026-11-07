@@ -1,13 +1,8 @@
 "use client";
+import { palette } from "../src/map-theme";
 import { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
-import {
-  indicators,
-  numberValue,
-  compare,
-  Selection,
-  palette,
-} from "../src/domain";
+import { indicators, numberValue, compare, Selection } from "../src/domain";
 const AtlasMap = dynamic(() => import("../src/AtlasMap"), {
   ssr: false,
   loading: () => <div className="map-shell loading">Preparing the atlas…</div>,

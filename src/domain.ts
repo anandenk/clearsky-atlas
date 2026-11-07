@@ -36,11 +36,3 @@ export function numberValue(v: unknown): number | null {
 export function compare(a: number | null, b: number | null, compatible = true) {
   return compatible && a !== null && b !== null ? b - a : null;
 }
-export const palette = [
-  "#eee8cf",
-  "#d4d8ac",
-  "#a1b994",
-  "#659c84",
-  "#397b72",
-  "#205b5c",
-];
