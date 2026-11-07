@@ -1,0 +1,924 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Cambria;
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:10.0pt;
+	margin-left:0in;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+h1
+	{mso-style-link:"Heading 1 Char";
+	margin-top:24.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:14.0pt;
+	font-family:"Cambria",serif;
+	color:#365F91;}
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin-top:10.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:13.0pt;
+	font-family:"Cambria",serif;
+	color:#4F81BD;}
+p.MsoToc1, li.MsoToc1, div.MsoToc1
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:5.0pt;
+	margin-left:0in;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+p.MsoToc2, li.MsoToc2, div.MsoToc2
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:5.0pt;
+	margin-left:11.0pt;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+p.MsoFooter, li.MsoFooter, div.MsoFooter
+	{mso-style-link:"Footer Char";
+	margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;}
+pre
+	{mso-style-link:"HTML Preformatted Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Courier New";}
+p.MsoNoSpacing, li.MsoNoSpacing, div.MsoNoSpacing
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:10.0pt;
+	margin-left:.5in;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+p.MsoListParagraphCxSpFirst, li.MsoListParagraphCxSpFirst, div.MsoListParagraphCxSpFirst
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+p.MsoListParagraphCxSpMiddle, li.MsoListParagraphCxSpMiddle, div.MsoListParagraphCxSpMiddle
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxSpLast
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:10.0pt;
+	margin-left:.5in;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+p.MsoTocHeading, li.MsoTocHeading, div.MsoTocHeading
+	{margin-top:24.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:14.0pt;
+	font-family:"Cambria",serif;
+	color:#365F91;
+	font-weight:bold;}
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-link:"Heading 1";
+	font-family:"Cambria",serif;
+	color:#365F91;
+	font-weight:bold;}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	font-family:"Cambria",serif;
+	color:#4F81BD;
+	font-weight:bold;}
+span.Parameter
+	{mso-style-name:Parameter;
+	font-family:"Courier New";
+	color:green;}
+span.FooterChar
+	{mso-style-name:"Footer Char";
+	mso-style-link:Footer;}
+span.HTMLPreformattedChar
+	{mso-style-name:"HTML Preformatted Char";
+	mso-style-link:"HTML Preformatted";
+	font-family:"Courier New";}
+.MsoPapDefault
+	{margin-bottom:10.0pt;
+	line-height:115%;}
+ /* Page Definitions */
+ @page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+@page WordSection2
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection2
+	{page:WordSection2;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US link=blue vlink=purple style='word-wrap:break-word'>
+
+<div class=WordSection1>
+
+<p class=MsoNoSpacing align=center style='text-align:center'><span
+style='font-size:22.0pt;font-family:"Cambria",serif;color:#365F91'>Geocoding
+Services</span></p>
+
+<p class=MsoNoSpacing align=center style='text-align:center'><span
+style='font-size:22.0pt;font-family:"Cambria",serif;color:#365F91'>Web
+Application Programming Interface (API)</span></p>
+
+<p class=MsoNoSpacing align=right style='text-align:right'><i>Last updated 02/2026</i></p>
+
+<p class=MsoNormal align=center style='text-align:center'>______________________________________________________________________________</p>
+
+<p class=MsoTocHeading>Contents</p>
+
+<p class=MsoToc1><a href="#_Toc220929666">Geocoding Definition<span
+style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>1</span></a></p>
+
+<p class=MsoToc1><a href="#_Toc220929667">Audience<span style='color:windowtext;
+display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>1</span></a></p>
+
+<p class=MsoToc1><a href="#_Toc220929668">Single Record Geocoding Service
+Requests<span style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>1</span></a></p>
+
+<p class=MsoToc2><a href="#_Toc220929669">Required Parameters<span
+style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>2</span></a></p>
+
+<p class=MsoToc2><a href="#_Toc220929670">Optional Parameters<span
+style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>3</span></a></p>
+
+<p class=MsoToc1><a href="#_Toc220929671">Geocoding Service Responses<span
+style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>4</span></a></p>
+
+<p class=MsoToc2><a href="#_Toc220929672">JSON Output Format<span
+style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>4</span></a></p>
+
+<p class=MsoToc1><a href="#_Toc220929673">Batch Geocoding<span
+style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>6</span></a></p>
+
+<p class=MsoToc2><a href="#_Toc220929674">Required Parameters<span
+style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>6</span></a></p>
+
+<p class=MsoToc2><a href="#_Toc220929675">Example Shell Script Submissions<span
+style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>7</span></a></p>
+
+<p class=MsoToc1><a href="#_Toc220929676">Batch GeoLookup<span
+style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>7</span></a></p>
+
+<p class=MsoToc2><a href="#_Toc220929677">Required Parameters<span
+style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>8</span></a></p>
+
+<p class=MsoToc2><a href="#_Toc220929678">Example Shell Script Submission<span
+style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>9</span></a></p>
+
+<p class=MsoNormal></p>
+
+</div>
+
+<span style='font-size:11.0pt;line-height:115%;font-family:"Calibri",sans-serif'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<div class=WordSection2>
+
+<h1><a name="_Toc220929666">Geocoding Definition</a></h1>
+
+<p class=MsoNormal>Geocoding is the process of taking an address and returning
+an actual or calculated latitude/longitude coordinate.  Depending on the parts
+of the address that are provided, determines to what granularity it is possible
+to geocode.</p>
+
+<p class=MsoNormal>The current Geocoding Services engine requires a structure
+address be provided.  The resulting latitude/longitude is calculated along an
+address range.</p>
+
+<p class=MsoNormal>There are two entry points for the geocoding service –
+single record submission and batch.</p>
+
+<p class=MsoNormal>The acceptable input address parts are:</p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Structure number and street name (required)</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Urbanization (optional)</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>City name (optional)</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Municipio (optional)</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>State (optional)</p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>ZIP code (optional)</p>
+
+<p class=MsoNormal>Further guidance on what address parts are
+supported/required for each search type is provided later in the documentation.</p>
+
+<h1><a name="_Toc220929667">Audience</a></h1>
+
+<p class=MsoNormal>This document is intended for application, website, and
+mobile developers within the U.S. Census Bureau and the general public who want
+to leverage the Geocoding Services capability.</p>
+
+<p class=MsoNormal>This service is designed for coding a provided address, or
+file of addresses, to a latitude/longitude coordinate based on data that’s been
+loaded into the geocoding engine from a MAF/TIGER benchmark database.</p>
+
+<p class=MsoNormal>The Census Geocoder only geocodes addresses that are within
+the United States, Puerto Rico, and the U.S. Island Areas.</p>
+
+<p class=MsoNormal>The optional inclusion of the Geographic Lookup (geoLookup)
+adds information to the result relating to various levels of geography that
+cover the aforementioned latitude/longitude coordinate.  GeoLookup results can
+also be obtained directly by searching on the latitude/longitude coordinates.</p>
+
+<h1><a name="_Toc220929668">Single Record Geocoding Service Requests</a></h1>
+
+<p class=MsoNormal>A Geocoding Service API request must be in the following
+form:</p>
+
+<p class=MsoNormal style='text-indent:.5in'>https://geocoding.geo.census.gov/geocoder/<span
+style='color:green'>returntype</span>/<span style='color:green'>searchtype</span>?parameters
+</p>
+
+<p class=MsoNormal>Note: The above URL will not work on its own. The <span
+style='color:green'>returntype</span> and <span style='color:green'>searchtype</span>
+in the URL needs to be replaced with one of the values in the next section.</p>
+
+<h2><a name="_Toc220929669">Required Parameters</a></h2>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Courier New";color:green'>returntype </span>–
+<b>locations</b> (to get just geocoding response) or <b>geographies</b> (to get
+geocoding response as well as geoLookup)</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Courier New";color:green'>searchtype</span><span
+style='font-family:"Courier New"'> </span>– <b>onelineaddress</b> OR <b>address
+</b>OR <b>addressPR </b>OR <b>coordinates </b>(supported only by the <span
+style='color:green'>returntype</span> = <b>geographies</b>)</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Courier New";color:green'>benchmark </span>–
+A numerical ID or name that references what version of the locator should be
+searched.  This generally corresponds to MTDB data which is benchmarked twice
+yearly.  A full list of options can be accessed at:</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:.5in'><a
+href="https://geocoding.geo.census.gov/geocoder/benchmarks">https://geocoding.geo.census.gov/geocoder/benchmarks</a>
+</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:.5in'>&nbsp;</p>
+
+<p class=MsoListParagraphCxSpMiddle>The general format of the name is <i>DatasetType_SpatialBenchmark</i>. 
+The valid values for these include:</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.0in;text-indent:-.25in'><span
+style='font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span><i>DatasetType</i></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.5in;text-indent:-.25in'><span
+style='font-family:Wingdings'>§<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><i>Public_AR</i></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.0in;text-indent:-.25in'><span
+style='font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span><i>SpatialBenchmark</i></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.5in;text-indent:-.25in'><span
+style='font-family:Wingdings'>§<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><i>Current</i></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.5in;text-indent:-.25in'><span
+style='font-family:Wingdings'>§<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><i>ACS#### (#### will be replaced by the most recent ACS survey year)</i></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.5in;text-indent:-.25in'><span
+style='font-family:Wingdings'>§<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><i>Census#### (#### will be replaced by the most recent Census
+year)</i></p>
+
+<p class=MsoListParagraphCxSpMiddle>A resulting benchmark name could be
+“Public_AR_Current”.  Over time, there will always be a “Current” benchmark. 
+It will change as the underlying dataset changes.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Courier New";color:green'>vintage </span>–
+A numerical ID or name that references what vintage of geography is desired for
+the geoLookup (only needed when <span style='color:green'>returntype</span> = <b>geographies</b>).
+A full list of options for a given benchmark can be accessed at </p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:.5in'>https://geocoding.geo.census.gov/geocoder/vintages?benchmark=<i>benchmarkId</i></p>
+
+<p class=MsoListParagraphCxSpMiddle><i>&nbsp;</i></p>
+
+<p class=MsoListParagraphCxSpMiddle>Note<i>: benchmarkId </i>in the example
+above needs to be replaced with a valid benchmark ID. Here is an example using
+the &quot;Current&quot; benchmark ID (4):</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:.5in'><a
+href="https://geocoding.geo.census.gov/geocoder/vintages?benchmark=4">https://geocoding.geo.census.gov/geocoder/vintages?benchmark=4</a></p>
+
+<p class=MsoListParagraphCxSpMiddle>&nbsp;</p>
+
+<p class=MsoListParagraphCxSpMiddle>The general format of the name is <i>GeographyVintage_SpatialBenchmark.</i> 
+The SpatialBenchmark variable should always match the same named variable in
+what was chosen for the benchmark parameter.  The GeographyVintage can be
+Current, ACS####, etc.  A resulting vintage name could be “Current_Current”. 
+Over time, there will always be a “Current” vintage.  It will change as the
+underlying dataset changes.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Courier New";color:green'>address
+(searchtype </span><span style='font-family:"Courier New"'>=<span
+style='color:green'> </span></span><b>onelineaddress</b><span style='font-family:
+"Courier New";color:green'>)</span><span style='color:green'> </span>–<span
+style='color:green'> </span>A single line containing the full address to be
+searched. The onelineaddress <span style='color:green'>searchtype</span>
+supports Puerto Rico addresses without Urbanization and Municipio, but it does
+not support Puerto Rico addresses with Urbanization and Municipio. Puerto Rico
+addresses with an Urbanization and Municipio submitted to this <span
+style='color:green'>searchtype</span> may result in a no match or match to a
+Puerto Rico address without an Urbanization.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Courier New";color:green'>street, city,
+state, zip (searchtype </span><span style='font-family:"Courier New"'>=<span
+style='color:green'> </span></span><b>address</b><span style='font-family:"Courier New";
+color:green'>) </span>– The address split into the parts indicated.  Not all
+parts need to be specified. At a minimum, the geocoder expects the <span
+style='color:green'>street</span> and <span style='color:green'>zip</span>
+parameters OR the <span style='color:green'>street</span>, <span
+style='color:green'>city</span>, and <span style='color:green'>state </span>parameters.
+The address <span style='color:green'>searchtype</span> supports Puerto Rico
+addresses without Urbanization and Municipio, but it does not support Puerto
+Rico addresses with Urbanization and Municipio. Puerto Rico addresses with an
+Urbanization and Municipio submitted to this <span style='color:green'>searchtype</span>
+may result in a no match or match to a Puerto Rico address without an
+Urbanization.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Courier New";color:green'>street, urb,
+city, municipio, state, zip (searchtype </span><span style='font-family:"Courier New"'>=<span
+style='color:green'> </span></span><b>addressPR</b><span style='font-family:
+"Courier New";color:green'>)</span> – The Puerto Rico address split into the
+parts indicated. Not all parts need to be specified. <span style='color:green'>zip</span>
+should begin with 006, 007, or 009. To submit a Puerto Rico address without an
+Urbanization the geocoder expects at a minimum the <span style='color:green'>street</span>
+and <span style='color:green'>zip </span>parameters OR the <span
+style='color:green'>street</span>, <span style='color:green'>city</span>, and <span
+style='color:green'>state </span>parameters. To submit a Puerto Rico address
+with an Urbanization the geocoder expects at a minimum the <span
+style='color:green'>street</span>, <span style='color:green'>urb</span>, and <span
+style='color:green'>municipio </span>parameters.</p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Courier New";color:green'>x,y
+(searchtype </span><span style='font-family:"Courier New"'>=<span
+style='color:green'> </span></span><b>coordinates</b><span style='font-family:
+"Courier New";color:green'>) </span><span style='font-family:"Courier New"'>– </span>The
+longitude and latitude represented as decimal x/y values.  Only returns
+geoLookup data. Can only be used with <span style='color:green'>returntype</span>
+= <b>geographies</b>.</p>
+
+<h2><a name="_Toc220929670">Optional Parameters</a></h2>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span class=Parameter>format</span> – The format to be used for
+returning the standardized output (supported values include <b>json</b> and <b>jsonp</b>).</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span class=Parameter>callback </span>– The name of the function
+to pass the JSON response to as a parameter. The <span style='color:green'>format
+</span>parameter should be set to <b>jsonp</b> when using <span
+style='color:green'>callback </span>to request a JSONP response. At this time
+the geocoder does not support CORS requests so the <span style='color:green'>callback
+</span>and <span style='color:green'>format </span>parameters should be used in
+the client to make calls to the geocoder.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span class=Parameter>layers </span>– By default, State, County,
+Tract, Block, Congressional Districts, State Legislative Districts, Census
+Designated Places, County Subdivisions, Incorporated Places, Combined
+Statistical Areas, Urban Areas, Urbanized Areas, and Urban Clusters layers are
+displayed when “geographies” is the chosen <span style='color:green'>returntype</span>. 
+It is possible that not all layers listed will return as this depends on the
+selected vintage and if the geography has nationwide coverage. If additional or
+different layers are desired, they can be specified in a comma delimited list
+by ID or name as listed in the TIGERweb WMS layers, for instance here for the
+&quot;Current_Current&quot; vintage:</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:.5in'><a
+href="https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/tigerWMS_Current/MapServer">https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/tigerWMS_Current/MapServer</a><span
+class=MsoHyperlink>.</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:.5in'>&nbsp;</p>
+
+<p class=MsoListParagraphCxSpMiddle>A valid entry could be: layers=14,16,18 OR layers=Unified+School+Districts,Secondary+School+Districts,Elementary+School+Districts. 
+Only layers without the word “Labels” are considered.  If all layers are
+desired, layers=all is an accepted entry.</p>
+
+<p class=MsoListParagraphCxSpMiddle>In cases where the SpatialBenchmark
+selected is Census####, the TIGERweb WMS needed can be found at the following
+URL in the Census#### folder:</p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:.5in'><a
+href="https://tigerweb.geo.census.gov/arcgis/rest/">https://tigerweb.geo.census.gov/arcgis/rest/</a>
+</p>
+
+<h1><a name="_Toc220929671">Geocoding Service Responses</a></h1>
+
+<p class=MsoNormal>Geocoding Services responses are returned in the format
+indicated by the <span class=Parameter>format</span> parameter value in the URL
+request’s path.</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<h2><a name="_Toc350516967"></a><a name="_Toc220929672">JSON Output Format</a></h2>
+
+<p class=MsoNormal>In this example, Geocoding Services API requests a <span
+class=Parameter><b><span style='color:windowtext'>json</span></b></span>
+response for the address “4600 Silver Hill Rd, Washington, DC <a
+name="_Hlk62104061">20233</a>”:</p>
+
+<p class=MsoNormal style='text-indent:.5in'><a
+href="https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=4600+Silver+Hill+Rd%2C+Washington%2C+DC+20233&amp;benchmark=4&amp;format=json">https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=4600+Silver+Hill+Rd%2C+Washington%2C+DC+20233&amp;benchmark=4&amp;format=json</a></p>
+
+<p class=MsoNormal>Other valid examples:</p>
+
+<p class=MsoNormal style='text-indent:.5in'><a
+href="https://geocoding.geo.census.gov/geocoder/locations/address?street=4600+Silver+Hill+Rd&amp;city=Washington&amp;state=DC&amp;zip=20233&amp;benchmark=Public_AR_Current&amp;format=json">https://geocoding.geo.census.gov/geocoder/locations/address?street=4600+Silver+Hill+Rd&amp;city=Washington&amp;state=DC&amp;zip=20233&amp;benchmark=Public_AR_Current&amp;format=json</a></p>
+
+<p class=MsoNormal style='text-indent:.5in'><a
+href="https://geocoding.geo.census.gov/geocoder/locations/address?street=4600+Silver+Hill+Rd&amp;city=Washington&amp;state=DC&amp;benchmark=4&amp;format=json">https://geocoding.geo.census.gov/geocoder/locations/address?street=4600+Silver+Hill+Rd&amp;city=Washington&amp;state=DC&amp;benchmark=4&amp;format=json</a></p>
+
+<p class=MsoNormal>The JSON returned by this request is shown below.  Note the
+actual JSON may contain less whitespace.  You should not make assumptions about
+the amount or format of whitespace in requests.</p>
+
+<p class=MsoNoSpacing>{&quot;result&quot;: {</p>
+
+<p class=MsoNoSpacing>     &quot;input&quot;: {</p>
+
+<p class=MsoNoSpacing>          &quot;address&quot;: {&quot;address&quot;:
+&quot;4600 Silver Hill Rd, Washington, DC 20233&quot;},</p>
+
+<p class=MsoNoSpacing>          &quot;benchmark&quot;: {</p>
+
+<p class=MsoNoSpacing>               &quot;isDefault&quot;: true,</p>
+
+<p class=MsoNoSpacing>               &quot;benchmarkDescription&quot;:
+&quot;Public Address Ranges - Current Benchmark&quot;,</p>
+
+<p class=MsoNoSpacing>               &quot;id&quot;: &quot;4&quot;,</p>
+
+<p class=MsoNoSpacing>               &quot;benchmarkName&quot;:
+&quot;Public_AR_Current&quot;</p>
+
+<p class=MsoNoSpacing>          }</p>
+
+<p class=MsoNoSpacing>     },</p>
+
+<p class=MsoNoSpacing>     &quot;addressMatches&quot;: [{</p>
+
+<p class=MsoNoSpacing>          &quot;tigerLine&quot;: {</p>
+
+<p class=MsoNoSpacing>               &quot;side&quot;: &quot;L&quot;,</p>
+
+<p class=MsoNoSpacing>               &quot;tigerLineId&quot;:
+&quot;76355984&quot;</p>
+
+<p class=MsoNoSpacing>          },</p>
+
+<p class=MsoNoSpacing>          &quot;coordinates&quot;: {</p>
+
+<p class=MsoNoSpacing>               &quot;x&quot;: -76.92748724230096,</p>
+
+<p class=MsoNoSpacing>               &quot;y&quot;: 38.84601622386617</p>
+
+<p class=MsoNoSpacing>          },</p>
+
+<p class=MsoNoSpacing>          &quot;addressComponents&quot;: {</p>
+
+<p class=MsoNoSpacing>               &quot;zip&quot;: &quot;20233&quot;,</p>
+
+<p class=MsoNoSpacing>               &quot;streetName&quot;: &quot;SILVER
+HILL&quot;,</p>
+
+<p class=MsoNoSpacing>               &quot;preType&quot;: &quot;&quot;,</p>
+
+<p class=MsoNoSpacing>               &quot;city&quot;: &quot;WASHINGTON&quot;,</p>
+
+<p class=MsoNoSpacing>               &quot;preDirection&quot;: &quot;&quot;,</p>
+
+<p class=MsoNoSpacing>               &quot;suffixDirection&quot;: &quot;&quot;,</p>
+
+<p class=MsoNoSpacing>               &quot;fromAddress&quot;: &quot;4600&quot;,</p>
+
+<p class=MsoNoSpacing>               &quot;state&quot;: &quot;DC&quot;,</p>
+
+<p class=MsoNoSpacing>               &quot;suffixType&quot;: &quot;RD&quot;,</p>
+
+<p class=MsoNoSpacing>               &quot;toAddress&quot;: &quot;4700&quot;,</p>
+
+<p class=MsoNoSpacing>               &quot;suffixQualifier&quot;: &quot;&quot;,</p>
+
+<p class=MsoNoSpacing>               &quot;preQualifier&quot;: &quot;&quot;</p>
+
+<p class=MsoNoSpacing>          },</p>
+
+<p class=MsoNoSpacing>          &quot;matchedAddress&quot;: &quot;4600 SILVER
+HILL RD, WASHINGTON, DC, 20233&quot;</p>
+
+<p class=MsoNoSpacing>     }]</p>
+
+<p class=MsoNoSpacing>}}</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal><a name="_Hlk62112536">Examples using geoLookup:</a></p>
+
+<p class=MsoNormal style='text-indent:.5in'><a
+href="https://geocoding.geo.census.gov/geocoder/geographies/address?street=4600+Silver+Hill+Rd&amp;city=Washington&amp;state=DC&amp;benchmark=Public_AR_Current&amp;vintage=Current_Current&amp;layers=10&amp;format=json">https://geocoding.geo.census.gov/geocoder/geographies/address?street=4600+Silver+Hill+Rd&amp;city=Washington&amp;state=DC&amp;benchmark=Public_AR_Current&amp;vintage=Current_Current&amp;layers=10&amp;format=json</a></p>
+
+<p class=MsoNormal>Additional JSON response data for geoLookup:</p>
+
+<pre>&quot;geographies&quot;: {&quot;Census Block Groups&quot;: [{</pre><pre>     &quot;GEOID&quot;: &quot;240338024052&quot;,</pre><pre>     &quot;CENTLAT&quot;: &quot;+38.8538877&quot;,</pre><pre>     &quot;AREAWATER&quot;: 8728,</pre><pre>     &quot;STATE&quot;: &quot;24&quot;,</pre><pre>     &quot;BASENAME&quot;: &quot;2&quot;,</pre><pre>     &quot;OID&quot;: &quot;20890286109972&quot;,</pre><pre>     &quot;LSADC&quot;: &quot;BG&quot;,</pre><pre>     &quot;FUNCSTAT&quot;: &quot;S&quot;,</pre><pre>     &quot;INTPTLAT&quot;: &quot;+38.8507922&quot;,</pre><pre>     &quot;NAME&quot;: &quot;Block Group 2&quot;,</pre><pre>     &quot;OBJECTID&quot;: 210878,</pre><pre>     &quot;TRACT&quot;: &quot;802405&quot;,</pre><pre>     &quot;CENTLON&quot;: &quot;-076.9390445&quot;,</pre><pre>     &quot;BLKGRP&quot;: &quot;2&quot;,</pre><pre>     &quot;AREALAND&quot;: 3168458,</pre><pre>     &quot;INTPTLON&quot;: &quot;-076.9410126&quot;,</pre><pre>     &quot;MTFCC&quot;: &quot;G5030&quot;,</pre><pre>     &quot;COUNTY&quot;: &quot;033&quot;</pre><pre>}]}</pre><pre><span
+style='font-size:11.0pt;font-family:"Calibri",sans-serif'>&nbsp;</span></pre><pre><span
+style='font-size:11.0pt;font-family:"Calibri",sans-serif'>If a JSONP-formatted result is desired/required, the <span
+style='color:green'>format</span>=jsonp</span><span style='font-family:"Calibri",sans-serif'> </span><span
+style='font-size:11.0pt;font-family:"Calibri",sans-serif'>can be specified with a corresponding JavaScript <span
+style='color:green'>callback</span> method on the request. For example:</span></pre><pre><span
+style='font-size:11.0pt;font-family:"Calibri",sans-serif'>&nbsp;</span></pre>
+
+<p class=MsoNormal style='text-indent:.5in'><a
+href="https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=4600+Silver+Hill+Rd%2C+Washington%2C+DC+20233&amp;benchmark=4&amp;format=jsonp&amp;callback=test">https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=4600+Silver+Hill+Rd%2C+Washington%2C+DC+20233&amp;benchmark=4&amp;format=jsonp&amp;callback=test</a></p>
+
+<h1><a name="_Toc220929673">Batch Geocoding</a></h1>
+
+<p class=MsoNormal>Geocoding can be accomplished in batch mode with submission
+of a CSV or Excel formatted file. CSV formatted files should have an extension
+ending in .CSV, .TXT, .DAT, and Excel files should have an extension ending in
+.XLS, or .XLSX. The file needs to be included as part of the HTTP request.  </p>
+
+<p class=MsoNormal>The CSV formatted file must be formatted in the following
+way for all addresses including Puerto Rico addresses without an Urbanization:</p>
+
+<p class=MsoNormal style='text-indent:.5in'>Unique ID, Street address, City,
+State, ZIP</p>
+
+<p class=MsoNormal>The batch mode also supports Puerto Rico addresses with an
+Urbanization. Puerto Rico addresses with Urbanization must be formatted in the
+following way:</p>
+
+<p class=MsoNormal style='text-indent:.5in'>Unique ID, Street address,
+Municipio, State, ZIP, Urbanization</p>
+
+<p class=MsoNormal>The two address formats can be submitted together in the
+same file. Excel submissions should place each component in its own column.</p>
+
+<p class=MsoNormal>If a component is missing from the dataset, it must still
+retain the delimited format with a null value.  Unique ID and Street address
+are required fields.</p>
+
+<p class=MsoNormal>If there are commas that are part of one of the fields, the
+whole field needs to be enclosed in quote marks for proper parsing.</p>
+
+<p class=MsoNormal>There is currently an upper limit of 10,000 records per
+batch file.</p>
+
+<p class=MsoNormal>The URL is as follows:</p>
+
+<p class=MsoNormal style='text-indent:.5in'>https://geocoding.geo.census.gov/geocoder/<span
+style='color:green'>returntype</span>/addressbatch  </p>
+
+<p class=MsoNormal>Note: The above URL will not work on its own. The <span
+style='color:green'>returntype</span> in the URL needs to be replaced with one
+of the values in the next section.</p>
+
+<h2><a name="_Toc220929674">Required Parameters</a></h2>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Courier New";color:green'>returntype </span>–
+<b>locations</b> (to get just geocoding response) or <b>geographies</b> (to get
+geocoding response as well as geoLookup).  Independent geoLookup (“coordinates”
+above) is not currently an available batch option. Batch geoLookup only
+includes state, county, tract, and block code. Currently there is no way to
+request additional geographies in the geographies <span style='color:green'>returntype</span>.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Courier New";color:green'>benchmark </span>–
+A numerical ID or name that references what version of the locator should be
+searched.  This generally corresponds to MTDB data which is benchmarked twice
+yearly.  A full list of options can be accessed at:</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:.5in'><a
+href="https://geocoding.geo.census.gov/geocoder/benchmarks">https://geocoding.geo.census.gov/geocoder/benchmarks</a></p>
+
+<p class=MsoListParagraphCxSpMiddle>&nbsp;</p>
+
+<p class=MsoListParagraphCxSpMiddle>The general format of the name is <i>DatasetType_SpatialBenchmark</i>. 
+The valid values for these include:</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.0in;text-indent:-.25in'><span
+style='font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span><i>DatasetType</i></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.5in;text-indent:-.25in'><span
+style='font-family:Wingdings'>§<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><i>Public_AR</i></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.0in;text-indent:-.25in'><span
+style='font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span><i>SpatialBenchmark</i></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.5in;text-indent:-.25in'><span
+style='font-family:Wingdings'>§<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><i>Current</i></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.5in;text-indent:-.25in'><span
+style='font-family:Wingdings'>§<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><i>ACS#### (#### will be replaced by the most recent ACS survey
+year)</i></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.5in;text-indent:-.25in'><span
+style='font-family:Wingdings'>§<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span><i>Census#### (#### will be replaced by the most recent Census
+year)</i></p>
+
+<p class=MsoListParagraphCxSpMiddle>A resulting benchmark name could be
+“Public_AR_Current”.  Over time, there will always be a “Current” benchmark. 
+It will change as the underlying dataset changes.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Courier New";color:green'>vintage </span>–
+A numerical ID or name that references what vintage of geography is desired for
+the geoLookup (only needed when <span style='color:green'>returntype</span> = <b>geographies</b>).
+A full list of options for a given benchmark can be accessed at:</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:.5in'>https://geocoding.geo.census.gov/geocoder/vintages?benchmark=<i>benchmarkId</i></p>
+
+<p class=MsoListParagraphCxSpMiddle>&nbsp;</p>
+
+<p class=MsoListParagraphCxSpMiddle>Note<i>: benchmarkId </i>in the example
+above needs to be replaced with a valid benchmark ID. Here is an example using
+the &quot;Current&quot; benchmark ID (4):</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:.5in'><a
+href="https://geocoding.geo.census.gov/geocoder/vintages?benchmark=4">https://geocoding.geo.census.gov/geocoder/vintages?benchmark=4</a></p>
+
+<p class=MsoListParagraphCxSpMiddle><i>&nbsp;</i></p>
+
+<p class=MsoListParagraphCxSpMiddle>The general format of the name is <i>GeographyVintage_SpatialBenchmark.</i> 
+The SpatialBenchmark variable should always match the same named variable in
+what was chosen for the benchmark parameter.  The GeographyVintage can be
+Current, ACS####, etc.  A resulting vintage name could be “Current_Current”. 
+Over time, there will always be a “Current” vintage.  It will change as the
+underlying dataset changes.</p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Courier New";color:green'>addressFile </span>–
+An input of type “file” containing the addresses to be coded.</p>
+
+<h2><a name="_Toc220929675">Example Shell Script Submissions</a></h2>
+
+<p class=MsoNormal>Locations Example:</p>
+
+<p class=MsoNormal style='margin-left:.5in'>curl --form addressFile=@localfile.csv
+--form benchmark=4 https://geocoding.geo.census.gov/geocoder/locations/addressbatch
+--output geocoderesult.csv</p>
+
+<p class=MsoNormal>Geographies Example:</p>
+
+<p class=MsoNormal style='margin-left:.5in'>curl --form addressFile=@localfile.csv
+--form benchmark=4 --form vintage=4 <a
+href="https://geocoding.geo.census.gov/geocoder/geographies/addressbatch%20--output%20geocoderesult.csv">https://geocoding.geo.census.gov/geocoder/geographies/addressbatch
+--output geocoderesult.csv</a></p>
+
+<h1><a name="_Toc220928964"></a><a name="_Toc220929676">Batch GeoLookup</a></h1>
+
+<p class=MsoNormal>GeoLookup with coordinates can be accomplished in batch mode
+with submission of a CSV or Excel formatted file. CSV formatted files should
+have an extension ending in .CSV, .TXT, .DAT, and Excel files should have an
+extension ending in .XLS, or .XLSX.  The file needs to be included as part of
+the HTTP request.  </p>
+
+<p class=MsoNormal>The CSV formatted file must be formatted in the following
+way:</p>
+
+<p class=MsoNormal>                Unique ID, Longitude (X), Latitude (Y)</p>
+
+<p class=MsoNormal>Excel submissions should place each component in its own
+column.</p>
+
+<p class=MsoNormal>There is currently an upper limit of 10,000 records per
+batch file.</p>
+
+<p class=MsoNormal>The URL is as follows:</p>
+
+<p class=MsoNormal style='text-indent:.5in'>https://geocoding.geo.census.gov/geocoder/geographies/coordinatesbatch 
+</p>
+
+<h2><a name="_Toc220928965"></a><a name="_Toc220929677">Required Parameters</a></h2>
+
+<ul style='margin-top:0in' type=disc>
+ <li class=MsoNormal><span style='font-family:"Courier New";color:green'>benchmark
+     </span>– A numerical ID or name that references what version of the
+     locator should be searched.  This generally corresponds to MTDB data which
+     is benchmarked twice yearly.  A full list of options can be accessed at:</li>
+</ul>
+
+<p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+margin-left:.5in;text-indent:.5in'><a
+href="https://geocoding.geo.census.gov/geocoder/benchmarks">https://geocoding.geo.census.gov/geocoder/benchmarks</a></p>
+
+<p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+margin-left:.5in'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+margin-left:.5in'>The general format of the name is <i>DatasetType_SpatialBenchmark</i>. 
+The valid values for these include:</p>
+
+<ul style='margin-top:0in' type=disc>
+ <ul style='margin-top:0in' type=circle>
+  <li class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:
+      0in'><i>DatasetType</i></li>
+  <ul style='margin-top:0in' type=square>
+   <li class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:
+       0in'><i>Public_AR</i></li>
+  </ul>
+  <li class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:
+      0in'><i>SpatialBenchmark</i></li>
+  <ul style='margin-top:0in' type=square>
+   <li class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:
+       0in'><i>Current</i></li>
+   <li class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:
+       0in'><i>ACS#### (#### will be replaced by the most recent ACS survey
+       year)</i></li>
+   <li class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:
+       0in'><i>Census#### (#### will be replaced by the most recent Census
+       year)</i></li>
+  </ul>
+ </ul>
+</ul>
+
+<p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+margin-left:.5in'>A resulting benchmark name could be “Public_AR_Current”. 
+Over time, there will always be a “Current” benchmark.  It will change as the
+underlying dataset changes.</p>
+
+<ul style='margin-top:0in' type=disc>
+ <li class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:
+     0in'><span style='font-family:"Courier New";color:green'>vintage </span>–
+     A numerical ID or name that references what vintage of geography is
+     desired for the geoLookup. A full list of options for a given benchmark
+     can be accessed at:</li>
+</ul>
+
+<p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+margin-left:.5in;text-indent:.5in'>https://geocoding.geo.census.gov/geocoder/vintages?benchmark=<i>benchmarkId</i>
+</p>
+
+<p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+margin-left:.5in'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+margin-left:.5in'>Note<i>: benchmarkId </i>in the example above needs to be
+replaced with a valid benchmark ID. Here is an example using the
+&quot;Current&quot; benchmark ID (4):</p>
+
+<p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+margin-left:.5in;text-indent:.5in'><a
+href="https://geocoding.geo.census.gov/geocoder/vintages?benchmark=4">https://geocoding.geo.census.gov/geocoder/vintages?benchmark=4</a></p>
+
+<p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+margin-left:.5in'><i>&nbsp;</i></p>
+
+<p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+margin-left:.5in'>The general format of the name is <i>GeographyVintage_SpatialBenchmark.</i> 
+The SpatialBenchmark variable should always match the same named variable in
+what was chosen for the benchmark parameter.  The GeographyVintage can be
+Current, ACS####, etc.  A resulting vintage name could be “Current_Current”. 
+Over time, there will always be a “Current” vintage.  It will change as the
+underlying dataset changes.</p>
+
+<p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+margin-left:1.0in;text-indent:-.25in'><span style='font-family:Symbol'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Courier New";color:green'>coordinatesFile
+</span>– An input of type “file” containing the coordinates for geoLookup.</p>
+
+<h2><a name="_Toc220928966"></a><a name="_Toc220929678">Example Shell Script
+Submission</a></h2>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal style='margin-left:.5in'>curl --form
+coordinatesFile=@coordinates.csv --form benchmark=4 --form vintage=4 https://geocoding.geo.census.gov/geocoder/geographies/coordinatesbatch
+--output geocoderresult.csv</p>
+
+</div>
+
+</body>
+
+</html>

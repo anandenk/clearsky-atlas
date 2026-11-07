@@ -1,7 +1,7 @@
 <!-- Hallmark planning critique: Philosophy 4; Hierarchy 4; Execution 3; Specificity 4; Restraint 4; Variety 4. Planning judgment only; no UI validation performed. -->
 # Experience direction
 
-Status: proposed design brief, not a locked or rendered design system. Hallmark principles applied to hierarchy, restraint, honest content, and interaction. Visual checks remain future work.
+Status: full design direction retained. Initial Phase 2 editorial comparison interface is rendered and checked at desktop and specified narrow widths; see STATUS.md for exact checks and remaining visual/accessibility work.
 
 ## Composition
 

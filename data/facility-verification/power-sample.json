@@ -1,0 +1,155 @@
+{
+  "objectIdFieldName" : "OBJECTID", 
+  "uniqueIdField" : 
+  {
+    "name" : "OBJECTID", 
+    "isSystemMaintained" : true
+  }, 
+  "globalIdFieldName" : "", 
+  "geometryType" : "esriGeometryPoint", 
+  "spatialReference" : {
+    "wkid" : 4326, 
+    "latestWkid" : 4326
+  }, 
+  "fields" : [
+    {
+      "name" : "OBJECTID", 
+      "type" : "esriFieldTypeOID", 
+      "alias" : "OBJECTID", 
+      "sqlType" : "sqlTypeOther", 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "CECPlantID", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "CECPlantID", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "PlantName", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "PlantName", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "Retired_Plant", 
+      "type" : "esriFieldTypeDouble", 
+      "alias" : "Retired Plant", 
+      "sqlType" : "sqlTypeOther", 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "OperatorCompanyID", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "Operator Company", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "County", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "County", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "Capacity_Latest", 
+      "type" : "esriFieldTypeDouble", 
+      "alias" : "Capacity_Latest", 
+      "sqlType" : "sqlTypeOther", 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "Units", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "Units", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "PriEnergySource", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "PriEnergySource", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "StartDate", 
+      "type" : "esriFieldTypeDate", 
+      "alias" : "StartDate", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 8, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "CEC_Jurisdictional", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "CEC_Jurisdictional", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }
+  ], 
+  "exceededTransferLimit" : true, 
+  "features" : [
+    {
+      "attributes" : {
+        "OBJECTID" : 5926, 
+        "CECPlantID" : "S0765", 
+        "PlantName" : "Hazel A (CAISO)", 
+        "Retired_Plant" : 0, 
+        "OperatorCompanyID" : "Not Available", 
+        "County" : "Kern", 
+        "Capacity_Latest" : 3, 
+        "Units" : "Unit 1", 
+        "PriEnergySource" : "SUN", 
+        "StartDate" : 1573430400000, 
+        "CEC_Jurisdictional" : "0"
+      }, 
+      "geometry" : 
+      {
+        "x" : -117.96013579975445, 
+        "y" : 35.128420824342179
+      }
+    }, 
+    {
+      "attributes" : {
+        "OBJECTID" : 5927, 
+        "CECPlantID" : "S0769", 
+        "PlantName" : "Winter Wheat Solar Farm (CAISO)", 
+        "Retired_Plant" : 0, 
+        "OperatorCompanyID" : "Not Available", 
+        "County" : "Fresno", 
+        "Capacity_Latest" : 1.5, 
+        "Units" : "Unit 1", 
+        "PriEnergySource" : "SUN", 
+        "StartDate" : 1557532800000, 
+        "CEC_Jurisdictional" : "0"
+      }, 
+      "geometry" : 
+      {
+        "x" : -120.18920686115609, 
+        "y" : 36.607368891504549
+      }
+    }
+  ]
+}

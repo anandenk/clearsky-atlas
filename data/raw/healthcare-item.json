@@ -1,0 +1,77 @@
+{
+  "id": "f86150f7fbd647ea8029a022b78d59fb",
+  "owner": "lacounty_isd",
+  "ownerId": "dd82bf6d01d536d497a99d5ab14e05b1",
+  "orgId": "RmCCgQtiZLDCtblq",
+  "created": 1693414003000,
+  "modified": 1792211550000,
+  "guid": null,
+  "name": "CDPHHealthcareFacilities",
+  "title": "CDPH Healthcare Facilities",
+  "type": "Feature Service",
+  "typeKeywords": [
+    "ArcGIS Server",
+    "Data",
+    "Feature Access",
+    "Feature Service",
+    "Metadata",
+    "Service",
+    "Singlelayer",
+    "Hosted Service"
+  ],
+  "description": "<div style='text-align:Left;'><div><div><p><span>The California Department of Public Health (CDPH), Center for Health Care Quality, Licensing and Certification (L&amp;C) Program licenses and certifies more than 30 types of healthcare facilities. The Electronic Licensing Management System (ELMS) is a CDPH data system created to manage state licensing-related data and enforcement actions. This file includes California healthcare facilities that are operational and have a current license issued by the CDPH and/or a current U.S. Department of Health and Human Services\u2019 Centers for Medicare and Medicaid Services (CMS) certification.<\/span><\/p><p><span>To link the CDPH facility IDs with those from other Departments, like HCAI, please reference the \"Licensed Facility Cross-Walk\" Open Data table at <\/span><a href='https://data.chhs.ca.gov:443/dataset/licensed-facility-crosswalk' style='text-decoration:underline;' rel='nofollow ugc'><span>https://data.chhs.ca.gov/dataset/licensed-facility-crosswalk<\/span><\/a><span>. Facility geographic variables are updated monthly, if latitude/longitude information is missing at any point in time, it should be available when the next time the Open Data facility file is refreshed.<\/span><\/p><p><span>Please note that the file contains the data from ELMS as of the 11th business day of the month. See DATA_DATE variable for the specific date of when the data was extracted.<\/span><\/p><p><span>Visit the California Health and Human Services Open Data Portal for <\/span><a href='https://data.chhs.ca.gov/dataset/healthcare-facility-locations/resource/f0ae5731-fef8-417f-839d-54a0ed3a126e' target='_blank' style='text-decoration:underline;' rel='nofollow ugc noopener noreferrer'><span>S<\/span><span>ource Data<\/span><\/a><span> and the <\/span><a href='https://data.chhs.ca.gov:443/dataset/healthcare-facility-locations/resource/dcc79560-c7ae-49f3-9b04-d498667e5572' style='text-decoration:underline;' rel='nofollow ugc'><span>D<\/span><span>ata Dictionary<\/span><\/a><span>.<\/span><\/p><p><span>This dataset is checked for updates from source nightly.<\/span><\/p><p><span /><\/p><\/div><\/div><\/div>",
+  "tags": [
+    "CDPH",
+    "Health",
+    "Healthcare",
+    "DHS"
+  ],
+  "snippet": "Licensed and Certified Healthcare Facility Locations from CA Department of Public Health",
+  "thumbnail": "thumbnail/thumbnail.png",
+  "documentation": null,
+  "extent": [
+    [
+      -118.80579407052856,
+      33.33710912336774
+    ],
+    [
+      -117.69680748074916,
+      34.77718296378065
+    ]
+  ],
+  "categories": [
+    "/Categories/Health and Human Services/Public Health",
+    "/Categories/Health and Human Services/Mental Health",
+    "/Categories/Health and Human Services/Health Services"
+  ],
+  "spatialReference": "102645",
+  "accessInformation": "California Health and Human Services Open Data Portal, California Department of Public Health",
+  "classification": null,
+  "licenseInfo": "<div style='text-align:Left;'><div><div><p><span>The data herein is for informational purposes, and may not have been prepared for or be suitable for legal, engineering, or surveying intents. The County of Los Angeles reserves the right to change, restrict or discontinue access at any time. All users of the maps and data presented on <\/span><a href='https://lacounty.maps.arcgis.com:443/' style='text-decoration:underline;' rel='nofollow ugc'><span>https://lacounty.maps.arcgis.com<\/span><\/a><span> or deriving from any LA County REST URLs, agree to the following Terms of Use as outlined on the County of LA Enterprise GIS (eGIS) Hub (<\/span><a href='https://egis-lacounty.hub.arcgis.com:443/pages/terms-of-use' style='text-decoration:underline;' rel='nofollow ugc'><span>https://egis-lacounty.hub.arcgis.com/pages/terms-of-use<\/span><\/a><span>).<\/span><\/p><\/div><\/div><\/div>",
+  "culture": "en-us",
+  "properties": null,
+  "advancedSettings": null,
+  "url": "https://services.arcgis.com/RmCCgQtiZLDCtblq/arcgis/rest/services/CDPH_Healthcare_Facilities/FeatureServer",
+  "proxyFilter": null,
+  "access": "public",
+  "size": 4530176,
+  "subInfo": 0,
+  "appCategories": [],
+  "industries": [],
+  "languages": [],
+  "largeThumbnail": null,
+  "banner": null,
+  "screenshots": [],
+  "listed": false,
+  "commentsEnabled": true,
+  "numComments": 0,
+  "numRatings": 0,
+  "avgRating": 0,
+  "numViews": 17064,
+  "contentStatus": "public_authoritative",
+  "scoreCompleteness": 100,
+  "groupDesignations": null,
+  "apiToken1ExpirationDate": -1,
+  "apiToken2ExpirationDate": -1,
+  "lastViewed": 1794078000000
+}

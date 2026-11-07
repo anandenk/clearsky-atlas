@@ -1,0 +1,12 @@
+certifi==2026.10.23
+charset-normalizer==3.5.2
+et_xmlfile==2.0.0
+idna==3.20
+numpy==2.5.4
+openpyxl==3.1.5
+pypdf==7.0.0
+pyproj==3.8.0
+pyshp==3.1.7
+requests==2.34.2
+shapely==2.2.0
+urllib3==2.8.0

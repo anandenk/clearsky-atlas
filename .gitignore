@@ -4,3 +4,12 @@ dist/
 .venv/
 .DS_Store
 artifacts/
+data/lookup.json
+data/display.json
+data/observations.json
+*.tsbuildinfo
+test-results/
+playwright-report/
+
+__pycache__/
+*.pyc

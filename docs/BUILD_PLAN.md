@@ -8,7 +8,7 @@ Aim for the entire PRODUCT.md inventory. Build complete increments in dependency
 
 | Phase | Work | Exit evidence |
 | --- | --- | --- |
-| 0: current | Product, experience, contracts, risks, source preservation | Reviewable planning foundation; user selects next phase |
+| 0: foundation | Product, experience, contracts, risks, source preservation | Reviewable planning foundation; user selects next phase |
 | 1: source contracts | Bounded inspection of proposed sources, versions, fields, access, licenses; geocoding/basemap options | Field coverage matrix and provenance; known gaps recorded; no fabricated fields |
 | 2: complete comparison path | One supported indicator, two locations, correct tract lookup, paired maps, shared legend, paired evidence | Two real locations resolve correctly; changing metric/state cannot show stale values; same-tract and missing-data behavior demonstrated |
 | 3: full atlas breadth | All supported original indicators and three infrastructure categories through reusable adapters/registry | Each intended field has working behavior or an explicit source blocker; nulls and categories reviewed |
@@ -67,8 +67,6 @@ Published scheduling discrepancy: event instructions said submit 9 AM Sunday and
 - Stories: grounded numbers, unsupported comparisons suppressed, no causal or individual-risk claims.
 - Delivery: cached artifacts, source attribution, absent-key behavior, actual deployed app smoke check after deployment authorization.
 
-## Status and next decision
+## Current implementation status
 
-Complete: planning documents and preserved handoff only.
-Not started: source verification, data acquisition, application scaffolding, implementation, tests, accounts, deployment.
-Next decision: review the proposed comparison-story interaction and authorize the source-contract phase when ready. Exact visual tokens and technology versions remain open.
+Phase 1 bounded verification and Phase 2 comparison are implemented locally. Individual source-contract gaps and unavailable indicators are explicit in [DATA_VERIFICATION.md](DATA_VERIFICATION.md); implementation/test evidence and next work are in [STATUS.md](STATUS.md). Full original target remains unchanged. Phases 3–6 are remaining work, not silently removed scope. No push, publication, deployment, or paid integration is authorized.

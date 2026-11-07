@@ -1,0 +1,37 @@
+{
+  "name": "california-environmental-atlas",
+  "version": "1.0.0",
+  "description": "Local evidence-first California address comparison atlas",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "dev": "next dev --hostname 127.0.0.1",
+    "build": "next build",
+    "start": "next start --hostname 127.0.0.1",
+    "test": "node --test tests/*.test.mjs",
+    "test:ui": "playwright test",
+    "postinstall": "node scripts/copy-map-worker.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "type": "module",
+  "dependencies": {
+    "@turf/boolean-point-in-polygon": "^7.4.0",
+    "maplibre-gl": "^6.16.0",
+    "next": "^16.4.5",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.65.0",
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "prettier": "^3.9.10",
+    "typescript": "^7.0.2"
+  },
+  "private": true
+}

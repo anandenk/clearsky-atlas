@@ -2,9 +2,9 @@
 
 ## Decisions and evidence status
 
-Confirmed by user: solo builder; beautiful comparison atlas is the centerpiece; information should be presented distinctively; aim for the original full scope and allow later explicit deferrals. Current phase is planning.
+Confirmed by user: solo builder; beautiful comparison atlas is the centerpiece; information should be presented distinctively; aim for the original full scope and allow later explicit deferrals. Current authorization covers source verification and local implementation through Phase 2; see STATUS.md.
 
-The supplied three-page handoff defines the initial concept. Its CES 5.0 coverage, source availability, fields, dates, and infrastructure feeds have not been verified here. Architectural and design choices below are proposals, not measured feasibility results.
+The supplied three-page handoff defines the initial concept. Its CES 5.0 coverage, source availability, fields, dates, and infrastructure feeds were initially unverified. Current inspected evidence, gaps, and measured results are in DATA_VERIFICATION.md and STATUS.md. Architectural and design choices below remain the full target; individual implementation status is tracked separately.
 
 ## Product promise
 

@@ -1,6 +1,6 @@
 # Proposed architecture
 
-Planning only. No SDK versions, provider access, data formats, schemas, performance, or hosting compatibility verified.
+Original target architecture, retained as design context. Current implementation uses Next.js/TypeScript, MapLibre, a Python preparation pipeline, server-local full lookup geometry, and viewport-filtered display GeoJSON. See STATUS.md for verified behavior and DATA_VERIFICATION.md for source contracts. Tailwind and PMTiles have not been needed for the initial increment; hosting compatibility and hardware performance remain unverified.
 
 ## Shape
 

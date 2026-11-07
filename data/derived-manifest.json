@@ -1,0 +1,30 @@
+{
+  "generatedAt": "2026-11-07T19:44:16.828959+00:00",
+  "pipeline": [
+    "scripts/prepare_data.py",
+    "scripts/cache_demo.py"
+  ],
+  "sourceManifest": "data/raw/manifest.json",
+  "files": {
+    "data/lookup.json": {
+      "sha256": "6ae343ae1b7dd13dd5c80e9dd434ed2a917d0af793d6fdc75fe3c7ed3baab696",
+      "bytes": 127879109
+    },
+    "data/display.json": {
+      "sha256": "38adf05e14f36ab26f3629b9aed066e91067f75883363283f10fa13a7c60e3ca",
+      "bytes": 15075802
+    },
+    "data/observations.json": {
+      "sha256": "c5d2f2ec17bae65a06088d5ba03191556900304022e5b620076b2ce3692ab7fe",
+      "bytes": 14660538
+    },
+    "data/validation.json": {
+      "sha256": "834358832ae5640a45d0c23e792746e083ecde13e54d6c5210a02a8e59491f87",
+      "bytes": 1527
+    },
+    "data/demo-geocodes.json": {
+      "sha256": "2b7580e59f322bd8fad2390eb72cd138e1537b1e757c527793a465650481f760",
+      "bytes": 11068
+    }
+  }
+}

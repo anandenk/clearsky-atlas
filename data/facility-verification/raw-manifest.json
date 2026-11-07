@@ -1,4 +1,53 @@
 {
   "description": "Successful raw HTTP responses from fetch.py; failures are not cached.",
-  "responses": []
+  "responses": [
+    {
+      "file": "healthcare-metadata.json",
+      "original_url": "https://services.arcgis.com/RmCCgQtiZLDCtblq/arcgis/rest/services/CDPH_Healthcare_Facilities/FeatureServer/0?f=pjson",
+      "retrieved_utc": "2026-11-07T19:38:14.691129+00:00",
+      "sha256": "5830853d756bad8c924bb9266c61462fe1c2b1082a6b3892274c1dc1164a3bbb",
+      "bytes": 30922,
+      "http_status": 200
+    },
+    {
+      "file": "healthcare-sample.json",
+      "original_url": "https://services.arcgis.com/RmCCgQtiZLDCtblq/arcgis/rest/services/CDPH_Healthcare_Facilities/FeatureServer/0/query?where=1%3D1&outFields=%2A&resultRecordCount=2&outSR=4326&returnGeometry=true&f=pjson",
+      "retrieved_utc": "2026-11-07T19:38:14.950162+00:00",
+      "sha256": "c67620edae665379869fef842e2a2da11a49bc650c2fc651aff58aabb5698ad0",
+      "bytes": 19691,
+      "http_status": 200
+    },
+    {
+      "file": "schools-metadata.json",
+      "original_url": "https://services3.arcgis.com/fdvHcZVgB2QSRNkL/arcgis/rest/services/SchoolSites2526/FeatureServer/0?f=pjson",
+      "retrieved_utc": "2026-11-07T19:38:15.094420+00:00",
+      "sha256": "8a045cb13f0548ca4ddf1044de9f3af1bd31f62beee16d8c34818a2abb278431",
+      "bytes": 61968,
+      "http_status": 200
+    },
+    {
+      "file": "schools-sample.json",
+      "original_url": "https://services3.arcgis.com/fdvHcZVgB2QSRNkL/arcgis/rest/services/SchoolSites2526/FeatureServer/0/query?where=1%3D1&outFields=%2A&resultRecordCount=2&outSR=4326&returnGeometry=true&f=pjson",
+      "retrieved_utc": "2026-11-07T19:38:15.289381+00:00",
+      "sha256": "9b430ea5beecefeefc9105a6f4278c5125f639f0d6c285476c84d02ba4d99f10",
+      "bytes": 48417,
+      "http_status": 200
+    },
+    {
+      "file": "power-metadata.json",
+      "original_url": "https://services3.arcgis.com/bWPjFyq029ChCGur/arcgis/rest/services/Power_Plant/FeatureServer/0?f=pjson",
+      "retrieved_utc": "2026-11-07T19:38:15.414948+00:00",
+      "sha256": "79dca5c85e83d6572e854d6685ada6cd7d1559ba9fd7ddddff14846f3f6c9d8d",
+      "bytes": 12757,
+      "http_status": 200
+    },
+    {
+      "file": "power-sample.json",
+      "original_url": "https://services3.arcgis.com/bWPjFyq029ChCGur/arcgis/rest/services/Power_Plant/FeatureServer/0/query?where=1%3D1&outFields=%2A&resultRecordCount=2&outSR=4326&returnGeometry=true&f=pjson",
+      "retrieved_utc": "2026-11-07T19:38:15.570734+00:00",
+      "sha256": "fb9e6e02e4b6373951ec311d54ac4aad8a8e458240d5e50dcc60a9e5e90029de",
+      "bytes": 4000,
+      "http_status": 200
+    }
+  ]
 }

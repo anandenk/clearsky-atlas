@@ -1,0 +1,693 @@
+{
+  "objectIdFieldName" : "OBJECTID", 
+  "uniqueIdField" : 
+  {
+    "name" : "OBJECTID", 
+    "isSystemMaintained" : true
+  }, 
+  "globalIdFieldName" : "", 
+  "geometryType" : "esriGeometryPoint", 
+  "spatialReference" : {
+    "wkid" : 4326, 
+    "latestWkid" : 4326
+  }, 
+  "fields" : [
+    {
+      "name" : "OBJECTID", 
+      "type" : "esriFieldTypeOID", 
+      "alias" : "ObjectID", 
+      "sqlType" : "sqlTypeOther", 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "LICENSED_CERTIFIED", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "LICENSED_CERTIFIED", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "FLAG", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "FLAG", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "T18_19", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "T18_19", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "FACID", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "FACID", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "FAC_STATUS_TYPE_CODE", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "FAC_STATUS_TYPE_CODE", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "ASPEN_FACID", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "ASPEN_FACID", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "CCN", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "CCN", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "TERMINAT_SW", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "TERMINAT_SW", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "PARTICIPATION_DATE", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "PARTICIPATION_DATE", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "APPROVAL_DATE", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "APPROVAL_DATE", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "NPI", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "NPI", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "CAN_BE_DEEMED_FAC_TYPE", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "CAN_BE_DEEMED_FAC_TYPE", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "CAN_BE_CERTIFIED_FAC_TYPE", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "CAN_BE_CERTIFIED_FAC_TYPE", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "DEEMED", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "DEEMED", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "AO_CD", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "AO_CD", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "DMG_EFCTV_DT", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "DMG_EFCTV_DT", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "AO_TRMNTN_DT", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "AO_TRMNTN_DT", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "AO_NAME", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "AO_NAME", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "FACNAME", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "FACNAME", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "FAC_TYPE_CODE", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "FAC_TYPE_CODE", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "FAC_FDR", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "FAC_FDR", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "LTC", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "LTC", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "CAPACITY", 
+      "type" : "esriFieldTypeDouble", 
+      "alias" : "CAPACITY", 
+      "sqlType" : "sqlTypeOther", 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "ADDRESS", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "ADDRESS", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "CITY", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "CITY", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "ZIP", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "ZIP", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "ZIP9", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "ZIP9", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "FACADMIN", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "FACADMIN", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "CONTACT_EMAIL", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "CONTACT_EMAIL", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "CONTACT_FAX", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "CONTACT_FAX", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "CONTACT_PHONE_NUMBER", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "CONTACT_PHONE_NUMBER", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "COUNTY_CODE", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "COUNTY_CODE", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "COUNTY_NAME", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "COUNTY_NAME", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "DISTRICT_NUMBER", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "DISTRICT_NUMBER", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "DISTRICT_NAME", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "DISTRICT_NAME", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "ISFACMAIN", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "ISFACMAIN", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "PARENT_FACID", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "PARENT_FACID", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "FAC_FAC_RELATIONSHIP_TYPE_CODE", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "FAC_FAC_RELATIONSHIP_TYPE_CODE", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "START_DATE", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "START_DATE", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "LICENSE_NUMBER", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "LICENSE_NUMBER", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "BUSINESS_NAME", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "BUSINESS_NAME", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "LICENSE_STATUS_DESCRIPTION", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "LICENSE_STATUS_DESCRIPTION", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "INITIAL_LICENSE_DATE", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "INITIAL_LICENSE_DATE", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "LICENSE_EFFECTIVE_DATE", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "LICENSE_EFFECTIVE_DATE", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "LICENSE_EXPIRATION_DATE", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "LICENSE_EXPIRATION_DATE", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "ENTITY_TYPE_DESCRIPTION", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "ENTITY_TYPE_DESCRIPTION", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "LATITUDE", 
+      "type" : "esriFieldTypeDouble", 
+      "alias" : "LATITUDE", 
+      "sqlType" : "sqlTypeOther", 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "LONGITUDE", 
+      "type" : "esriFieldTypeDouble", 
+      "alias" : "LONGITUDE", 
+      "sqlType" : "sqlTypeOther", 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "LOCATION", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "LOCATION", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "CCLHO_CODE", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "CCLHO_CODE", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "CCLHO_NAME", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "CCLHO_NAME", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "FIPS_COUNTY_CODE", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "FIPS_COUNTY_CODE", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "BIRTHING_FACILITY_FLAG", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "BIRTHING_FACILITY_FLAG", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "TRAUMA_PED_CTR", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "TRAUMA_PED_CTR", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "TRAUMA_CTR", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "TRAUMA_CTR", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "TYPE_OF_CARE", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "TYPE_OF_CARE", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "CRITICAL_ACCESS_HOSPITAL", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "CRITICAL_ACCESS_HOSPITAL", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "DATA_DATE", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "DATA_DATE", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }, 
+    {
+      "name" : "HCAI_ID", 
+      "type" : "esriFieldTypeString", 
+      "alias" : "HCAI_ID", 
+      "sqlType" : "sqlTypeOther", 
+      "length" : 255, 
+      "domain" : null, 
+      "defaultValue" : null
+    }
+  ], 
+  "exceededTransferLimit" : true, 
+  "features" : [
+    {
+      "attributes" : {
+        "OBJECTID" : 186630, 
+        "LICENSED_CERTIFIED" : "LICENSED AND CERTIFIED", 
+        "FLAG" : null, 
+        "T18_19" : null, 
+        "FACID" : "060000027", 
+        "FAC_STATUS_TYPE_CODE" : "OPEN", 
+        "ASPEN_FACID" : "CA060000027", 
+        "CCN" : "050376", 
+        "TERMINAT_SW" : null, 
+        "PARTICIPATION_DATE" : "1966-07-01T00:00:00", 
+        "APPROVAL_DATE" : "2020-05-15T00:00:00", 
+        "NPI" : "1487865184", 
+        "CAN_BE_DEEMED_FAC_TYPE" : "Y", 
+        "CAN_BE_CERTIFIED_FAC_TYPE" : "Y", 
+        "DEEMED" : "1", 
+        "AO_CD" : "1", 
+        "DMG_EFCTV_DT" : "2023-04-15T00:00:00", 
+        "AO_TRMNTN_DT" : null, 
+        "AO_NAME" : "JC", 
+        "FACNAME" : "LAC/HARBOR UCLA MEDICAL CENTER", 
+        "FAC_TYPE_CODE" : "GACH", 
+        "FAC_FDR" : "GENERAL ACUTE CARE HOSPITAL", 
+        "LTC" : "NON-LTC", 
+        "CAPACITY" : 415, 
+        "ADDRESS" : "1000 W CARSON ST", 
+        "CITY" : "TORRANCE", 
+        "ZIP" : "90502", 
+        "ZIP9" : "2004", 
+        "FACADMIN" : "TURNER, ANDREA", 
+        "CONTACT_EMAIL" : "JREES@DHS.LACOUNTY.GOV", 
+        "CONTACT_FAX" : "(310) 328-9624", 
+        "CONTACT_PHONE_NUMBER" : "(424) 306-6371", 
+        "COUNTY_CODE" : "200", 
+        "COUNTY_NAME" : "LOS ANGELES", 
+        "DISTRICT_NUMBER" : "6", 
+        "DISTRICT_NAME" : "ORANGE", 
+        "ISFACMAIN" : "Y", 
+        "PARENT_FACID" : null, 
+        "FAC_FAC_RELATIONSHIP_TYPE_CODE" : "PARENT", 
+        "START_DATE" : null, 
+        "LICENSE_NUMBER" : "60000129", 
+        "BUSINESS_NAME" : "LOS ANGELES COUNTY DEPARTMENT OF HEALTH SERVICES", 
+        "LICENSE_STATUS_DESCRIPTION" : "ACTIVE", 
+        "INITIAL_LICENSE_DATE" : "1953-07-01T00:00:00", 
+        "LICENSE_EFFECTIVE_DATE" : "2026-09-18T00:00:00", 
+        "LICENSE_EXPIRATION_DATE" : "2027-04-30T00:00:00", 
+        "ENTITY_TYPE_DESCRIPTION" : "COUNTY", 
+        "LATITUDE" : 33.830325, 
+        "LONGITUDE" : -118.2920175, 
+        "LOCATION" : "(-118.2920175,33.830325)", 
+        "CCLHO_CODE" : "19", 
+        "CCLHO_NAME" : "LOS ANGELES", 
+        "FIPS_COUNTY_CODE" : "6037", 
+        "BIRTHING_FACILITY_FLAG" : "YES", 
+        "TRAUMA_PED_CTR" : "LEVEL II PED", 
+        "TRAUMA_CTR" : "LEVEL I", 
+        "TYPE_OF_CARE" : null, 
+        "CRITICAL_ACCESS_HOSPITAL" : null, 
+        "DATA_DATE" : "2026-10-16T00:00:00", 
+        "HCAI_ID" : "106191227"
+      }, 
+      "geometry" : 
+      {
+        "x" : -118.2920296774014, 
+        "y" : 33.830329828838934
+      }
+    }, 
+    {
+      "attributes" : {
+        "OBJECTID" : 186631, 
+        "LICENSED_CERTIFIED" : "LICENSED AND CERTIFIED", 
+        "FLAG" : null, 
+        "T18_19" : null, 
+        "FACID" : "060000028", 
+        "FAC_STATUS_TYPE_CODE" : "OPEN", 
+        "ASPEN_FACID" : "CA060000028", 
+        "CCN" : "050717", 
+        "TERMINAT_SW" : null, 
+        "PARTICIPATION_DATE" : "1997-07-01T00:00:00", 
+        "APPROVAL_DATE" : "2016-04-14T00:00:00", 
+        "NPI" : "1336156363", 
+        "CAN_BE_DEEMED_FAC_TYPE" : "Y", 
+        "CAN_BE_CERTIFIED_FAC_TYPE" : "Y", 
+        "DEEMED" : "1", 
+        "AO_CD" : "1", 
+        "DMG_EFCTV_DT" : "2022-11-11T00:00:00", 
+        "AO_TRMNTN_DT" : null, 
+        "AO_NAME" : "JC", 
+        "FACNAME" : "LAC/RANCHO LOS AMIGOS NATIONAL REHABILITATION CENTER", 
+        "FAC_TYPE_CODE" : "GACH", 
+        "FAC_FDR" : "GENERAL ACUTE CARE HOSPITAL", 
+        "LTC" : "NON-LTC", 
+        "CAPACITY" : 158, 
+        "ADDRESS" : "7601 IMPERIAL HWY", 
+        "CITY" : "DOWNEY", 
+        "ZIP" : "90242", 
+        "ZIP9" : "3456", 
+        "FACADMIN" : "WILKS, KONITA", 
+        "CONTACT_EMAIL" : "CMARTINEZ@DHS.LACOUNTY.GOV", 
+        "CONTACT_FAX" : null, 
+        "CONTACT_PHONE_NUMBER" : "(562) 385-7842", 
+        "COUNTY_CODE" : "200", 
+        "COUNTY_NAME" : "LOS ANGELES", 
+        "DISTRICT_NUMBER" : "6", 
+        "DISTRICT_NAME" : "ORANGE", 
+        "ISFACMAIN" : "Y", 
+        "PARENT_FACID" : null, 
+        "FAC_FAC_RELATIONSHIP_TYPE_CODE" : "PARENT", 
+        "START_DATE" : null, 
+        "LICENSE_NUMBER" : "60000161", 
+        "BUSINESS_NAME" : "LOS ANGELES COUNTY DEPARTMENT OF HEALTH SERVICES", 
+        "LICENSE_STATUS_DESCRIPTION" : "ACTIVE", 
+        "INITIAL_LICENSE_DATE" : "1953-07-01T00:00:00", 
+        "LICENSE_EFFECTIVE_DATE" : "2026-03-31T00:00:00", 
+        "LICENSE_EXPIRATION_DATE" : "2027-03-30T00:00:00", 
+        "ENTITY_TYPE_DESCRIPTION" : "COUNTY", 
+        "LATITUDE" : 33.9291, 
+        "LONGITUDE" : -118.1579985, 
+        "LOCATION" : "(-118.1579985,33.9291)", 
+        "CCLHO_CODE" : "19", 
+        "CCLHO_NAME" : "LOS ANGELES", 
+        "FIPS_COUNTY_CODE" : "6037", 
+        "BIRTHING_FACILITY_FLAG" : null, 
+        "TRAUMA_PED_CTR" : null, 
+        "TRAUMA_CTR" : null, 
+        "TYPE_OF_CARE" : null, 
+        "CRITICAL_ACCESS_HOSPITAL" : null, 
+        "DATA_DATE" : "2026-10-16T00:00:00", 
+        "HCAI_ID" : "106191306"
+      }, 
+      "geometry" : 
+      {
+        "x" : -118.15801066258921, 
+        "y" : 33.929104847551876
+      }
+    }
+  ]
+}

@@ -1,0 +1,191 @@
+{
+  "ces-catalog.json": {
+    "url": "https://publish.data.ca.gov/api/3/action/package_show?id=calenviroscreen-5-0",
+    "retrievedAt": "2026-11-07T19:32:04.929970+00:00",
+    "sha256": "25a6747080076da5be13f48a598273fc10a009ebe0d0bb6c91a253fc9f01f223",
+    "bytes": 9235
+  },
+  "ces.shp.zip": {
+    "url": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/e3d16016-1828-424f-85a6-f7731033d338/download/calenviroscreen50results_f_070126.shp.zip",
+    "retrievedAt": "2026-11-07T19:32:08.964476+00:00",
+    "sha256": "00227174d2cb3489f8b7e13d929825274e1cb4c11a3715952762df9e27a991bd",
+    "bytes": 33539866
+  },
+  "ces.csv": {
+    "url": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+    "retrievedAt": "2026-11-07T19:32:10.079771+00:00",
+    "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+    "bytes": 7481679
+  },
+  "ces.pdf": {
+    "url": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/31ddb21a-44bb-4cb0-81d8-6e2f80ee359d/download/final-calenviroscreen-5.0-data-dictionary.pdf",
+    "retrievedAt": "2026-11-07T19:32:10.914476+00:00",
+    "sha256": "1c730d0a9a7e727185039d2850d466ebc76ebcbc0b986e0d5494ca0388fe7eab",
+    "bytes": 288787
+  },
+  "ces-layer.json": {
+    "url": "https://services1.arcgis.com/PCHfdHz4GlDNAhBb/arcgis/rest/services/calenviroscreen50results_F_070126_gdb/FeatureServer/2?f=pjson",
+    "retrievedAt": "2026-11-07T19:32:11.093193+00:00",
+    "sha256": "2a7cf20a7d63a864f9f60e6b3ff5681282c1ce8612641f2a38ff8961e5c1e903",
+    "bytes": 34594
+  },
+  "ces-report.pdf": {
+    "url": "https://oehha.ca.gov/sites/default/files/media/2026-06/calenviroscreen50reportf2026.pdf",
+    "retrievedAt": "2026-11-07T19:32:56.825761+00:00",
+    "sha256": "d02032286070b4dd9d8fbd985a7bdca8af8edf52b89ff177db3bfcb2c8a9c43d",
+    "bytes": 212,
+    "validation": "FAILED: HTTP 200 HTML security page, not PDF; excluded as evidence"
+  },
+  "census-doc.html": {
+    "url": "https://geocoding.geo.census.gov/geocoder/Geocoding_Services_API.html",
+    "retrievedAt": "2026-11-07T19:32:57.218409+00:00",
+    "sha256": "6cefb7f5c0f6581752412b58517251e8f8ae9822fe37c7e445dea1c3b3102c5d",
+    "bytes": 46478
+  },
+  "census-vintages.json": {
+    "url": "https://geocoding.geo.census.gov/geocoder/vintages?benchmark=4&format=json",
+    "retrievedAt": "2026-11-07T19:32:57.367938+00:00",
+    "sha256": "4b4235e3efd7142d2aa1564584619cb7cbf8712b1142aaa8661283fac895856d",
+    "bytes": 2057
+  },
+  "geocode-oakland.json": {
+    "url": "https://geocoding.geo.census.gov/geocoder/geographies/onelineaddress?address=1+Frank+H+Ogawa+Plaza+Oakland+CA&benchmark=Public_AR_Current&vintage=Census2020_Current&format=json",
+    "retrievedAt": "2026-11-07T19:33:32.666659+00:00",
+    "sha256": "528487cf9031bea146b13edde5017e03e876f6a01d3d5171d03142019fe22243",
+    "bytes": 380
+  },
+  "geocode-fresno.json": {
+    "url": "https://geocoding.geo.census.gov/geocoder/geographies/onelineaddress?address=2600+Fresno+St+Fresno+CA&benchmark=Public_AR_Current&vintage=Census2020_Current&format=json",
+    "retrievedAt": "2026-11-07T19:33:33.074125+00:00",
+    "sha256": "3199c4b349ecb13ce7b4ddcdf108708b1c17d6936e7f93d59f980a4246b4e7a2",
+    "bytes": 5345
+  },
+  "geocode-oakland-near.json": {
+    "url": "https://geocoding.geo.census.gov/geocoder/geographies/onelineaddress?address=250+Frank+H+Ogawa+Plaza+Oakland+CA&benchmark=Public_AR_Current&vintage=Census2020_Current&format=json",
+    "retrievedAt": "2026-11-07T19:33:33.240386+00:00",
+    "sha256": "f1b7638c2dd41e2ed9bda9a0b7512053b4d6c5e4fe65739e3a895975e1fe7602",
+    "bytes": 382
+  },
+  "geocode-outside.json": {
+    "url": "https://geocoding.geo.census.gov/geocoder/geographies/onelineaddress?address=1600+Pennsylvania+Ave+NW+Washington+DC&benchmark=Public_AR_Current&vintage=Census2020_Current&format=json",
+    "retrievedAt": "2026-11-07T19:33:34.014107+00:00",
+    "sha256": "9de3964e4f38ddfa0769928605de60c665f7acae2c1a75a1720d86002ed79aaf",
+    "bytes": 5113
+  },
+  "pm-facts.html": {
+    "url": "https://oehha.ca.gov/calenviroscreen/fact-sheet/air-quality-pm25",
+    "retrievedAt": "2026-11-07T19:34:25.708778+00:00",
+    "sha256": "93cf559319a2d3303cee94e1943121304b35a51bc6ad5e1917dbd885331246d6",
+    "bytes": 951,
+    "validation": "FAILED: security HTML; not source content"
+  },
+  "ozone-facts.html": {
+    "url": "https://oehha.ca.gov/calenviroscreen/fact-sheet/air-quality-ozone",
+    "retrievedAt": "2026-11-07T19:34:25.735074+00:00",
+    "sha256": "01361d48d250e0505ee1d541e43518436eafbd2ba8cd23386659cd93cd4cafa5",
+    "bytes": 950,
+    "validation": "FAILED: security HTML; not source content"
+  },
+  "geocode-oakland-library.json": {
+    "url": "https://geocoding.geo.census.gov/geocoder/geographies/onelineaddress?address=125+14th+St+Oakland+CA&benchmark=Public_AR_Current&vintage=Census2020_Current&format=json",
+    "retrievedAt": "2026-11-07T19:37:30.697073+00:00",
+    "sha256": "6c2135b1accd2b86e0be263ce89a4821152b7d24b31c0d39c2e93c8dd1b3fe1f",
+    "bytes": 5405
+  },
+  "geocode-oakland-library-near.json": {
+    "url": "https://geocoding.geo.census.gov/geocoder/geographies/onelineaddress?address=133+14th+St+Oakland+CA&benchmark=Public_AR_Current&vintage=Census2020_Current&format=json",
+    "retrievedAt": "2026-11-07T19:37:31.183420+00:00",
+    "sha256": "3b295fc2a774cb0de79416c3edc928d713ff0ed2921509ba189fe792536f81a6",
+    "bytes": 5405
+  },
+  "geocode-oakland-central.json": {
+    "url": "https://geocoding.geo.census.gov/geocoder/geographies/onelineaddress?address=125+14th+St+Oakland+CA+94612&benchmark=Public_AR_Current&vintage=Census2020_Current&format=json",
+    "retrievedAt": "2026-11-07T19:37:51.322825+00:00",
+    "sha256": "8ca3e3d141821093cf26e7bd4150fe71c28a08ba0874b62e53f213bc69556d9d",
+    "bytes": 5398
+  },
+  "geocode-oakland-central-near.json": {
+    "url": "https://geocoding.geo.census.gov/geocoder/geographies/onelineaddress?address=129+14th+St+Oakland+CA+94612&benchmark=Public_AR_Current&vintage=Census2020_Current&format=json",
+    "retrievedAt": "2026-11-07T19:37:51.591516+00:00",
+    "sha256": "b6d8ec0d19734a5c822a0fb7a73ab6bea942dd418ba6844d569282e68b32d2bd",
+    "bytes": 5399
+  },
+  "healthcare-service.json": {
+    "url": "https://services.arcgis.com/RmCCgQtiZLDCtblq/arcgis/rest/services/CDPH_Healthcare_Facilities/FeatureServer?f=pjson",
+    "retrievedAt": "2026-11-07T19:39:42.420261+00:00",
+    "sha256": "21bf3ac95942ff2c8bd4e82bcd9b03f77096e9e43ce9a1e87ea055bb59d867f0",
+    "bytes": 7093
+  },
+  "healthcare-item.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/f86150f7fbd647ea8029a022b78d59fb?f=pjson",
+    "retrievedAt": "2026-11-07T19:39:42.747317+00:00",
+    "sha256": "b2005ec5608b8bc15cd4c902750924e4e5055066558aff0886a40dbbed8afc24",
+    "bytes": 5090
+  },
+  "healthcare-county-counts.json": {
+    "url": "https://services.arcgis.com/RmCCgQtiZLDCtblq/arcgis/rest/services/CDPH_Healthcare_Facilities/FeatureServer/0/query?f=json&where=1%3D1&outStatistics=%5B%7B%22statisticType%22%3A+%22count%22%2C+%22onStatisticField%22%3A+%22OBJECTID%22%2C+%22outStatisticFieldName%22%3A+%22n%22%7D%5D&groupByFieldsForStatistics=COUNTY_NAME&returnGeometry=false",
+    "retrievedAt": "2026-11-07T19:39:43.168041+00:00",
+    "sha256": "8507f0228fb8f21b4d5cddaffdd98e07138687a2de1ee2e73e3435c16ce20862",
+    "bytes": 545
+  },
+  "schools-service.json": {
+    "url": "https://services3.arcgis.com/fdvHcZVgB2QSRNkL/arcgis/rest/services/SchoolSites2526/FeatureServer?f=pjson",
+    "retrievedAt": "2026-11-07T19:39:43.418826+00:00",
+    "sha256": "d1832bbaa0e301d2f1fc6354ada3b3e16f7dc379f899738d03ce629013529973",
+    "bytes": 4321
+  },
+  "schools-item.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/0cab44bcfd9a44eb88197147e4d37e8b?f=pjson",
+    "retrievedAt": "2026-11-07T19:39:43.534585+00:00",
+    "sha256": "74a8428b5f4e7b90134d1fcf4a0bda3e3dd04b66acd788a94b65e07498edce08",
+    "bytes": 4680
+  },
+  "schools-county-counts.json": {
+    "url": "https://services3.arcgis.com/fdvHcZVgB2QSRNkL/arcgis/rest/services/SchoolSites2526/FeatureServer/0/query?f=json&where=1%3D1&outStatistics=%5B%7B%22statisticType%22%3A+%22count%22%2C+%22onStatisticField%22%3A+%22OBJECTID%22%2C+%22outStatisticFieldName%22%3A+%22n%22%7D%5D&groupByFieldsForStatistics=CountyName&returnGeometry=false",
+    "retrievedAt": "2026-11-07T19:39:43.908170+00:00",
+    "sha256": "0040d3b4b0fa4d8c18e8bbd5c81cb111df0af1e22aee87ff4d6aff1b6bb497d1",
+    "bytes": 3528
+  },
+  "power-service.json": {
+    "url": "https://services3.arcgis.com/bWPjFyq029ChCGur/arcgis/rest/services/Power_Plant/FeatureServer?f=pjson",
+    "retrievedAt": "2026-11-07T19:39:44.070372+00:00",
+    "sha256": "71888154e205a246f002462b45ac1b10975ebc748eb89b29719e085a24ef9e06",
+    "bytes": 9622
+  },
+  "power-item.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/4a702cd67be24ae7ab8173423a768e1b?f=pjson",
+    "retrievedAt": "2026-11-07T19:39:44.176214+00:00",
+    "sha256": "4a252f86f62d55f3b7a9284342ca09397a219ce5132bc6cad447b5aee40fdf16",
+    "bytes": 20530
+  },
+  "power-county-counts.json": {
+    "url": "https://services3.arcgis.com/bWPjFyq029ChCGur/arcgis/rest/services/Power_Plant/FeatureServer/0/query?f=json&where=1%3D1&outStatistics=%5B%7B%22statisticType%22%3A+%22count%22%2C+%22onStatisticField%22%3A+%22OBJECTID%22%2C+%22outStatisticFieldName%22%3A+%22n%22%7D%5D&groupByFieldsForStatistics=County&returnGeometry=false",
+    "retrievedAt": "2026-11-07T19:39:44.443425+00:00",
+    "sha256": "94d12cc02cb5f50df7b2bc9030987cb0f3e6adff191ee6fac0d7d8ff39b822d8",
+    "bytes": 3312
+  },
+  "ces-service.json": {
+    "url": "https://services1.arcgis.com/PCHfdHz4GlDNAhBb/arcgis/rest/services/calenviroscreen50results_F_070126_gdb/FeatureServer?f=json",
+    "retrievedAt": "2026-11-07T19:42:44.926522+00:00",
+    "sha256": "e0f737b3cd32f1146003330018ec35d50bae038995680631c63ce42672e2bd5d",
+    "bytes": 3986
+  },
+  "ces-item-data.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/b0897ab4b2e2460b9f223b2ff9262d7b/data?f=json",
+    "retrievedAt": "2026-11-07T19:42:45.361346+00:00",
+    "sha256": "9ce5862fd613f37243595234fd744191a05f203d189d98cc01c821d79048c92f",
+    "bytes": 29796
+  },
+  "ces-point-oakland-central.json": {
+    "url": "https://services1.arcgis.com/PCHfdHz4GlDNAhBb/arcgis/rest/services/calenviroscreen50results_F_070126_gdb/FeatureServer/2/query?f=json&geometry=-122.26360620685%2C37.801240729976&geometryType=esriGeometryPoint&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields=tract%2CPM2_5%2CPM2_5_Pctl&returnGeometry=false",
+    "retrievedAt": "2026-11-07T19:46:46.271675+00:00",
+    "sha256": "1f42e3b6a824ca6d0ed5d192152a43718d2ffc40d34265242f05b9e2af191d3a",
+    "bytes": 682
+  },
+  "ces-point-fresno.json": {
+    "url": "https://services1.arcgis.com/PCHfdHz4GlDNAhBb/arcgis/rest/services/calenviroscreen50results_F_070126_gdb/FeatureServer/2/query?f=json&geometry=-119.786060995932%2C36.740250711973&geometryType=esriGeometryPoint&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields=tract%2CPM2_5%2CPM2_5_Pctl&returnGeometry=false",
+    "retrievedAt": "2026-11-07T19:46:46.562890+00:00",
+    "sha256": "dd7a331dc701c268162e6f8023600b09c10b80f838bdd3871a3d575374cb94c5",
+    "bytes": 682
+  }
+}

@@ -1,0 +1,5 @@
+# Preserve source response bytes exactly; provenance manifests carry hashes.
+data/raw/** -text -diff
+data/raw/manifest.json text diff
+data/facility-verification/*-metadata.json -text -diff
+data/facility-verification/*-sample.json -text -diff
