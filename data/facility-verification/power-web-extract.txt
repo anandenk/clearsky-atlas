@@ -1,0 +1,67 @@
+Layer: California Power Plants (ID:0) (https://services3.arcgis.com/bWPjFyq029ChCGur/arcgis/rest/services/Power_Plant/FeatureServer/0)
+citeturn7view0 [wordlim: 200] Crawled: today; Content type: text/html; Source: open({"ref_id":"https://services3.arcgis.com/bWPjFyq029ChCGur/arcgis/rest/services/Power_Plant/FeatureServer/0","lineno":null}); Total lines: 65
+L0: ArcGIS REST Services Directory
+L1: | 【0†API Reference†resources.arcgis.com】
+L2: 
+L3: 【1†JSON】
+L4: ## Layer: California Power Plants (ID:0)
+L5: 
+L6: View In:   【2†Map Viewer†www.arcgis.com】
+L7: 
+L8: Name: California Power Plants
+L9: Display Field: PlantName
+L10: Type: Feature Layer
+L11: Geometry Type: esriGeometryPoint
+L12: Description:
+L13: Copyright Text:
+L14: Min. Scale: 0
+L15: Max. Scale: 0
+L16: Default Visibility: true
+L17: Max Record Count: 3000
+L18: Supported query Formats: JSON, geoJSON, PBF
+L19: Use Standardized Queries: True
+L20: Extent:
+L21: XMin: -124.208589454358
+L22: YMin: 32.5494585590051
+L23: XMax: -80.9820800023583
+L24: YMax: 43.3710785394216
+L25: Spatial Reference: 4269 (4269)
+L26: Drawing Info:
+L27: {"renderer":{"type":"simple","symbol":{"type":"esriSMS","style":"esriSMSCircle","color":[0,0,0,255],"size":4,"angle":0,"xoffset":0,"yoffset":0,"outline":{"color":[0,0,0,255],"width":0.7}}},"scaleSymbols":true,"transparency":0,"labelingInfo":null}
+L28: HasZ: false
+L29: HasM: false
+L30: Has Attachments: false
+L31: Has Geometry Properties: false
+L32: HTML Popup Type: esriServerHTMLPopupTypeAsHTMLText
+L33: Object ID Field: OBJECTID
+L34: Unique ID Field:
+L35: 
+L36: Name : OBJECTID
+L37: 
+L38: IsSystemMaintained : True
+L39: Global ID Field:
+L40: Type ID Field:
+L41: Fields:
+L42:   * OBJECTID (type: esriFieldTypeOID, alias: OBJECTID, SQL Type: sqlTypeOther, length: 0, nullable: false, editable: false)
+L43:   * CECPlantID (type: esriFieldTypeString, alias: CECPlantID, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L44:   * PlantName (type: esriFieldTypeString, alias: PlantName, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L45:   * Retired_Plant (type: esriFieldTypeDouble, alias: Retired Plant, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L46:   * OperatorCompanyID (type: esriFieldTypeString, alias: Operator Company, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L47:   * County (type: esriFieldTypeString, alias: County, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L48:   * Capacity_Latest (type: esriFieldTypeDouble, alias: Capacity_Latest, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L49:   * Units (type: esriFieldTypeString, alias: Units, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L50:   * PriEnergySource (type: esriFieldTypeString, alias: PriEnergySource, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L51:   * StartDate (type: esriFieldTypeDate, alias: StartDate, SQL Type: sqlTypeOther, length: 8, nullable: true, editable: true)
+L52:   * CEC_Jurisdictional (type: esriFieldTypeString, alias: CEC_Jurisdictional, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L53: Templates:
+L54: Name: California Power Plants
+L55: Description:
+L56: Drawing Tool: esriFeatureEditToolPoint
+L57: Prototype:
+L58: Is Data Versioned: false
+L59: Has Contingent Values: false
+L60: Supports Rollback On Failure Parameter: true
+L61: Last Edit Date: 6/12/2026 6:12:21 PM
+L62: Schema Last Edit Date: 6/12/2026 6:12:21 PM
+L63: Data Last Edit Date: 6/12/2026 6:12:21 PM
+L64: Supported Operations:   【3†Query】   【4†Query Pivot】   【5†Query Top Features】   【6†Query Analytic】   【7†Query Bins】   【8†Generate Renderer】   【9†Validate SQL】   【10†Get Estimates】   【11†ConvertFormat】
