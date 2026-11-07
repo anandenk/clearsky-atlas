@@ -164,3 +164,113 @@ test("explicit test fixture: missing geometry is excluded, co-located records re
   assert.equal(result.facilities[0].status, "Closed");
   assert.equal(result.facilities[0].distanceKm, 0);
 });
+
+test("statewide healthcare acquisition preserves all source FACIDs, snapshot/status and out-of-coverage points", async () => {
+  const health = facilityBundle("healthcare");
+  assert.equal(health.facilities.length, 14921);
+  assert.equal(new Set(health.facilities.map((f) => f.id)).size, 14921);
+  assert.equal(
+    health.facilities.filter((f) => f.coordinate !== null).length,
+    14919,
+  );
+  const rows = [];
+  for (let i = 0; i < 15; i++)
+    rows.push(
+      ...JSON.parse(
+        await fs.readFile(
+          `data/raw/healthcare-statewide-page-${String(i).padStart(2, "0")}.json`,
+        ),
+      ).result.records,
+    );
+  assert.deepEqual(
+    health.facilities.map((f) => f.id).sort(),
+    rows.map((r) => "cdph:" + r.FACID).sort(),
+  );
+  for (const f of health.facilities) {
+    assert.match(f.id, /^cdph:\d{9}$/);
+    assert.equal(f.observationDate, "2026-10-16");
+    assert.equal(f.status, "OPEN");
+    assert.equal(f.subtype, f.sourceAttributes.FAC_TYPE_CODE);
+    if (f.coordinate)
+      assert.deepEqual(f.coordinate, [
+        f.sourceAttributes.LONGITUDE,
+        f.sourceAttributes.LATITUDE,
+      ]);
+  }
+  const excluded = health.facilities.filter((f) => f.coordinate === null);
+  assert.deepEqual(
+    excluded.map((f) => f.id),
+    ["cdph:630006081", "cdph:630017965"],
+  );
+  assert.equal(excluded[1].sourceAttributes.FIPS_COUNTY_CODE, 41015); // Oregon branch, not California.
+  assert.ok(
+    excluded.every((f) => f.flags.includes("outside-ces-tract-coverage")),
+  );
+  for (const [name, provenance] of Object.entries(health.provenance)) {
+    assert.equal(
+      createHash("sha256")
+        .update(await fs.readFile("data/raw/" + name))
+        .digest("hex"),
+      provenance.sha256,
+    );
+  }
+  const manifest = JSON.parse(
+    await fs.readFile("data/facilities/healthcare-manifest.json"),
+  );
+  for (const [name, entry] of Object.entries(manifest.files))
+    assert.equal(
+      createHash("sha256")
+        .update(await fs.readFile("data/facilities/" + name))
+        .digest("hex"),
+      entry.sha256,
+    );
+});
+test("healthcare geographic coordinates agree with independent LA-hosted WGS84 geometry at two facilities", async () => {
+  const health = facilityBundle("healthcare");
+  const reference = JSON.parse(
+    await fs.readFile("data/facility-verification/healthcare-sample.json"),
+  );
+  for (const f of reference.features) {
+    const r = health.facilities.find(
+      (r) => r.sourceAttributes.FACID === f.attributes.FACID,
+    );
+    assert.ok(r?.coordinate);
+    assert.ok(
+      straightLineKm(r.coordinate, [f.geometry.x, f.geometry.y]) < 0.003,
+    );
+  }
+});
+test("healthcare query stays category/version isolated; real excluded coordinates never leak into nearest search", () => {
+  const health = facilityBundle("healthcare");
+  const result = facilityQuery(
+    new URLSearchParams("category=healthcare&near=-122.271,37.803&limit=5"),
+    health,
+  );
+  assert.equal(result.matchedCount, 14919);
+  assert.equal(result.returnedCount, 5);
+  assert.ok(
+    result.facilities.every(
+      (f) => f.id.startsWith("cdph:") && f.distanceKm >= 0,
+    ),
+  );
+  for (let i = 1; i < result.facilities.length; i++)
+    assert.ok(
+      result.facilities[i].distanceKm >= result.facilities[i - 1].distanceKm,
+    );
+  assert.throws(
+    () =>
+      facilityQuery(
+        new URLSearchParams(
+          "category=healthcare&near=0,0&version=" + bundle.datasetVersion,
+        ),
+        health,
+      ),
+    (e) => e.status === 409,
+  );
+  assert.throws(
+    () =>
+      facilityQuery(new URLSearchParams("category=schools&near=0,0"), health),
+    (e) => e.status === 422,
+  );
+  assert.equal(facilityBundle(), bundle);
+});

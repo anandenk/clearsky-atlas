@@ -1,0 +1,15 @@
+{
+  "datasetVersion": "cdph-licensed-certified-2026-10-16-73188cdc553c",
+  "pipeline": "scripts/prepare_healthcare.py",
+  "sourceManifest": "data/raw/manifest.json",
+  "files": {
+    "healthcare.json": {
+      "sha256": "f3e0d5165a8d87cc69ab2938365264fdaaaff14d4b1f2c483ee699351a800528",
+      "bytes": 12031448
+    },
+    "healthcare-validation.json": {
+      "sha256": "4f8e53ad30c78ea8cba96a77c7df341c3c3ece889f60849e045e2b33fc90c79f",
+      "bytes": 2502
+    }
+  }
+}

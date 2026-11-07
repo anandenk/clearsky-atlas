@@ -2,7 +2,14 @@
 
 Authorized: Phase 1 source verification and Phase 2 local implementation; bounded local CLI delegation/commits. No publication, paid services, or global configuration changes. Full PRODUCT.md inventory retained.
 
-## Working increment
+## Current backend checkpoint
+
+34 backend tests and four source-cache tests pass. All 13 target scalar indicators and ten demographic fields have verified normalized tract/map/comparison contracts. Real facilities now support schools (9,946 records) and statewide CDPH healthcare (14,921 records; 14,919 coordinate-bearing query points), with explicit historical dates, subtypes, provenance and distance limitations. Power remains unavailable pending source-vintage/status/spatial verification. See latest BACKEND_CHANGES.md for exact APIs and performed checks.
+
+Backend main remains separate from active frontend work; no integration performed. Frontend owns current map-first/multi-location UI; older two-address UI descriptions below describe the initial baseline. Sponsors remain parked. Full original scope is retained; grouped demographic composition, richer comparisons/stories, measured performance and coordinated rendered-interface integration remain planned.
+
+## Historical initial comparison increment
+
 
 Next.js + TypeScript + MapLibre comparison at `http://127.0.0.1:3000` when `npm run dev` or `npm run start` runs. Two live Census address searches with explicit candidate confirmation; separately cached public Oakland/Fresno examples; full-resolution CES tract lookup and independent Census2020 cross-check; paired percentile choropleths, shared scale, tract outlines, swap/replace/clear, one deterministic PM2.5 story, raw values and source percentiles, evidence disclosure, mobile map tabs, null/failure states, stale request cancellation.
 

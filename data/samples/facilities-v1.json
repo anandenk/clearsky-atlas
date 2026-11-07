@@ -581,7 +581,7 @@
     "method": "spherical-great-circle",
     "unit": "km",
     "earthRadiusKm": 6371.0088,
-    "meaning": "Straight-line to published points; nearest among coordinate-bearing records in this inventory, within bbox when supplied. No travel, school assignment or access guarantee."
+    "meaning": "Straight-line to published points; nearest among coordinate-bearing records in this inventory, within bbox when supplied. No travel, eligibility or access guarantee."
   },
   "matchedCount": 9946,
   "returnedCount": 3,

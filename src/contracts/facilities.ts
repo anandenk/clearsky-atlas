@@ -3,9 +3,25 @@ import path from "node:path";
 import { ContractError } from "./observations";
 import { parseBounds } from "./bounds";
 
+export type FacilityCategory = "schools" | "healthcare";
+export const FACILITY_CATEGORIES: FacilityCategory[] = [
+  "schools",
+  "healthcare",
+];
+export function facilityCategory(value: string | null): FacilityCategory {
+  if (!value)
+    fail("category is required; available categories: schools, healthcare");
+  if (!FACILITY_CATEGORIES.includes(value as FacilityCategory))
+    throw new ContractError(
+      422,
+      "facility-category-unavailable",
+      "Facility category is unavailable; available categories: schools, healthcare",
+    );
+  return value as FacilityCategory;
+}
 export type Facility = {
   id: string;
-  category: "schools";
+  category: FacilityCategory;
   name: string | null;
   coordinate: [number, number] | null;
   sourceId: string;
@@ -22,23 +38,27 @@ type Bundle = {
   category: string;
   sourceUrl: string;
   sourcePeriod: string;
-  observationDate: null;
+  observationDate: string | null;
   rights: unknown;
   coverage: unknown;
   audit: unknown;
   provenance: unknown;
   facilities: Facility[];
 };
-let cached: Bundle | undefined;
-export function facilityBundle(): Bundle {
-  if (!cached)
-    cached = JSON.parse(
-      fs.readFileSync(
-        path.join(process.cwd(), "data/facilities/schools.json"),
-        "utf8",
+const cached = new Map<FacilityCategory, Bundle>();
+export function facilityBundle(category: FacilityCategory = "schools"): Bundle {
+  facilityCategory(category);
+  if (!cached.has(category))
+    cached.set(
+      category,
+      JSON.parse(
+        fs.readFileSync(
+          path.join(process.cwd(), `data/facilities/${category}.json`),
+          "utf8",
+        ),
       ),
     );
-  return cached!;
+  return cached.get(category)!;
 }
 /** Mean Earth radius (IUGG), spherical great-circle distance, in km. */
 export function straightLineKm(
@@ -57,13 +77,12 @@ function fail(message: string): never {
   throw new ContractError(400, "invalid-facility-query", message);
 }
 export function facilityQuery(params: URLSearchParams, bundle: Bundle) {
-  const category = params.get("category");
-  if (!category) fail("category is required; available category: schools");
-  if (category !== "schools")
+  const category = facilityCategory(params.get("category"));
+  if (category !== bundle.category)
     throw new ContractError(
       422,
       "facility-category-unavailable",
-      "Facility category is unavailable; available category: schools",
+      "Requested category does not match the loaded inventory",
     );
   const version = params.get("version");
   if (version !== null && version !== bundle.datasetVersion)
@@ -127,7 +146,7 @@ export function facilityQuery(params: URLSearchParams, bundle: Bundle) {
       unit: "km",
       earthRadiusKm: 6371.0088,
       meaning:
-        "Straight-line to published points; nearest among coordinate-bearing records in this inventory, within bbox when supplied. No travel, school assignment or access guarantee.",
+        "Straight-line to published points; nearest among coordinate-bearing records in this inventory, within bbox when supplied. No travel, eligibility or access guarantee.",
     },
     matchedCount: candidates.length,
     returnedCount: Math.min(limit, candidates.length),

@@ -1,5 +1,9 @@
 # Backend session migration — 2026-11-07
 
+**Current resume checkpoint:** school and statewide CDPH healthcare inventories are implemented; see latest BACKEND_CHANGES.md and NEXT_SESSION_PROMPT.md. Next is CEC power validation. Historical pause, old hashes and availability descriptions below are migration-time evidence, superseded by resumed sections. Main and frontend remain separate; coordinate before integration.
+
+## Historical migration record
+
 Prepared at user request to migrate before automatic context compaction. **Implementation is paused at a clean, committed milestone.** Do not continue work in the departing session. This handoff is repository documentation, not a memory-store update.
 
 ## Resume here
@@ -148,3 +152,7 @@ After infrastructure: richer grounded comparison/story summaries, measured state
 ## Resumed backend increment — supersedes next-milestone status above
 
 2026-11-07: schools category is now complete through cached acquisition, versioned normalization, `/api/facilities` viewport/nearest queries, distance/coverage tests and both-port HTTP smoke. Read latest BACKEND_CHANGES.md and FACILITY_SOURCES.md. 9,946 schools / all coordinates / 58 geographic counties; Active and Closed retained. Rights resolved from cached state catalog. Healthcare/power remain unavailable. Next concrete source investigation: statewide CDPH listing candidate linked there, followed by CEC vintage/status gates. No integration or frontend edits. Frontend HEAD observed `dd9d57e`, with `design.md` modified; recheck before coordination. Main/preview sessions preserved. This resume explicitly proceeds past the earlier departing-session pause.
+
+## Sanity audit and healthcare continuation
+
+After 746f2a5, audited plan/ownership/source/API claims and reran the existing 31 tests/cache/proxy checks. No ownership or scope drift found; repaired stale opening continuation/status prose. Added statewide CDPH healthcare via public DataStore (direct CSV/XLSX downloads 403): 14,921 snapshot records, 14,919 eligible query coordinates. All source status OPEN, extraction 2026-10-16, 57 CA county labels plus Curry OR. Nevada/Oregon out-of-CES points retained/flagged, excluded spatially. Dictionary coordinate-CRS inconsistency documented; two independent source points checked. See latest BACKEND_CHANGES for license/provenance/limitations and 34-test/build/smoke evidence. Next: CEC power gates. Frontend active and untouched; integration still requires user coordination.

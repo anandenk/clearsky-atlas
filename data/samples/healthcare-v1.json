@@ -1,0 +1,475 @@
+{
+  "contractVersion": "atlas-facilities-v1",
+  "datasetVersion": "cdph-licensed-certified-2026-10-16-73188cdc553c",
+  "category": "healthcare",
+  "sourceUrl": "https://data.chhs.ca.gov/dataset/healthcare-facility-locations",
+  "sourcePeriod": "2026-10-16",
+  "observationDate": "2026-10-16",
+  "rights": {
+    "statement": "No restrictions on public use",
+    "namedLicense": "Creative Commons Attribution",
+    "licenseVersion": null,
+    "url": "https://data.ca.gov/@california-department-of-public-health/licensed-and-certified-healthcare-facility-listing"
+  },
+  "coverage": {
+    "scope": "Statewide CDPH licensed and/or CMS-certified facility listing",
+    "sourceInventoryComplete": true,
+    "realWorldCompleteness": "not-established",
+    "limitations": [
+      "CDPH licensed and/or CMS-certified scope only; not every healthcare provider. Snapshot does not establish current operation, eligibility, capacity or access.",
+      "Home health agencies, hospices, laboratories and other categories are not necessarily walk-in care sites. Read subtype and source fields.",
+      "Distances are spherical straight-line to published geocoded points, not travel time or entrances. Nearest means among coordinate-bearing records in this inventory, within bounds if supplied.",
+      "Missing/invalid coordinates and points outside CES tract coverage are retained with null query coordinates and flags, excluded from spatial results. Raw coordinates remain in sourceAttributes.",
+      "Dictionary calls latitude/longitude decimal degrees but also names EPSG:3857 inconsistently. Values are consumed as longitude/latitude degrees; no Web Mercator metre transform. LOCATION text is not used."
+    ]
+  },
+  "audit": {
+    "sourceCount": 14921,
+    "recordCount": 14921,
+    "coordinateCount": 14919,
+    "statusCounts": {
+      "OPEN": 14921
+    },
+    "subtypeCounts": {
+      "SNF": 1188,
+      "ICFDDH": 579,
+      "HHA": 4077,
+      "ICFDDN": 368,
+      "CLHF": 289,
+      "HOFA": 14,
+      "GACH": 415,
+      "COMTYC": 2654,
+      "ASC": 963,
+      "APH": 121,
+      "OPT/SP": 64,
+      "RHC/MD": 52,
+      "RHC/OP": 163,
+      "RHC": 76,
+      "FREEC": 81,
+      "FQHC": 178,
+      "ESRD": 116,
+      "RHC/COMTYC": 24,
+      "UNLICEN": 175,
+      "FQHC/COMTYC": 143,
+      "PSYCHC": 19,
+      "HOSPICE": 1968,
+      "ASC/SURGC": 46,
+      "ICFDDCN": 5,
+      "ICFDD": 12,
+      "PHF": 5,
+      "ADHC": 341,
+      "PPSPSCH": 17,
+      "PPSREHB": 9,
+      "PDHRCF": 28,
+      "ESRD/CDC": 620,
+      "CDRH": 10,
+      "REHABC/CORF": 6,
+      "TRANS": 19,
+      "REHABC": 12,
+      "CTC": 20,
+      "ICF": 7,
+      "REFRLAG": 4,
+      "SURGC": 4,
+      "CDC": 9,
+      "ABC": 5,
+      "CMHC": 15
+    },
+    "countyCounts": {
+      "SONOMA": 132,
+      "DEL NORTE": 22,
+      "HUMBOLDT": 76,
+      "MENDOCINO": 48,
+      "NAPA": 47,
+      "SOLANO": 111,
+      "LAKE": 31,
+      "MARIN": 83,
+      "ALAMEDA": 551,
+      "CONTRA COSTA": 277,
+      "SACRAMENTO": 364,
+      "SANTA CLARA": 359,
+      "PLACER": 75,
+      "CALAVERAS": 15,
+      "STANISLAUS": 152,
+      "TUOLUMNE": 25,
+      "EL DORADO": 33,
+      "AMADOR": 13,
+      "SAN JOAQUIN": 198,
+      "YOLO": 47,
+      "FRESNO": 377,
+      "MADERA": 59,
+      "MERCED": 84,
+      "KINGS": 48,
+      "MARIPOSA": 9,
+      "VENTURA": 386,
+      "SAN LUIS OBISPO": 124,
+      "SANTA BARBARA": 137,
+      "LOS ANGELES": 6468,
+      "ORANGE": 930,
+      "SAN BERNARDINO": 699,
+      "SAN DIEGO": 893,
+      "IMPERIAL": 46,
+      "RIVERSIDE": 599,
+      "MONTEREY": 116,
+      "SANTA CRUZ": 62,
+      "SAN BENITO": 12,
+      "SAN MATEO": 170,
+      "SAN FRANCISCO": 195,
+      "BUTTE": 87,
+      "SHASTA": 84,
+      "TULARE": 175,
+      "KERN": 287,
+      "NEVADA": 32,
+      "SISKIYOU": 22,
+      "SUTTER": 35,
+      "YUBA": 23,
+      "LASSEN": 9,
+      "PLUMAS": 13,
+      "MODOC": 9,
+      "TEHAMA": 18,
+      "TRINITY": 8,
+      "GLENN": 12,
+      "COLUSA": 11,
+      "SIERRA": 4,
+      "MONO": 4,
+      "INYO": 14,
+      "CURRY": 1
+    },
+    "flagCounts": {
+      "outside-ces-tract-coverage": 2
+    },
+    "flaggedIds": [
+      "cdph:630006081",
+      "cdph:630017965"
+    ],
+    "snapshotDates": [
+      "2026-10-16"
+    ],
+    "sourceResourceHash": "588a90e538502495b79040e5b97c1e8f",
+    "acquisition": "Sorted DataStore pages, exact count/unique row and FACID checks, unchanged count and resource hash/last_modified before/after"
+  },
+  "provenance": {
+    "healthcare-statewide-catalog.json": {
+      "url": "https://data.chhs.ca.gov/api/3/action/package_show?id=healthcare-facility-locations",
+      "retrievedAt": "2026-11-07T21:00:52.942966+00:00",
+      "sha256": "a2c74fe0125b306fb00fa025c29fb86bab0eae8bc3f80fcb5d6edce09e02b6a1",
+      "bytes": 19705,
+      "httpStatus": 200,
+      "validation": "passed-json-envelope"
+    },
+    "healthcare-statewide-rights.html": {
+      "url": "https://data.ca.gov/@california-department-of-public-health/licensed-and-certified-healthcare-facility-listing",
+      "retrievedAt": "2026-11-07T21:00:53.192770+00:00",
+      "sha256": "c813fd8fde5eeb29368a744679c44a5bba5a2714b2af272e1e8ba1bc46fb5795",
+      "bytes": 106101,
+      "httpStatus": 200,
+      "validation": "passed-security-page-screen-only"
+    },
+    "healthcare-statewide-sample.json": {
+      "url": "https://data.chhs.ca.gov/api/3/action/datastore_search?resource_id=f0ae5731-fef8-417f-839d-54a0ed3a126e&limit=2",
+      "retrievedAt": "2026-11-07T21:01:24.694496+00:00",
+      "sha256": "78e50975ad8d52fe7da79f2a0e7b694bfd8d066c9489d5020477a689b20a68f1",
+      "bytes": 9657,
+      "httpStatus": 200,
+      "validation": "passed-json-envelope"
+    },
+    "healthcare-statewide-dictionary.json": {
+      "url": "https://data.chhs.ca.gov/api/3/action/datastore_search?resource_id=dcc79560-c7ae-49f3-9b04-d498667e5572&limit=100",
+      "retrievedAt": "2026-11-07T21:01:24.912308+00:00",
+      "sha256": "2264a090c013add81daeeaf80094948971ace9a0776411e7368ce130fc49d125",
+      "bytes": 15925,
+      "httpStatus": 200,
+      "validation": "passed-json-envelope"
+    },
+    "healthcare-statewide-lookup.json": {
+      "url": "https://data.chhs.ca.gov/api/3/action/datastore_search?resource_id=1e29e3d3-2e35-48e5-a903-de6cfb2eaf2a&limit=100",
+      "retrievedAt": "2026-11-07T21:01:25.090857+00:00",
+      "sha256": "c27ab53dbc7b78dee6e857488e97d8185de6e643cfa5343f1fbf72d8708526dc",
+      "bytes": 37300,
+      "httpStatus": 200,
+      "validation": "passed-json-envelope"
+    },
+    "healthcare-statewide-lookup-full.json": {
+      "url": "https://data.chhs.ca.gov/api/3/action/datastore_search?resource_id=1e29e3d3-2e35-48e5-a903-de6cfb2eaf2a&limit=1000",
+      "retrievedAt": "2026-11-07T21:02:26.892718+00:00",
+      "sha256": "0dc79be33a5264b98abf4f9c40f2b79278dba91e01eccfeb60e04ac23d6cd733",
+      "bytes": 66391,
+      "httpStatus": 200,
+      "validation": "passed-json-envelope"
+    },
+    "healthcare-statewide-count-before.json": {
+      "url": "https://data.chhs.ca.gov/api/3/action/datastore_search?resource_id=f0ae5731-fef8-417f-839d-54a0ed3a126e&limit=0",
+      "retrievedAt": "2026-11-07T21:02:27.025542+00:00",
+      "sha256": "190f3f7d77f85fb6eefbbb3d76acf84a9659814350988cd6f2bdc4447746b371",
+      "bytes": 6508,
+      "httpStatus": 200,
+      "validation": "passed-json-envelope"
+    },
+    "healthcare-statewide-page-00.json": {
+      "url": "https://data.chhs.ca.gov/api/3/action/datastore_search?resource_id=f0ae5731-fef8-417f-839d-54a0ed3a126e&limit=1000&offset=0&sort=_id+asc&fields=_id%2CFACID%2CFACNAME%2CFAC_TYPE_CODE%2CFAC_FDR%2CFAC_STATUS_TYPE_CODE%2CLICENSED_CERTIFIED%2CLATITUDE%2CLONGITUDE%2CCOUNTY_NAME%2CFIPS_COUNTY_CODE%2CDATA_DATE%2CISFACMAIN%2CPARENT_FACID%2CFAC_FAC_RELATIONSHIP_TYPE_CODE%2CADDRESS%2CCITY%2CZIP%2CLICENSE_STATUS_DESCRIPTION",
+      "retrievedAt": "2026-11-07T21:02:27.183845+00:00",
+      "sha256": "b526d915edde58f5e97f7e4574e2b7a8a359aa6db0dd990399a9b6299e9ecef5",
+      "bytes": 521957,
+      "httpStatus": 200,
+      "validation": "passed-json-envelope"
+    },
+    "healthcare-statewide-page-01.json": {
+      "url": "https://data.chhs.ca.gov/api/3/action/datastore_search?resource_id=f0ae5731-fef8-417f-839d-54a0ed3a126e&limit=1000&offset=1000&sort=_id+asc&fields=_id%2CFACID%2CFACNAME%2CFAC_TYPE_CODE%2CFAC_FDR%2CFAC_STATUS_TYPE_CODE%2CLICENSED_CERTIFIED%2CLATITUDE%2CLONGITUDE%2CCOUNTY_NAME%2CFIPS_COUNTY_CODE%2CDATA_DATE%2CISFACMAIN%2CPARENT_FACID%2CFAC_FAC_RELATIONSHIP_TYPE_CODE%2CADDRESS%2CCITY%2CZIP%2CLICENSE_STATUS_DESCRIPTION",
+      "retrievedAt": "2026-11-07T21:02:27.376934+00:00",
+      "sha256": "1572f72107424cf4bc1537c4332353d320fbeb1caeea3a861a9d7ec54b07516e",
+      "bytes": 522724,
+      "httpStatus": 200,
+      "validation": "passed-json-envelope"
+    },
+    "healthcare-statewide-page-02.json": {
+      "url": "https://data.chhs.ca.gov/api/3/action/datastore_search?resource_id=f0ae5731-fef8-417f-839d-54a0ed3a126e&limit=1000&offset=2000&sort=_id+asc&fields=_id%2CFACID%2CFACNAME%2CFAC_TYPE_CODE%2CFAC_FDR%2CFAC_STATUS_TYPE_CODE%2CLICENSED_CERTIFIED%2CLATITUDE%2CLONGITUDE%2CCOUNTY_NAME%2CFIPS_COUNTY_CODE%2CDATA_DATE%2CISFACMAIN%2CPARENT_FACID%2CFAC_FAC_RELATIONSHIP_TYPE_CODE%2CADDRESS%2CCITY%2CZIP%2CLICENSE_STATUS_DESCRIPTION",
+      "retrievedAt": "2026-11-07T21:02:27.541117+00:00",
+      "sha256": "26e69d948f88da966d114b22879c34539b8ffa9532b748e64769aa16ddf4dd41",
+      "bytes": 522384,
+      "httpStatus": 200,
+      "validation": "passed-json-envelope"
+    },
+    "healthcare-statewide-page-03.json": {
+      "url": "https://data.chhs.ca.gov/api/3/action/datastore_search?resource_id=f0ae5731-fef8-417f-839d-54a0ed3a126e&limit=1000&offset=3000&sort=_id+asc&fields=_id%2CFACID%2CFACNAME%2CFAC_TYPE_CODE%2CFAC_FDR%2CFAC_STATUS_TYPE_CODE%2CLICENSED_CERTIFIED%2CLATITUDE%2CLONGITUDE%2CCOUNTY_NAME%2CFIPS_COUNTY_CODE%2CDATA_DATE%2CISFACMAIN%2CPARENT_FACID%2CFAC_FAC_RELATIONSHIP_TYPE_CODE%2CADDRESS%2CCITY%2CZIP%2CLICENSE_STATUS_DESCRIPTION",
+      "retrievedAt": "2026-11-07T21:02:27.736903+00:00",
+      "sha256": "32c8898d62dbdbe00d74ba1f6af8a135a58654f973a7d4dfe8d7b444ec30c49a",
+      "bytes": 524795,
+      "httpStatus": 200,
+      "validation": "passed-json-envelope"
+    },
+    "healthcare-statewide-page-04.json": {
+      "url": "https://data.chhs.ca.gov/api/3/action/datastore_search?resource_id=f0ae5731-fef8-417f-839d-54a0ed3a126e&limit=1000&offset=4000&sort=_id+asc&fields=_id%2CFACID%2CFACNAME%2CFAC_TYPE_CODE%2CFAC_FDR%2CFAC_STATUS_TYPE_CODE%2CLICENSED_CERTIFIED%2CLATITUDE%2CLONGITUDE%2CCOUNTY_NAME%2CFIPS_COUNTY_CODE%2CDATA_DATE%2CISFACMAIN%2CPARENT_FACID%2CFAC_FAC_RELATIONSHIP_TYPE_CODE%2CADDRESS%2CCITY%2CZIP%2CLICENSE_STATUS_DESCRIPTION",
+      "retrievedAt": "2026-11-07T21:02:28.072807+00:00",
+      "sha256": "918a4269c7a535f2b74e24e303b37401c5c1ded9a4195eb0653047277a7adec4",
+      "bytes": 524214,
+      "httpStatus": 200,
+      "validation": "passed-json-envelope"
+    },
+    "healthcare-statewide-page-05.json": {
+      "url": "https://data.chhs.ca.gov/api/3/action/datastore_search?resource_id=f0ae5731-fef8-417f-839d-54a0ed3a126e&limit=1000&offset=5000&sort=_id+asc&fields=_id%2CFACID%2CFACNAME%2CFAC_TYPE_CODE%2CFAC_FDR%2CFAC_STATUS_TYPE_CODE%2CLICENSED_CERTIFIED%2CLATITUDE%2CLONGITUDE%2CCOUNTY_NAME%2CFIPS_COUNTY_CODE%2CDATA_DATE%2CISFACMAIN%2CPARENT_FACID%2CFAC_FAC_RELATIONSHIP_TYPE_CODE%2CADDRESS%2CCITY%2CZIP%2CLICENSE_STATUS_DESCRIPTION",
+      "retrievedAt": "2026-11-07T21:02:28.243370+00:00",
+      "sha256": "8e69aea30ec3b9191160110810d253eade3a4f6612dfccae060c97dc01fd36e7",
+      "bytes": 522897,
+      "httpStatus": 200,
+      "validation": "passed-json-envelope"
+    },
+    "healthcare-statewide-page-06.json": {
+      "url": "https://data.chhs.ca.gov/api/3/action/datastore_search?resource_id=f0ae5731-fef8-417f-839d-54a0ed3a126e&limit=1000&offset=6000&sort=_id+asc&fields=_id%2CFACID%2CFACNAME%2CFAC_TYPE_CODE%2CFAC_FDR%2CFAC_STATUS_TYPE_CODE%2CLICENSED_CERTIFIED%2CLATITUDE%2CLONGITUDE%2CCOUNTY_NAME%2CFIPS_COUNTY_CODE%2CDATA_DATE%2CISFACMAIN%2CPARENT_FACID%2CFAC_FAC_RELATIONSHIP_TYPE_CODE%2CADDRESS%2CCITY%2CZIP%2CLICENSE_STATUS_DESCRIPTION",
+      "retrievedAt": "2026-11-07T21:02:28.513708+00:00",
+      "sha256": "3af8e5c50ce04eddc2fca91aa7987e9b3fcb137ac49332d43c6572a245bd56bd",
+      "bytes": 524507,
+      "httpStatus": 200,
+      "validation": "passed-json-envelope"
+    },
+    "healthcare-statewide-page-07.json": {
+      "url": "https://data.chhs.ca.gov/api/3/action/datastore_search?resource_id=f0ae5731-fef8-417f-839d-54a0ed3a126e&limit=1000&offset=7000&sort=_id+asc&fields=_id%2CFACID%2CFACNAME%2CFAC_TYPE_CODE%2CFAC_FDR%2CFAC_STATUS_TYPE_CODE%2CLICENSED_CERTIFIED%2CLATITUDE%2CLONGITUDE%2CCOUNTY_NAME%2CFIPS_COUNTY_CODE%2CDATA_DATE%2CISFACMAIN%2CPARENT_FACID%2CFAC_FAC_RELATIONSHIP_TYPE_CODE%2CADDRESS%2CCITY%2CZIP%2CLICENSE_STATUS_DESCRIPTION",
+      "retrievedAt": "2026-11-07T21:02:28.699399+00:00",
+      "sha256": "fb8e7cec159e5e5f2f2eebdbe11b8a51348f30a4212de05448bba3ec20228651",
+      "bytes": 523094,
+      "httpStatus": 200,
+      "validation": "passed-json-envelope"
+    },
+    "healthcare-statewide-page-08.json": {
+      "url": "https://data.chhs.ca.gov/api/3/action/datastore_search?resource_id=f0ae5731-fef8-417f-839d-54a0ed3a126e&limit=1000&offset=8000&sort=_id+asc&fields=_id%2CFACID%2CFACNAME%2CFAC_TYPE_CODE%2CFAC_FDR%2CFAC_STATUS_TYPE_CODE%2CLICENSED_CERTIFIED%2CLATITUDE%2CLONGITUDE%2CCOUNTY_NAME%2CFIPS_COUNTY_CODE%2CDATA_DATE%2CISFACMAIN%2CPARENT_FACID%2CFAC_FAC_RELATIONSHIP_TYPE_CODE%2CADDRESS%2CCITY%2CZIP%2CLICENSE_STATUS_DESCRIPTION",
+      "retrievedAt": "2026-11-07T21:02:28.883806+00:00",
+      "sha256": "ac36b48d3b06514e2adc0522c2181eb2fb895810d50fe0a9aa4a9515781854a7",
+      "bytes": 525544,
+      "httpStatus": 200,
+      "validation": "passed-json-envelope"
+    },
+    "healthcare-statewide-page-09.json": {
+      "url": "https://data.chhs.ca.gov/api/3/action/datastore_search?resource_id=f0ae5731-fef8-417f-839d-54a0ed3a126e&limit=1000&offset=9000&sort=_id+asc&fields=_id%2CFACID%2CFACNAME%2CFAC_TYPE_CODE%2CFAC_FDR%2CFAC_STATUS_TYPE_CODE%2CLICENSED_CERTIFIED%2CLATITUDE%2CLONGITUDE%2CCOUNTY_NAME%2CFIPS_COUNTY_CODE%2CDATA_DATE%2CISFACMAIN%2CPARENT_FACID%2CFAC_FAC_RELATIONSHIP_TYPE_CODE%2CADDRESS%2CCITY%2CZIP%2CLICENSE_STATUS_DESCRIPTION",
+      "retrievedAt": "2026-11-07T21:02:29.051509+00:00",
+      "sha256": "4b44055a3bce78bad3f68965884d327323a746d7ed454e8cf3542b48f39d1a03",
+      "bytes": 516414,
+      "httpStatus": 200,
+      "validation": "passed-json-envelope"
+    },
+    "healthcare-statewide-page-10.json": {
+      "url": "https://data.chhs.ca.gov/api/3/action/datastore_search?resource_id=f0ae5731-fef8-417f-839d-54a0ed3a126e&limit=1000&offset=10000&sort=_id+asc&fields=_id%2CFACID%2CFACNAME%2CFAC_TYPE_CODE%2CFAC_FDR%2CFAC_STATUS_TYPE_CODE%2CLICENSED_CERTIFIED%2CLATITUDE%2CLONGITUDE%2CCOUNTY_NAME%2CFIPS_COUNTY_CODE%2CDATA_DATE%2CISFACMAIN%2CPARENT_FACID%2CFAC_FAC_RELATIONSHIP_TYPE_CODE%2CADDRESS%2CCITY%2CZIP%2CLICENSE_STATUS_DESCRIPTION",
+      "retrievedAt": "2026-11-07T21:02:29.212058+00:00",
+      "sha256": "e316d4a5de4a863670d10a2084fed642c6459208a9d2b6e20f70804b6feb6097",
+      "bytes": 518951,
+      "httpStatus": 200,
+      "validation": "passed-json-envelope"
+    },
+    "healthcare-statewide-page-11.json": {
+      "url": "https://data.chhs.ca.gov/api/3/action/datastore_search?resource_id=f0ae5731-fef8-417f-839d-54a0ed3a126e&limit=1000&offset=11000&sort=_id+asc&fields=_id%2CFACID%2CFACNAME%2CFAC_TYPE_CODE%2CFAC_FDR%2CFAC_STATUS_TYPE_CODE%2CLICENSED_CERTIFIED%2CLATITUDE%2CLONGITUDE%2CCOUNTY_NAME%2CFIPS_COUNTY_CODE%2CDATA_DATE%2CISFACMAIN%2CPARENT_FACID%2CFAC_FAC_RELATIONSHIP_TYPE_CODE%2CADDRESS%2CCITY%2CZIP%2CLICENSE_STATUS_DESCRIPTION",
+      "retrievedAt": "2026-11-07T21:02:29.389192+00:00",
+      "sha256": "7a75cd405f95af594223ae109814356ce9f09d0157e2bed927612a5fc69c3c30",
+      "bytes": 520877,
+      "httpStatus": 200,
+      "validation": "passed-json-envelope"
+    },
+    "healthcare-statewide-page-12.json": {
+      "url": "https://data.chhs.ca.gov/api/3/action/datastore_search?resource_id=f0ae5731-fef8-417f-839d-54a0ed3a126e&limit=1000&offset=12000&sort=_id+asc&fields=_id%2CFACID%2CFACNAME%2CFAC_TYPE_CODE%2CFAC_FDR%2CFAC_STATUS_TYPE_CODE%2CLICENSED_CERTIFIED%2CLATITUDE%2CLONGITUDE%2CCOUNTY_NAME%2CFIPS_COUNTY_CODE%2CDATA_DATE%2CISFACMAIN%2CPARENT_FACID%2CFAC_FAC_RELATIONSHIP_TYPE_CODE%2CADDRESS%2CCITY%2CZIP%2CLICENSE_STATUS_DESCRIPTION",
+      "retrievedAt": "2026-11-07T21:02:29.617784+00:00",
+      "sha256": "0d0dce8459ff57af8d5710e3d2c1683e0441a7e497b17912a924c443710f715b",
+      "bytes": 530159,
+      "httpStatus": 200,
+      "validation": "passed-json-envelope"
+    },
+    "healthcare-statewide-page-13.json": {
+      "url": "https://data.chhs.ca.gov/api/3/action/datastore_search?resource_id=f0ae5731-fef8-417f-839d-54a0ed3a126e&limit=1000&offset=13000&sort=_id+asc&fields=_id%2CFACID%2CFACNAME%2CFAC_TYPE_CODE%2CFAC_FDR%2CFAC_STATUS_TYPE_CODE%2CLICENSED_CERTIFIED%2CLATITUDE%2CLONGITUDE%2CCOUNTY_NAME%2CFIPS_COUNTY_CODE%2CDATA_DATE%2CISFACMAIN%2CPARENT_FACID%2CFAC_FAC_RELATIONSHIP_TYPE_CODE%2CADDRESS%2CCITY%2CZIP%2CLICENSE_STATUS_DESCRIPTION",
+      "retrievedAt": "2026-11-07T21:02:29.793798+00:00",
+      "sha256": "2828ebf5b6b961d389647870c90eeedfc67953d45e22d7d8ff3dbd55806847d7",
+      "bytes": 530750,
+      "httpStatus": 200,
+      "validation": "passed-json-envelope"
+    },
+    "healthcare-statewide-page-14.json": {
+      "url": "https://data.chhs.ca.gov/api/3/action/datastore_search?resource_id=f0ae5731-fef8-417f-839d-54a0ed3a126e&limit=1000&offset=14000&sort=_id+asc&fields=_id%2CFACID%2CFACNAME%2CFAC_TYPE_CODE%2CFAC_FDR%2CFAC_STATUS_TYPE_CODE%2CLICENSED_CERTIFIED%2CLATITUDE%2CLONGITUDE%2CCOUNTY_NAME%2CFIPS_COUNTY_CODE%2CDATA_DATE%2CISFACMAIN%2CPARENT_FACID%2CFAC_FAC_RELATIONSHIP_TYPE_CODE%2CADDRESS%2CCITY%2CZIP%2CLICENSE_STATUS_DESCRIPTION",
+      "retrievedAt": "2026-11-07T21:02:30.035818+00:00",
+      "sha256": "63afad6830c543275a334f9da48633603ebcce1d8d62178a41feedf1e5abdeee",
+      "bytes": 488243,
+      "httpStatus": 200,
+      "validation": "passed-json-envelope"
+    },
+    "healthcare-statewide-count-after.json": {
+      "url": "https://data.chhs.ca.gov/api/3/action/datastore_search?resource_id=f0ae5731-fef8-417f-839d-54a0ed3a126e&limit=0",
+      "retrievedAt": "2026-11-07T21:02:30.287285+00:00",
+      "sha256": "190f3f7d77f85fb6eefbbb3d76acf84a9659814350988cd6f2bdc4447746b371",
+      "bytes": 6508,
+      "httpStatus": 200,
+      "validation": "passed-json-envelope"
+    },
+    "healthcare-statewide-catalog-after.json": {
+      "url": "https://data.chhs.ca.gov/api/3/action/package_show?id=healthcare-facility-locations",
+      "retrievedAt": "2026-11-07T21:02:30.394178+00:00",
+      "sha256": "a2c74fe0125b306fb00fa025c29fb86bab0eae8bc3f80fcb5d6edce09e02b6a1",
+      "bytes": 19705,
+      "httpStatus": 200,
+      "validation": "passed-json-envelope"
+    }
+  },
+  "query": {
+    "category": "healthcare",
+    "bbox": null,
+    "near": [
+      -122.271,
+      37.803
+    ],
+    "limit": 3
+  },
+  "distance": {
+    "method": "spherical-great-circle",
+    "unit": "km",
+    "earthRadiusKm": 6371.0088,
+    "meaning": "Straight-line to published points; nearest among coordinate-bearing records in this inventory, within bbox when supplied. No travel, eligibility or access guarantee."
+  },
+  "matchedCount": 14919,
+  "returnedCount": 3,
+  "truncated": true,
+  "facilities": [
+    {
+      "id": "cdph:630028253",
+      "category": "healthcare",
+      "name": "PLANNED PARENTHOOD MAR MONTE - OAKLAND",
+      "coordinate": [
+        -122.27066,
+        37.80442201
+      ],
+      "sourceId": "cdph-licensed-certified",
+      "status": "OPEN",
+      "observationDate": "2026-10-16",
+      "sourcePeriod": "2026-10-16",
+      "subtype": "COMTYC",
+      "flags": [],
+      "sourceAttributes": {
+        "_id": 13275,
+        "FACID": "630028253",
+        "FACNAME": "PLANNED PARENTHOOD MAR MONTE - OAKLAND",
+        "FAC_TYPE_CODE": "COMTYC",
+        "FAC_FDR": "PRIMARY CARE CLINIC",
+        "FAC_STATUS_TYPE_CODE": "OPEN",
+        "LICENSED_CERTIFIED": "LICENSED ONLY",
+        "LATITUDE": 37.80442201,
+        "LONGITUDE": -122.27066,
+        "COUNTY_NAME": "ALAMEDA",
+        "FIPS_COUNTY_CODE": 6001,
+        "DATA_DATE": "2026-10-16T00:00:00",
+        "ISFACMAIN": "Y",
+        "PARENT_FACID": null,
+        "FAC_FAC_RELATIONSHIP_TYPE_CODE": "PARENT",
+        "ADDRESS": "1400 BROADWAY",
+        "CITY": "OAKLAND",
+        "ZIP": 94612,
+        "LICENSE_STATUS_DESCRIPTION": "ACTIVE"
+      },
+      "distanceKm": 0.16091735652059347
+    },
+    {
+      "id": "cdph:630028119",
+      "category": "healthcare",
+      "name": "COUNTY OF ALAMEDA",
+      "coordinate": [
+        -122.2695003,
+        37.8038779
+      ],
+      "sourceId": "cdph-licensed-certified",
+      "status": "OPEN",
+      "observationDate": "2026-10-16",
+      "sourcePeriod": "2026-10-16",
+      "subtype": "FQHC",
+      "flags": [],
+      "sourceAttributes": {
+        "_id": 13181,
+        "FACID": "630028119",
+        "FACNAME": "COUNTY OF ALAMEDA",
+        "FAC_TYPE_CODE": "FQHC",
+        "FAC_FDR": "PRIMARY CARE CLINIC",
+        "FAC_STATUS_TYPE_CODE": "OPEN",
+        "LICENSED_CERTIFIED": "NOT LICENSED/NOT CERTIFIED",
+        "LATITUDE": 37.8038779,
+        "LONGITUDE": -122.2695003,
+        "COUNTY_NAME": "ALAMEDA",
+        "FIPS_COUNTY_CODE": 6001,
+        "DATA_DATE": "2026-10-16T00:00:00",
+        "ISFACMAIN": "Y",
+        "PARENT_FACID": null,
+        "FAC_FAC_RELATIONSHIP_TYPE_CODE": "PARENT",
+        "ADDRESS": "384 14TH ST",
+        "CITY": "OAKLAND",
+        "ZIP": 94612,
+        "LICENSE_STATUS_DESCRIPTION": null
+      },
+      "distanceKm": 0.16398133901716272
+    },
+    {
+      "id": "cdph:630016219",
+      "category": "healthcare",
+      "name": "LIFELONG TRUST HEALTH CENTER",
+      "coordinate": [
+        -122.2695,
+        37.803879
+      ],
+      "sourceId": "cdph-licensed-certified",
+      "status": "OPEN",
+      "observationDate": "2026-10-16",
+      "sourcePeriod": "2026-10-16",
+      "subtype": "COMTYC",
+      "flags": [],
+      "sourceAttributes": {
+        "_id": 6487,
+        "FACID": "630016219",
+        "FACNAME": "LIFELONG TRUST HEALTH CENTER",
+        "FAC_TYPE_CODE": "COMTYC",
+        "FAC_FDR": "PRIMARY CARE CLINIC",
+        "FAC_STATUS_TYPE_CODE": "OPEN",
+        "LICENSED_CERTIFIED": "LICENSED AND CERTIFIED",
+        "LATITUDE": 37.803879,
+        "LONGITUDE": -122.2695,
+        "COUNTY_NAME": "ALAMEDA",
+        "FIPS_COUNTY_CODE": 6001,
+        "DATA_DATE": "2026-10-16T00:00:00",
+        "ISFACMAIN": "Y",
+        "PARENT_FACID": null,
+        "FAC_FAC_RELATIONSHIP_TYPE_CODE": "PARENT",
+        "ADDRESS": "386 14TH STREET",
+        "CITY": "OAKLAND, CA",
+        "ZIP": 94612,
+        "LICENSE_STATUS_DESCRIPTION": "ACTIVE"
+      },
+      "distanceKm": 0.16407535101925896
+    }
+  ]
+}
