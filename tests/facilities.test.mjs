@@ -26,9 +26,8 @@ await fs.writeFile(
   path.join(dir, "error.mjs"),
   stripTypeScriptTypes(errorClass),
 );
-const { facilityBundle, facilityQuery, straightLineKm } = await import(
-  pathToFileURL(path.join(dir, "facilities.mjs"))
-);
+const { facilityBundle, facilityQuery, straightLineKm, facilityCatalog } =
+  await import(pathToFileURL(path.join(dir, "facilities.mjs")));
 const bundle = facilityBundle();
 const query = (s) => facilityQuery(new URLSearchParams(s), bundle);
 test.after(() => fs.rm(dir, { recursive: true, force: true }));
@@ -273,4 +272,85 @@ test("healthcare query stays category/version isolated; real excluded coordinate
     (e) => e.status === 422,
   );
   assert.equal(facilityBundle(), bundle);
+});
+
+test("complete CEC candidate preserves raw fields/nulls but cannot assert status or reporting period", async () => {
+  const stagedBytes = await fs.readFile(
+    "data/facility-verification/power-normalized.json",
+  );
+  const staged = JSON.parse(stagedBytes);
+  const raw = JSON.parse(await fs.readFile("data/raw/power-inventory.json"));
+  const ids = JSON.parse(
+    await fs.readFile("data/raw/power-inventory-ids.json"),
+  ).objectIds;
+  assert.equal(staged.backendReady, false);
+  assert.equal(staged.facilities.length, 2378);
+  assert.equal(staged.facilities.filter((f) => f.coordinate).length, 2334);
+  assert.deepEqual(
+    staged.facilities
+      .map((f) => f.sourceAttributes.OBJECTID)
+      .sort((a, b) => a - b),
+    ids.sort((a, b) => a - b),
+  );
+  assert.equal(new Set(staged.facilities.map((f) => f.id)).size, 2378);
+  const byId = new Map(
+    raw.features.map((f) => ["cec:" + f.attributes.CECPlantID, f]),
+  );
+  for (const f of staged.facilities) {
+    assert.deepEqual(f.sourceAttributes, byId.get(f.id).attributes);
+    assert.deepEqual(f.sourceGeometry, byId.get(f.id).geometry);
+    assert.equal(f.status, null);
+    assert.equal(f.sourcePeriod, null);
+    assert.equal(f.observationDate, null);
+    if (f.coordinate)
+      assert.deepEqual(f.coordinate, [
+        byId.get(f.id).geometry.x,
+        byId.get(f.id).geometry.y,
+      ]);
+    else assert.ok(f.flags.includes("outside-ces-tract-coverage"));
+  }
+  assert.equal(staged.audit.nullCounts.Capacity_Latest, 1);
+  assert.equal(staged.audit.nullCounts.PriEnergySource, 6);
+  assert.deepEqual(staged.audit.rawRetiredCodeCounts, { 0: 2082, 1: 296 });
+  assert.ok(staged.audit.maxIndependentTransformDifferenceMetres < 3);
+  assert.equal(staged.audit.sourceCrs, "EPSG:4269");
+  assert.equal(staged.audit.queryCrs, "EPSG:4326");
+  for (const [name, provenance] of Object.entries(staged.provenance))
+    assert.equal(
+      createHash("sha256")
+        .update(await fs.readFile("data/raw/" + name))
+        .digest("hex"),
+      provenance.sha256,
+    );
+  const readiness = JSON.parse(
+    await fs.readFile("data/contracts/power-readiness.json"),
+  );
+  assert.equal(
+    createHash("sha256").update(stagedBytes).digest("hex"),
+    readiness.stagedArtifactSha256,
+  );
+  assert.throws(
+    () => facilityQuery(new URLSearchParams("category=power&near=0,0"), staged),
+    (e) => e.status === 422,
+  );
+});
+test("facility catalog exposes ready inventories and explicit unavailable power gates without point payloads", () => {
+  const catalog = facilityCatalog();
+  assert.equal(catalog.contractVersion, "atlas-facility-catalog-v1");
+  assert.deepEqual(
+    catalog.categories.map((c) => c.id),
+    ["schools", "healthcare", "power"],
+  );
+  const [schools, health, power] = catalog.categories;
+  assert.equal(schools.backendReady, true);
+  assert.equal(health.backendReady, true);
+  assert.equal(power.backendReady, false);
+  assert.ok(catalog.categories.every((c) => !("facilities" in c)));
+  assert.equal(power.sourcePeriod, null);
+  assert.equal(power.observationDate, null);
+  assert.deepEqual(
+    power.blockers.map((b) => b.code),
+    ["reporting-period-unverified", "retired-code-unverified"],
+  );
+  assert.ok(power.blockers.every((b) => b.trigger));
 });

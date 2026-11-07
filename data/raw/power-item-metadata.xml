@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><metadata xml:lang="en">
+    <Esri>
+        <CreaDate>20220802</CreaDate>
+        <CreaTime>09115200</CreaTime>
+        <ArcGISFormat>1.0</ArcGISFormat>
+        <SyncOnce>TRUE</SyncOnce>
+    <DataProperties><itemProps><portalDetails><thumbnailURL>https://www.arcgis.com/sharing/rest/content/items/4a702cd67be24ae7ab8173423a768e1b/info/thumbnail/thumbnail1786554241764.png</thumbnailURL></portalDetails></itemProps></DataProperties></Esri>
+    <dataIdInfo>
+        <idCitation>
+            <resTitle>Map</resTitle>
+        </idCitation>
+        <idAbs>&lt;p&gt;The power plant locations and characteristics are part of
+the California Energy Commission’s (CEC) California Energy Infrastructure geospatial
+data sets. The data is derived from the CEC’s QFER-1304
+Power Plant Owner Reporting Database and is updated annually. Among other information, a number of identifying attributes are given for each power plant as
+well as the generator units at each plant, their energy type, the total
+nameplate capacity, and their owners and operators.&lt;/p&gt;
+
+&lt;p&gt;This California Power Plants data set has identical
+information to the many tables making up the QFER data set, however this single
+feature layer is derived by condensing several QFER tables into one. Some
+fields of the original tables have been omitted, and point geometries,
+determined by each plants’ address fields, have been appended for geospatial display.
+Four new fields have been compiled from QFER’s Annual
+Generation Table. These are listed and defined as:&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;span style='text-indent:-0.25in;'&gt;Nameplate Capacity (MW): The total nameplate
+capacity from every unit that makes up the power plant, regardless of status &lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style='text-indent:-0.25in;'&gt;Units: List of the unit names at each power
+plant &lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style='text-indent:-0.25in;'&gt;Primary Energy Source: A list of the primary
+energy sources used by every generator at the plant&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style='text-indent:-0.25in;'&gt;Last Reported Year: The last year that the power
+plant was recorded in the &lt;/span&gt;&lt;span style='text-indent:-0.25in;'&gt;Annual
+Generation Table&lt;/span&gt;&lt;span style='text-indent:-0.25in;'&gt;.&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Primary Energy Source Descriptions:&lt;/p&gt;&lt;table border='0' cellpadding='0' cellspacing='0' style='border-collapse:collapse; width:508pt;' width='679'&gt;&lt;tbody&gt;&lt;tr height='18' style='height:13.2pt;'&gt;
+  &lt;td height='18' style='height:13.2pt; width:62pt;' width='83'&gt;Source&lt;/td&gt;
+  &lt;td style='border-left:none; width:121pt;' width='162'&gt;Type&lt;/td&gt;
+  &lt;td style='border-left:none; width:325pt;' width='434'&gt;Description&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='18' style='height:13.2pt;'&gt;
+  &lt;td height='18' style='height:13.2pt; border-top:none;'&gt;AB&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Biomass&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Agriculture
+  Crop Byproducts/Straw/Energy Crops&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='18' style='height:13.2pt;'&gt;
+  &lt;td height='18' style='height:13.2pt; border-top:none;'&gt;BAT&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Battery&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Battery
+  Storage - not to be counted as a primary fuel/energy source&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='18' style='height:13.2pt;'&gt;
+  &lt;td height='18' style='height:13.2pt; border-top:none;'&gt;BFG&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Natural Gas&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Blast
+  Furnace Gas&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='18' style='height:13.2pt;'&gt;
+  &lt;td height='18' style='height:13.2pt; border-top:none;'&gt;BIT&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Coal&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Bituminous
+  Coal&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='18' style='height:13.2pt;'&gt;
+  &lt;td height='18' style='height:13.2pt; border-top:none;'&gt;BLQ&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Biomass&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Black
+  Liquor&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='18' style='height:13.2pt;'&gt;
+  &lt;td height='18' style='height:13.2pt; border-top:none;'&gt;COL&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Coal&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Anthracite
+  Coal&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='35' style='height:26.4pt;'&gt;
+  &lt;td height='35' style='height:26.4pt; border-top:none;'&gt;DFO&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Oil&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Distillate
+  Fuel Oil (includes all Diesel and No. 1, No. 2, and No. 4 Fuel Oils) &lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='18' style='height:13.2pt;'&gt;
+  &lt;td height='18' style='height:13.2pt; border-top:none;'&gt;GAS&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Oil&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Gasoline&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='18' style='height:13.2pt;'&gt;
+  &lt;td height='18' style='height:13.2pt; border-top:none;'&gt;GEO&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Geothermal&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Geothermal&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='18' style='height:13.2pt;'&gt;
+  &lt;td height='18' style='height:13.2pt; border-top:none;'&gt;JF&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Oil&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Jet
+  Fuel &lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='18' style='height:13.2pt;'&gt;
+  &lt;td height='18' style='height:13.2pt; border-top:none;'&gt;KER &lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Oil&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Kerosene &lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='18' style='height:13.2pt;'&gt;
+  &lt;td height='18' style='height:13.2pt; border-top:none;'&gt;LFG&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Biomass&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Landfill
+  Gas&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='18' style='height:13.2pt;'&gt;
+  &lt;td height='18' style='height:13.2pt; border-top:none;'&gt;LIG&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Coal&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Lignite
+  Coal&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='18' style='height:13.2pt;'&gt;
+  &lt;td height='18' style='height:13.2pt; border-top:none;'&gt;LWAT&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Large Hydro&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Large
+  Hydro&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='18' style='height:13.2pt;'&gt;
+  &lt;td height='18' style='height:13.2pt; border-top:none;'&gt;MSW&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Biomass&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Municipal
+  Solid Waste&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='18' style='height:13.2pt;'&gt;
+  &lt;td height='18' style='height:13.2pt; border-top:none;'&gt;N/A&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Unspecified&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Other,
+  non-specified&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='18' style='height:13.2pt;'&gt;
+  &lt;td height='18' style='height:13.2pt; border-top:none;'&gt;NA&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Unspecified&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Not
+  Available&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='35' style='height:26.4pt;'&gt;
+  &lt;td height='35' style='height:26.4pt; border-top:none;'&gt;NG&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Natural Gas&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Natural
+  Gas (Methane - Pipeline Weighted National Average w/ HHV 1,050 Btu/scf)&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='18' style='height:13.2pt;'&gt;
+  &lt;td height='18' style='height:13.2pt; border-top:none;'&gt;NUC&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Nuclear&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Nuclear
+  (Uranium, Plutonium, Thorium)&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='35' style='height:26.4pt;'&gt;
+  &lt;td height='35' style='height:26.4pt; border-top:none;'&gt;OBG&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Biomass&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Other
+  Biomass Gases (Digester Gas, Methane, and other biomass gases)&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='53' style='height:39.6pt;'&gt;
+  &lt;td height='53' style='height:39.6pt; border-top:none;'&gt;OBL&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Biomass&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Other
+  Biomass Liquid (Ethanol, Fish Oil, Liquid Acetonitrile Waste, Medical Waste,
+  Tall Oil, Waste Alcohol, and other Biomass not specified)&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='35' style='height:26.4pt;'&gt;
+  &lt;td height='35' style='height:26.4pt; border-top:none;'&gt;OBS&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Biomass&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Other
+  Biomass Solid (Animal Manure and Waste, Solid Byproducts, and other solid
+  biomass not specified) &lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='35' style='height:26.4pt;'&gt;
+  &lt;td height='35' style='height:26.4pt; border-top:none;'&gt;OG&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Natural Gas&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Other
+  Gas (Butane, Coal Processes, Coke-Oven, Refinery, and other processes)&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='18' style='height:13.2pt;'&gt;
+  &lt;td height='18' style='height:13.2pt; border-top:none;'&gt;OGW&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Biomass&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Other
+  gases, waste products&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='18' style='height:13.2pt;'&gt;
+  &lt;td height='18' style='height:13.2pt; border-top:none;'&gt;OIL&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Oil&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Non-specified
+  oil products, may include distillate fuel oil&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='35' style='height:26.4pt;'&gt;
+  &lt;td height='35' style='height:26.4pt; border-top:none;'&gt;OTH &lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Other&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Other
+  (Batteries, Chemicals, Coke Breeze, Hydrogen, Pitch, Sulfur, Tar Coal, and
+  miscellaneous technologies)&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='18' style='height:13.2pt;'&gt;
+  &lt;td height='18' style='height:13.2pt; border-top:none;'&gt;PC&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Petroleum Coke&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Petroleum
+  Coke (Solid)&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='18' style='height:13.2pt;'&gt;
+  &lt;td height='18' style='height:13.2pt; border-top:none;'&gt;PG&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Natural Gas&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Propane&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='18' style='height:13.2pt;'&gt;
+  &lt;td height='18' style='height:13.2pt; border-top:none;'&gt;PUR&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Other&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Purchased
+  Steam&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='35' style='height:26.4pt;'&gt;
+  &lt;td height='35' style='height:26.4pt; border-top:none;'&gt;RFO&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Oil&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Residual
+  Fuel Oil (includes No. 5 and No. 6 Fuel Oils and Bunker C Fuel Oil)&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='35' style='height:26.4pt;'&gt;
+  &lt;td height='35' style='height:26.4pt; border-top:none;'&gt;SC&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Coal&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Coal-based
+  Synfuel and include briquettes, pellets, or extrusions, which are formed by
+  binding materials and processes that recycle material&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='18' style='height:13.2pt;'&gt;
+  &lt;td height='18' style='height:13.2pt; border-top:none;'&gt;SLW&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Biomass&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Sludge
+  Waste (Waste Oil blended with Residual Fuel Oil)&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='18' style='height:13.2pt;'&gt;
+  &lt;td height='18' style='height:13.2pt; border-top:none;'&gt;SUB&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Coal&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Sub-bituminous
+  Coal&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='18' style='height:13.2pt;'&gt;
+  &lt;td height='18' style='height:13.2pt; border-top:none;'&gt;SUN&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Solar&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Solar
+  (Photovoltaic, Thermal)&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='18' style='height:13.2pt;'&gt;
+  &lt;td height='18' style='height:13.2pt; border-top:none;'&gt;SWAT&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Small Hydro&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Small
+  Hydro, Eligible Hydroelectric for RPS&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='18' style='height:13.2pt;'&gt;
+  &lt;td height='18' style='height:13.2pt; border-top:none;'&gt;TDF&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Biomass&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Tires&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='18' style='height:13.2pt;'&gt;
+  &lt;td height='18' style='height:13.2pt; border-top:none;'&gt;UNK&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Unspecified&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Other,
+  non specified&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='18' style='height:13.2pt;'&gt;
+  &lt;td height='18' style='height:13.2pt; border-top:none;'&gt;UNSP&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Unspecified&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Unspecified&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='18' style='height:13.2pt;'&gt;
+  &lt;td height='18' style='height:13.2pt; border-top:none;'&gt;WAT&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Hydro (Large and
+  Small)&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Water
+  (Conventional, Pumped Storage)&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='35' style='height:26.4pt;'&gt;
+  &lt;td height='35' style='height:26.4pt; border-top:none;'&gt;WC&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Coal&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Waste/Other
+  Coal (Anthracite Culm, Bituminous Gob, Fine Coal, Lignite Waste, Waste
+  Coal) &lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='35' style='height:26.4pt;'&gt;
+  &lt;td height='35' style='height:26.4pt; border-top:none;'&gt;WDL&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Biomass&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Wood
+  Waste Liquids (Red Liquor, Sludge Wood, Spent Sulfite Liquor, and other wood
+  related liquids not &lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='35' style='height:26.4pt;'&gt;
+  &lt;td height='35' style='height:26.4pt; border-top:none;'&gt;WDS&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Biomass&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Wood/Wood
+  Waste Solids (Paper Pellets, Railroad Ties, Utility Poles, Wood Chips, and
+  other wood solids)&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='18' style='height:13.2pt;'&gt;
+  &lt;td height='18' style='height:13.2pt; border-top:none;'&gt;WH&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Waste Heat&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Waste
+  Heat&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='18' style='height:13.2pt;'&gt;
+  &lt;td height='18' style='height:13.2pt; border-top:none;'&gt;WND&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Wind&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Wind&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr height='53' style='height:39.6pt;'&gt;
+  &lt;td height='53' style='height:39.6pt; border-top:none;'&gt;WO&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none;'&gt;Oil&lt;/td&gt;
+  &lt;td style='border-top:none; border-left:none; width:325pt;' width='434'&gt;Oil-Other
+  and Waste Oil (Butane (Liquid), Crude Oil, Liquid Byproducts, Oil Waste,
+  Propane (Liquid),&lt;br /&gt;
+    Re-refined &lt;/td&gt;
+ &lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;p&gt;The purpose of this feature layer is to:&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;span style='text-indent:-0.25in; color:black;'&gt;Support the
+CEC/Energy Assessments Division/Supply Analysis Office in electric generation
+report;&lt;/span&gt;&lt;br /&gt;&lt;/li&gt;&lt;li&gt;&lt;span style='text-indent:-0.25in; color:black;'&gt;Support the
+CEC/REAT by providing information on renewable power plant location and
+capacity;&lt;/span&gt;&lt;span style='text-indent:-0.25in; color:black;'&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style='text-indent:-0.25in; color:black;'&gt;Support the CEC/STEP/Engineering Office/Geo
+Science in water management report;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style='text-indent:-0.25in; color:black;'&gt;Support
+CEC/STEP/Siting Office, Compliance Office, Environmental Office, Engineering
+Office, and /Strategic Transmission Planning and Corridor Designation
+Office  by providing information on power plant location, capacity, fuel
+type, operational status, CEC docket id, etc.&lt;/span&gt;&lt;span style='font-variant-numeric:normal; font-variant-east-asian:normal; font-stretch:normal; font-size:7pt; font-family:&amp;quot;Times New Roman&amp;quot;;'&gt;    &lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style='text-indent:-0.25in; color:black;'&gt;Support the
+CEC/STEP/Strategic Transmission Planning and Corridor Designation Office in
+corridor study and transmission line siting;&lt;/span&gt;&lt;span style='font-variant-numeric:normal; font-variant-east-asian:normal; font-stretch:normal; font-size:7pt; font-family:&amp;quot;Times New Roman&amp;quot;;'&gt;   &lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style='text-indent:-0.25in; color:black;'&gt;Support the
+CEC staff's various analysis by providing general geographic reference
+information;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style='text-indent:-0.25in; color:black;'&gt;Enhance
+communication between government agencies on emergency management, resource
+management, economic development, and environmental study;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;font color='#000000'&gt;Provide illustration of critical infrastructure
+spatial data to the public or other agencies &lt;/font&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;/p&gt;
+
+&lt;p style='margin-bottom:0in; text-indent:-.25in; background:white;'&gt;&lt;span style='font-family:Symbol; color:black;'&gt;&lt;span&gt;&lt;span style='font:7.0pt &amp;quot;Times New Roman&amp;quot;;'&gt;  &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;</idAbs>
+        <searchKeys>
+            <keyword>Power Plant</keyword>
+            <keyword>CAOpenData</keyword>
+            <keyword>California Energy Commission</keyword>
+            <keyword>California Natural Resources Agency</keyword>
+            <keyword>QFER</keyword>
+            <keyword>capacity</keyword>
+        </searchKeys>
+        <idPurp>Power plant locations and characteristics as recorded in the Quarterly Fuel and Energy Report (QFER) database from the California Energy Commission (CEC). Last updated in May 2023</idPurp>
+        <idCredit>Californai Energy Commission</idCredit>
+        <resConst>
+            <Consts>
+                <useLimit>&lt;p&gt;&lt;a href='https://www.energy.ca.gov/conditions-of-use' rel='nofollow ugc'&gt;https://www.energy.ca.gov/conditions-of-use&lt;/a&gt;&lt;br /&gt;&lt;/p&gt;</useLimit>
+            </Consts>
+        </resConst>
+    </dataIdInfo>
+    <Binary>
+        <Thumbnail>
+            <Data EsriPropertyType="PictureX">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</Data>
+        </Thumbnail>
+    </Binary>
+</metadata>

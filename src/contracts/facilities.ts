@@ -154,3 +154,55 @@ export function facilityQuery(params: URLSearchParams, bundle: Bundle) {
     facilities: candidates.slice(0, limit),
   };
 }
+
+/** Discover supported inventories and explicit source gates without loading all points into the response. */
+export function facilityCatalog() {
+  const categories: Record<string, unknown>[] = FACILITY_CATEGORIES.map(
+    (category) => {
+      try {
+        const { facilities: _points, ...metadata } = facilityBundle(category);
+        return { id: category, backendReady: true, ...metadata, blockers: [] };
+      } catch {
+        return {
+          id: category,
+          category,
+          backendReady: false,
+          blockers: [
+            {
+              code: "local-data-unavailable",
+              detail: "Verified inventory could not be read locally.",
+            },
+          ],
+        };
+      }
+    },
+  );
+  try {
+    const staged = JSON.parse(
+      fs.readFileSync(
+        path.join(process.cwd(), "data/contracts/power-readiness.json"),
+        "utf8",
+      ),
+    );
+    categories.push({ ...staged, id: "power", backendReady: false });
+  } catch {
+    categories.push({
+      id: "power",
+      category: "power",
+      backendReady: false,
+      blockers: [
+        {
+          code: "source-contract-unverified",
+          detail:
+            "Power source contract remains unverified; readiness evidence unavailable locally.",
+        },
+      ],
+    });
+  }
+  return {
+    contractVersion: "atlas-facility-catalog-v1",
+    categories,
+    distanceMeaning:
+      "Straight-line distance to published points among the covered inventory, within bounds when supplied. No travel, eligibility or access guarantee.",
+  };
+}

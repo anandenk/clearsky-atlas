@@ -19,6 +19,14 @@ if __name__ == '__main__':
     samples = {}
     for port in [3000, 3001]:
         origin = f'http://127.0.0.1:{port}'
+        with urllib.request.urlopen(origin + '/api/facilities/catalog', timeout=30) as response:
+            catalog = json.load(response)
+        assert catalog['contractVersion'] == 'atlas-facility-catalog-v1'
+        assert [(c['id'],c['backendReady']) for c in catalog['categories']] == [('schools',True),('healthcare',True),('power',False)]
+        power = catalog['categories'][2]
+        assert power['sourcePeriod'] is None and len(power['blockers']) == 2
+        assert all('facilities' not in c for c in catalog['categories'])
+        samples['catalog-' + str(port)] = catalog
         result = request(origin, 'category=schools&near=-122.271,37.803&limit=3')
         assert result['matchedCount'] == 9946 and result['returnedCount'] == 3 and result['truncated']
         assert 0 < result['facilities'][0]['distanceKm'] < 1
@@ -37,6 +45,8 @@ if __name__ == '__main__':
         samples['healthcare-' + str(port)] = health
         samples[str(port)] = result
         print(origin, 'facility smoke passed')
+    assert samples['catalog-3000'] == samples['catalog-3001']
+    Path('data/samples/facility-catalog-v1.json').write_text(json.dumps(samples['catalog-3000'], indent=2, ensure_ascii=False))
     assert samples['3000'] == samples['3001']
     assert samples['healthcare-3000'] == samples['healthcare-3001']
     Path('data/samples/healthcare-v1.json').write_text(json.dumps(samples['healthcare-3000'], indent=2, ensure_ascii=False))

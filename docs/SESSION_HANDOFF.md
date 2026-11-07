@@ -1,6 +1,6 @@
 # Backend session migration — 2026-11-07
 
-**Current resume checkpoint:** school and statewide CDPH healthcare inventories are implemented; see latest BACKEND_CHANGES.md and NEXT_SESSION_PROMPT.md. Next is CEC power validation. Historical pause, old hashes and availability descriptions below are migration-time evidence, superseded by resumed sections. Main and frontend remain separate; coordinate before integration.
+**Current resume checkpoint:** school and statewide CDPH healthcare inventories are implemented; see latest BACKEND_CHANGES.md and NEXT_SESSION_PROMPT.md. CEC complete source/spatial audit is staged; activation awaits reporting-period and retired-code evidence. Next independent work is grounded multi-location comparisons and measured payload/query performance. Historical pause, old hashes and availability descriptions below are migration-time evidence, superseded by resumed sections. Main and frontend remain separate; coordinate before integration.
 
 ## Historical migration record
 
@@ -156,3 +156,8 @@ After infrastructure: richer grounded comparison/story summaries, measured state
 ## Sanity audit and healthcare continuation
 
 After 746f2a5, audited plan/ownership/source/API claims and reran the existing 31 tests/cache/proxy checks. No ownership or scope drift found; repaired stale opening continuation/status prose. Added statewide CDPH healthcare via public DataStore (direct CSV/XLSX downloads 403): 14,921 snapshot records, 14,919 eligible query coordinates. All source status OPEN, extraction 2026-10-16, 57 CA county labels plus Curry OR. Nevada/Oregon out-of-CES points retained/flagged, excluded spatially. Dictionary coordinate-CRS inconsistency documented; two independent source points checked. See latest BACKEND_CHANGES for license/provenance/limitations and 34-test/build/smoke evidence. Next: CEC power gates. Frontend active and untouched; integration still requires user coordination.
+
+
+## CEC source gate checkpoint
+
+Complete 2,378-record CEC candidate acquired/audited; 2,334 coordinates within CES coverage, 44 excluded with raw geometry preserved. Status/period remain null, backendReady=false. /api/facilities/catalog now exposes ready schools/healthcare and explicit power blockers/triggers; power query still 422. Exact evidence/terms/access failures and 36-test/build/smoke checkpoint are in latest BACKEND_CHANGES. No frontend changes/integration. Continue independent comparison/performance work while waiting for actual new source evidence; do not repeat the same failed QFER requests by default.

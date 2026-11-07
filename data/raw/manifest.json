@@ -1123,5 +1123,109 @@
     "bytes": 19705,
     "httpStatus": 200,
     "validation": "passed-json-envelope"
+  },
+  "power-current-metadata.json": {
+    "url": "https://services3.arcgis.com/bWPjFyq029ChCGur/arcgis/rest/services/Power_Plant/FeatureServer/0?f=pjson",
+    "retrievedAt": "2026-11-07T21:07:41.593831+00:00",
+    "sha256": "79dca5c85e83d6572e854d6685ada6cd7d1559ba9fd7ddddff14846f3f6c9d8d",
+    "bytes": 12757,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "power-item-metadata.xml": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/4a702cd67be24ae7ab8173423a768e1b/info/metadata/metadata.xml",
+    "retrievedAt": "2026-11-07T21:07:41.773357+00:00",
+    "sha256": "2888576ca4045fc2812fead93bc3c0e7ee7ad297fa395b1d5080906576f9a84c",
+    "bytes": 32498,
+    "httpStatus": 200,
+    "validation": "passed-security-page-screen-only"
+  },
+  "power-item-data.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/4a702cd67be24ae7ab8173423a768e1b/data?f=pjson",
+    "retrievedAt": "2026-11-07T21:07:42.005661+00:00",
+    "sha256": "2f96d60256281d6a717576c46315a77c0ac7a48be48eb27f242b52d332cc0802",
+    "bytes": 35878,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "power-conditions.html": {
+    "url": "https://www.energy.ca.gov/conditions-of-use",
+    "retrievedAt": "2026-11-07T21:07:42.655761+00:00",
+    "sha256": "2d09e971b8b7a9024a74a5432ef6244c6b10c6e3e7ba2b6293e962734692260d",
+    "bytes": 53404,
+    "httpStatus": 200,
+    "validation": "passed-security-page-screen-only"
+  },
+  "power-catalog.json": {
+    "url": "https://publish.data.ca.gov/api/3/action/package_show?id=california-power-plants",
+    "retrievedAt": "2026-11-07T21:07:42.998075+00:00",
+    "sha256": "e06d9becba8c32f7592fe850b0d0641a39726bd90c73a725c22e391d9d105415",
+    "bytes": 28700,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "power-retired-counts.json": {
+    "url": "https://services3.arcgis.com/bWPjFyq029ChCGur/arcgis/rest/services/Power_Plant/FeatureServer/0/query?f=json&where=1%3D1&outStatistics=%5B%7B%22statisticType%22%3A+%22count%22%2C+%22onStatisticField%22%3A+%22OBJECTID%22%2C+%22outStatisticFieldName%22%3A+%22n%22%7D%5D&groupByFieldsForStatistics=Retired_Plant&returnGeometry=false",
+    "retrievedAt": "2026-11-07T21:07:43.291297+00:00",
+    "sha256": "d4cca25483b26204d88206c65a78c92c356a4366ac499494a56e70b901304b9c",
+    "bytes": 569,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "power-inventory.json": {
+    "url": "https://services3.arcgis.com/bWPjFyq029ChCGur/arcgis/rest/services/Power_Plant/FeatureServer/0/query?f=json&where=1%3D1&outFields=%2A&returnGeometry=true&outSR=4326&resultRecordCount=5000&orderByFields=OBJECTID",
+    "retrievedAt": "2026-11-07T21:08:22.672128+00:00",
+    "sha256": "cad7d688f074d542358a553f06add26484fc50dd214183e63af8482ea8720810",
+    "bytes": 831673,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "power-qfer-catalog.json": {
+    "url": "https://publish.data.ca.gov/api/3/action/package_show?id=qfer-cec-1304-power-plant-owner-reporting-database",
+    "retrievedAt": "2026-11-07T21:08:29.275782+00:00",
+    "sha256": "7512234ff3db1d47ee39d36e88503a0726ea54a8426d44accaf7e4cebe0c963e",
+    "bytes": 11304,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "power-state-rights.html": {
+    "url": "https://data.ca.gov/@california-energy-commission/california-power-plants",
+    "retrievedAt": "2026-11-07T21:08:51.103018+00:00",
+    "sha256": "1ee4fd253a87a2d6e09143a75363e7bd2d691ad8e6f362ce0b6b84c627e65d1e",
+    "bytes": 110065,
+    "httpStatus": 200,
+    "validation": "passed-security-page-screen-only"
+  },
+  "power-inventory-ids.json": {
+    "url": "https://services3.arcgis.com/bWPjFyq029ChCGur/arcgis/rest/services/Power_Plant/FeatureServer/0/query?f=json&where=1%3D1&returnIdsOnly=true",
+    "retrievedAt": "2026-11-07T21:09:54.348087+00:00",
+    "sha256": "403420726f52f644d7eece4a4d27af454488dd068101b3b0732129b9c6526c53",
+    "bytes": 11936,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "power-inventory-count.json": {
+    "url": "https://services3.arcgis.com/bWPjFyq029ChCGur/arcgis/rest/services/Power_Plant/FeatureServer/0/query?f=json&where=1%3D1&returnCountOnly=true",
+    "retrievedAt": "2026-11-07T21:09:54.466351+00:00",
+    "sha256": "366b37b5bdf1fd317d2d301cf9aca27bc5ccd43f35e1788d87235f0f0a33824b",
+    "bytes": 14,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "power-inventory-metadata-after.json": {
+    "url": "https://services3.arcgis.com/bWPjFyq029ChCGur/arcgis/rest/services/Power_Plant/FeatureServer/0?f=pjson",
+    "retrievedAt": "2026-11-07T21:09:54.622696+00:00",
+    "sha256": "79dca5c85e83d6572e854d6685ada6cd7d1559ba9fd7ddddff14846f3f6c9d8d",
+    "bytes": 12757,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "power-inventory-native.json": {
+    "url": "https://services3.arcgis.com/bWPjFyq029ChCGur/arcgis/rest/services/Power_Plant/FeatureServer/0/query?f=json&where=1%3D1&outFields=OBJECTID&returnGeometry=true&resultRecordCount=5000&orderByFields=OBJECTID",
+    "retrievedAt": "2026-11-07T21:09:54.870488+00:00",
+    "sha256": "a96f492bcfbb75a4705de71eaf327cada6ea0aa0072be64a1a1ff307985a7fe2",
+    "bytes": 220827,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
   }
 }
