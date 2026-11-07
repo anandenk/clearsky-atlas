@@ -1,0 +1,6 @@
+node_modules/
+.next/
+dist/
+.venv/
+.DS_Store
+artifacts/
