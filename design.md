@@ -1,49 +1,47 @@
-# Common ground — creative reset
+# Common ground — a field guide to place
 
-The map is a continuous field. Places become a collection; the collection unfolds into a comparison canvas. The memorable object is the **shared-scale comparison score**: colored location beads move along aligned tracks as the reader changes the question. The map never disappears behind a long evidence rail.
+The existing Common ground identity stays: a continuous California map, porcelain surfaces, blue Pacific, iris accents, local DM Sans and DM Serif Display, persistent lettered pins and fluid camera/canvas transitions. The new emphasis is reading a comparison without decoding a miniature chart.
 
-## Creative critique
+## Composition and visual system
 
-The rejected implementation was a toolbar, map grid and scrolling sidebar. This replacement removes the sidebar and repeated map boxes. One persistent map provides spatial continuity, a compact four-domain dock changes the lens, and an expanding bottom canvas gives the evidence room to breathe. Comparison is composed around differences and shared positions, rather than repeated metric cards. No automatic examples or marketing interstitial.
+Porcelain #fafbff; ink #232d4c; iris #5759bb; Pacific #c6d9e8; lilac #e9e6f6; coral #b34e3f. Place colors identify locations, independent of the domain's geographic scale. DM Serif provides the question; DM Sans carries measurements and explanations. Main values are 32px, measure titles 18px, explanation text 14px, secondary source/position text 11–13px.
 
-## Identity and tokens
+The map remains the spatial anchor. On desktop the comparison canvas occupies up to 56% of viewport height (570px maximum). Its overview reads as a field guide: a short introduction and two descriptive position findings, followed by aligned place columns. Each measure gives its period, raw value and unit, secondary statewide position, and the magnitude and named endpoints of its raw difference. The measure opens a focused view with definition, reference differences, sources and limits. The findings distinguish wider and closer percentile positions; neither claims significance or overall importance.
 
-Name: Common ground; descriptor: California environmental atlas. Color: porcelain #fafbff, deep ink #232d4c, iris #5759bb, Pacific #c6d9e8, lilac #e9e6f6, coral #b34e3f. Health uses a restrained plum ramp; community uses a neutral blue ramp; infrastructure uses blue/purple/amber category symbols. Location colors remain independent of map intensity: iris, coral, teal, ochre, plum.
+Several places add columns within a horizontally scrollable comparison region. No values overlap, and no selection is discarded. On phones each measure becomes a full-width section, with a two-column grid of named places and an interpretation immediately below. The document flows vertically rather than squeezing a desktop chart into a phone. Missing values remain explicitly unavailable.
 
-DM Sans carries navigation and data; DM Serif Display carries the current question and selected measurement title. Local font files with licenses. Body 14px, metadata 11–12px, display 32–46px, evidence numbers 26px. Tabular numerals, proportional text. Spacious floating controls have soft depth; the comparison canvas has a continuous surface, not a grid of cards.
-
-## Composition
-
-Desktop: identity at top left, address search centered, context menu top right. Domain dock at right center. An introductory map lens at lower left describes the selected question. On selection, a place ribbon appears and the map contracts continuously above a bottom comparison canvas. The canvas has a compact narrative on the left and aligned location plots on the right. Topic chips sit on one horizontal scrollable strip. A reference location can be changed; a place can be focused, replaced, removed or moved earlier. Any number of places use a vertically scrolling plot. One persistent map avoids mounting extra WebGL contexts.
-
-Narrow screens: compact identity, full-width search, horizontal four-domain dock, map above an in-flow analysis canvas. Location ribbon scrolls horizontally. Values and plots remain legible in a single-column composition. No hidden comparison locations or horizontal page overflow.
+A critique pass removed repeated long definitions from the overview because they overwhelmed comparison. Definitions remain one click away. Another replaced the first mobile scrolling-table attempt with these stacked sections. Desktop retains an aligned matrix because comparing the same measure across several places benefits from fixed columns.
 
 ## Cartography
 
-Custom OpenFreeMap vector style: blue Pacific, porcelain land, subdued lavender buildings, restrained roads, ink labels above colored tract fills. Domain ramps share fixed 0–100 bounds. Neutral population percentages use raw percentage and never a hazard percentile. Whole-state view has faint tract boundaries; neighborhood zoom reveals definition. Tract geometry is display-only; source API resolves exact membership. Pins retain stable letters and colors. Clicking a tract opens an independent inspection, without changing an address. Provider attribution remains visible.
+The original patchwork had three contributing factors: real tract geometry (including straight rural boundaries), visible outlines on every tract at regional zoom, and an opaque thematic layer above roads and water. Synthetic preview also used separated rectangular cells.
 
-## Evidence and comparison
+Keep actual tract polygons; do not blur, interpolate, round or invent geographic measurements. Use a lighter 52% thematic wash, remove the regional boundary mesh, bring boundary definition in only at neighborhood zoom, and retain cartographic water/roads above the wash. Antialiasing is disabled on adjacent fills to avoid seam halos. Selected/inspected tract outlines remain explicit. Preview cells touch rather than having artificial gutters; their geometry remains conspicuously synthetic and the persistent preview banner remains.
 
-Use live catalog and normalized observations for all ready fields. Fetch a full tract bundle once, so switching indicators animates without a new evidence round trip. Show actual values/units alongside statewide percentile positions. Raw differences require identical comparison keys; percentage measures use percentage points. A concise range statement describes the current metric, never ranks unlike metrics or implies significance. The first location is the initial reference. Age and ethnicity are neutral composition charts, with original category labels and nulls preserved. Detail dialog exposes definition, period, source and caveats on demand.
+All comparative maps use identical fixed 0–100 source-percentile domains; demographic maps use population share. Exact lookup remains a backend responsibility, separate from display geometry. External basemap availability is still network-dependent.
 
-Infrastructure is an explicit separate synthetic preview with category filters, map/list linkage, details and calculated straight-line distances. Switching providers clears incompatible selections and cancels pending requests. No silent fixture fallback.
+## Meaning across domains
 
-## Motion choreography
+Environment and health compare the same source-defined measures, with matching comparison keys required before calculating differences. Percentage measures use percentage-point differences. The health introduction explicitly distinguishes community rates from individual disease probabilities.
 
-Map viewport height: interruptible 700ms cubic-bezier(.22,1,.36,1). Search confirmation: camera fly and bottom canvas expansion run together. Domain selection: dock highlight, active ink, map ramp and indicator track change together; no map remount. Shared-scale bead positions transition for 650ms, tracks for 500ms. Evidence content has one short entrance tied to context, not separate animated cards. Places retain DOM identity on reorder. Drawers use native dialog focus containment and a short anchored entrance. Reduced motion removes transitions and map flight while preserving the same final states.
+Age and race/ethnicity now use the same readable raw-share comparison rather than tiny stacked segments. Every group remains selectable for its map; no demographic hazard percentile is created. Missing groups remain unavailable, and group definitions are accessible from the measure.
 
-## Scope and verification
+Infrastructure retains live healthcare and schools, with source-qualified distance ranges and named nearest locations across the selection. Distances are straight-line distances to listed points; they establish neither service access nor eligibility, travel time or completeness beyond the documented inventory. Power remains in a separately labeled synthetic preview. No silent live-to-preview fallback.
 
-Implemented details, measured checks, visual corrections and integration limits are recorded in docs/FRONTEND_PROGRESS.md after rendered review. No additional dependencies or root configuration changes are planned.
+## Motion, evidence and limits
 
-## Correction pass and live breadth
+Retain one WebGL map and the interruptible 700ms canvas transition, 1100ms camera flight, and 650ms focused-metric position movement. The enlarged canvas and camera padding share measured layout dimensions. Reduced-motion behavior remains. Overview bars use a fixed statewide 0–100 scale and never encode raw values with incompatible units on a common scale.
 
-Comparison now opens with an At a glance profile, one line per scalar measure. The widest/closest percentile spreads navigate to detail without claiming importance or significance. A focused metric uses the larger location score and raw reference differences. The profile heading and legend were simplified after screenshot review, and evidence labels enlarged.
+Local checkpoint before this pass: tag `checkpoint/frontend-before-comparison-20261107`, commit `14a7215`. Actual checks, screenshots, corrections and remaining work are recorded in docs/FRONTEND_PROGRESS.md. This design is local and awaits visual review; no backend/configuration/dependency changes or integration are included.
 
-The responsive breakpoint is 759px. Desktop canvas height is 390px, 430px on tall screens; More map leaves a 49px reopen handle. On narrow screens the selected-place map is 500px and evidence flows below it; the initial lens folds its layer controls. One map instance persists through domain, measure and collection changes. Narrow/desktop switches reframe the same map.
+## Zoom-stable analytical basemap
 
-Healthcare and schools became live during this pass and now use independent source-qualified facility queries. A small per-place distance table supports infrastructure comparison; the focused place shows up to six nearest records from each available category. Map/list selection opens a native dialog with status, period, source, flags and limitations. Power remains separately synthetic. The general source dialog identifies facility sources separately from CES.
+All non-water ground fills are transparent in the analytical basemap. Moving them underneath the translucent thematic wash was insufficient: zoom-dependent residential/land-use color could still change its apparent intensity. Buildings now use faint outlines rather than filled footprints. Roads, water and labels remain readable above the fixed-scale thematic color. Actual tract geometry and measurements are unchanged. The versioned style URL is an explicit map-effect dependency so an already-open development map reloads a corrected static style.
 
-Actual motion samples, rendered review corrections, source boundaries and verification are recorded in FRONTEND_PROGRESS.md. Local font licenses and basemap provenance are in public/ui/README.md. No dependency or root configuration changes were needed.
+## Indicator-switch rendering and motion
 
-The final motion correction keeps the desktop WebGL drawing surface at a stable viewport size and animates its clipped visible area with the evidence canvas. Controls follow the visible edge. Camera padding accounts for the evidence canvas, and bounds use MapLibre 6 `absolutePadding: true` to prevent accumulated offsets. This avoids an observed blank intermediate frame from continuous canvas-buffer resizing. Mobile framing is recalculated against the current container size after layout changes.
+Every GeoJSON update carries a unique internal render token. A reused buffer filters to that token, preventing cached geometry from an earlier measure from appearing with the current label or ramp. On a measure/domain change the outgoing fill and outlines fade out over 180ms, with interaction disabled and a changing-layer status. The next update waits for both worker processing and source tile readiness, verifies cancellation, and fades in over 450ms. Rapid switches cancel stale work and stale fade timers. Viewport-only refreshes retain the current display until its replacement is ready, then swap without an opacity pulse. Facility markers use the same fade-out/load/fade-in timing; selecting a marker changes its emphasis without reloading its data. Reduced motion removes these durations.
+
+Map motion and style verification are recorded in FRONTEND_PROGRESS.md. Test-only fixture geometry is used for pixel-level stale-overlay and fade regression checks; it is never substituted for live evidence.
+
+The per-overlay switching status uses a dedicated `.map-update-status` class, intrinsically sized and non-intercepting. It is separate from the full-map placeholder used only while the map module initially loads. Desktop and narrow loading-state dimensions are regression-tested.

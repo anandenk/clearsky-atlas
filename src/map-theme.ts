@@ -28,7 +28,8 @@ export const placeColors = [
   "#94518f",
   "#407b9e",
 ];
-export const vectorStyle = "/ui/basemap.json";
+// Revise this key when the style changes: open maps must reload static style fixes.
+export const vectorStyle = "/ui/basemap.json?v=neutral-ground-2";
 export const rasterStyle: StyleSpecification = {
   version: 8,
   sources: {

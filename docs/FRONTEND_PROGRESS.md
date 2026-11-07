@@ -74,3 +74,71 @@ Final visual review found and corrected two additional issues: MapLibre 6 bounds
 Preview map values and percentiles now share the same deterministic fixture helpers as the charts, including null/zero handling; synthetic non-selected cell IDs no longer collide with selected place IDs.
 
 No root configuration, lockfile, shared types, API handlers or backend data changed. No push, merge, deployment or publication. No outstanding dependency request. The frontend is paused for the user's visual feedback and eventual Sol handoff.
+
+## Field-guide comparison and cartographic refinement — 2026-11-07
+
+User-directed continuation of Common ground, with frontend-design as the creative lead; previous design-skill constraints were not loaded. Existing clean HEAD `14a7215` was preserved before editing with local tag `checkpoint/frontend-before-comparison-20261107`. No additional agents, dependencies, backend/shared configuration changes, merges, pushes or deployments.
+
+### Built and critiqued
+
+- Replaced the miniature multi-measure dot plot with a field guide: readable raw values/units, aligned place columns, secondary statewide-position bars, and explicit named high/low differences. Wider/closer percentile-position findings guide exploration without claiming significance or overall ranking. Source compatibility and null handling remain mandatory.
+- Mobile comparisons use a section per measure, a two-column grid of labeled places, and an interpretation underneath. The first scrolling-table attempt was rejected during screenshot review. Several desktop places use horizontal scrolling; six-place behavior was exercised.
+- Extended the same readable raw-share presentation to all age and racial/ethnic groups. Infrastructure adds source-qualified distance ranges and nearest-place statements, with access/eligibility/travel limitations adjacent.
+- Diagnosed patchwork from actual tract edges, all-tract boundary mesh, high fill opacity above map features, and synthetic cell gutters. Retained true live polygons, reduced fill opacity to 52%, removed low-zoom outlines, retained neighborhood detail, and put water/roads above thematic color. Synthetic rectangles remain synthetic, now contiguous; no inferred smooth field or fabricated live geography.
+- Enlarged the desktop canvas and corrected camera padding to use its actual measured height. Corrected an intermediate blank layout gap. Existing motion and one map instance remain. Settled-map screenshot confirms both pins and the regional wash after data arrival.
+- Rewrote design.md around the actual result. Definitions remain in the focused measure/source view; removed repeated long definitions from the overview after visual critique.
+
+### Performed verification
+
+- `npx tsc --noEmit`: passed.
+- `npm run build`: passed, with only frontend :3001 preview stopped; restored afterward with the existing backend proxy. Final small copy corrections were typechecked after the build.
+- Full Playwright suite: **8 passed in 58.6s**. Includes live three-place selection, all 23 live fields, six-place synthetic collection edits, zero/null/incompatible/source-failure cases, source separation, infrastructure markers/filters/failures, keyboard and reduced motion, rendered tract inspection, and sampled intermediate/interrupted transitions with one map instance.
+- Added a regression asserting Oakland/Fresno raw PM values, named 4.15 µg/m³ difference, pins inside the visible map, mobile side-by-side value alignment, and no document overflow at 320/375/414/768px.
+- Initial test run overlapped development and failed on removed dot/stacked-bar selectors; one hot-reload run also observed a map-style-loading error. Updated presentation assertions and reran the full suite on settled code; all passed. These early failures are not counted as successful verification.
+- Inspected actual Chromium screenshots before/after, desktop and mobile, plus existing suite screenshots and motion sampling. In-app browser host was unavailable; used installed Playwright/Chrome. Python Playwright was unavailable, so the repository's existing Node runner was used without installing dependencies.
+- Screenshots under ignored `artifacts/field-guide/`: before-comparison.png, settled-map.png, verified-desktop.png, verified-mobile.png. The settled-map capture waits for geographic data; earlier captures can show basemap before the large GeoJSON completes.
+
+### Remaining work / review boundary
+
+- Await user visual review of the new information hierarchy and quieter map. Real tract geometry still includes angular boundaries; smoothing would falsely imply finer geographic resolution. Preview remains explicitly synthetic.
+- The full multi-measure desktop guide scrolls vertically; larger collections scroll horizontally. Actual touch-device ergonomics and very large collections remain unverified beyond the tested responsive widths and six examples.
+- Large regional GeoJSON can arrive after the basemap; backend tile/index delivery remains a future integration trigger if target-device performance demands it. No universal frame-rate or complete accessibility certification claimed.
+- Live power, optional terrain/buildings/AI/voice/shareable views, conditional fire/remediation, and integration deferrals from the earlier entry remain. Revisit after visual acceptance and the corresponding backend/source contract. No new dependency/configuration request.
+
+Stopped for local visual review; integration remains with the main session.
+
+## Follow-up: shading across zoom levels — 2026-11-07
+
+User screenshots exposed a missed neighborhood-zoom issue: inserting thematic layers before water also put residential land-use polygons above them. Residential fill stops at zoom 16, so its pale overlay disappeared while the underlying measurement remained unchanged.
+
+Fixed the frontend-owned vector style by grouping every ground fill below water/thematic insertion. Water, roads and labels remain above the environmental wash. Reduced building opacity from 55% to 16% and removed its outline so footprints remain quiet context. No measurement, ramp domain, tract geometry, backend file or dependency changed. The prior uncommitted work is preserved as `artifacts/zoom-fix/before-fix.patch` in addition to the earlier checkpoint tag.
+
+Verification: TypeScript passed. Added and ran a Playwright regression checking the served style's layer order, subdued buildings, live Fresno Traffic rendering through five zoom-in steps to the disabled maximum-zoom control, return zoom, retained map instance and no browser runtime errors. Inspected neighborhood screenshots under `artifacts/zoom-fix/`. This targeted correction does not require a backend change; the prior full-suite/build results above remain separately dated evidence. External map tiles still depend on network availability. Stopped for visual review.
+
+## Follow-up: incorrect overlay flash on indicator switch — 2026-11-07
+
+Root cause: the two alternating GeoJSON buffers retain old rendered tiles while `setData` processes new data in a worker. Previously the incoming buffer was made visible immediately, briefly exposing an earlier indicator. Opacity-only hiding did not protect reused tiles or outlines.
+
+Changed `src/AtlasMap.tsx` to tag every render update with a unique internal token and filter fill/boundary/selected/inspection layers to the matching token. Await the installed MapLibre version's `setData` promise, recheck cancellation/generation/map identity, then reveal only the current update. Hide outgoing filters immediately, disable old-color interpolation, and prevent superseded errors from clearing a newer layer. Source measurement fields and geographic geometry are untouched.
+
+Added `tests/ui/map-switch.spec.ts`: test-only blank basemap and deliberately different polygon coverage, a 16,000-feature worker update under 4× CPU throttling, pixel samples checking that an old full-screen polygon never reappears in its reused buffer, and rapid indicator switching. Targeted regression passed (7.8s); TypeScript and diff whitespace checks passed. Full browser-suite result follows below. Test fixtures never become application preview/live records.
+
+The completed switching-fix suite before the next refinement passed **10/10 tests (2.0m)**, including the new stale-buffer pixel test and zoom regression.
+
+## Follow-up: stable ground color and smooth loading/unloading — 2026-11-07
+
+Further user screenshots showed the previous zoom fix was insufficient. Two issues remained: a translucent thematic fill still blends with zoom-dependent land-use polygons below it, and already-open maps do not reload a modified static JSON style automatically. The analytical vector basemap now makes non-water ground fills transparent and uses faint building outlines instead of filled footprints. A versioned style URL participates in the map effect dependency so corrected styles reload in an open development page. Map colors/measurements and real tract geometry are unchanged.
+
+Overlay lifecycle now fades outgoing thematic fills and outlines for 180ms, waits for worker processing **and source tile readiness**, then fades the requested data in for 450ms. Interaction with the outgoing layer is disabled and a changing-layer status is displayed. Frame-token filtering and cancellation protect reused buffers. Viewport refreshes keep the old display until ready and swap without repeated fades. Facility circles/strokes follow the same out/load/in sequence; selected-marker radius changes are separate from data replacement. Reduced motion uses zero durations.
+
+The backend temporarily refused connections during verification; no backend session was modified. It later recovered. The isolated pixel regression now supplies its own explicitly test-only catalog and map responses, avoiding dependence on backend availability. Initial zoom tests failed during that outage; a pixel assertion was also adjusted to allow the near-white surface color while still rejecting stale purple shading. After these corrections, the targeted switching and zoom tests passed. Measured fade-in red-channel samples were 246, 237, 224, 206, 190, 180, 173, 169; outgoing samples included 246, 247, 249, 250. These are rendered pixel samples, not inferred CSS behavior. TypeScript passed after correcting a paint-property union type.
+
+Live Fresno screenshots, including airport-area zooms, are under ignored `artifacts/overlay-motion/`. Full final suite/build results follow below. Earlier changes remain preserved in `artifacts/overlay-motion/before-refinement.patch`. No dependency, API, shared config or backend file changes.
+
+Final verification for this refinement: **10/10 browser tests passed (1.7m)**; TypeScript and production build passed. Only the frontend preview was stopped for the build and restored with its :3000 proxy. Visually inspected the live airport-area close/max/return screenshots: ground tint remains consistent while roads and faint building outlines gain detail. The suite also exercised all live domains, six-place preview, mobile widths, null/zero/incompatibility, reduced motion, marker/tract inspection and interrupted transitions. No universal frame-rate guarantee is implied. Work remains local and is stopped for user visual review.
+
+## Follow-up: oversized switching-status background — 2026-11-07
+
+User screenshot identified a CSS class collision missed by the prior tests. The per-overlay status reused `.map-loading`, already used by the initial dynamic-import placeholder with `inset: 0` and grid centering. Later declarations changed top/left but left right/bottom constraints, stretching a pale panel across the map. The prior near-white pixel samples during switching included this unintended panel; the earlier interpretation as ordinary surface variation was incorrect.
+
+Renamed the overlay status to `.map-update-status`, with explicit auto right/bottom, intrinsic width, zero margin, block layout, constrained mobile width and no pointer interception. The initial module-loading placeholder remains separate. Added a delayed-response regression that holds the loading state and asserts a compact bounding box at 1440/375/320px, verifies no pointer interception, and confirms removal after completion. Inspected desktop/mobile screenshots in `artifacts/overlay-motion/loading-status-*.png`. Both switching tests passed (13.9s), including stale-buffer protection and newly unobstructed fade samples (outgoing red channel 168, 179, 213, 245, 255). TypeScript and diff checks passed. No full build/suite rerun was needed for this scoped CSS/class correction.

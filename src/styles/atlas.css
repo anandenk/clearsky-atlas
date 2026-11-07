@@ -2830,3 +2830,96 @@ button:active {
     bottom: calc(var(--deck-height) + 60px);
   }
 }
+
+/* Field guide: readable measurements, with geography as the continuous context. */
+.atlas-app.has-places { --deck-height: min(56vh, 570px); }
+.atlas-app.has-places.canvas-collapsed { --deck-height: 49px; }
+.field-guide { min-width: 0; padding-bottom: 16px; }
+.guide-intro { display:grid; grid-template-columns: 1fr 1.5fr; gap:48px; align-items:center; margin: 6px 0 22px; }
+.guide-intro h2 { font: 34px/1.08 "DM Serif", Georgia, serif; letter-spacing:-.6px; margin-bottom:12px; }
+.guide-intro p { font-size:14px; line-height:1.6; max-width:440px; color:#59627c; }
+.guide-findings { display:grid; grid-template-columns:1fr 1fr; gap:28px; }
+.guide-findings button { text-align:left; white-space:normal; border-left:3px solid #d7d2ed; padding:8px 0 8px 18px; }
+.guide-findings button:hover { border-color:#5759bb; }
+.guide-findings span { display:block; font-size:13px; line-height:1.5; color:#59627c; }
+.guide-findings strong { display:flex; align-items:center; gap:14px; font-size:20px; line-height:1.3; margin:7px 0; }
+.guide-findings p strong { display:block; }
+.guide-instruction,.guide-note { font-size:13px; line-height:1.6; color:#59627c; margin:12px 0; }
+.guide-scroll { overflow:auto; max-width:100%; scrollbar-width:thin; }
+.guide-table { border-collapse:separate; border-spacing:0; width:100%; text-align:left; table-layout:fixed; }
+.guide-table th,.guide-table td { min-width:190px; width:210px; padding:20px 24px; border-bottom:1px solid #e1e4ef; vertical-align:top; }
+.guide-table th:first-child { width:290px; padding-left:0; }
+.guide-table th:last-child,.guide-table td:last-child { width:270px; }
+.guide-table thead th { background:#f0eff8; padding-top:16px; padding-bottom:16px; font-weight:500; font-size:15px; }
+.guide-table thead th:first-child { padding-left:16px; border-radius:12px 0 0 12px; }
+.guide-table thead th:last-child { border-radius:0 12px 12px 0; }
+.guide-place { display:flex; align-items:center; gap:9px; font-size:17px; }
+.guide-place b { display:grid; place-items:center; width:26px; height:26px; border-radius:50%; color:white; font-size:12px; flex-shrink:0; }
+.guide-table thead small { display:block; font-size:11px; font-weight:400; margin-top:8px; color:#59627c; overflow-wrap:anywhere; }
+.guide-table .profile-row { display:table-row; background:transparent; }
+.guide-table tbody th { font-weight:400; }
+.guide-table tbody th button { display:flex; gap:12px; align-items:center; text-align:left; font-size:18px; white-space:normal; }
+.guide-table tbody th p,.guide-meaning p { font-size:14px; line-height:1.55; margin:8px 0; color:#59627c; }
+.guide-table tbody th small { font-size:12px; color:#59627c; }
+.guide-value { display:block; color:var(--place); font-size:32px; font-weight:500; line-height:1.2; letter-spacing:-1px; font-variant-numeric:tabular-nums; }
+.guide-unit { display:block; font-size:13px; line-height:1.4; margin-top:5px; }
+.guide-position { margin-top:20px; }
+.guide-position > div { height:5px; background:#e9eaf2; border-radius:3px; overflow:hidden; }
+.guide-position i { display:block; height:100%; background:var(--place); transition:width .65s var(--ease); }
+.guide-position span { display:block; font-size:11px; margin-top:8px; color:#59627c; }
+.guide-meaning > strong { font-size:21px; font-weight:500; }
+.guide-meaning > strong span { font-size:13px; }
+.guide-meaning button { display:flex; align-items:center; gap:8px; font-size:13px; color:#5759bb; margin-top:12px; }
+.narrative > p,.measure-definition { font-size:14px; line-height:1.6; }
+.measure-definition { display:block; overflow:visible; }
+.score-place small,.score-value > span,.score-value small,.score-note,.evidence-footnote { font-size:12px; }
+.score-header { font-size:12px; }
+.score-bead span { font-size:12px; }
+.score-rows { max-height:none; }
+.facility-comparison > p,.facility-location { font-size:14px; }
+.facility-comparison > button { font-size:17px; min-height:60px; }
+.facility-compare-head { font-size:13px; }
+.composition-row > p,.composition-view > small { font-size:13px; line-height:1.6; }
+@media(max-width:759px) {
+  .atlas-app.has-places { --deck-height:0px; }
+  .guide-intro { grid-template-columns:1fr; gap:24px; }
+  .guide-intro h2 { font-size:32px; }
+  .guide-findings { grid-template-columns:1fr; gap:12px; }
+  .guide-table th,.guide-table td { width:180px; min-width:180px; padding:16px; }
+  .guide-table th:first-child { width:210px; min-width:210px; padding-left:10px; }
+  .guide-table th:last-child,.guide-table td:last-child { width:230px; }
+  .guide-table tbody th button { font-size:16px; }
+  .guide-value { font-size:28px; }
+}
+@media(prefers-reduced-motion:reduce) { .guide-position i { transition:none; } }
+@media(min-width:760px) {
+  .comparison-canvas { height:min(56vh,570px); }
+  .guide-intro { grid-template-columns: 1fr 1.7fr; margin-bottom:12px; gap:32px; }
+  .guide-intro h2 { font-size:30px; }
+  .guide-table tbody th small { display:block; margin-top:12px; }
+}
+@media(max-width:759px) {
+  .guide-instruction { font-size:0; }
+  .guide-instruction::after { content:"Actual values, place by place. Color identifies a place, never a winner."; font-size:13px; }
+  .guide-scroll { overflow:visible; }
+  .guide-table,.guide-table tbody { display:block; width:100%; }
+  .guide-table thead { display:none; }
+  .guide-table .profile-row { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 14px; padding:22px 0; border-top:1px solid #d9dce9; }
+  .guide-table th,.guide-table td,.guide-table th:first-child,.guide-table td:last-child { width:auto; min-width:0; border:0; padding:12px 0; }
+  .guide-table tbody th,.guide-table .guide-meaning { grid-column:1/-1; }
+  .guide-table tbody th button { font-size:21px; }
+  .guide-table tbody th small { display:block; margin-top:6px; }
+  .guide-table td[data-place]::before { content:attr(data-place); display:block; color:var(--place); font-size:14px; font-weight:500; margin-bottom:12px; }
+  .guide-position span { font-size:12px; }
+  .guide-table .guide-meaning { background:#f0eff8; padding:16px; border-radius:12px; margin-top:12px; }
+  .guide-findings strong { font-size:18px; }
+}
+.composition-view .guide-intro { display:none; }
+.composition-view .guide-table th:first-child { width:200px; }
+.infrastructure-findings { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin:18px 0; }
+.infrastructure-findings p { font-size:14px; line-height:1.6; }
+.infrastructure-findings strong { display:block; font-size:18px; margin-bottom:8px; }
+.facility-comparison .distance-context { font-size:13px; line-height:1.6; }
+@media(max-width:759px) { .infrastructure-findings { grid-template-columns:1fr; } .composition-view .guide-table th:first-child { width:auto; } }
+.map-update-status { position:absolute; inset:150px auto auto 50%; width:max-content; max-width:calc(100% - 32px); margin:0; display:block; transform:translateX(-50%); padding:8px 14px; border-radius:20px; background:#fafbfff2; color:#59627c; font-size:12px; pointer-events:none; box-shadow:0 3px 16px #232d4c0d; }
+@media(max-width:759px) { .map-update-status { top:220px; max-width:85%; width:max-content; } }

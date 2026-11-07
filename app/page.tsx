@@ -970,53 +970,16 @@ export default function Page() {
                       </button>
                     ))}
                   </div>
-                  <div className="composition-rows">
-                    {places.map((p) => (
-                      <div className="composition-row" key={p.id}>
-                        <div>
-                          <b
-                            className="letter"
-                            style={{ background: color(p.id) }}
-                          >
-                            {letter(p.id)}
-                          </b>
-                          <strong>{p.selection.place}</strong>
-                        </div>
-                        <div
-                          className="composition-bar"
-                          aria-label={`${p.selection.place} population composition`}
-                        >
-                          {groups[group].map((id, i) => {
-                            const o = observation(p, id);
-                            return o?.rawValue == null ? null : (
-                              <button
-                                key={id}
-                                style={{
-                                  width: `${o.rawValue}%`,
-                                  background: compositionColors[i],
-                                }}
-                                onClick={() => setCompositionField(id)}
-                                aria-label={`${catalog.find((m) => m.id === id)?.label}: ${format(o.rawValue)}%`}
-                              >
-                                {o.rawValue > 8 ? `${format(o.rawValue)}%` : ""}
-                              </button>
-                            );
-                          })}
-                        </div>
-                        <p>
-                          {groups[group]
-                            .map(
-                              (id) =>
-                                `${catalog.find((m) => m.id === id)?.label}: ${format(observation(p, id)?.rawValue)}${observation(p, id)?.rawValue == null ? "" : "%"}`,
-                            )
-                            .join(" · ")}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
+                  <ComparisonOverview
+                    places={places}
+                    metrics={catalog.filter(m => groups[group].includes(m.id))}
+                    observe={observation}
+                    mode="Community"
+                    onChoose={(id) => { setCompositionField(id); setSourceOpen(true); }}
+                  />
                   <small>
-                    Each bar uses 0–100%. Rounding may leave small gaps. Missing
-                    groups are not zero. Demographics are not hazards.
+                    Shares describe the population of each tract. Missing groups
+                    are not zero. Demographics are not hazards.
                   </small>
                 </div>
               ) : (

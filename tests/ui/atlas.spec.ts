@@ -91,7 +91,7 @@ test("live opening, confirmed addresses, three-place profile and exact compariso
   await expect(page.locator(".candidate")).toContainText("LOS ANGELES");
   await page.getByRole("button", { name: /Confirm this address/ }).click();
   await expect(page.locator(".place-chip")).toHaveCount(3);
-  await expect(page.locator(".profile-point")).toHaveCount(18);
+  await expect(page.locator(".guide-value")).toHaveCount(18);
   await page.screenshot({
     path: "artifacts/creative-reset/verified-three-live.png",
   });
@@ -205,7 +205,7 @@ test("six places, edits, missing/zero/incompatible evidence and provider separat
       .click();
   await expect(page.locator(".place-chip")).toHaveCount(6);
   await expect(page.locator(".atlas-map canvas")).toHaveCount(1);
-  await expect(page.locator(".profile-point")).toHaveCount(36);
+  await expect(page.locator(".guide-value")).toHaveCount(36);
   await page
     .getByRole("button", { name: "Fine particles", exact: true })
     .click();
@@ -284,7 +284,7 @@ test("infrastructure filters, map selection and responsive comparison", async ({
     await expect(page.locator(".atlas-map canvas")).toHaveCount(1);
     await page.getByRole("button", { name: "Community", exact: true }).click();
     await page.getByRole("button", { name: "Age", exact: true }).click();
-    await expect(page.locator(".composition-row")).toHaveCount(3);
+    await expect(page.locator(".composition-view .guide-value")).toHaveCount(9);
     await page.screenshot({
       path: `artifacts/creative-reset/verified-width-${width}.png`,
       fullPage: true,
@@ -293,7 +293,7 @@ test("infrastructure filters, map selection and responsive comparison", async ({
   await page.setViewportSize({ width: 375, height: 900 });
   await page.getByRole("button", { name: "Environment", exact: true }).click();
   await page.getByRole("button", { name: "At a glance", exact: true }).click();
-  await expect(page.locator(".profile-point")).toHaveCount(18);
+  await expect(page.locator(".guide-value")).toHaveCount(18);
   await page.screenshot({
     path: "artifacts/creative-reset/verified-mobile-profile.png",
     fullPage: true,
@@ -535,4 +535,32 @@ test("rendered tract and facility clicks, and independent facility-source failur
   await expect(page.locator(".facility-list > button")).toHaveCount(6);
   await expect(page.locator(".facility-list")).toContainText("Healthcare");
   await expect(page.locator(".preview-status")).toHaveCount(0);
+});
+
+test("field guide explains raw differences and keeps mobile values together", async ({page}) => {
+  await open(page);
+  await cached(page,"Oakland");
+  await cached(page,"Fresno");
+  const row = page.locator('.guide-table tbody tr').first();
+  await expect(row.locator('.guide-value')).toHaveText(['8.33','12.48']);
+  await expect(row.locator('.guide-meaning')).toContainText('4.15');
+  await expect(row.locator('.guide-meaning')).toContainText('Fresno is higher than Oakland');
+  await page.waitForTimeout(1600);
+  const stage = await page.locator('.map-stage').boundingBox();
+  for (const pin of await page.locator('.place-pin').all()) {
+    const box = await pin.boundingBox();
+    expect(box!.y + box!.height).toBeLessThan(stage!.height + 1);
+  }
+  await page.screenshot({path:'artifacts/field-guide/verified-desktop.png'});
+  for(const width of [320,375,414,768]) {
+    await page.setViewportSize({width,height:900});
+    await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    if(width < 760) {
+      const boxes = await row.locator('.guide-value').evaluateAll(es=>es.map(e=>e.getBoundingClientRect().toJSON()));
+      expect(Math.abs(boxes[0].y-boxes[1].y)).toBeLessThan(2);
+      expect(boxes[1].right).toBeLessThanOrEqual(width);
+    }
+  }
+  await page.setViewportSize({width:375,height:900});
+  await page.screenshot({path:'artifacts/field-guide/verified-mobile.png',fullPage:true});
 });
