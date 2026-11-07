@@ -187,5 +187,69 @@
     "retrievedAt": "2026-11-07T19:46:46.562890+00:00",
     "sha256": "dd7a331dc701c268162e6f8023600b09c10b80f838bdd3871a3d575374cb94c5",
     "bytes": 682
+  },
+  "ozone-official-app.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/fc7c46d8b7e14ce69c0bc17fe71eb34b/data?f=json",
+    "retrievedAt": "2026-11-07T20:18:21.753211+00:00",
+    "sha256": "6d9f4769b47c22c3ce63bc6c05e0a5808fcf4cce2ef09581e235ae663acd8b8a",
+    "bytes": 17744,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "pm-official-app.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/5068668b6c4744ada5b6d38ec621ba5f/data?f=json",
+    "retrievedAt": "2026-11-07T20:18:22.126292+00:00",
+    "sha256": "7f6fd7a11aa3ecda331e43e78593b79b7172ed8a053aade51ae8debd03f984aa",
+    "bytes": 17833,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "ozone-official-item.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/fc7c46d8b7e14ce69c0bc17fe71eb34b?f=json",
+    "retrievedAt": "2026-11-07T20:18:41.694763+00:00",
+    "sha256": "b4505887c79e3bd94dec2f15316a74f9b44339aec24d4774c726ba0f2aa4ccce",
+    "bytes": 1194,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "ozone-official-webmap.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/aa463eafc7c446c9af69e22b01d73ad6/data?f=json",
+    "retrievedAt": "2026-11-07T20:18:42.346686+00:00",
+    "sha256": "bbbde27d32d60f39784e802452dceb1c4bdc9893d75fcd710e4606c018139a39",
+    "bytes": 37166,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "pm-official-item.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/5068668b6c4744ada5b6d38ec621ba5f?f=json",
+    "retrievedAt": "2026-11-07T20:18:42.436672+00:00",
+    "sha256": "6b19281624b60cdf36c9ff9cf42241eb91acadb0f5cfb10628a47b674e4a9c18",
+    "bytes": 1162,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "pm-official-webmap.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/639abd285d5e4c308fe42e395728c3e4/data?f=json",
+    "retrievedAt": "2026-11-07T20:18:42.614889+00:00",
+    "sha256": "8ee3c03cedadf7a092e37de47fa2e5f842edbd4daad402e550660f65353696be",
+    "bytes": 37132,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "air-map-point-oakland-central.json": {
+    "url": "https://services1.arcgis.com/PCHfdHz4GlDNAhBb/arcgis/rest/services/CES5_final_webmap_gdb/FeatureServer/0/query?f=json&geometry=-122.26360620685%2C37.801240729976&geometryType=esriGeometryPoint&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields=tract%2Cpm%2CpmP%2Cozone%2CozoneP&returnGeometry=false",
+    "retrievedAt": "2026-11-07T20:19:31.176385+00:00",
+    "sha256": "2ffe7a85f08078b8fc63b46296eb3a200ae409215dea8f38769f5a18bed5ecf5",
+    "bytes": 956,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "air-map-point-fresno.json": {
+    "url": "https://services1.arcgis.com/PCHfdHz4GlDNAhBb/arcgis/rest/services/CES5_final_webmap_gdb/FeatureServer/0/query?f=json&geometry=-119.786060995932%2C36.740250711973&geometryType=esriGeometryPoint&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields=tract%2Cpm%2CpmP%2Cozone%2CozoneP&returnGeometry=false",
+    "retrievedAt": "2026-11-07T20:19:32.079726+00:00",
+    "sha256": "c08a2af7886c8b470acea80cce77cdcd57be01e872c272196083533fa07cbf02",
+    "bytes": 956,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
   }
 }

@@ -33,8 +33,9 @@ test("catalog fields and null counts match all cached source observations", () =
 });
 test("unverified contracts remain explicit and cannot appear fully approved", () => {
   const pm = metadata.indicators.find((i) => i.id === "pm");
-  assert.equal(pm.unitVerification, "pending-primary-corroboration");
-  assert.equal(pm.rawDifferencePolicy, "provisional-unit");
+  assert.equal(pm.unitVerification, "verified-primary-map");
+  assert(pm.backendReady);
+  assert.equal(pm.rawDifferencePolicy, "same-definition-period-unit-only");
   for (const i of metadata.indicators) {
     if (
       i.periodVerification === "unresolved" ||

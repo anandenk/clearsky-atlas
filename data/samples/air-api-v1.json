@@ -1,0 +1,288 @@
+{
+  "sampleStatus": "Verified source-backed local API responses; not synthetic or a complete coverage test.",
+  "sourceEvidence": "data/contracts/air-evidence.json",
+  "tracts": [
+    {
+      "contractVersion": "atlas-observations-v1",
+      "datasetVersion": "ces-5.0-final-2026-07-01",
+      "tractId": "06001403402",
+      "tractVintage": "2020",
+      "place": "Oakland",
+      "county": "Alameda",
+      "observations": [
+        {
+          "tractId": "06001403402",
+          "indicatorId": "pm",
+          "datasetVersion": "ces-5.0-final-2026-07-01",
+          "geographicLevel": "2020-census-tract",
+          "rawValue": 8.325309645,
+          "percentile": 44.3663518559192,
+          "unit": "\u00b5g/m\u00b3",
+          "measurementPeriod": "2022\u20132024",
+          "definition": "Tract-average annual fine particle concentration estimated from monitoring and satellite observations; three annual estimates averaged; satellite-detected wildfire-smoke days anywhere in California excluded.",
+          "definitionSource": "https://oehha.ca.gov/calenviroscreen/fact-sheet/air-quality-pm25",
+          "provenance": {
+            "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+            "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+            "rawField": "pm",
+            "percentileField": "pmP",
+            "evidenceURLs": [
+              "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=5068668b6c4744ada5b6d38ec621ba5f"
+            ]
+          },
+          "percentileDomain": [
+            0,
+            100
+          ],
+          "sourceId": "ces-5.0-final-2026-07-01",
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonKey": "ces-5.0-final-2026-07-01|pm|2020-census-tract|\u00b5g/m\u00b3|2022\u20132024"
+        },
+        {
+          "tractId": "06001403402",
+          "indicatorId": "ozone",
+          "datasetVersion": "ces-5.0-final-2026-07-01",
+          "geographicLevel": "2020-census-tract",
+          "rawValue": 0.02701669682,
+          "percentile": 0.527124972545574,
+          "unit": "ppm",
+          "measurementPeriod": "2022\u20132024",
+          "definition": "Mean May\u2013October daily maximum 8-hour ozone concentration, 2022\u20132024. Ordinary kriging estimates concentration at each tract center.",
+          "definitionSource": "https://oehha.ca.gov/calenviroscreen/fact-sheet/air-quality-ozone",
+          "provenance": {
+            "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+            "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+            "rawField": "ozone",
+            "percentileField": "ozoneP",
+            "evidenceURLs": [
+              "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=fc7c46d8b7e14ce69c0bc17fe71eb34b"
+            ]
+          },
+          "percentileDomain": [
+            0,
+            100
+          ],
+          "sourceId": "ces-5.0-final-2026-07-01",
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonKey": "ces-5.0-final-2026-07-01|ozone|2020-census-tract|ppm|2022\u20132024"
+        }
+      ]
+    },
+    {
+      "contractVersion": "atlas-observations-v1",
+      "datasetVersion": "ces-5.0-final-2026-07-01",
+      "tractId": "06019000602",
+      "tractVintage": "2020",
+      "place": "Fresno",
+      "county": "Fresno",
+      "observations": [
+        {
+          "tractId": "06019000602",
+          "indicatorId": "pm",
+          "datasetVersion": "ces-5.0-final-2026-07-01",
+          "geographicLevel": "2020-census-tract",
+          "rawValue": 12.47532712,
+          "percentile": 97.7597188666813,
+          "unit": "\u00b5g/m\u00b3",
+          "measurementPeriod": "2022\u20132024",
+          "definition": "Tract-average annual fine particle concentration estimated from monitoring and satellite observations; three annual estimates averaged; satellite-detected wildfire-smoke days anywhere in California excluded.",
+          "definitionSource": "https://oehha.ca.gov/calenviroscreen/fact-sheet/air-quality-pm25",
+          "provenance": {
+            "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+            "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+            "rawField": "pm",
+            "percentileField": "pmP",
+            "evidenceURLs": [
+              "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=5068668b6c4744ada5b6d38ec621ba5f"
+            ]
+          },
+          "percentileDomain": [
+            0,
+            100
+          ],
+          "sourceId": "ces-5.0-final-2026-07-01",
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonKey": "ces-5.0-final-2026-07-01|pm|2020-census-tract|\u00b5g/m\u00b3|2022\u20132024"
+        },
+        {
+          "tractId": "06019000602",
+          "indicatorId": "ozone",
+          "datasetVersion": "ces-5.0-final-2026-07-01",
+          "geographicLevel": "2020-census-tract",
+          "rawValue": 0.05443199338,
+          "percentile": 74.4014935207556,
+          "unit": "ppm",
+          "measurementPeriod": "2022\u20132024",
+          "definition": "Mean May\u2013October daily maximum 8-hour ozone concentration, 2022\u20132024. Ordinary kriging estimates concentration at each tract center.",
+          "definitionSource": "https://oehha.ca.gov/calenviroscreen/fact-sheet/air-quality-ozone",
+          "provenance": {
+            "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+            "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+            "rawField": "ozone",
+            "percentileField": "ozoneP",
+            "evidenceURLs": [
+              "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=fc7c46d8b7e14ce69c0bc17fe71eb34b"
+            ]
+          },
+          "percentileDomain": [
+            0,
+            100
+          ],
+          "sourceId": "ces-5.0-final-2026-07-01",
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonKey": "ces-5.0-final-2026-07-01|ozone|2020-census-tract|ppm|2022\u20132024"
+        }
+      ]
+    }
+  ],
+  "comparisons": [
+    {
+      "contractVersion": "atlas-observations-v1",
+      "datasetVersion": "ces-5.0-final-2026-07-01",
+      "indicatorId": "pm",
+      "a": {
+        "tractId": "06001403402",
+        "indicatorId": "pm",
+        "datasetVersion": "ces-5.0-final-2026-07-01",
+        "geographicLevel": "2020-census-tract",
+        "rawValue": 8.325309645,
+        "percentile": 44.3663518559192,
+        "unit": "\u00b5g/m\u00b3",
+        "measurementPeriod": "2022\u20132024",
+        "definition": "Tract-average annual fine particle concentration estimated from monitoring and satellite observations; three annual estimates averaged; satellite-detected wildfire-smoke days anywhere in California excluded.",
+        "definitionSource": "https://oehha.ca.gov/calenviroscreen/fact-sheet/air-quality-pm25",
+        "provenance": {
+          "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+          "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+          "rawField": "pm",
+          "percentileField": "pmP",
+          "evidenceURLs": [
+            "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=5068668b6c4744ada5b6d38ec621ba5f"
+          ]
+        },
+        "percentileDomain": [
+          0,
+          100
+        ],
+        "sourceId": "ces-5.0-final-2026-07-01",
+        "status": "available",
+        "qualityFlags": [],
+        "comparisonKey": "ces-5.0-final-2026-07-01|pm|2020-census-tract|\u00b5g/m\u00b3|2022\u20132024"
+      },
+      "b": {
+        "tractId": "06019000602",
+        "indicatorId": "pm",
+        "datasetVersion": "ces-5.0-final-2026-07-01",
+        "geographicLevel": "2020-census-tract",
+        "rawValue": 12.47532712,
+        "percentile": 97.7597188666813,
+        "unit": "\u00b5g/m\u00b3",
+        "measurementPeriod": "2022\u20132024",
+        "definition": "Tract-average annual fine particle concentration estimated from monitoring and satellite observations; three annual estimates averaged; satellite-detected wildfire-smoke days anywhere in California excluded.",
+        "definitionSource": "https://oehha.ca.gov/calenviroscreen/fact-sheet/air-quality-pm25",
+        "provenance": {
+          "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+          "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+          "rawField": "pm",
+          "percentileField": "pmP",
+          "evidenceURLs": [
+            "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=5068668b6c4744ada5b6d38ec621ba5f"
+          ]
+        },
+        "percentileDomain": [
+          0,
+          100
+        ],
+        "sourceId": "ces-5.0-final-2026-07-01",
+        "status": "available",
+        "qualityFlags": [],
+        "comparisonKey": "ces-5.0-final-2026-07-01|pm|2020-census-tract|\u00b5g/m\u00b3|2022\u20132024"
+      },
+      "comparison": {
+        "compatible": true,
+        "sameTract": false,
+        "rawDifferenceBMinusA": 4.1500174749999985,
+        "unit": "\u00b5g/m\u00b3",
+        "percentilePointDifferenceBMinusA": 53.3933670107621,
+        "reason": "comparable",
+        "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+      }
+    },
+    {
+      "contractVersion": "atlas-observations-v1",
+      "datasetVersion": "ces-5.0-final-2026-07-01",
+      "indicatorId": "ozone",
+      "a": {
+        "tractId": "06001403402",
+        "indicatorId": "ozone",
+        "datasetVersion": "ces-5.0-final-2026-07-01",
+        "geographicLevel": "2020-census-tract",
+        "rawValue": 0.02701669682,
+        "percentile": 0.527124972545574,
+        "unit": "ppm",
+        "measurementPeriod": "2022\u20132024",
+        "definition": "Mean May\u2013October daily maximum 8-hour ozone concentration, 2022\u20132024. Ordinary kriging estimates concentration at each tract center.",
+        "definitionSource": "https://oehha.ca.gov/calenviroscreen/fact-sheet/air-quality-ozone",
+        "provenance": {
+          "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+          "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+          "rawField": "ozone",
+          "percentileField": "ozoneP",
+          "evidenceURLs": [
+            "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=fc7c46d8b7e14ce69c0bc17fe71eb34b"
+          ]
+        },
+        "percentileDomain": [
+          0,
+          100
+        ],
+        "sourceId": "ces-5.0-final-2026-07-01",
+        "status": "available",
+        "qualityFlags": [],
+        "comparisonKey": "ces-5.0-final-2026-07-01|ozone|2020-census-tract|ppm|2022\u20132024"
+      },
+      "b": {
+        "tractId": "06019000602",
+        "indicatorId": "ozone",
+        "datasetVersion": "ces-5.0-final-2026-07-01",
+        "geographicLevel": "2020-census-tract",
+        "rawValue": 0.05443199338,
+        "percentile": 74.4014935207556,
+        "unit": "ppm",
+        "measurementPeriod": "2022\u20132024",
+        "definition": "Mean May\u2013October daily maximum 8-hour ozone concentration, 2022\u20132024. Ordinary kriging estimates concentration at each tract center.",
+        "definitionSource": "https://oehha.ca.gov/calenviroscreen/fact-sheet/air-quality-ozone",
+        "provenance": {
+          "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+          "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+          "rawField": "ozone",
+          "percentileField": "ozoneP",
+          "evidenceURLs": [
+            "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=fc7c46d8b7e14ce69c0bc17fe71eb34b"
+          ]
+        },
+        "percentileDomain": [
+          0,
+          100
+        ],
+        "sourceId": "ces-5.0-final-2026-07-01",
+        "status": "available",
+        "qualityFlags": [],
+        "comparisonKey": "ces-5.0-final-2026-07-01|ozone|2020-census-tract|ppm|2022\u20132024"
+      },
+      "comparison": {
+        "compatible": true,
+        "sameTract": false,
+        "rawDifferenceBMinusA": 0.02741529656,
+        "unit": "ppm",
+        "percentilePointDifferenceBMinusA": 73.87436854821001,
+        "reason": "comparable",
+        "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+      }
+    }
+  ]
+}

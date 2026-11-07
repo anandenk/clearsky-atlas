@@ -41,3 +41,13 @@ Handoff preparation checks: 10 backend tests, TypeScript, and targeted rendered-
 - Added `/api/indicators` machine-readable metadata/readiness and `/api/health` local-file-presence readiness. Existing selection/map response shapes retained; bbox validation tightened. Interface details and verification are in BACKEND_CHANGES.md, readable from main while frontend works independently. No frontend branch merge.
 - Source cache now rejects malformed/security/error responses even on HTTP 200, including legacy failed responses on reuse. Original successful cache bytes unchanged.
 - Checks: 14 spatial/data/contract tests, 4 cache regressions, TypeScript, one targeted rendered-map interaction test through frontend proxy, actual HTTP GET/POST and cross-port JSON equivalence. Source evidence gaps (including PM unit) remain unresolved. No new full build or broad UI-pass claim.
+
+## Current milestone — verified two-indicator backend
+
+This section supersedes earlier PM provisional-unit and PM-only backend status. Official OEHHA-linked CES5 app configuration corroborated PM2.5 µg/m³ and ozone ppm, both 2022–2024; exact originals/checksums cached. The full-report URL remains blocked, with no substitution.
+
+Catalog atlas-indicators-v1.1 marks PM and ozone backend-ready. Added normalized `/api/tracts/{tractId}`, optional indicator-specific `/api/map`, and `/api/compare`. Existing demo/geocode/unnamed map contracts remain compatible. Version, source artifact hash, period/unit, null handling and compatible comparison checks are explicit. Live proxy :3001 serves main backend updates without merging frontend code.
+
+21 backend tests and TypeScript passed. Repeatable HTTP smoke checks passed on :3000 and :3001, including source/value/map consistency and unsupported/invalid/version errors. Full frontend source ownership remains with the other session; no UI edits, dependency/config changes, or frontend merges in this pass. Additional source breadth and infrastructure remain planned. See BACKEND_CHANGES.md for consumption instructions and exact checks.
+
+Final milestone checkpoint: production build passed, main dev server restored, both-port HTTP smoke checks passed again. Real API sample is data/samples/air-api-v1.json. No remaining PM/ozone unit gap; remaining scientific/source uncertainty is recorded by indicator instead of blocking unrelated implementation.

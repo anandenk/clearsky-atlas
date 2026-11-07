@@ -1,5 +1,5 @@
 /** Backend-owned source contracts. Unknown evidence stays null; do not infer from release dates. */
-export const CONTRACT_VERSION = "atlas-indicators-v1";
+export const CONTRACT_VERSION = "atlas-indicators-v1.1";
 export const DATASET_VERSION = "ces-5.0-final-2026-07-01";
 const dictionary = "https://publish.data.ca.gov/dataset/calenviroscreen-5-0";
 type Mode = "environment" | "health" | "community";
@@ -12,11 +12,17 @@ export type IndicatorContract = {
   definition: string;
   unit: string | null;
   unitVerification:
-    "verified-dictionary" | "pending-primary-corroboration" | "unresolved";
+    | "verified-dictionary"
+    | "verified-primary-map"
+    | "pending-primary-corroboration"
+    | "unresolved";
   measurementPeriod: string | null;
   periodVerification:
     "verified-factsheet" | "verified-dictionary" | "unresolved";
-  availability: "baseline-active-provisional" | "metadata-only";
+  availability:
+    "backend-ready" | "baseline-active-provisional" | "metadata-only";
+  backendReady: boolean;
+  evidence: { sourceURL: string; cacheFile: string; assertion: string }[];
   geographicLevel: "2020-census-tract";
   sourceId: string;
   definitionSource: string;
@@ -51,6 +57,8 @@ function row(
     measurementPeriod: null,
     periodVerification: "unresolved",
     availability: "metadata-only",
+    backendReady: false,
+    evidence: [],
     geographicLevel: "2020-census-tract",
     sourceId: DATASET_VERSION,
     definitionSource: dictionary,
@@ -76,26 +84,55 @@ export const indicatorContracts: IndicatorContract[] = [
       0,
     ),
     unit: "µg/m³",
-    unitVerification: "pending-primary-corroboration",
+    unitVerification: "verified-primary-map",
     measurementPeriod: "2022–2024",
     periodVerification: "verified-factsheet",
-    availability: "baseline-active-provisional",
+    availability: "backend-ready",
+    backendReady: true,
+    evidence: [
+      {
+        sourceURL:
+          "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=5068668b6c4744ada5b6d38ec621ba5f",
+        cacheFile: "data/raw/pm-official-app.json",
+        assertion:
+          "Official linked app popup defines pm as micrograms per cubic meter and period 2022–2024.",
+      },
+    ],
     definitionSource:
       "https://oehha.ca.gov/calenviroscreen/fact-sheet/air-quality-pm25",
-    unresolved: [
-      "Standard PM unit used by baseline UI; corroboration against final technical report is pending because origin returned security HTML.",
-    ],
-    rawDifferencePolicy: "provisional-unit",
+    unresolved: [],
+    rawDifferencePolicy: "same-definition-period-unit-only",
   },
-  row(
-    "ozone",
-    "environment",
-    "Ozone",
-    "ozone",
-    "ozoneP",
-    "Mean May–October daily maximum 8-hour ozone concentration.",
-    0,
-  ),
+  {
+    ...row(
+      "ozone",
+      "environment",
+      "Ozone",
+      "ozone",
+      "ozoneP",
+      "Mean May–October daily maximum 8-hour ozone concentration, 2022–2024. Ordinary kriging estimates concentration at each tract center.",
+      0,
+    ),
+    unit: "ppm",
+    unitVerification: "verified-primary-map",
+    measurementPeriod: "2022–2024",
+    periodVerification: "verified-factsheet",
+    availability: "backend-ready",
+    backendReady: true,
+    definitionSource:
+      "https://oehha.ca.gov/calenviroscreen/fact-sheet/air-quality-ozone",
+    evidence: [
+      {
+        sourceURL:
+          "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=fc7c46d8b7e14ce69c0bc17fe71eb34b",
+        cacheFile: "data/raw/ozone-official-app.json",
+        assertion:
+          "Official linked app popup defines ozone as parts per million and period 2022–2024.",
+      },
+    ],
+    unresolved: [],
+    rawDifferencePolicy: "same-definition-period-unit-only",
+  },
   row(
     "diesel",
     "environment",

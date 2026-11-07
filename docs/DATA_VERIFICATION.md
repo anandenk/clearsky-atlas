@@ -1,6 +1,6 @@
 # Source contracts — 2026-11-07
 
-Phase 1 completed a bounded source inspection; it did **not** establish every original indicator's full measurement contract. Unsupported contracts stay unavailable. No data is fabricated or replaced. Phase 2 uses the verified PM2.5 path. The full target in PRODUCT.md remains intact.
+Phase 1 completed a bounded source inspection; it did **not** establish every original indicator's full measurement contract. Unsupported contracts stay unavailable. No data is fabricated or replaced. The backend now supports verified PM2.5 and ozone contracts; frontend activation is separate. The full target in PRODUCT.md remains intact.
 
 ## CES 5.0 — verified inputs
 
@@ -16,8 +16,8 @@ Field existence and raw/percentile null counts were measured from the CSV. Defin
 
 | Original target | CSV fields | Definition / contract | State |
 | --- | --- | --- | --- |
-| PM2.5 | pm / pmP | Annual fine-particle concentration, µg/m³; 2022–2024; monitor/satellite estimates; wildfire-smoke days excluded | Active; 0 raw/percentile nulls |
-| Ozone | ozone / ozoneP | Mean May–October daily maximum 8-hour concentration; unit/measurement years not verified here | Present, inactive |
+| PM2.5 | pm / pmP | Annual fine-particle concentration, µg/m³; 2022–2024; monitor/satellite estimates; wildfire-smoke days excluded | Backend-ready; 0 raw/percentile nulls |
+| Ozone | ozone / ozoneP | Mean May–October daily maximum 8-hour concentration; ppm; 2022–2024 verified by official fact sheet and linked app | Backend-ready; 0 raw/percentile nulls |
 | Diesel particles | diesel / dieselP | Emissions near populated blocks; unit/measurement years unresolved | Present; 9 nulls; inactive |
 | Traffic impacts | traffic / trafficP | Vehicle-km/hour per road length within 150 m; period unresolved | Present; 9 nulls; inactive |
 | Toxic air releases | RSEIhaz / RSEIhazP | Toxicity-weighted air concentrations; unit/period unresolved | Present; 0 nulls; inactive |
@@ -32,7 +32,7 @@ Field existence and raw/percentile null counts were measured from the CSV. Defin
 | Age breakdown | pop_und10 / pop_10_64 / pop_ov64 | Percent under 10, 10–64, 65+; dictionary: 2020–2024 ACS | Present; 25 nulls per field; Phase 3 charts remain |
 | Racial/ethnic breakdown | hisp / white / black / amind / asian / pacisl / othmult | Dictionary categories; 2020–2024 ACS | Present; 25 nulls per field; neutral Phase 3 charts remain |
 
-The official [PM2.5 fact sheet](https://oehha.ca.gov/calenviroscreen/fact-sheet/air-quality-pm25) was successfully inspected with the web reader on 2026-11-07: annual means for 2022–2024, averaged across years, then grid cells averaged by tract; satellite-detected wildfire-smoke days anywhere in the state excluded. Raw direct downloads of the fact pages and technical report instead returned security HTML (HTTP 200). Their cached response bytes are labeled FAILED in the manifest and are **not PDF/document evidence**. The fact sheet's web-reader text is evidence for the active period/method, not a successful original-byte download. Full-report acquisition remains blocked by origin security response; no archived/draft report substituted. Standard concentration unit µg/m³ is used; the downloaded dictionary itself does not print the PM unit, so full-report unit corroboration remains a documentation follow-up.
+The official [PM2.5 fact sheet](https://oehha.ca.gov/calenviroscreen/fact-sheet/air-quality-pm25) was successfully inspected with the web reader on 2026-11-07: annual means for 2022–2024, averaged across years, then grid cells averaged by tract; satellite-detected wildfire-smoke days anywhere in the state excluded. Raw direct downloads of the fact pages and technical report instead returned security HTML (HTTP 200). Their cached response bytes are labeled FAILED in the manifest and are **not PDF/document evidence**. The fact sheet's web-reader text is evidence for the active period/method, not a successful original-byte download. Full-report acquisition remains blocked by origin security response; no archived/draft report substituted. **Update:** PM units are corroborated by the official linked CES5 app configuration (micrograms per cubic meter), and ozone units/period are corroborated by its companion official app (ppm, 2022–2024). Both original app responses and publisher item metadata are cached. See `data/contracts/air-evidence.json` and `scripts/verify_air_sources.py`. The full-report download remains blocked, but these two unit contracts no longer depend on recovering that file.
 
 CES estimates describe tracts, not properties or personal disease probabilities. The map shows source PM2.5 percentiles on one fixed statewide 0–100 domain; numerical evidence shows raw concentration separately. Percentiles are source values, never recalculated in this app. Statistical uncertainty is not provided in this bundle; differences are descriptive and not significance or cause claims.
 
@@ -57,3 +57,7 @@ See FACILITY_SOURCES.md and the cached original schema/sample responses. **The s
 - Facilities: resolve licenses, full coverage, CRS/status/vintage and pagination before adapters/nearest claims.
 - Map display at statewide zoom: current viewport GeoJSON is functional, but 14 MB statewide display and 122 MB server lookup are measured disk sizes, not performance claims. Trigger for tiles/index: measured latency/memory on intended demo hardware; PMTiles remains planned.
 - Broad stories, 3D, camera linking, terrain/buildings, remaining layers and optional integrations stay in phases 3–6. They are outside this authorized initial implementation increment, not deleted scope.
+
+## Current backend air milestone
+
+PM2.5 and ozone are backend-ready in catalog atlas-indicators-v1.1. Normalized tract observations, indicator-specific map fields and checked pairwise comparisons are live; details in BACKEND_CHANGES.md. Live official indicator-layer point queries agree with the cached CSV for all four air fields at both demo tracts. Other indicator contracts and facility blockers remain as recorded above. No unsupported source was substituted.

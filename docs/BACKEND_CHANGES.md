@@ -47,3 +47,69 @@ Frontend may consume the JSON without changing dependencies or shared types; put
 ### Integration checkpoint
 
 No frontend merge requested or performed. Backend source-contract gaps remain in DATA_VERIFICATION.md. Next backend work can corroborate missing units/periods and investigate a statewide healthcare source without touching frontend paths. Before any shared type/config/dependency change or frontend integration, coordinate a paused checkpoint with the user.
+
+## 2026-11-07 — two verified air contracts and normalized APIs
+
+**Live on main :3000 and through the :3001 frontend proxy. No frontend merge is required.**
+
+### Evidence milestone reached
+
+Official OEHHA fact sheets link to the publisher's CES5 indicator apps. Downloaded app configuration explicitly defines PM2.5 in µg/m³ and ozone in ppm, both for 2022–2024. The ozone fact sheet specifies the May–October mean of daily maximum 8-hour concentrations, estimated at tract centers by ordinary kriging. PM uses annual means and excludes satellite-detected wildfire-smoke days statewide. `data/contracts/air-evidence.json` records exact cached files, JSON paths, app owners, URLs and checksums. `scripts/verify_air_sources.py` reproduces those checks; the app layer matches our CSV's pm/pmP/ozone/ozoneP at both demo points within 1e-8.
+
+The full report URL still returns security HTML; it was not silently replaced. Its absence no longer blocks these two unit contracts because the official linked applications supply direct corroboration. The ozone app popup uses an ambiguous “summed” label; we retain the consistent mean definition from the fact sheet and dictionary rather than copying that label. Remaining indicators/facilities are not promoted.
+
+### Catalog readiness update — atlas-indicators-v1.1
+
+`GET /api/indicators` retains its object/array shape and adds `backendReady` and `evidence` per entry. **New enum values:** PM/ozone `availability="backend-ready"`, `unitVerification="verified-primary-map"`; both have empty unresolved arrays and `rawDifferencePolicy="same-definition-period-unit-only"`. The contractVersion and X-Atlas-Contract header are now `atlas-indicators-v1.1`. Frontend adapters must accept these readiness values instead of treating the old PM provisional state as permanent. Other 21 target-field entries remain metadata-only/backendReady=false. No changes were made to frozen src/domain.ts; live catalog supersedes its baseline readiness assumptions and old hardcoded gap prose.
+
+### GET /api/tracts/{tractId}?indicators=pm,ozone&version=ces-5.0-final-2026-07-01
+
+200 response:
+
+```ts
+{
+  contractVersion: "atlas-observations-v1",
+  datasetVersion: "ces-5.0-final-2026-07-01",
+  tractId: string, tractVintage: "2020", place: string, county: string,
+  observations: [{
+    tractId: string, indicatorId: "pm" | "ozone", datasetVersion: string,
+    geographicLevel: "2020-census-tract",
+    rawValue: number | null, percentile: number | null,
+    unit: "µg/m³" | "ppm", measurementPeriod: "2022–2024",
+    definition: string, definitionSource: string,
+    provenance: { sourceURL: string, sha256: string, rawField: string,
+                  percentileField: string | null, evidenceURLs: string[] },
+    percentileDomain: [0, 100], sourceId: string,
+    status: "available" | "missing", qualityFlags: string[], comparisonKey: string
+  }]
+}
+```
+
+Omitted indicators defaults to the backend-ready list (currently pm, ozone). Explicit comma-separated IDs deduplicate in request order. No implicit fallback for unsupported indicators. Version is optional; when supplied it must match the available release. This route reads attributes without loading full-resolution lookup geometry. It can serve each of any number of frontend selections and a clicked display tract; it does not turn tract inspection into an address selection. Normalized numeric observations are a new response contract; legacy Selection.observations remains strings/null.
+
+Error JSON `{error:string, code:string}`: 400 invalid-tract-id / unknown-indicator / invalid-indicators; 404 tract-not-found; 409 dataset-version-mismatch; 422 unverified-indicator; 503 local-data-unavailable or invalid cached source values. Strict 11-digit California IDs; unpadded or non-California IDs fail. Cache-Control no-store, X-Atlas-Dataset identifies release.
+
+### GET /api/map?bbox=...&indicator=ozone&version=ces-5.0-final-2026-07-01
+
+Omit indicator to retain **exactly the legacy FeatureCollection structure/properties**. Explicit pm or ozone returns the same display geometry and legacy properties plus `properties.indicatorId`, numeric/null `properties.value` and `properties.percentile`. Top-level GeoJSON foreign member `metadata` contains atlas-map-v1, datasetVersion, indicatorId, rawField/percentileField, unit, period, definition source, `legend:{property:"percentile",domain:[0,100],meaning:...}`, and geometry CRS/order/30m display simplification/id-property instructions.
+
+Use properties.value for the selected raw metric and properties.percentile for the shared map scale. Ozone values are ppm: do not label them ppb without an explicitly labeled conversion. Membership still uses unsimplified backend geometry. Named maps return no-store; legacy cache policy retained. Unsupported/unknown indicators and version mismatch return the errors above. Empty viewports return an empty features array with honest metadata.
+
+### GET /api/compare?tractA=...&tractB=...&indicator=ozone&version=...
+
+200: atlas-observations-v1, datasetVersion, indicatorId, normalized observations `a` and `b`, plus `comparison`:
+
+- compatible, sameTract;
+- rawDifferenceBMinusA, unit;
+- percentilePointDifferenceBMinusA (points, not percent change);
+- reason and limitation.
+
+Default indicator pm. Compatibility requires matching version, indicator, definition key, period, unit and geography. Incompatibility/missing observations suppress corresponding differences; no denominator-based percent change, causal/significance inference or cross-indicator ranking. Same-tract locations return zero difference while distinct address pins remain a frontend concern. Pairwise API is optional for multi-location views; frontend owns interaction/layout.
+
+### Checks and operational notes
+
+21 backend tests pass: every tract's normalized air values/percentiles, original/source app hashes, live-source cached point checks, signed and same-tract comparisons, incompatible versions/units/periods, missing/zero handling, map property consistency, existing spatial checks. TypeScript passed. `python3 scripts/smoke_backend.py --origin http://127.0.0.1:3000 --origin http://127.0.0.1:3001` passes actual HTTP checks for new routes, legacy compatibility, same-tract comparisons, version pinning, invalid IDs and unsupported indicators through both origins.
+
+A Next dev hot-reload graph briefly served stale readiness in the newly added route while the catalog was current; restarting ONLY the main backend reconciled it. HTTP smoke checks now confirm the same readiness and values across routes. Frontend preview/worktree were not restarted or modified. No shared types, dependencies or framework configuration changed in this pass. Readiness metadata is not a claim that frontend controls or rendered ozone maps are implemented; that verification belongs to the frontend session.
+
+Production build also passed after stopping only the main dev process; backend :3000 was restored and both-port smoke checks passed again. Frontend :3001 was retained. `data/samples/air-api-v1.json` now snapshots real normalized responses for the two verified demo tracts and both pairwise comparisons; reproduce with `python3 scripts/prepare_air_api_sample.py` while the backend runs. This is a sample, not synthetic data or a statewide verification claim.

@@ -88,3 +88,9 @@ export function demos() {
       );
     });
 }
+
+// Versioned observation APIs deliberately do not load the 122 MB spatial lookup.
+export function tractRecord(id: string) {
+  observations ??= read("observations.json");
+  return observations[id] ?? null;
+}

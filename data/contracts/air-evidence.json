@@ -1,0 +1,59 @@
+{
+  "datasetVersion": "ces-5.0-final-2026-07-01",
+  "evidence": {
+    "pm": {
+      "factSheetURL": "https://oehha.ca.gov/calenviroscreen/fact-sheet/air-quality-pm25",
+      "officialLinkedAppURL": "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=5068668b6c4744ada5b6d38ec621ba5f",
+      "appItemOwner": "sam.burns_oehha",
+      "appItemTitle": "Air Quality: PM2.5 - CES5",
+      "unit": "\u00b5g/m\u00b3",
+      "measurementPeriod": "2022\u20132024",
+      "unitEvidenceJSONPath": "values.searchConfiguration.sources[1].popupTemplate.description",
+      "methodAuthority": "Official fact sheet and downloaded dictionary; app ozone popup uses ambiguous summed wording, not adopted as metric definition.",
+      "rawAppFile": "data/raw/pm-official-app.json",
+      "rawAppSHA256": "7f6fd7a11aa3ecda331e43e78593b79b7172ed8a053aade51ae8debd03f984aa",
+      "webmapFile": "data/raw/pm-official-webmap.json",
+      "layerURL": "https://services1.arcgis.com/PCHfdHz4GlDNAhBb/arcgis/rest/services/CES5_final_webmap_gdb/FeatureServer/0"
+    },
+    "ozone": {
+      "factSheetURL": "https://oehha.ca.gov/calenviroscreen/fact-sheet/air-quality-ozone",
+      "officialLinkedAppURL": "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=fc7c46d8b7e14ce69c0bc17fe71eb34b",
+      "appItemOwner": "sam.burns_oehha",
+      "appItemTitle": "Air Quality: Ozone - CES5",
+      "unit": "ppm",
+      "measurementPeriod": "2022\u20132024",
+      "unitEvidenceJSONPath": "values.searchConfiguration.sources[1].popupTemplate.description",
+      "methodAuthority": "Official fact sheet and downloaded dictionary; app ozone popup uses ambiguous summed wording, not adopted as metric definition.",
+      "rawAppFile": "data/raw/ozone-official-app.json",
+      "rawAppSHA256": "6d9f4769b47c22c3ce63bc6c05e0a5808fcf4cce2ef09581e235ae663acd8b8a",
+      "webmapFile": "data/raw/ozone-official-webmap.json",
+      "layerURL": "https://services1.arcgis.com/PCHfdHz4GlDNAhBb/arcgis/rest/services/CES5_final_webmap_gdb/FeatureServer/0"
+    }
+  },
+  "pointChecks": [
+    {
+      "tractId": "06001403402",
+      "fields": [
+        "pm",
+        "pmP",
+        "ozone",
+        "ozoneP"
+      ],
+      "matchTolerance": 1e-08,
+      "responseFile": "data/raw/air-map-point-oakland-central.json"
+    },
+    {
+      "tractId": "06019000602",
+      "fields": [
+        "pm",
+        "pmP",
+        "ozone",
+        "ozoneP"
+      ],
+      "matchTolerance": 1e-08,
+      "responseFile": "data/raw/air-map-point-fresno.json"
+    }
+  ],
+  "unresolved": [],
+  "scope": "Verifies these indicator contracts and two representative point records, not every address or statistical uncertainty."
+}
