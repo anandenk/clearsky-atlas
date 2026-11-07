@@ -1,0 +1,35 @@
+{
+  "note": "Hashes verify saved web-tool extracts, not origin bytes. Dynamic source content and tool formatting may change; identical re-download hashes are not guaranteed. No sample responses were retrieved.",
+  "evidence": [
+    {
+      "file": "healthcare-web-extract.txt",
+      "original_url": "https://services.arcgis.com/RmCCgQtiZLDCtblq/arcgis/rest/services/CDPH_Healthcare_Facilities/FeatureServer/0",
+      "retrieval_method": "web tool extracted, line-numbered text; upstream crawl time reported as today, exact upstream retrieval unknown",
+      "sha256": "dbb3813e0c4d3ec6f8b7a8af126493e3f70fa9ce4ce4ed01c4115e1368ed1494",
+      "bytes": 13307,
+      "raw_http_response": false,
+      "retrieved_utc": null,
+      "retrieved_no_later_than_utc": "2026-11-07T19:33:18Z"
+    },
+    {
+      "file": "schools-web-extract.txt",
+      "original_url": "https://services3.arcgis.com/fdvHcZVgB2QSRNkL/arcgis/rest/services/SchoolSites2526/FeatureServer/0",
+      "retrieval_method": "web tool extracted, line-numbered text; upstream crawl time reported as today, exact upstream retrieval unknown",
+      "sha256": "67f862358ef465d9f63b0335824e8ffb96956c32965484b4a28460a79b4921b7",
+      "bytes": 17605,
+      "raw_http_response": false,
+      "retrieved_utc": null,
+      "retrieved_no_later_than_utc": "2026-11-07T19:33:18Z"
+    },
+    {
+      "file": "power-web-extract.txt",
+      "original_url": "https://services3.arcgis.com/bWPjFyq029ChCGur/arcgis/rest/services/Power_Plant/FeatureServer/0",
+      "retrieval_method": "web tool extracted, line-numbered text; upstream crawl time reported as today, exact upstream retrieval unknown",
+      "sha256": "9095acffe1adf1576b756e5e4fda33cf711fce1e1b294643b81d1b0d851e288f",
+      "bytes": 3846,
+      "raw_http_response": false,
+      "retrieved_utc": null,
+      "retrieved_no_later_than_utc": "2026-11-07T19:33:18Z"
+    }
+  ]
+}

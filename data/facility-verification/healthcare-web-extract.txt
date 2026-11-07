@@ -1,0 +1,118 @@
+Layer: CDPH Healthcare Facilities (ID:0) (https://services.arcgis.com/RmCCgQtiZLDCtblq/arcgis/rest/services/CDPH_Healthcare_Facilities/FeatureServer/0)
+citeturn5view0 [wordlim: 200] Crawled: today; Content type: text/html; Source: open({"ref_id":"https://services.arcgis.com/RmCCgQtiZLDCtblq/arcgis/rest/services/CDPH_Healthcare_Facilities/FeatureServer/0","lineno":null}); Total lines: 116
+L0: ArcGIS REST Services Directory
+L1: | 【0†API Reference†resources.arcgis.com】
+L2: 
+L3: 【1†JSON】
+L4: ## Layer: CDPH Healthcare Facilities (ID:0)
+L5: 
+L6: View In:   【2†Map Viewer†www.arcgis.com】
+L7: Name: CDPH Healthcare Facilities
+L8: Display Field: FACNAME
+L9: Type: Feature Layer
+L10: Geometry Type: esriGeometryPoint
+L11: Description: The California Department of Public Health (CDPH), Center for Health Care Quality, Licensing and Certification (L&C) Program licenses and certifies more than 30 types of healthcare facilities. The Electronic Licensing Management System (ELMS) is a CDPH data system created to manage state licensing-related data and enforcement actions. This file includes California healthcare facilities that are operational and have a current license issued by the CDPH and/or a current U.S.
+L12: Department of Health and Human Services’ Centers for Medicare and Medicaid Services (CMS) certification.To link the CDPH facility IDs with those from other Departments, like HCAI, please reference the "Licensed Facility Cross-Walk" Open Data table at https://data.chhs.ca.gov/dataset/licensed-facility-crosswalk.
+L13: Facility geographic variables are updated monthly, if latitude/longitude information is missing at any point in time, it should be available when the next time the Open Data facility file is refreshed.Please note that the file contains the data from ELMS as of the 11th business day of the month.
+L14: See DATA_DATE variable for the specific date of when the data was extracted.Visit the California Health and Human Services Open Data Portal for Source Data and the Data Dictionary.This dataset is checked for updates from source nightly.
+L15: Copyright Text: California Health and Human Services Open Data Portal, California Department of Public Health
+L16: Min. Scale: 0
+L17: Max. Scale: 0
+L18: Default Visibility: false
+L19: Max Record Count: 2000
+L20: Supported query Formats: JSON, geoJSON, PBF
+L21: Use Standardized Queries: True
+L22: Extent:
+L23: XMin: 6319695.2696103
+L24: YMin: 1582083.70257998
+L25: XMax: 6652715.52909338
+L26: YMax: 2105214.82134189
+L27: Spatial Reference: 102645 (2229)
+L28: Drawing Info:
+L29: {"renderer":{"type":"simple","symbol":{"type":"esriPMS","url":"47954bbbe77fe84c083cb98427cc2cc6","imageData":"iVBORw0KGgoAAAANSUhEUgAAABcAAAAXCAYAAADgKtSgAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAC1klEQVRIibVVPWgTYRh+75K0dygxaZb8KKiTtqgVuyg6KEq1tA5WErWDIEVxdApkaTJJFp0Vlww13mGCNBUaFBwUBaUihsRNhZpeFm3rYNPqNfLk+uW+uyQmFHymu+++e773fd73fT4n/Uc4O21QVdVfq4mHdCK/QKIfaxvCn/xEOPxhy+TTqjoo1BzRHlk65/N6HbIsi7IsifhWLmuxtJLRBaKUKOjJcDhc6Zo8rWSjPq8nFgoFevr375Ps39na5y9fb7599/5qWskmL0cuJDuSP1QyaV+fZ2Ro6PA2r8fj+Ffae/fs7g0GAq6Xr17HHikZ/6XI+K225PWI+zwjZ06fdFOXkKReEfufPX9xLa1kK3wGTl5jSIGIaQs4cfzY9iczT6PTqtoodoMcxYPGvBSJPFGuSKStEN0LE40OEM0WieJ5Yw3vWGcZHDzQLxcKpTtEdKpBjnZDV/DFS+SJ4nNmZGMPiK4fJbr/xlxjz+wA/P+xUBq0yII+RrvxaeaKzamDLDdpHAQE3UTz36x7doYCLkV5PByJXMzXyTEg6GN+0/xCMzkiZ1Ik5ojKCaLzmwcxgAd8jcgxeWxAGGp3zWcmEchBNjNpBsCeTXJJZJPcdkK1n0TBKSN1RBhwm3LdUI3ocRDLphWczCsw0nxBA25TX56ML2Qr4nJZWwdfgxx9Ca+wnzw6QBQ/a0hyZJe1yMEdzcTV6trG9x9LukugirXPiVLwCow0/8PUMNHiihE9AyLGuh2LmvYbPMzIGuRwN5gQvAIDwf8EScYGDDnaaby0vKwXiqWqLugpi+YAToO7wYRaeQsI2xUOKBY/ra7+Wrs9ETF93tItMB24G0wIXmHPoBUQMYgXytrslci4xXabWhG2CXeDCcErWvk5Kx40hhSI2E7ckpxlAHeDCcErMNK2m2gdXYHiQWNeio7kwKZt1t0NXmG/Q9Fu7a63juQ8YELd7LPjL0xBPUmeGiZJAAAAAElFTkSuQmCC","contentType":"image/png","width":17,"height":17,"angle":0,"xoffset":0,"yoffset":0}},"scaleSymbols":true,"transparency":0,"labelingInfo":null}
+L30: HasZ: false
+L31: HasM: false
+L32: Has Attachments: false
+L33: Has Geometry Properties: false
+L34: HTML Popup Type: esriServerHTMLPopupTypeAsHTMLText
+L35: Object ID Field: OBJECTID
+L36: Unique ID Field:
+L37: Name : OBJECTID
+L38: 
+L39: IsSystemMaintained : True
+L40: Global ID Field:
+L41: Type ID Field:
+L42: Fields:
+L43:   * OBJECTID (type: esriFieldTypeOID, alias: ObjectID, SQL Type: sqlTypeOther, length: 0, nullable: false, editable: false)
+L44:   * LICENSED_CERTIFIED (type: esriFieldTypeString, alias: LICENSED_CERTIFIED, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L45:   * FLAG (type: esriFieldTypeString, alias: FLAG, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L46:   * T18_19 (type: esriFieldTypeString, alias: T18_19, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L47:   * FACID (type: esriFieldTypeString, alias: FACID, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L48:   * FAC_STATUS_TYPE_CODE (type: esriFieldTypeString, alias: FAC_STATUS_TYPE_CODE, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L49:   * ASPEN_FACID (type: esriFieldTypeString, alias: ASPEN_FACID, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L50:   * CCN (type: esriFieldTypeString, alias: CCN, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L51:   * TERMINAT_SW (type: esriFieldTypeString, alias: TERMINAT_SW, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L52:   * PARTICIPATION_DATE (type: esriFieldTypeString, alias: PARTICIPATION_DATE, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L53:   * APPROVAL_DATE (type: esriFieldTypeString, alias: APPROVAL_DATE, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L54:   * NPI (type: esriFieldTypeString, alias: NPI, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L55:   * CAN_BE_DEEMED_FAC_TYPE (type: esriFieldTypeString, alias: CAN_BE_DEEMED_FAC_TYPE, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L56:   * CAN_BE_CERTIFIED_FAC_TYPE (type: esriFieldTypeString, alias: CAN_BE_CERTIFIED_FAC_TYPE, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L57:   * DEEMED (type: esriFieldTypeString, alias: DEEMED, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L58:   * AO_CD (type: esriFieldTypeString, alias: AO_CD, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L59:   * DMG_EFCTV_DT (type: esriFieldTypeString, alias: DMG_EFCTV_DT, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L60:   * AO_TRMNTN_DT (type: esriFieldTypeString, alias: AO_TRMNTN_DT, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L61:   * AO_NAME (type: esriFieldTypeString, alias: AO_NAME, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L62:   * FACNAME (type: esriFieldTypeString, alias: FACNAME, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L63:   * FAC_TYPE_CODE (type: esriFieldTypeString, alias: FAC_TYPE_CODE, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L64:   * FAC_FDR (type: esriFieldTypeString, alias: FAC_FDR, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L65:   * LTC (type: esriFieldTypeString, alias: LTC, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L66:   * CAPACITY (type: esriFieldTypeDouble, alias: CAPACITY, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L67:   * ADDRESS (type: esriFieldTypeString, alias: ADDRESS, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L68:   * CITY (type: esriFieldTypeString, alias: CITY, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L69:   * ZIP (type: esriFieldTypeString, alias: ZIP, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L70:   * ZIP9 (type: esriFieldTypeString, alias: ZIP9, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L71:   * FACADMIN (type: esriFieldTypeString, alias: FACADMIN, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L72:   * CONTACT_EMAIL (type: esriFieldTypeString, alias: CONTACT_EMAIL, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L73:   * CONTACT_FAX (type: esriFieldTypeString, alias: CONTACT_FAX, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L74:   * CONTACT_PHONE_NUMBER (type: esriFieldTypeString, alias: CONTACT_PHONE_NUMBER, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L75:   * COUNTY_CODE (type: esriFieldTypeString, alias: COUNTY_CODE, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L76:   * COUNTY_NAME (type: esriFieldTypeString, alias: COUNTY_NAME, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L77:   * DISTRICT_NUMBER (type: esriFieldTypeString, alias: DISTRICT_NUMBER, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L78:   * DISTRICT_NAME (type: esriFieldTypeString, alias: DISTRICT_NAME, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L79:   * ISFACMAIN (type: esriFieldTypeString, alias: ISFACMAIN, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L80:   * PARENT_FACID (type: esriFieldTypeString, alias: PARENT_FACID, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L81:   * FAC_FAC_RELATIONSHIP_TYPE_CODE (type: esriFieldTypeString, alias: FAC_FAC_RELATIONSHIP_TYPE_CODE, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L82:   * START_DATE (type: esriFieldTypeString, alias: START_DATE, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L83:   * LICENSE_NUMBER (type: esriFieldTypeString, alias: LICENSE_NUMBER, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L84:   * BUSINESS_NAME (type: esriFieldTypeString, alias: BUSINESS_NAME, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L85:   * LICENSE_STATUS_DESCRIPTION (type: esriFieldTypeString, alias: LICENSE_STATUS_DESCRIPTION, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L86:   * INITIAL_LICENSE_DATE (type: esriFieldTypeString, alias: INITIAL_LICENSE_DATE, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L87:   * LICENSE_EFFECTIVE_DATE (type: esriFieldTypeString, alias: LICENSE_EFFECTIVE_DATE, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L88:   * LICENSE_EXPIRATION_DATE (type: esriFieldTypeString, alias: LICENSE_EXPIRATION_DATE, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L89:   * ENTITY_TYPE_DESCRIPTION (type: esriFieldTypeString, alias: ENTITY_TYPE_DESCRIPTION, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L90:   * LATITUDE (type: esriFieldTypeDouble, alias: LATITUDE, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L91:   * LONGITUDE (type: esriFieldTypeDouble, alias: LONGITUDE, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L92:   * LOCATION (type: esriFieldTypeString, alias: LOCATION, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L93:   * CCLHO_CODE (type: esriFieldTypeString, alias: CCLHO_CODE, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L94:   * CCLHO_NAME (type: esriFieldTypeString, alias: CCLHO_NAME, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L95:   * FIPS_COUNTY_CODE (type: esriFieldTypeString, alias: FIPS_COUNTY_CODE, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L96:   * BIRTHING_FACILITY_FLAG (type: esriFieldTypeString, alias: BIRTHING_FACILITY_FLAG, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L97:   * TRAUMA_PED_CTR (type: esriFieldTypeString, alias: TRAUMA_PED_CTR, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L98:   * TRAUMA_CTR (type: esriFieldTypeString, alias: TRAUMA_CTR, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L99:   * TYPE_OF_CARE (type: esriFieldTypeString, alias: TYPE_OF_CARE, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L100:   * CRITICAL_ACCESS_HOSPITAL (type: esriFieldTypeString, alias: CRITICAL_ACCESS_HOSPITAL, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L101:   * DATA_DATE (type: esriFieldTypeString, alias: DATA_DATE, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L102:   * HCAI_ID (type: esriFieldTypeString, alias: HCAI_ID, SQL Type: sqlTypeOther, length: 255, nullable: true, editable: true)
+L103: Templates:
+L104: Name: CDPH Healthcare Facilities
+L105: Description:
+L106: Drawing Tool: esriFeatureEditToolPoint
+L107: Prototype:
+L108: Attributes:
+L109: Is Data Versioned: false
+L110: Has Contingent Values: false
+L111: Supports Rollback On Failure Parameter: true
+L112: Last Edit Date: 10/17/2026 4:32:17 AM
+L113: Schema Last Edit Date: 10/17/2026 4:32:17 AM
+L114: Data Last Edit Date: 10/17/2026 4:32:17 AM
+L115: Supported Operations:   【3†Query】   【4†Query Pivot】   【5†Query Top Features】   【6†Query Analytic】   【7†Query Bins】   【8†Generate Renderer】   【9†Validate SQL】   【10†Get Estimates】   【11†ConvertFormat】

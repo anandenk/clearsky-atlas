@@ -1,0 +1,152 @@
+Layer: California Public Schools 2025-26 (ID:0) (https://services3.arcgis.com/fdvHcZVgB2QSRNkL/arcgis/rest/services/SchoolSites2526/FeatureServer/0)
+citeturn6view0 [wordlim: 200] Crawled: today; Content type: text/html; Source: open({"ref_id":"https://services3.arcgis.com/fdvHcZVgB2QSRNkL/arcgis/rest/services/SchoolSites2526/FeatureServer/0","lineno":null}); Total lines: 150
+L0: ArcGIS REST Services Directory
+L1: | 【0†API Reference†resources.arcgis.com】
+L2: 
+L3: 【1†JSON】
+L4: ## Layer: California Public Schools 2025-26 (ID:0)
+L5: 
+L6: View In:   【2†Map Viewer†www.arcgis.com】
+L7: 
+L8: Name: California Public Schools 2025-26
+L9: Display Field:
+L10: Type: Feature Layer
+L11: Geometry Type: esriGeometryPoint
+L12: Description:
+L13: Copyright Text:
+L14: Min. Scale: 3147092
+L15: Max. Scale: 0
+L16: Default Visibility: true
+L17: Max Record Count: 2000
+L18: Supported query Formats: JSON, geoJSON, PBF
+L19: Use Standardized Queries: True
+L20: Extent:
+L21: XMin: -13835421.4847
+L22: YMin: 3835474.8969
+L23: XMax: -12733877.2403
+L24: YMax: 5155550.0637
+L25: Spatial Reference: 102100 (3857)
+L26: Drawing Info:
+L27: {"renderer":{"type":"simple","symbol":{"type":"esriPMS","url":"RedSphere.png","imageData":"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","contentType":"image/png","width":15,"height":15}}}
+L28: HasZ: false
+L29: HasM: false
+L30: Has Attachments: false
+L31: Has Geometry Properties: false
+L32: HTML Popup Type: esriServerHTMLPopupTypeNone
+L33: Object ID Field: OBJECTID
+L34: Unique ID Field:
+L35: Name : OBJECTID
+L36: 
+L37: IsSystemMaintained : True
+L38: Global ID Field:
+L39: Type ID Field:
+L40: Fields:
+L41:   * OBJECTID (type: esriFieldTypeOID, alias: OBJECTID, SQL Type: sqlTypeOther, length: 0, nullable: false, editable: false)
+L42:   * Year (type: esriFieldTypeString, alias: Academic Year, SQL Type: sqlTypeOther, length: 7, nullable: true, editable: true)
+L43:   * FedID (type: esriFieldTypeString, alias: Fed ID, SQL Type: sqlTypeOther, length: 12, nullable: true, editable: true)
+L44:   * CDSCode (type: esriFieldTypeString, alias: CDS Code, SQL Type: sqlTypeOther, length: 14, nullable: true, editable: true)
+L45:   * CDCode (type: esriFieldTypeString, alias: District Code, SQL Type: sqlTypeOther, length: 7, nullable: true, editable: true)
+L46:   * SCode (type: esriFieldTypeString, alias: School Code, SQL Type: sqlTypeOther, length: 7, nullable: true, editable: true)
+L47:   * Region (type: esriFieldTypeString, alias: Region, SQL Type: sqlTypeOther, length: 2, nullable: true, editable: true)
+L48:   * CountyName (type: esriFieldTypeString, alias: County Name, SQL Type: sqlTypeOther, length: 15, nullable: true, editable: true)
+L49:   * DistrictName (type: esriFieldTypeString, alias: District Name, SQL Type: sqlTypeOther, length: 75, nullable: true, editable: true)
+L50:   * SchoolName (type: esriFieldTypeString, alias: School Name, SQL Type: sqlTypeOther, length: 90, nullable: true, editable: true)
+L51:   * SchoolType (type: esriFieldTypeString, alias: School Type, SQL Type: sqlTypeOther, length: 35, nullable: true, editable: true)
+L52:   * Status (type: esriFieldTypeString, alias: Status, SQL Type: sqlTypeOther, length: 7, nullable: true, editable: true)
+L53:   * OpenDate (type: esriFieldTypeDate, alias: Open Date, SQL Type: sqlTypeOther, length: 8, nullable: true, editable: true)
+L54:   * ClosedDate (type: esriFieldTypeDate, alias: Closed Date, SQL Type: sqlTypeOther, length: 8, nullable: true, editable: true)
+L55:   * SchoolLevel (type: esriFieldTypeString, alias: School Level, SQL Type: sqlTypeOther, length: 35, nullable: true, editable: true)
+L56:   * GradeLow (type: esriFieldTypeString, alias: Grade Low, SQL Type: sqlTypeOther, length: 2, nullable: true, editable: true)
+L57:   * GradeHigh (type: esriFieldTypeString, alias: Grade High, SQL Type: sqlTypeOther, length: 2, nullable: true, editable: true)
+L58:   * Charter (type: esriFieldTypeString, alias: Charter, SQL Type: sqlTypeOther, length: 1, nullable: true, editable: true)
+L59:   * CharterNum (type: esriFieldTypeString, alias: Charter Num, SQL Type: sqlTypeOther, length: 4, nullable: true, editable: true)
+L60:   * FundingType (type: esriFieldTypeString, alias: Charter Funding Type, SQL Type: sqlTypeOther, length: 25, nullable: true, editable: true)
+L61:   * Virtual (type: esriFieldTypeString, alias: Virtual, SQL Type: sqlTypeOther, length: 1, nullable: true, editable: true)
+L62:   * Magnet (type: esriFieldTypeString, alias: Magnet, SQL Type: sqlTypeOther, length: 1, nullable: true, editable: true)
+L63:   * TitleIStatus (type: esriFieldTypeString, alias: Title I, SQL Type: sqlTypeOther, length: 30, nullable: true, editable: true)
+L64:   * DASS (type: esriFieldTypeString, alias: DASS, SQL Type: sqlTypeOther, length: 1, nullable: true, editable: true)
+L65:   * AssistStatusESSA (type: esriFieldTypeString, alias: Assistance Status ESSA, SQL Type: sqlTypeOther, length: 30, nullable: true, editable: true)
+L66:   * Street (type: esriFieldTypeString, alias: Street, SQL Type: sqlTypeOther, length: 70, nullable: true, editable: true)
+L67:   * City (type: esriFieldTypeString, alias: City, SQL Type: sqlTypeOther, length: 30, nullable: true, editable: true)
+L68:   * Zip (type: esriFieldTypeString, alias: Zip, SQL Type: sqlTypeOther, length: 10, nullable: true, editable: true)
+L69:   * State (type: esriFieldTypeString, alias: State, SQL Type: sqlTypeOther, length: 2, nullable: true, editable: true)
+L70:   * Locale (type: esriFieldTypeString, alias: Locale, SQL Type: sqlTypeOther, length: 25, nullable: true, editable: true)
+L71:   * Website (type: esriFieldTypeString, alias: School Website, SQL Type: sqlTypeOther, length: 100, nullable: true, editable: true)
+L72:   * EnrollTotal (type: esriFieldTypeInteger, alias: Enroll Total, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L73:   * AAcount (type: esriFieldTypeInteger, alias: African American, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L74:   * AApct (type: esriFieldTypeSingle, alias: African American (%), SQL Type: sqlTypeOther, nullable: true, editable: true)
+L75:   * AIcount (type: esriFieldTypeInteger, alias: American Indian, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L76:   * AIpct (type: esriFieldTypeSingle, alias: American Indian (%), SQL Type: sqlTypeOther, nullable: true, editable: true)
+L77:   * AScount (type: esriFieldTypeInteger, alias: Asian, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L78:   * ASpct (type: esriFieldTypeSingle, alias: Asian (%), SQL Type: sqlTypeOther, nullable: true, editable: true)
+L79:   * FIcount (type: esriFieldTypeInteger, alias: Filipino, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L80:   * FIpct (type: esriFieldTypeSingle, alias: Filipino (%), SQL Type: sqlTypeOther, nullable: true, editable: true)
+L81:   * HIcount (type: esriFieldTypeInteger, alias: Hispanic, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L82:   * HIpct (type: esriFieldTypeSingle, alias: Hispanic (%), SQL Type: sqlTypeOther, nullable: true, editable: true)
+L83:   * PIcount (type: esriFieldTypeInteger, alias: Pacific Islander, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L84:   * PIpct (type: esriFieldTypeSingle, alias: Pacific Islander (%), SQL Type: sqlTypeOther, nullable: true, editable: true)
+L85:   * WHcount (type: esriFieldTypeInteger, alias: White, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L86:   * WHpct (type: esriFieldTypeSingle, alias: White (%), SQL Type: sqlTypeOther, nullable: true, editable: true)
+L87:   * MRcount (type: esriFieldTypeInteger, alias: Two or More Races, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L88:   * MRpct (type: esriFieldTypeSingle, alias: Two or More Races (%), SQL Type: sqlTypeOther, nullable: true, editable: true)
+L89:   * NRcount (type: esriFieldTypeInteger, alias: Not Reported, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L90:   * NRpct (type: esriFieldTypeSingle, alias: Not Reported (%), SQL Type: sqlTypeOther, nullable: true, editable: true)
+L91:   * ELcount (type: esriFieldTypeInteger, alias: English Learner, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L92:   * ELpct (type: esriFieldTypeSingle, alias: English Learner (%), SQL Type: sqlTypeOther, nullable: true, editable: true)
+L93:   * FOScount (type: esriFieldTypeInteger, alias: Foster, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L94:   * FOSpct (type: esriFieldTypeSingle, alias: Foster (%), SQL Type: sqlTypeOther, nullable: true, editable: true)
+L95:   * HOMcount (type: esriFieldTypeInteger, alias: Homeless, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L96:   * HOMpct (type: esriFieldTypeSingle, alias: Homeless (%), SQL Type: sqlTypeOther, nullable: true, editable: true)
+L97:   * MIGcount (type: esriFieldTypeInteger, alias: Migrant, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L98:   * MIGpct (type: esriFieldTypeSingle, alias: Migrant (%), SQL Type: sqlTypeOther, nullable: true, editable: true)
+L99:   * SEDCount (type: esriFieldTypeInteger, alias: Socioeconomically Disadvantaged, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L100:   * SEDpct (type: esriFieldTypeSingle, alias: Socioeconomically Disadvantaged (%), SQL Type: sqlTypeOther, nullable: true, editable: true)
+L101:   * SWDcount (type: esriFieldTypeInteger, alias: Students with Disabilities, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L102:   * SWDpct (type: esriFieldTypeSingle, alias: Students with Disabilities (%), SQL Type: sqlTypeOther, nullable: true, editable: true)
+L103:   * FRPMcount (type: esriFieldTypeInteger, alias: Free/Reduced Meal Eligible, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L104:   * FRPMpct (type: esriFieldTypeSingle, alias: Free/Reduced Meal Eligible (%), SQL Type: sqlTypeOther, nullable: true, editable: true)
+L105:   * GradeTK (type: esriFieldTypeInteger, alias: Grade TK, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L106:   * GradeKG (type: esriFieldTypeInteger, alias: Grade KG, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L107:   * Grade1 (type: esriFieldTypeInteger, alias: Grade 1, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L108:   * Grade2 (type: esriFieldTypeInteger, alias: Grade 2, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L109:   * Grade3 (type: esriFieldTypeInteger, alias: Grade 3, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L110:   * Grade4 (type: esriFieldTypeInteger, alias: Grade 4, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L111:   * Grade5 (type: esriFieldTypeInteger, alias: Grade 5, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L112:   * Grade6 (type: esriFieldTypeInteger, alias: Grade 6, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L113:   * Grade7 (type: esriFieldTypeInteger, alias: Grade 7, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L114:   * Grade8 (type: esriFieldTypeInteger, alias: Grade 8, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L115:   * Grade9 (type: esriFieldTypeInteger, alias: Grade 9, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L116:   * Grad10 (type: esriFieldTypeInteger, alias: Grade 10, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L117:   * Grade11 (type: esriFieldTypeInteger, alias: Grade 11, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L118:   * Grade12 (type: esriFieldTypeInteger, alias: Grade 12, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L119:   * Latitude (type: esriFieldTypeDouble, alias: Latitude, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L120:   * Longitude (type: esriFieldTypeDouble, alias: Longitude, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L121:   * CountyCodeGeo (type: esriFieldTypeString, alias: Geographic County Code, SQL Type: sqlTypeOther, length: 2, nullable: true, editable: true)
+L122:   * CountyNameGeo (type: esriFieldTypeString, alias: Geographic County Name, SQL Type: sqlTypeOther, length: 15, nullable: true, editable: true)
+L123:   * DistrictElemCodeGeo (type: esriFieldTypeString, alias: Geographic Elementary District Code, SQL Type: sqlTypeOther, length: 7, nullable: true, editable: true)
+L124:   * DistrictElemNameGeo (type: esriFieldTypeString, alias: Geographic Elementary District Name, SQL Type: sqlTypeOther, length: 50, nullable: true, editable: true)
+L125:   * DistrictHighCodeGeo (type: esriFieldTypeString, alias: Geographic High District Code, SQL Type: sqlTypeOther, length: 7, nullable: true, editable: true)
+L126:   * DistrictHighNameGeo (type: esriFieldTypeString, alias: Geographic High District Name, SQL Type: sqlTypeOther, length: 50, nullable: true, editable: true)
+L127:   * DistrictUnifiedCodeGeo (type: esriFieldTypeString, alias: Geographic Unified District Code, SQL Type: sqlTypeOther, length: 7, nullable: true, editable: true)
+L128:   * DistrictUnifiedNameGeo (type: esriFieldTypeString, alias: Geographic Unified District Name, SQL Type: sqlTypeOther, length: 50, nullable: true, editable: true)
+L129:   * CongUSGeo (type: esriFieldTypeString, alias: US Congressional District, SQL Type: sqlTypeOther, length: 2, nullable: true, editable: true)
+L130:   * SenateCAGeo (type: esriFieldTypeString, alias: CA State Senate District, SQL Type: sqlTypeOther, length: 2, nullable: true, editable: true)
+L131:   * AssemblyCAGeo (type: esriFieldTypeString, alias: CA State Assembly District, SQL Type: sqlTypeOther, length: 2, nullable: true, editable: true)
+L132:   * StaffTotal (type: esriFieldTypeInteger, alias: Staff Total, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L133:   * StaffTeacher (type: esriFieldTypeInteger, alias: Staff Teacher, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L134:   * StaffAdmin (type: esriFieldTypeInteger, alias: Staff Admin, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L135:   * StaffPupilServices (type: esriFieldTypeInteger, alias: Staff Pupil Services, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L136:   * StaffOther (type: esriFieldTypeInteger, alias: Staff Other, SQL Type: sqlTypeOther, nullable: true, editable: true)
+L137: Templates:
+L138: Name: New Feature
+L139: Description:
+L140: Drawing Tool: esriFeatureEditToolPoint
+L141: Prototype:
+L142: Attributes:
+L143: Is Data Versioned: false
+L144: Has Contingent Values: false
+L145: Supports Rollback On Failure Parameter: true
+L146: Last Edit Date: 8/27/2026 11:47:31 PM
+L147: Schema Last Edit Date: 8/27/2026 11:47:31 PM
+L148: Data Last Edit Date: 7/9/2026 6:21:52 PM
+L149: Supported Operations:   【3†Query】   【4†Query Pivot】   【5†Query Top Features】   【6†Query Analytic】   【7†Query Bins】   【8†Generate Renderer】   【9†Validate SQL】   【10†Get Estimates】   【11†ConvertFormat】
