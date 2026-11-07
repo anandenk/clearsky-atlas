@@ -15,6 +15,7 @@ export async function loadBackendModules() {
       "map-response",
       "map-overview-proof",
       "overview",
+      "stories",
       "provenance",
       "verified-targets",
     ]) {
@@ -22,7 +23,7 @@ export async function loadBackendModules() {
       const output = stripTypeScriptTypes(source, {
         mode: "strip",
       }).replace(
-        /from ["']\.\/(indicators|observations|provenance|verified-targets|overview|map-overview-proof)["']/g,
+        /from ["']\.\/(indicators|observations|provenance|verified-targets|overview|map-overview-proof|stories)["']/g,
         'from "./$1.mjs"',
       );
       await fs.writeFile(path.join(directory, name + ".mjs"), output);
@@ -40,6 +41,7 @@ export async function loadBackendModules() {
       overview: await import(
         pathToFileURL(path.join(directory, "overview.mjs"))
       ),
+      stories: await import(pathToFileURL(path.join(directory, "stories.mjs"))),
       cleanup: () => fs.rm(directory, { recursive: true, force: true }),
     };
   } catch (error) {
