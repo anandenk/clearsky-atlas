@@ -61,11 +61,12 @@ const NEARBY = {
   availability: "use-coordinate-facility-api",
   steps: [],
   reason:
-    "This tract-only story request does not resolve address-dependent distances. Query the facility API with the confirmed location coordinates; do not substitute a tract centroid.",
+    "Use the separate facility narrative API with confirmed coordinates and claimed tract IDs for address-dependent distances; tract-only stories do not substitute centroids.",
   sourceReadinessUrl: "/api/facilities/catalog",
   facilityQueryUrl: "/api/facilities",
+  facilityNarrativeUrl: "/api/compare/facilities",
   activationTrigger:
-    "A confirmed-coordinate-to-tract contract for facility narratives, preserving inventory/status/date and straight-line distance qualifications.",
+    "Supply caller-confirmed coordinates and claimed tract IDs to the separate facility narrative endpoint; it requires unique unsimplified membership and preserves source/distance qualifications.",
 };
 const ROUNDING =
   "Narrative numbers use four significant digits; exact numeric evidence is retained. No significance threshold is applied.";

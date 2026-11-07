@@ -1,0 +1,1315 @@
+{
+  "contractVersion": "atlas-nearby-comparison-v1",
+  "cesDatasetVersion": "ces-5.0-final-2026-07-01",
+  "referenceId": "oakland",
+  "comparisonDirection": "location-minus-reference",
+  "locations": [
+    {
+      "id": "oakland",
+      "tractId": "06001403402",
+      "coordinate": [
+        -122.26360620685,
+        37.801240729976
+      ]
+    },
+    {
+      "id": "fresno",
+      "tractId": "06019000602",
+      "coordinate": [
+        -119.786060995932,
+        36.740250711973
+      ]
+    },
+    {
+      "id": "oakland-near",
+      "tractId": "06001403402",
+      "coordinate": [
+        -122.263700888126,
+        37.801278208164
+      ]
+    }
+  ],
+  "verification": {
+    "confirmationSource": "caller-attestation",
+    "membership": "unique-unsimplified-CES-tract",
+    "geocoderRequeried": false,
+    "precision": "Original input coordinates retained; unique tract membership does not improve geocoding accuracy."
+  },
+  "limitations": [
+    "Nearest means among coordinate-bearing records in this cached category inventory, not guaranteed nearest statewide. All source statuses are retained.",
+    "Distances are spherical straight-line to published points, not travel time, capacity, eligibility, household supply or access.",
+    "Healthcare includes non-walk-in services; schools are a historical snapshot. Read each record’s subtype, status and source period.",
+    "No overall winner or cross-category ranking. Same-tract locations retain their own coordinate-dependent distances.",
+    "Small differences may be sensitive to input geocoding and published-point placement; no significance threshold or uncertainty interval is inferred."
+  ],
+  "categories": [
+    {
+      "contractVersion": "atlas-facilities-v1",
+      "datasetVersion": "cde-schools-2025-26-afab827833d2",
+      "category": "schools",
+      "sourceUrl": "https://services3.arcgis.com/fdvHcZVgB2QSRNkL/arcgis/rest/services/SchoolSites2526/FeatureServer/0",
+      "sourcePeriod": "2025-26",
+      "observationDate": null,
+      "rights": {
+        "statement": "No restrictions on public use",
+        "namedLicense": null,
+        "url": "https://data.ca.gov/@california-department-of-education/california-public-schools-2025-26"
+      },
+      "coverage": {
+        "scope": "California public schools in the CDE 2025–26 layer",
+        "sourceInventoryComplete": true,
+        "realWorldCompleteness": "not-established",
+        "limitations": [
+          "Historical 2025–26 public TK/K–12 school snapshot; status does not establish current operation.",
+          "Nonpublic and district office schools are excluded. Complete source acquisition does not prove real-world completeness.",
+          "Published points may represent buildings or parcel centroids, not entrances. Virtual-school status is retained.",
+          "Distances are spherical straight-line distances to published points, not travel time, attendance eligibility, capacity or access.",
+          "Nearest means among coordinate-bearing records in this cached inventory and requested bounds, if any."
+        ]
+      },
+      "audit": {
+        "sourceCount": 9946,
+        "recordCount": 9946,
+        "coordinateCount": 9946,
+        "statusCounts": {
+          "Active": 9944,
+          "Closed": 2
+        },
+        "geographicCountyCounts": {
+          "Alameda": 372,
+          "Alpine": 3,
+          "Amador": 14,
+          "Butte": 87,
+          "Calaveras": 22,
+          "Colusa": 22,
+          "Contra Costa": 271,
+          "San Joaquin": 243,
+          "Del Norte": 14,
+          "El Dorado": 68,
+          "Fresno": 355,
+          "Ventura": 228,
+          "Glenn": 20,
+          "Tehama": 40,
+          "Sacramento": 382,
+          "Humboldt": 87,
+          "Imperial": 71,
+          "Los Angeles": 2139,
+          "Inyo": 20,
+          "Kern": 272,
+          "Kings": 63,
+          "Lake": 38,
+          "Lassen": 22,
+          "San Bernardino": 565,
+          "Orange": 628,
+          "Riverside": 518,
+          "Madera": 75,
+          "Mariposa": 15,
+          "Marin": 69,
+          "Sonoma": 167,
+          "Mendocino": 62,
+          "Merced": 107,
+          "Modoc": 7,
+          "Siskiyou": 43,
+          "San Diego": 741,
+          "Mono": 11,
+          "Monterey": 137,
+          "Napa": 40,
+          "Nevada": 41,
+          "Placer": 117,
+          "Plumas": 13,
+          "Yolo": 62,
+          "Solano": 101,
+          "San Benito": 27,
+          "San Francisco": 120,
+          "San Luis Obispo": 79,
+          "San Mateo": 168,
+          "Santa Barbara": 123,
+          "Santa Clara": 385,
+          "Santa Cruz": 76,
+          "Shasta": 88,
+          "Sierra": 6,
+          "Stanislaus": 184,
+          "Sutter": 43,
+          "Trinity": 16,
+          "Tulare": 194,
+          "Tuolumne": 25,
+          "Yuba": 40
+        },
+        "flagCounts": {},
+        "outsideCesIds": [],
+        "coLocatedAdditionalRecords": 488,
+        "sourceEditInfo": {
+          "lastEditDate": 1787874451309,
+          "schemaLastEditDate": 1787874451309,
+          "dataLastEditDate": 1783621312418
+        },
+        "acquisition": "Exact ID-set equality per page and before/after ID set; unchanged edit metadata"
+      },
+      "provenance": {
+        "kind": "catalog-reference",
+        "catalogUrl": "/api/facilities/catalog",
+        "category": "schools",
+        "datasetVersion": "cde-schools-2025-26-afab827833d2",
+        "meaning": "Full source URLs, retrieval times and SHA-256 hashes are in this category’s catalog provenance; match datasetVersion before reuse."
+      },
+      "distance": {
+        "method": "spherical-great-circle",
+        "unit": "km",
+        "earthRadiusKm": 6371.0088,
+        "meaning": "Straight-line to published points; nearest among coordinate-bearing records in this inventory, within bbox when supplied. No travel, eligibility or access guarantee."
+      },
+      "availability": "ready",
+      "results": [
+        {
+          "locationId": "oakland",
+          "tractId": "06001403402",
+          "coordinate": [
+            -122.26360620685,
+            37.801240729976
+          ],
+          "matchedCount": 9946,
+          "returnedCount": 3,
+          "truncated": true,
+          "facilities": [
+            {
+              "id": "cde:01100170114363",
+              "category": "schools",
+              "name": "American Indian Public Charter School II",
+              "coordinate": [
+                -122.26565420044493,
+                37.80016196039442
+              ],
+              "sourceId": "cde-schools-2025-26",
+              "status": "Active",
+              "observationDate": null,
+              "sourcePeriod": "2025-26",
+              "subtype": "Elementary",
+              "flags": [],
+              "sourceAttributes": {
+                "OBJECTID": 10239,
+                "Year": "2025-26",
+                "CDSCode": "01100170114363",
+                "SchoolName": "American Indian Public Charter School II",
+                "SchoolType": "Elementary",
+                "Status": "Active",
+                "OpenDate": 1183248000000,
+                "ClosedDate": null,
+                "Virtual": "N",
+                "Street": "171 12th St.",
+                "City": "Oakland",
+                "Zip": "94607",
+                "State": "CA",
+                "CountyName": "Alameda",
+                "CountyNameGeo": "Alameda",
+                "Latitude": 37.80016196,
+                "Longitude": -122.2656542
+              },
+              "distanceKm": 0.2162557127643615
+            },
+            {
+              "id": "cde:01612596113807",
+              "category": "schools",
+              "name": "AIMS College Prep Middle",
+              "coordinate": [
+                -122.26565420044493,
+                37.80016196039442
+              ],
+              "sourceId": "cde-schools-2025-26",
+              "status": "Active",
+              "observationDate": null,
+              "sourcePeriod": "2025-26",
+              "subtype": "Middle",
+              "flags": [],
+              "sourceAttributes": {
+                "OBJECTID": 10324,
+                "Year": "2025-26",
+                "CDSCode": "01612596113807",
+                "SchoolName": "AIMS College Prep Middle",
+                "SchoolType": "Middle",
+                "Status": "Active",
+                "OpenDate": 841536000000,
+                "ClosedDate": null,
+                "Virtual": "N",
+                "Street": "171 12th St.",
+                "City": "Oakland",
+                "Zip": "94607",
+                "State": "CA",
+                "CountyName": "Alameda",
+                "CountyNameGeo": "Alameda",
+                "Latitude": 37.80016196,
+                "Longitude": -122.2656542
+              },
+              "distanceKm": 0.2162557127643615
+            },
+            {
+              "id": "cde:01612596002018",
+              "category": "schools",
+              "name": "Lincoln Elementary",
+              "coordinate": [
+                -122.2673551999613,
+                37.79995196021452
+              ],
+              "sourceId": "cde-schools-2025-26",
+              "status": "Active",
+              "observationDate": null,
+              "sourcePeriod": "2025-26",
+              "subtype": "Elementary",
+              "flags": [],
+              "sourceAttributes": {
+                "OBJECTID": 10298,
+                "Year": "2025-26",
+                "CDSCode": "01612596002018",
+                "SchoolName": "Lincoln Elementary",
+                "SchoolType": "Elementary",
+                "Status": "Active",
+                "OpenDate": 331257600000,
+                "ClosedDate": null,
+                "Virtual": "N",
+                "Street": "225 11th St.",
+                "City": "Oakland",
+                "Zip": "94607",
+                "State": "CA",
+                "CountyName": "Alameda",
+                "CountyNameGeo": "Alameda",
+                "Latitude": 37.79995196,
+                "Longitude": -122.2673552
+              },
+              "distanceKm": 0.3592121288996301
+            }
+          ],
+          "nearestDistanceKm": 0.2162557127643615,
+          "nearestFacilityId": "cde:01100170114363",
+          "comparisonToReference": {
+            "compatible": true,
+            "reason": "same-category-snapshot-and-distance-method",
+            "nearestDistanceDifferenceKm": 0,
+            "unit": "km",
+            "sameTract": true,
+            "sameCoordinate": true,
+            "sameNearestFacility": true
+          },
+          "text": "Nearest published point among covered schools records: American Indian Public Charter School II, 0.2163 km straight-line. Source status: Active; source period: 2025-26.",
+          "comparisonText": "Equal nearest-point distances within this category inventory; this is not an access guarantee."
+        },
+        {
+          "locationId": "fresno",
+          "tractId": "06019000602",
+          "coordinate": [
+            -119.786060995932,
+            36.740250711973
+          ],
+          "matchedCount": 9946,
+          "returnedCount": 3,
+          "truncated": true,
+          "facilities": [
+            {
+              "id": "cde:10621661030642",
+              "category": "schools",
+              "name": "School of Unlimited Learning",
+              "coordinate": [
+                -119.79271368986338,
+                36.742409040147976
+              ],
+              "sourceId": "cde-schools-2025-26",
+              "status": "Active",
+              "observationDate": null,
+              "sourcePeriod": "2025-26",
+              "subtype": "High",
+              "flags": [],
+              "sourceAttributes": {
+                "OBJECTID": 11003,
+                "Year": "2025-26",
+                "CDSCode": "10621661030642",
+                "SchoolName": "School of Unlimited Learning",
+                "SchoolType": "High",
+                "Status": "Active",
+                "OpenDate": 900979200000,
+                "ClosedDate": null,
+                "Virtual": "N",
+                "Street": "2336 Calaveras St.",
+                "City": "Fresno",
+                "Zip": "93721",
+                "State": "CA",
+                "CountyName": "Fresno",
+                "CountyNameGeo": "Fresno",
+                "Latitude": 36.74240904,
+                "Longitude": -119.79271369
+              },
+              "distanceKm": 0.6395311674781147
+            },
+            {
+              "id": "cde:10101086069488",
+              "category": "schools",
+              "name": "Fresno County Special Education",
+              "coordinate": [
+                -119.79081869017823,
+                36.735631040198676
+              ],
+              "sourceId": "cde-schools-2025-26",
+              "status": "Active",
+              "observationDate": null,
+              "sourcePeriod": "2025-26",
+              "subtype": "Special Education",
+              "flags": [],
+              "sourceAttributes": {
+                "OBJECTID": 10905,
+                "Year": "2025-26",
+                "CDSCode": "10101086069488",
+                "SchoolName": "Fresno County Special Education",
+                "SchoolType": "Special Education",
+                "Status": "Active",
+                "OpenDate": 331257600000,
+                "ClosedDate": null,
+                "Virtual": "N",
+                "Street": "1111 Van Ness Ave.",
+                "City": "Fresno",
+                "Zip": "93721",
+                "State": "CA",
+                "CountyName": "Fresno",
+                "CountyNameGeo": "Fresno",
+                "Latitude": 36.73563104,
+                "Longitude": -119.79081869
+              },
+              "distanceKm": 0.6660408843763747
+            },
+            {
+              "id": "cde:10621660108118",
+              "category": "schools",
+              "name": "Akira Yokomi Elementary",
+              "coordinate": [
+                -119.78337568990851,
+                36.747123040211974
+              ],
+              "sourceId": "cde-schools-2025-26",
+              "status": "Active",
+              "observationDate": null,
+              "sourcePeriod": "2025-26",
+              "subtype": "Elementary",
+              "flags": [],
+              "sourceAttributes": {
+                "OBJECTID": 10982,
+                "Year": "2025-26",
+                "CDSCode": "10621660108118",
+                "SchoolName": "Akira Yokomi Elementary",
+                "SchoolType": "Elementary",
+                "Status": "Active",
+                "OpenDate": 1124668800000,
+                "ClosedDate": null,
+                "Virtual": "N",
+                "Street": "2323 East McKenzie",
+                "City": "Fresno",
+                "Zip": "93701",
+                "State": "CA",
+                "CountyName": "Fresno",
+                "CountyNameGeo": "Fresno",
+                "Latitude": 36.74712304,
+                "Longitude": -119.78337569
+              },
+              "distanceKm": 0.8007519752463883
+            }
+          ],
+          "nearestDistanceKm": 0.6395311674781147,
+          "nearestFacilityId": "cde:10621661030642",
+          "comparisonToReference": {
+            "compatible": true,
+            "reason": "same-category-snapshot-and-distance-method",
+            "nearestDistanceDifferenceKm": 0.42327545471375316,
+            "unit": "km",
+            "sameTract": false,
+            "sameCoordinate": false,
+            "sameNearestFacility": false
+          },
+          "text": "Nearest published point among covered schools records: School of Unlimited Learning, 0.6395 km straight-line. Source status: Active; source period: 2025-26.",
+          "comparisonText": "0.4233 km farther from the nearest covered point than the reference location; nearest points may be different facilities."
+        },
+        {
+          "locationId": "oakland-near",
+          "tractId": "06001403402",
+          "coordinate": [
+            -122.263700888126,
+            37.801278208164
+          ],
+          "matchedCount": 9946,
+          "returnedCount": 3,
+          "truncated": true,
+          "facilities": [
+            {
+              "id": "cde:01100170114363",
+              "category": "schools",
+              "name": "American Indian Public Charter School II",
+              "coordinate": [
+                -122.26565420044493,
+                37.80016196039442
+              ],
+              "sourceId": "cde-schools-2025-26",
+              "status": "Active",
+              "observationDate": null,
+              "sourcePeriod": "2025-26",
+              "subtype": "Elementary",
+              "flags": [],
+              "sourceAttributes": {
+                "OBJECTID": 10239,
+                "Year": "2025-26",
+                "CDSCode": "01100170114363",
+                "SchoolName": "American Indian Public Charter School II",
+                "SchoolType": "Elementary",
+                "Status": "Active",
+                "OpenDate": 1183248000000,
+                "ClosedDate": null,
+                "Virtual": "N",
+                "Street": "171 12th St.",
+                "City": "Oakland",
+                "Zip": "94607",
+                "State": "CA",
+                "CountyName": "Alameda",
+                "CountyNameGeo": "Alameda",
+                "Latitude": 37.80016196,
+                "Longitude": -122.2656542
+              },
+              "distanceKm": 0.21179981823218957
+            },
+            {
+              "id": "cde:01612596113807",
+              "category": "schools",
+              "name": "AIMS College Prep Middle",
+              "coordinate": [
+                -122.26565420044493,
+                37.80016196039442
+              ],
+              "sourceId": "cde-schools-2025-26",
+              "status": "Active",
+              "observationDate": null,
+              "sourcePeriod": "2025-26",
+              "subtype": "Middle",
+              "flags": [],
+              "sourceAttributes": {
+                "OBJECTID": 10324,
+                "Year": "2025-26",
+                "CDSCode": "01612596113807",
+                "SchoolName": "AIMS College Prep Middle",
+                "SchoolType": "Middle",
+                "Status": "Active",
+                "OpenDate": 841536000000,
+                "ClosedDate": null,
+                "Virtual": "N",
+                "Street": "171 12th St.",
+                "City": "Oakland",
+                "Zip": "94607",
+                "State": "CA",
+                "CountyName": "Alameda",
+                "CountyNameGeo": "Alameda",
+                "Latitude": 37.80016196,
+                "Longitude": -122.2656542
+              },
+              "distanceKm": 0.21179981823218957
+            },
+            {
+              "id": "cde:01612596002018",
+              "category": "schools",
+              "name": "Lincoln Elementary",
+              "coordinate": [
+                -122.2673551999613,
+                37.79995196021452
+              ],
+              "sourceId": "cde-schools-2025-26",
+              "status": "Active",
+              "observationDate": null,
+              "sourcePeriod": "2025-26",
+              "subtype": "Elementary",
+              "flags": [],
+              "sourceAttributes": {
+                "OBJECTID": 10298,
+                "Year": "2025-26",
+                "CDSCode": "01612596002018",
+                "SchoolName": "Lincoln Elementary",
+                "SchoolType": "Elementary",
+                "Status": "Active",
+                "OpenDate": 331257600000,
+                "ClosedDate": null,
+                "Virtual": "N",
+                "Street": "225 11th St.",
+                "City": "Oakland",
+                "Zip": "94607",
+                "State": "CA",
+                "CountyName": "Alameda",
+                "CountyNameGeo": "Alameda",
+                "Latitude": 37.79995196,
+                "Longitude": -122.2673552
+              },
+              "distanceKm": 0.3533186538898785
+            }
+          ],
+          "nearestDistanceKm": 0.21179981823218957,
+          "nearestFacilityId": "cde:01100170114363",
+          "comparisonToReference": {
+            "compatible": true,
+            "reason": "same-category-snapshot-and-distance-method",
+            "nearestDistanceDifferenceKm": -0.004455894532171933,
+            "unit": "km",
+            "sameTract": true,
+            "sameCoordinate": false,
+            "sameNearestFacility": true
+          },
+          "text": "Nearest published point among covered schools records: American Indian Public Charter School II, 0.2118 km straight-line. Source status: Active; source period: 2025-26.",
+          "comparisonText": "0.004456 km closer to the nearest covered point than the reference location; nearest points may be different facilities."
+        }
+      ]
+    },
+    {
+      "contractVersion": "atlas-facilities-v1",
+      "datasetVersion": "cdph-licensed-certified-2026-10-16-73188cdc553c",
+      "category": "healthcare",
+      "sourceUrl": "https://data.chhs.ca.gov/dataset/healthcare-facility-locations",
+      "sourcePeriod": "2026-10-16",
+      "observationDate": "2026-10-16",
+      "rights": {
+        "statement": "No restrictions on public use",
+        "namedLicense": "Creative Commons Attribution",
+        "licenseVersion": null,
+        "url": "https://data.ca.gov/@california-department-of-public-health/licensed-and-certified-healthcare-facility-listing"
+      },
+      "coverage": {
+        "scope": "Statewide CDPH licensed and/or CMS-certified facility listing",
+        "sourceInventoryComplete": true,
+        "realWorldCompleteness": "not-established",
+        "limitations": [
+          "CDPH licensed and/or CMS-certified scope only; not every healthcare provider. Snapshot does not establish current operation, eligibility, capacity or access.",
+          "Home health agencies, hospices, laboratories and other categories are not necessarily walk-in care sites. Read subtype and source fields.",
+          "Distances are spherical straight-line to published geocoded points, not travel time or entrances. Nearest means among coordinate-bearing records in this inventory, within bounds if supplied.",
+          "Missing/invalid coordinates and points outside CES tract coverage are retained with null query coordinates and flags, excluded from spatial results. Raw coordinates remain in sourceAttributes.",
+          "Dictionary calls latitude/longitude decimal degrees but also names EPSG:3857 inconsistently. Values are consumed as longitude/latitude degrees; no Web Mercator metre transform. LOCATION text is not used."
+        ]
+      },
+      "audit": {
+        "sourceCount": 14921,
+        "recordCount": 14921,
+        "coordinateCount": 14919,
+        "statusCounts": {
+          "OPEN": 14921
+        },
+        "subtypeCounts": {
+          "SNF": 1188,
+          "ICFDDH": 579,
+          "HHA": 4077,
+          "ICFDDN": 368,
+          "CLHF": 289,
+          "HOFA": 14,
+          "GACH": 415,
+          "COMTYC": 2654,
+          "ASC": 963,
+          "APH": 121,
+          "OPT/SP": 64,
+          "RHC/MD": 52,
+          "RHC/OP": 163,
+          "RHC": 76,
+          "FREEC": 81,
+          "FQHC": 178,
+          "ESRD": 116,
+          "RHC/COMTYC": 24,
+          "UNLICEN": 175,
+          "FQHC/COMTYC": 143,
+          "PSYCHC": 19,
+          "HOSPICE": 1968,
+          "ASC/SURGC": 46,
+          "ICFDDCN": 5,
+          "ICFDD": 12,
+          "PHF": 5,
+          "ADHC": 341,
+          "PPSPSCH": 17,
+          "PPSREHB": 9,
+          "PDHRCF": 28,
+          "ESRD/CDC": 620,
+          "CDRH": 10,
+          "REHABC/CORF": 6,
+          "TRANS": 19,
+          "REHABC": 12,
+          "CTC": 20,
+          "ICF": 7,
+          "REFRLAG": 4,
+          "SURGC": 4,
+          "CDC": 9,
+          "ABC": 5,
+          "CMHC": 15
+        },
+        "countyCounts": {
+          "SONOMA": 132,
+          "DEL NORTE": 22,
+          "HUMBOLDT": 76,
+          "MENDOCINO": 48,
+          "NAPA": 47,
+          "SOLANO": 111,
+          "LAKE": 31,
+          "MARIN": 83,
+          "ALAMEDA": 551,
+          "CONTRA COSTA": 277,
+          "SACRAMENTO": 364,
+          "SANTA CLARA": 359,
+          "PLACER": 75,
+          "CALAVERAS": 15,
+          "STANISLAUS": 152,
+          "TUOLUMNE": 25,
+          "EL DORADO": 33,
+          "AMADOR": 13,
+          "SAN JOAQUIN": 198,
+          "YOLO": 47,
+          "FRESNO": 377,
+          "MADERA": 59,
+          "MERCED": 84,
+          "KINGS": 48,
+          "MARIPOSA": 9,
+          "VENTURA": 386,
+          "SAN LUIS OBISPO": 124,
+          "SANTA BARBARA": 137,
+          "LOS ANGELES": 6468,
+          "ORANGE": 930,
+          "SAN BERNARDINO": 699,
+          "SAN DIEGO": 893,
+          "IMPERIAL": 46,
+          "RIVERSIDE": 599,
+          "MONTEREY": 116,
+          "SANTA CRUZ": 62,
+          "SAN BENITO": 12,
+          "SAN MATEO": 170,
+          "SAN FRANCISCO": 195,
+          "BUTTE": 87,
+          "SHASTA": 84,
+          "TULARE": 175,
+          "KERN": 287,
+          "NEVADA": 32,
+          "SISKIYOU": 22,
+          "SUTTER": 35,
+          "YUBA": 23,
+          "LASSEN": 9,
+          "PLUMAS": 13,
+          "MODOC": 9,
+          "TEHAMA": 18,
+          "TRINITY": 8,
+          "GLENN": 12,
+          "COLUSA": 11,
+          "SIERRA": 4,
+          "MONO": 4,
+          "INYO": 14,
+          "CURRY": 1
+        },
+        "flagCounts": {
+          "outside-ces-tract-coverage": 2
+        },
+        "flaggedIds": [
+          "cdph:630006081",
+          "cdph:630017965"
+        ],
+        "snapshotDates": [
+          "2026-10-16"
+        ],
+        "sourceResourceHash": "588a90e538502495b79040e5b97c1e8f",
+        "acquisition": "Sorted DataStore pages, exact count/unique row and FACID checks, unchanged count and resource hash/last_modified before/after"
+      },
+      "provenance": {
+        "kind": "catalog-reference",
+        "catalogUrl": "/api/facilities/catalog",
+        "category": "healthcare",
+        "datasetVersion": "cdph-licensed-certified-2026-10-16-73188cdc553c",
+        "meaning": "Full source URLs, retrieval times and SHA-256 hashes are in this category’s catalog provenance; match datasetVersion before reuse."
+      },
+      "distance": {
+        "method": "spherical-great-circle",
+        "unit": "km",
+        "earthRadiusKm": 6371.0088,
+        "meaning": "Straight-line to published points; nearest among coordinate-bearing records in this inventory, within bbox when supplied. No travel, eligibility or access guarantee."
+      },
+      "availability": "ready",
+      "results": [
+        {
+          "locationId": "oakland",
+          "tractId": "06001403402",
+          "coordinate": [
+            -122.26360620685,
+            37.801240729976
+          ],
+          "matchedCount": 14919,
+          "returnedCount": 3,
+          "truncated": true,
+          "facilities": [
+            {
+              "id": "cdph:630017733",
+              "category": "healthcare",
+              "name": "THE HARRY AND JEANETTE WEINBERG DENTAL & WELLNESS CLINIC",
+              "coordinate": [
+                -122.2662488,
+                37.79987642
+              ],
+              "sourceId": "cdph-licensed-certified",
+              "status": "OPEN",
+              "observationDate": "2026-10-16",
+              "sourcePeriod": "2026-10-16",
+              "subtype": "COMTYC",
+              "flags": [],
+              "sourceAttributes": {
+                "_id": 7404,
+                "FACID": "630017733",
+                "FACNAME": "THE HARRY AND JEANETTE WEINBERG DENTAL & WELLNESS CLINIC",
+                "FAC_TYPE_CODE": "COMTYC",
+                "FAC_FDR": "PRIMARY CARE CLINIC",
+                "FAC_STATUS_TYPE_CODE": "OPEN",
+                "LICENSED_CERTIFIED": "LICENSED ONLY",
+                "LATITUDE": 37.79987642,
+                "LONGITUDE": -122.2662488,
+                "COUNTY_NAME": "ALAMEDA",
+                "FIPS_COUNTY_CODE": 6001,
+                "DATA_DATE": "2026-10-16T00:00:00",
+                "ISFACMAIN": "N",
+                "PARENT_FACID": "140000211",
+                "FAC_FAC_RELATIONSHIP_TYPE_CODE": "INTERMITTENT CLINIC",
+                "ADDRESS": "190 11TH STREET",
+                "CITY": "OAKLAND",
+                "ZIP": 94607,
+                "LICENSE_STATUS_DESCRIPTION": "ACTIVE"
+              },
+              "distanceKm": 0.2773478797049726
+            },
+            {
+              "id": "cdph:070001157",
+              "category": "healthcare",
+              "name": "HONG FOOK ADULT DAY HEALTH CARE",
+              "coordinate": [
+                -122.2670264,
+                37.80261586
+              ],
+              "sourceId": "cdph-licensed-certified",
+              "status": "OPEN",
+              "observationDate": "2026-10-16",
+              "sourcePeriod": "2026-10-16",
+              "subtype": "ADHC",
+              "flags": [],
+              "sourceAttributes": {
+                "_id": 1441,
+                "FACID": "070001157",
+                "FACNAME": "HONG FOOK ADULT DAY HEALTH CARE",
+                "FAC_TYPE_CODE": "ADHC",
+                "FAC_FDR": "ADULT DAY HEALTH CARE",
+                "FAC_STATUS_TYPE_CODE": "OPEN",
+                "LICENSED_CERTIFIED": "LICENSED ONLY",
+                "LATITUDE": 37.80261586,
+                "LONGITUDE": -122.2670264,
+                "COUNTY_NAME": "ALAMEDA",
+                "FIPS_COUNTY_CODE": 6001,
+                "DATA_DATE": "2026-10-16T00:00:00",
+                "ISFACMAIN": "Y",
+                "PARENT_FACID": null,
+                "FAC_FAC_RELATIONSHIP_TYPE_CODE": "PARENT",
+                "ADDRESS": "275 14TH ST",
+                "CITY": "OAKLAND",
+                "ZIP": 94612,
+                "LICENSE_STATUS_DESCRIPTION": "ACTIVE"
+              },
+              "distanceKm": 0.3371616423911334
+            },
+            {
+              "id": "cdph:630027514",
+              "category": "healthcare",
+              "name": "LINCOLN ELEMENTARY SCHOOL",
+              "coordinate": [
+                -122.2671747,
+                37.80010097
+              ],
+              "sourceId": "cdph-licensed-certified",
+              "status": "OPEN",
+              "observationDate": "2026-10-16",
+              "sourcePeriod": "2026-10-16",
+              "subtype": "COMTYC",
+              "flags": [],
+              "sourceAttributes": {
+                "_id": 12725,
+                "FACID": "630027514",
+                "FACNAME": "LINCOLN ELEMENTARY SCHOOL",
+                "FAC_TYPE_CODE": "COMTYC",
+                "FAC_FDR": "PRIMARY CARE CLINIC",
+                "FAC_STATUS_TYPE_CODE": "OPEN",
+                "LICENSED_CERTIFIED": "LICENSED AND CERTIFIED",
+                "LATITUDE": 37.80010097,
+                "LONGITUDE": -122.2671747,
+                "COUNTY_NAME": "ALAMEDA",
+                "FIPS_COUNTY_CODE": 6001,
+                "DATA_DATE": "2026-10-16T00:00:00",
+                "ISFACMAIN": "N",
+                "PARENT_FACID": "140000211",
+                "FAC_FAC_RELATIONSHIP_TYPE_CODE": "INTERMITTENT CLINIC",
+                "ADDRESS": "225 11TH ST, OFFICE NURSE'S OFFICE",
+                "CITY": "OAKLAND",
+                "ZIP": 94607,
+                "LICENSE_STATUS_DESCRIPTION": "ACTIVE"
+              },
+              "distanceKm": 0.33817578250222363
+            }
+          ],
+          "nearestDistanceKm": 0.2773478797049726,
+          "nearestFacilityId": "cdph:630017733",
+          "comparisonToReference": {
+            "compatible": true,
+            "reason": "same-category-snapshot-and-distance-method",
+            "nearestDistanceDifferenceKm": 0,
+            "unit": "km",
+            "sameTract": true,
+            "sameCoordinate": true,
+            "sameNearestFacility": true
+          },
+          "text": "Nearest published point among covered healthcare records: THE HARRY AND JEANETTE WEINBERG DENTAL & WELLNESS CLINIC, 0.2773 km straight-line. Source status: OPEN; source period: 2026-10-16.",
+          "comparisonText": "Equal nearest-point distances within this category inventory; this is not an access guarantee."
+        },
+        {
+          "locationId": "fresno",
+          "tractId": "06019000602",
+          "coordinate": [
+            -119.786060995932,
+            36.740250711973
+          ],
+          "matchedCount": 14919,
+          "returnedCount": 3,
+          "truncated": true,
+          "facilities": [
+            {
+              "id": "cdph:630028517",
+              "category": "healthcare",
+              "name": "BURNETT EXTENDED CARE CENTER",
+              "coordinate": [
+                -119.785347,
+                36.741618
+              ],
+              "sourceId": "cdph-licensed-certified",
+              "status": "OPEN",
+              "observationDate": "2026-10-16",
+              "sourcePeriod": "2026-10-16",
+              "subtype": "SNF",
+              "flags": [],
+              "sourceAttributes": {
+                "_id": 13384,
+                "FACID": "630028517",
+                "FACNAME": "BURNETT EXTENDED CARE CENTER",
+                "FAC_TYPE_CODE": "SNF",
+                "FAC_FDR": "SKILLED NURSING FACILITY",
+                "FAC_STATUS_TYPE_CODE": "OPEN",
+                "LICENSED_CERTIFIED": "LICENSED ONLY",
+                "LATITUDE": 36.741618,
+                "LONGITUDE": -119.785347,
+                "COUNTY_NAME": "FRESNO",
+                "FIPS_COUNTY_CODE": 6019,
+                "DATA_DATE": "2026-10-16T00:00:00",
+                "ISFACMAIN": "N",
+                "PARENT_FACID": "040000101",
+                "FAC_FAC_RELATIONSHIP_TYPE_CODE": "DISTINCT PART",
+                "ADDRESS": "2715 FRESNO ST",
+                "CITY": "FRESNO",
+                "ZIP": 93721,
+                "LICENSE_STATUS_DESCRIPTION": "ACTIVE"
+              },
+              "distanceKm": 0.1648105818644405
+            },
+            {
+              "id": "cdph:630018357",
+              "category": "healthcare",
+              "name": "OMNI FAMILY HEALTH",
+              "coordinate": [
+                -119.7881685,
+                36.740988
+              ],
+              "sourceId": "cdph-licensed-certified",
+              "status": "OPEN",
+              "observationDate": "2026-10-16",
+              "sourcePeriod": "2026-10-16",
+              "subtype": "COMTYC",
+              "flags": [],
+              "sourceAttributes": {
+                "_id": 7812,
+                "FACID": "630018357",
+                "FACNAME": "OMNI FAMILY HEALTH",
+                "FAC_TYPE_CODE": "COMTYC",
+                "FAC_FDR": "PRIMARY CARE CLINIC",
+                "FAC_STATUS_TYPE_CODE": "OPEN",
+                "LICENSED_CERTIFIED": "LICENSED AND CERTIFIED",
+                "LATITUDE": 36.740988,
+                "LONGITUDE": -119.7881685,
+                "COUNTY_NAME": "FRESNO",
+                "FIPS_COUNTY_CODE": 6019,
+                "DATA_DATE": "2026-10-16T00:00:00",
+                "ISFACMAIN": "Y",
+                "PARENT_FACID": null,
+                "FAC_FAC_RELATIONSHIP_TYPE_CODE": "PARENT",
+                "ADDRESS": "2505 MERCED ST",
+                "CITY": "FRESNO",
+                "ZIP": 93721,
+                "LICENSE_STATUS_DESCRIPTION": "ACTIVE"
+              },
+              "distanceKm": 0.20490737339743995
+            },
+            {
+              "id": "cdph:630027329",
+              "category": "healthcare",
+              "name": "UNITED HEALTH CENTERS OF THE SAN JOAQUIN VALLEY",
+              "coordinate": [
+                -119.787205,
+                36.74232302
+              ],
+              "sourceId": "cdph-licensed-certified",
+              "status": "OPEN",
+              "observationDate": "2026-10-16",
+              "sourcePeriod": "2026-10-16",
+              "subtype": "COMTYC",
+              "flags": [],
+              "sourceAttributes": {
+                "_id": 12577,
+                "FACID": "630027329",
+                "FACNAME": "UNITED HEALTH CENTERS OF THE SAN JOAQUIN VALLEY",
+                "FAC_TYPE_CODE": "COMTYC",
+                "FAC_FDR": "PRIMARY CARE CLINIC",
+                "FAC_STATUS_TYPE_CODE": "OPEN",
+                "LICENSED_CERTIFIED": "LICENSED AND CERTIFIED",
+                "LATITUDE": 36.74232302,
+                "LONGITUDE": -119.787205,
+                "COUNTY_NAME": "FRESNO",
+                "FIPS_COUNTY_CODE": 6019,
+                "DATA_DATE": "2026-10-16T00:00:00",
+                "ISFACMAIN": "N",
+                "PARENT_FACID": "630015218",
+                "FAC_FAC_RELATIONSHIP_TYPE_CODE": "INTERMITTENT CLINIC",
+                "ADDRESS": "2630 TUOLUMNE ST",
+                "CITY": "FRESNO",
+                "ZIP": 93721,
+                "LICENSE_STATUS_DESCRIPTION": "ACTIVE"
+              },
+              "distanceKm": 0.25197099378346804
+            }
+          ],
+          "nearestDistanceKm": 0.1648105818644405,
+          "nearestFacilityId": "cdph:630028517",
+          "comparisonToReference": {
+            "compatible": true,
+            "reason": "same-category-snapshot-and-distance-method",
+            "nearestDistanceDifferenceKm": -0.1125372978405321,
+            "unit": "km",
+            "sameTract": false,
+            "sameCoordinate": false,
+            "sameNearestFacility": false
+          },
+          "text": "Nearest published point among covered healthcare records: BURNETT EXTENDED CARE CENTER, 0.1648 km straight-line. Source status: OPEN; source period: 2026-10-16.",
+          "comparisonText": "0.1125 km closer to the nearest covered point than the reference location; nearest points may be different facilities."
+        },
+        {
+          "locationId": "oakland-near",
+          "tractId": "06001403402",
+          "coordinate": [
+            -122.263700888126,
+            37.801278208164
+          ],
+          "matchedCount": 14919,
+          "returnedCount": 3,
+          "truncated": true,
+          "facilities": [
+            {
+              "id": "cdph:630017733",
+              "category": "healthcare",
+              "name": "THE HARRY AND JEANETTE WEINBERG DENTAL & WELLNESS CLINIC",
+              "coordinate": [
+                -122.2662488,
+                37.79987642
+              ],
+              "sourceId": "cdph-licensed-certified",
+              "status": "OPEN",
+              "observationDate": "2026-10-16",
+              "sourcePeriod": "2026-10-16",
+              "subtype": "COMTYC",
+              "flags": [],
+              "sourceAttributes": {
+                "_id": 7404,
+                "FACID": "630017733",
+                "FACNAME": "THE HARRY AND JEANETTE WEINBERG DENTAL & WELLNESS CLINIC",
+                "FAC_TYPE_CODE": "COMTYC",
+                "FAC_FDR": "PRIMARY CARE CLINIC",
+                "FAC_STATUS_TYPE_CODE": "OPEN",
+                "LICENSED_CERTIFIED": "LICENSED ONLY",
+                "LATITUDE": 37.79987642,
+                "LONGITUDE": -122.2662488,
+                "COUNTY_NAME": "ALAMEDA",
+                "FIPS_COUNTY_CODE": 6001,
+                "DATA_DATE": "2026-10-16T00:00:00",
+                "ISFACMAIN": "N",
+                "PARENT_FACID": "140000211",
+                "FAC_FAC_RELATIONSHIP_TYPE_CODE": "INTERMITTENT CLINIC",
+                "ADDRESS": "190 11TH STREET",
+                "CITY": "OAKLAND",
+                "ZIP": 94607,
+                "LICENSE_STATUS_DESCRIPTION": "ACTIVE"
+              },
+              "distanceKm": 0.27278180480546094
+            },
+            {
+              "id": "cdph:070001157",
+              "category": "healthcare",
+              "name": "HONG FOOK ADULT DAY HEALTH CARE",
+              "coordinate": [
+                -122.2670264,
+                37.80261586
+              ],
+              "sourceId": "cdph-licensed-certified",
+              "status": "OPEN",
+              "observationDate": "2026-10-16",
+              "sourcePeriod": "2026-10-16",
+              "subtype": "ADHC",
+              "flags": [],
+              "sourceAttributes": {
+                "_id": 1441,
+                "FACID": "070001157",
+                "FACNAME": "HONG FOOK ADULT DAY HEALTH CARE",
+                "FAC_TYPE_CODE": "ADHC",
+                "FAC_FDR": "ADULT DAY HEALTH CARE",
+                "FAC_STATUS_TYPE_CODE": "OPEN",
+                "LICENSED_CERTIFIED": "LICENSED ONLY",
+                "LATITUDE": 37.80261586,
+                "LONGITUDE": -122.2670264,
+                "COUNTY_NAME": "ALAMEDA",
+                "FIPS_COUNTY_CODE": 6001,
+                "DATA_DATE": "2026-10-16T00:00:00",
+                "ISFACMAIN": "Y",
+                "PARENT_FACID": null,
+                "FAC_FAC_RELATIONSHIP_TYPE_CODE": "PARENT",
+                "ADDRESS": "275 14TH ST",
+                "CITY": "OAKLAND",
+                "ZIP": 94612,
+                "LICENSE_STATUS_DESCRIPTION": "ACTIVE"
+              },
+              "distanceKm": 0.3278576598740562
+            },
+            {
+              "id": "cdph:630027514",
+              "category": "healthcare",
+              "name": "LINCOLN ELEMENTARY SCHOOL",
+              "coordinate": [
+                -122.2671747,
+                37.80010097
+              ],
+              "sourceId": "cdph-licensed-certified",
+              "status": "OPEN",
+              "observationDate": "2026-10-16",
+              "sourcePeriod": "2026-10-16",
+              "subtype": "COMTYC",
+              "flags": [],
+              "sourceAttributes": {
+                "_id": 12725,
+                "FACID": "630027514",
+                "FACNAME": "LINCOLN ELEMENTARY SCHOOL",
+                "FAC_TYPE_CODE": "COMTYC",
+                "FAC_FDR": "PRIMARY CARE CLINIC",
+                "FAC_STATUS_TYPE_CODE": "OPEN",
+                "LICENSED_CERTIFIED": "LICENSED AND CERTIFIED",
+                "LATITUDE": 37.80010097,
+                "LONGITUDE": -122.2671747,
+                "COUNTY_NAME": "ALAMEDA",
+                "FIPS_COUNTY_CODE": 6001,
+                "DATA_DATE": "2026-10-16T00:00:00",
+                "ISFACMAIN": "N",
+                "PARENT_FACID": "140000211",
+                "FAC_FAC_RELATIONSHIP_TYPE_CODE": "INTERMITTENT CLINIC",
+                "ADDRESS": "225 11TH ST, OFFICE NURSE'S OFFICE",
+                "CITY": "OAKLAND",
+                "ZIP": 94607,
+                "LICENSE_STATUS_DESCRIPTION": "ACTIVE"
+              },
+              "distanceKm": 0.33209839565022875
+            }
+          ],
+          "nearestDistanceKm": 0.27278180480546094,
+          "nearestFacilityId": "cdph:630017733",
+          "comparisonToReference": {
+            "compatible": true,
+            "reason": "same-category-snapshot-and-distance-method",
+            "nearestDistanceDifferenceKm": -0.004566074899511663,
+            "unit": "km",
+            "sameTract": true,
+            "sameCoordinate": false,
+            "sameNearestFacility": true
+          },
+          "text": "Nearest published point among covered healthcare records: THE HARRY AND JEANETTE WEINBERG DENTAL & WELLNESS CLINIC, 0.2728 km straight-line. Source status: OPEN; source period: 2026-10-16.",
+          "comparisonText": "0.004566 km closer to the nearest covered point than the reference location; nearest points may be different facilities."
+        }
+      ]
+    },
+    {
+      "category": "power",
+      "availability": "unavailable",
+      "sourceReadiness": {
+        "contractVersion": "atlas-facility-staging-v1",
+        "backendReady": false,
+        "datasetVersion": "cec-power-candidate-f9367f3b6f22",
+        "category": "power",
+        "sourceUrl": "https://services3.arcgis.com/bWPjFyq029ChCGur/arcgis/rest/services/Power_Plant/FeatureServer/0",
+        "sourcePeriod": null,
+        "observationDate": null,
+        "rights": {
+          "namedLicense": "Creative Commons Attribution (state catalog); CEC conditions linked by item",
+          "licenseVersion": null,
+          "url": "https://www.energy.ca.gov/conditions-of-use",
+          "qualification": "CEC credit required. Linked conditions prohibit commercial/profit-making use or modification; do not represent catalog CC label as unrestricted commercial permission. Current work is local source verification; review applicable rights before any future publication/commercial use."
+        },
+        "blockers": [
+          {
+            "code": "reporting-period-unverified",
+            "detail": "Service says May 2022; data edit is June 12, 2026. Last Reported Year is described but absent from the current schema. No verified observation/reporting period.",
+            "trigger": "First-party per-record reporting-year or applicable snapshot documentation, explicitly tied to this layer."
+          },
+          {
+            "code": "retired-code-unverified",
+            "detail": "Retired_Plant has numeric 0/1 values but no coded domain or verified dictionary. No active/retired interpretation is promoted.",
+            "trigger": "First-party code definition tied to this field/version, or a verified alternative status-bearing source."
+          }
+        ],
+        "coverage": {
+          "scope": "Complete CEC source layer; candidate query coordinates limited to unsimplified CES coverage",
+          "sourceInventoryComplete": true,
+          "realWorldCompleteness": "not-established",
+          "limitations": [
+            "Staged source candidate, not live facility data. Unknown reporting period and unverified retirement codes.",
+            "CES coverage is not an independent California land-boundary certification. Raw county/coordinates and out-of-coverage records are preserved.",
+            "Plant point/capacity does not establish household supply, access, current generation or environmental impact."
+          ]
+        },
+        "audit": {
+          "sourceCount": 2378,
+          "coordinateCount": 2334,
+          "flagCounts": {
+            "outside-ces-tract-coverage": 44
+          },
+          "rawRetiredCodeCounts": {
+            "0": 2082,
+            "1": 296
+          },
+          "sourceEditInfo": {
+            "lastEditDate": 1781287941802,
+            "schemaLastEditDate": 1781287941802,
+            "dataLastEditDate": 1781287941802
+          }
+        },
+        "evidenceFile": "data/facility-verification/power-validation.json",
+        "provenance": {
+          "power-current-metadata.json": {
+            "url": "https://services3.arcgis.com/bWPjFyq029ChCGur/arcgis/rest/services/Power_Plant/FeatureServer/0?f=pjson",
+            "retrievedAt": "2026-11-07T21:07:41.593831+00:00",
+            "sha256": "79dca5c85e83d6572e854d6685ada6cd7d1559ba9fd7ddddff14846f3f6c9d8d",
+            "bytes": 12757,
+            "httpStatus": 200,
+            "validation": "passed-json-envelope"
+          },
+          "power-inventory.json": {
+            "url": "https://services3.arcgis.com/bWPjFyq029ChCGur/arcgis/rest/services/Power_Plant/FeatureServer/0/query?f=json&where=1%3D1&outFields=%2A&returnGeometry=true&outSR=4326&resultRecordCount=5000&orderByFields=OBJECTID",
+            "retrievedAt": "2026-11-07T21:08:22.672128+00:00",
+            "sha256": "cad7d688f074d542358a553f06add26484fc50dd214183e63af8482ea8720810",
+            "bytes": 831673,
+            "httpStatus": 200,
+            "validation": "passed-json-envelope"
+          },
+          "power-inventory-ids.json": {
+            "url": "https://services3.arcgis.com/bWPjFyq029ChCGur/arcgis/rest/services/Power_Plant/FeatureServer/0/query?f=json&where=1%3D1&returnIdsOnly=true",
+            "retrievedAt": "2026-11-07T21:09:54.348087+00:00",
+            "sha256": "403420726f52f644d7eece4a4d27af454488dd068101b3b0732129b9c6526c53",
+            "bytes": 11936,
+            "httpStatus": 200,
+            "validation": "passed-json-envelope"
+          },
+          "power-inventory-count.json": {
+            "url": "https://services3.arcgis.com/bWPjFyq029ChCGur/arcgis/rest/services/Power_Plant/FeatureServer/0/query?f=json&where=1%3D1&returnCountOnly=true",
+            "retrievedAt": "2026-11-07T21:09:54.466351+00:00",
+            "sha256": "366b37b5bdf1fd317d2d301cf9aca27bc5ccd43f35e1788d87235f0f0a33824b",
+            "bytes": 14,
+            "httpStatus": 200,
+            "validation": "passed-json-envelope"
+          },
+          "power-inventory-metadata-after.json": {
+            "url": "https://services3.arcgis.com/bWPjFyq029ChCGur/arcgis/rest/services/Power_Plant/FeatureServer/0?f=pjson",
+            "retrievedAt": "2026-11-07T21:09:54.622696+00:00",
+            "sha256": "79dca5c85e83d6572e854d6685ada6cd7d1559ba9fd7ddddff14846f3f6c9d8d",
+            "bytes": 12757,
+            "httpStatus": 200,
+            "validation": "passed-json-envelope"
+          },
+          "power-inventory-native.json": {
+            "url": "https://services3.arcgis.com/bWPjFyq029ChCGur/arcgis/rest/services/Power_Plant/FeatureServer/0/query?f=json&where=1%3D1&outFields=OBJECTID&returnGeometry=true&resultRecordCount=5000&orderByFields=OBJECTID",
+            "retrievedAt": "2026-11-07T21:09:54.870488+00:00",
+            "sha256": "a96f492bcfbb75a4705de71eaf327cada6ea0aa0072be64a1a1ff307985a7fe2",
+            "bytes": 220827,
+            "httpStatus": 200,
+            "validation": "passed-json-envelope"
+          },
+          "power-item.json": {
+            "url": "https://www.arcgis.com/sharing/rest/content/items/4a702cd67be24ae7ab8173423a768e1b?f=pjson",
+            "retrievedAt": "2026-11-07T19:39:44.176214+00:00",
+            "sha256": "4a252f86f62d55f3b7a9284342ca09397a219ce5132bc6cad447b5aee40fdf16",
+            "bytes": 20530
+          },
+          "power-service.json": {
+            "url": "https://services3.arcgis.com/bWPjFyq029ChCGur/arcgis/rest/services/Power_Plant/FeatureServer?f=pjson",
+            "retrievedAt": "2026-11-07T19:39:44.070372+00:00",
+            "sha256": "71888154e205a246f002462b45ac1b10975ebc748eb89b29719e085a24ef9e06",
+            "bytes": 9622
+          },
+          "power-item-data.json": {
+            "url": "https://www.arcgis.com/sharing/rest/content/items/4a702cd67be24ae7ab8173423a768e1b/data?f=pjson",
+            "retrievedAt": "2026-11-07T21:07:42.005661+00:00",
+            "sha256": "2f96d60256281d6a717576c46315a77c0ac7a48be48eb27f242b52d332cc0802",
+            "bytes": 35878,
+            "httpStatus": 200,
+            "validation": "passed-json-envelope"
+          },
+          "power-item-metadata.xml": {
+            "url": "https://www.arcgis.com/sharing/rest/content/items/4a702cd67be24ae7ab8173423a768e1b/info/metadata/metadata.xml",
+            "retrievedAt": "2026-11-07T21:07:41.773357+00:00",
+            "sha256": "2888576ca4045fc2812fead93bc3c0e7ee7ad297fa395b1d5080906576f9a84c",
+            "bytes": 32498,
+            "httpStatus": 200,
+            "validation": "passed-security-page-screen-only"
+          },
+          "power-catalog.json": {
+            "url": "https://publish.data.ca.gov/api/3/action/package_show?id=california-power-plants",
+            "retrievedAt": "2026-11-07T21:07:42.998075+00:00",
+            "sha256": "e06d9becba8c32f7592fe850b0d0641a39726bd90c73a725c22e391d9d105415",
+            "bytes": 28700,
+            "httpStatus": 200,
+            "validation": "passed-json-envelope"
+          },
+          "power-conditions.html": {
+            "url": "https://www.energy.ca.gov/conditions-of-use",
+            "retrievedAt": "2026-11-07T21:07:42.655761+00:00",
+            "sha256": "2d09e971b8b7a9024a74a5432ef6244c6b10c6e3e7ba2b6293e962734692260d",
+            "bytes": 53404,
+            "httpStatus": 200,
+            "validation": "passed-security-page-screen-only"
+          },
+          "power-state-rights.html": {
+            "url": "https://data.ca.gov/@california-energy-commission/california-power-plants",
+            "retrievedAt": "2026-11-07T21:08:51.103018+00:00",
+            "sha256": "1ee4fd253a87a2d6e09143a75363e7bd2d691ad8e6f362ce0b6b84c627e65d1e",
+            "bytes": 110065,
+            "httpStatus": 200,
+            "validation": "passed-security-page-screen-only"
+          },
+          "power-qfer-catalog.json": {
+            "url": "https://publish.data.ca.gov/api/3/action/package_show?id=qfer-cec-1304-power-plant-owner-reporting-database",
+            "retrievedAt": "2026-11-07T21:08:29.275782+00:00",
+            "sha256": "7512234ff3db1d47ee39d36e88503a0726ea54a8426d44accaf7e4cebe0c963e",
+            "bytes": 11304,
+            "httpStatus": 200,
+            "validation": "passed-json-envelope"
+          },
+          "power-retired-counts.json": {
+            "url": "https://services3.arcgis.com/bWPjFyq029ChCGur/arcgis/rest/services/Power_Plant/FeatureServer/0/query?f=json&where=1%3D1&outStatistics=%5B%7B%22statisticType%22%3A+%22count%22%2C+%22onStatisticField%22%3A+%22OBJECTID%22%2C+%22outStatisticFieldName%22%3A+%22n%22%7D%5D&groupByFieldsForStatistics=Retired_Plant&returnGeometry=false",
+            "retrievedAt": "2026-11-07T21:07:43.291297+00:00",
+            "sha256": "d4cca25483b26204d88206c65a78c92c356a4366ac499494a56e70b901304b9c",
+            "bytes": 569,
+            "httpStatus": 200,
+            "validation": "passed-json-envelope"
+          }
+        },
+        "stagedArtifactSha256": "4a0d7e910380fc079ade3ebadca49df4a54ba44df5601a2672b391c9aa912be2",
+        "id": "power"
+      },
+      "results": []
+    }
+  ]
+}
