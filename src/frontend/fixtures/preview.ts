@@ -5,15 +5,15 @@ export const specs = [
   ["ozone", "Environment", "Ozone", "ppm"],
   ["diesel", "Environment", "Diesel particulates", "example units"],
   ["traffic", "Environment", "Traffic impacts", "example units"],
-  ["RSEIhaz", "Environment", "Toxic air releases", "example units"],
-  ["cleanups", "Environment", "Cleanup-site burden", "weighted index"],
+  ["toxic-releases", "Environment", "Toxic air releases", "example units"],
+  ["cleanup", "Environment", "Cleanup-site burden", "weighted index"],
   ["asthma", "Health", "Asthma emergency visits", "per 10,000"],
-  ["cvd", "Health", "Cardiovascular emergency visits", "per 10,000"],
+  ["heart-attacks", "Health", "Cardiovascular emergency visits", "per 10,000"],
   ["diabetes", "Health", "Diabetes prevalence", "%"],
-  ["lbw", "Health", "Low birth weight", "%"],
-  ["pov", "Community", "Poverty", "%"],
-  ["edu", "Community", "Educational attainment", "%"],
-  ["housingB", "Community", "Housing burden", "%"],
+  ["low-birth-weight", "Health", "Low birth weight", "%"],
+  ["poverty", "Community", "Poverty", "%"],
+  ["education", "Community", "Educational attainment", "%"],
+  ["housing", "Community", "Housing burden", "%"],
   ["age", "Community", "Age composition", "%"],
   ["race", "Community", "Racial / ethnic composition", "%"],
   ["facilities", "Infrastructure", "Nearby essentials", ""],
@@ -48,6 +48,22 @@ export function value(tract: string, id: string, scenario = "normal") {
   const n = Number(tract.split("-").pop()) || 0,
     j = specs.findIndex((s) => s[0] === id);
   if (scenario === "missing" && n === 1) return null;
+  const groupIds = [
+    "pop_und10",
+    "pop_10_64",
+    "pop_ov64",
+    "hisp",
+    "white",
+    "black",
+    "amind",
+    "asian",
+    "pacisl",
+    "othmult",
+  ];
+  const k = groupIds.indexOf(id);
+  if (k >= 0)
+    return [...composition(tract, "age"), ...composition(tract, "race")][k]
+      .value;
   if (scenario === "zero" && n === 0) return 0;
   return id === "ozone"
     ? 0.03 + n * 0.004
@@ -96,4 +112,15 @@ export function composition(tract: string, kind: string) {
   const values =
     kind === "age" ? [12 + n, 68 - n, 20] : [32 + n, 28 - n, 12, 2, 18, 1, 7];
   return labels.map((label, i) => ({ label, value: values[i] }));
+}
+
+export function percentile(tract: string, id: string, scenario = "normal") {
+  if (value(tract, id, scenario) === null) return null;
+  if (scenario === "zero" && Number(tract.split("-").pop()) === 0) return 0;
+  return (
+    ((Number(tract.split("-").pop()) || 0) * 19 +
+      specs.findIndex((s) => s[0] === id) * 9 +
+      27) %
+    99
+  );
 }

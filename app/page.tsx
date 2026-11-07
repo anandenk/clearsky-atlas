@@ -2,186 +2,274 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import type { Selection } from "../src/domain";
-import type { Camera } from "../src/AtlasMap";
-import { provider, Indicator, Observation } from "../src/frontend/provider";
 import {
-  example,
-  previewLabel,
-  facilities,
-  categories,
-  specs,
-  composition,
-} from "../src/frontend/fixtures/preview";
-import { palette } from "../src/map-theme";
-const Map = dynamic(() => import("../src/AtlasMap"), { ssr: false });
-type Place = { id: string; selection: Selection; visible: boolean };
+  type Indicator,
+  type Observation,
+  type Bundle,
+  type Place,
+  json,
+  bundle,
+  previewCatalog,
+  format,
+  delta,
+  differenceUnit,
+} from "../src/frontend/provider";
+import { example, categories } from "../src/frontend/fixtures/preview";
+import { placeColors, ramps } from "../src/map-theme";
+import { Icon, BrandMark } from "../src/components/Icon";
+import Dialog from "../src/components/Dialog";
+import Infrastructure from "../src/components/Infrastructure";
+import { useFacilities } from "../src/hooks/useFacilities";
+import ComparisonOverview from "../src/components/ComparisonOverview";
+const Map = dynamic(() => import("../src/AtlasMap"), {
+  ssr: false,
+  loading: () => <div className="map-loading">Opening California…</div>,
+});
 const modes = ["Environment", "Health", "Community", "Infrastructure"];
+const introductions: Record<string, [string, string]> = {
+  Environment: [
+    "The air around us.",
+    "See how environmental conditions change from one neighborhood to the next.",
+  ],
+  Health: [
+    "Health, in context.",
+    "Explore population health measures in the places that matter to you.",
+  ],
+  Community: [
+    "The people of a place.",
+    "Understand the communities behind the geography.",
+  ],
+  Infrastructure: [
+    "A place to connect.",
+    "Explore the schools, healthcare and energy infrastructure around a place.",
+  ],
+};
+const shortLabels: Record<string, string> = {
+  pm: "Fine particles",
+  ozone: "Ozone",
+  diesel: "Diesel",
+  traffic: "Traffic",
+  "toxic-releases": "Toxic releases",
+  cleanup: "Cleanup sites",
+  asthma: "Asthma",
+  "heart-attacks": "Heart attacks",
+  diabetes: "Diabetes",
+  "low-birth-weight": "Low birth weight",
+  poverty: "Poverty",
+  education: "Education",
+  housing: "Housing",
+  age: "Age",
+  race: "Race & ethnicity",
+};
+const groups = {
+  age: ["pop_und10", "pop_10_64", "pop_ov64"],
+  race: ["hisp", "white", "black", "amind", "asian", "pacisl", "othmult"],
+};
+const compositionColors = [
+  "#526aa4",
+  "#83a5bd",
+  "#b8cad1",
+  "#a58dba",
+  "#697f96",
+  "#c6ad7c",
+  "#c2bacd",
+];
+const letter = (id: string) => String.fromCharCode(64 + Number(id));
+const color = (id: string) =>
+  placeColors[(Number(id) - 1) % placeColors.length];
 export default function Page() {
-  const [preview, setPreview] = useState(false);
-  return (
-    <Atlas
-      key={String(preview)}
-      preview={preview}
-      switchProvider={() => setPreview(!preview)}
-    />
-  );
-}
-function Atlas({
-  preview,
-  switchProvider,
-}: {
-  preview: boolean;
-  switchProvider: () => void;
-}) {
-  const [places, setPlaces] = useState<Place[]>([]),
+  const [preview, setPreview] = useState(false),
+    [scenario, setScenario] = useState("normal"),
     [catalog, setCatalog] = useState<Indicator[]>([]),
-    [mode, setMode] = useState("Environment"),
-    [remember, setRemember] = useState<Record<string, string>>({
+    [catalogError, setCatalogError] = useState("");
+  const [places, setPlaces] = useState<Place[]>([]),
+    [active, setActive] = useState("all"),
+    [reference, setReference] = useState(""),
+    [mode, setMode] = useState("Environment");
+  const [remember, setRemember] = useState<Record<string, string>>({
       Environment: "pm",
       Health: "asthma",
-      Community: "pov",
+      Community: "poverty",
       Infrastructure: "facilities",
     }),
-    [query, setQuery] = useState(""),
-    [candidates, setCandidates] = useState<Selection[]>([]),
-    [busy, setBusy] = useState(false),
-    [error, setError] = useState(""),
+    [compositionField, setCompositionField] = useState("");
+  const [query, setQuery] = useState(""),
     [target, setTarget] = useState(""),
-    [reference, setReference] = useState(""),
-    [active, setActive] = useState(""),
-    [panel, setPanel] = useState(false),
-    [overview, setOverview] = useState(false),
-    [scenario, setScenario] = useState("normal"),
-    [loadedKey, setLoadedKey] = useState(""),
-    [observations, setObservations] = useState<Record<string, Observation>>({}),
-    [differences, setDifferences] = useState<Record<string, number | null>>({}),
+    [candidates, setCandidates] = useState<Selection[]>([]),
+    [searchError, setSearchError] = useState(""),
+    [busy, setBusy] = useState(false),
+    [searchOpen, setSearchOpen] = useState(false);
+  const [records, setRecords] = useState<Record<string, Bundle>>({}),
+    [evidenceErrors, setEvidenceErrors] = useState<Record<string, string>>({});
+  const [sourceOpen, setSourceOpen] = useState(false),
+    [about, setAbout] = useState(false),
     [inspection, setInspection] = useState(""),
-    [inspectionValue, setInspectionValue] = useState<Observation | null>(null),
-    [filter, setFilter] = useState(categories),
+    [inspectionData, setInspectionData] = useState<Observation | null>(null),
+    [inspectionError, setInspectionError] = useState("");
+  const [filter, setFilter] = useState(categories),
     [facility, setFacility] = useState(""),
-    [camera, setCamera] = useState<Camera | null>(null),
-    [linked, setLinked] = useState(true),
     [reset, setReset] = useState(0),
-    [story, setStory] = useState(false),
     [raster, setRaster] = useState(false),
-    [narrow, setNarrow] = useState(true);
-  const service = useMemo(
-      () => provider(preview, scenario),
-      [preview, scenario],
-    ),
-    searchAbort = useRef<AbortController | null>(null),
-    serial = useRef(0);
-  const metric = catalog.find((i) => i.id === remember[mode]);
-  const enabled =
-    !!metric?.backendReady && (preview || ["pm", "ozone"].includes(metric.id));
-  const selected = places.find((p) => p.id === active) ?? places[0],
-    refPlace = places.find((p) => p.id === reference) ?? places[0];
+    [collapsed, setCollapsed] = useState(false),
+    [overview, setOverview] = useState(false),
+    [lensExpanded, setLensExpanded] = useState(false);
+  const searchAbort = useRef<AbortController | null>(null),
+    serial = useRef(0),
+    input = useRef<HTMLInputElement>(null),
+    cache = useRef<Record<string, Bundle>>({});
+  const providerKey = `${preview}/${scenario}`;
+  const selectedMetric = remember[mode],
+    group =
+      selectedMetric === "age" || selectedMetric === "race"
+        ? selectedMetric
+        : null;
+  const metric = catalog.find(
+    (m) =>
+      m.id ===
+      (group
+        ? groups[group].includes(compositionField)
+          ? compositionField
+          : groups[group][0]
+        : selectedMetric),
+  );
+  const selected = places.find((p) => p.id === active) || places[0],
+    refPlace = places.find((p) => p.id === reference) || places[0];
+  const placeKey = (p: Place) => `${providerKey}/${p.selection.tractId}`;
+  const observation = (p: Place, id = metric?.id) =>
+    id ? records[placeKey(p)]?.[id] : undefined;
+  const scalar = catalog.filter(
+    (m) => m.mode === mode.toLowerCase() && m.percentileField,
+  );
+  const topicIds =
+    mode === "Community"
+      ? [...scalar.map((m) => m.id), "age", "race"]
+      : scalar.map((m) => m.id);
+  const hasPlaces = places.length > 0;
   useEffect(() => {
     const c = new AbortController();
-    service
-      .catalog(c.signal)
-      .then(setCatalog)
-      .catch((e) => {
-        if (e.name !== "AbortError") setError(e.message);
-      });
+    setCatalogError("");
+    setCatalog([]);
+    if (preview) setCatalog(previewCatalog());
+    else
+      json("/api/indicators", c.signal)
+        .then((d) =>
+          setCatalog(d.indicators.filter((i: Indicator) => i.backendReady)),
+        )
+        .catch((e) => {
+          if (e.name !== "AbortError")
+            setCatalogError(
+              "Evidence catalog unavailable. Retry from the menu; the map remains explorable.",
+            );
+        });
     return () => c.abort();
-  }, [service]);
-  useEffect(() => {
-    const m = matchMedia("(max-width: 899px)");
-    const update = () => setNarrow(m.matches);
-    update();
-    m.addEventListener("change", update);
-    return () => m.removeEventListener("change", update);
-  }, []);
-  useEffect(() => () => searchAbort.current?.abort(), []);
-  const evidenceKey = JSON.stringify([
-    preview,
-    scenario,
-    metric?.id,
-    reference,
-    places.map((p) => [p.id, p.selection.tractId]),
-  ]);
+  }, [preview, reset]);
   useEffect(() => {
     const c = new AbortController();
-    setObservations({});
-    setDifferences({});
-    setInspectionValue(null);
-    if (metric && enabled && metric.id !== "facilities") {
-      Promise.all(
-        places.map(
-          async (p) =>
-            [
-              p.id,
-              await service.observations(p.selection.tractId, metric, c.signal),
-            ] as const,
-        ),
-      )
-        .then((x) => {
-          if (!c.signal.aborted) {
-            setObservations(Object.fromEntries(x));
-            setLoadedKey(evidenceKey);
-          }
+    setEvidenceErrors({});
+    if (!catalog.length) return () => c.abort();
+    places.forEach((p) => {
+      const key = placeKey(p);
+      if (cache.current[key]) {
+        setRecords((r) => ({ ...r, [key]: cache.current[key] }));
+        return;
+      }
+      bundle(p.selection.tractId, preview, scenario, catalog, c.signal)
+        .then((data) => {
+          if (c.signal.aborted) return;
+          cache.current[key] = data;
+          setRecords((r) => ({ ...r, [key]: data }));
         })
         .catch((e) => {
-          if (e.name !== "AbortError") setError(e.message);
+          if (e.name !== "AbortError")
+            setEvidenceErrors((r) => ({ ...r, [p.id]: e.message }));
         });
-      if (refPlace)
-        Promise.all(
-          places.map(
-            async (p) =>
-              [
-                p.id,
-                await service.difference(
-                  refPlace.selection.tractId,
-                  p.selection.tractId,
-                  metric,
-                  c.signal,
-                ),
-              ] as const,
-          ),
-        )
-          .then((x) => {
-            if (!c.signal.aborted) setDifferences(Object.fromEntries(x));
-          })
-          .catch((e) => {
-            if (e.name !== "AbortError") setError(e.message);
-          });
-      if (inspection)
-        service
-          .observations(inspection, metric, c.signal)
-          .then(setInspectionValue)
-          .catch((e) => {
-            if (e.name !== "AbortError") setError(e.message);
-          });
-    }
+    });
     return () => c.abort();
-  }, [places, metric, enabled, service, refPlace, inspection]);
-  function add(s: Selection) {
-    const id = target || String(++serial.current);
-    setPlaces((p) =>
-      target
-        ? p.map((v) => (v.id === target ? { ...v, selection: s } : v))
-        : [
-            ...p,
-            {
-              id,
-              selection: s,
-              visible: p.filter((x) => x.visible).length < 4,
-            },
-          ],
-    );
-    setActive(id);
-    if (!reference) setReference(id);
-    setCandidates([]);
-    setQuery("");
-    setTarget("");
-    setInspection("");
-    setPanel(true);
-  }
+  }, [places, preview, scenario, catalog, reset]);
+  useEffect(() => () => searchAbort.current?.abort(), []);
+  useEffect(() => {
+    const close = (e: MouseEvent) =>
+      document
+        .querySelectorAll<HTMLDetailsElement>("details[open]")
+        .forEach((d) => {
+          if (!d.contains(e.target as Node)) d.open = false;
+        });
+    const escape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        document
+          .querySelectorAll<HTMLDetailsElement>("details[open]")
+          .forEach((d) => {
+            d.open = false;
+            d.querySelector("summary")?.focus();
+          });
+        if (document.querySelector(".search-results")) {
+          invalidate();
+          setSearchOpen(false);
+          input.current?.focus();
+        }
+      }
+    };
+    document.addEventListener("click", close);
+    document.addEventListener("keydown", escape);
+    return () => {
+      document.removeEventListener("click", close);
+      document.removeEventListener("keydown", escape);
+    };
+  }, [searchOpen]);
+  useEffect(() => {
+    if (!inspection || !metric) return;
+    const c = new AbortController();
+    setInspectionData(null);
+    setInspectionError("");
+    bundle(inspection, preview, scenario, catalog, c.signal)
+      .then((b) => {
+        if (!c.signal.aborted) setInspectionData(b[metric.id]);
+      })
+      .catch((e) => {
+        if (e.name !== "AbortError") setInspectionError(e.message);
+      });
+    return () => c.abort();
+  }, [inspection, metric, preview, scenario, catalog]);
   function invalidate() {
     searchAbort.current?.abort();
     setCandidates([]);
+    setSearchError("");
     setBusy(false);
+  }
+  function switchProvider() {
+    invalidate();
+    setPreview((v) => !v);
+    setOverview(false);
+    setPlaces([]);
+    setRecords({});
+    setScenario("normal");
+    setActive("all");
+    setReference("");
+    setInspection("");
+    setFacility("");
+    setQuery("");
+    setTarget("");
+    setAbout(false);
+    setSearchOpen(false);
+    cache.current = {};
+    serial.current = 0;
+  }
+  function add(s: Selection) {
+    if (!target && places.length > 0) setOverview(true);
+    const id = target || String(++serial.current);
+    setPlaces((p) =>
+      target
+        ? p.map((x) => (x.id === target ? { ...x, selection: s } : x))
+        : [...p, { id, selection: s }],
+    );
+    if (!reference) setReference(id);
+    setActive(target || (!places.length ? id : "all"));
+    setTarget("");
+    setQuery("");
+    setCandidates([]);
+    setSearchOpen(false);
+    setCollapsed(false);
+    setInspection("");
   }
   async function search(e: React.FormEvent) {
     e.preventDefault();
@@ -189,643 +277,1051 @@ function Atlas({
     const c = new AbortController();
     searchAbort.current = c;
     setBusy(true);
-    setError("");
     try {
-      const x = await service.search(query, c.signal);
-      if (!c.signal.aborted) setCandidates(x);
+      if (preview) {
+        if (scenario === "failure")
+          throw Error(
+            "Simulated search failure. Change the preview scenario to retry.",
+          );
+        setCandidates([
+          example(Math.max(0, (parseInt(query.replace(/\D/g, "")) || 1) - 1)),
+        ]);
+      } else {
+        const d = await json("/api/geocode", c.signal, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ address: query }),
+        });
+        if (c.signal.aborted) return;
+        const valid = d.candidates.filter(
+          (v: Selection & { error?: string }) => !v.error,
+        );
+        setCandidates(valid);
+        const errors = d.candidates
+          .filter((v: { error?: string }) => v.error)
+          .map((v: { error: string }) => v.error);
+        setSearchError(
+          errors.join(" ") ||
+            (!valid.length
+              ? "No match found. Include a city and ZIP code."
+              : ""),
+        );
+      }
     } catch (e) {
-      if (!c.signal.aborted) setError((e as Error).message);
+      if (!c.signal.aborted) setSearchError((e as Error).message);
     } finally {
       if (!c.signal.aborted) setBusy(false);
     }
   }
+  async function cachedExample(n: number) {
+    invalidate();
+    const c = new AbortController();
+    searchAbort.current = c;
+    setBusy(true);
+    setSearchOpen(true);
+    try {
+      const d = await json("/api/demo", c.signal);
+      if (!c.signal.aborted) setCandidates([d[n]]);
+    } catch (e) {
+      if (!c.signal.aborted) setSearchError((e as Error).message);
+    } finally {
+      if (!c.signal.aborted) setBusy(false);
+    }
+  }
+  function startSearch(replace = "") {
+    document
+      .querySelectorAll("details[open]")
+      .forEach((e) => e.removeAttribute("open"));
+    invalidate();
+    setTarget(replace);
+    setQuery("");
+    setSearchOpen(true);
+    input.current?.focus();
+  }
+  function remove(id: string) {
+    const remaining = places.filter((x) => x.id !== id);
+    setPlaces(remaining);
+    if (remaining.length < 2) setOverview(false);
+    if (active === id) setActive("all");
+    if (reference === id) setReference("");
+  }
   function chooseMode(m: string) {
     setMode(m);
+    if (m === "Infrastructure" && selected) setActive(selected.id);
     setInspection("");
-    setError("");
-    if (m === "Infrastructure") setPanel(true);
+    setFacility("");
+    setCompositionField("");
   }
-  const shown = narrow
-    ? selected
-      ? [selected]
-      : []
-    : places.filter((p) => p.visible).slice(0, 4);
-  const list = selected
-    ? facilities(selected.selection).filter((f) => filter.includes(f.category))
-    : [];
-  const fmt = (n: number | null | undefined) =>
-    n == null
-      ? "Unavailable"
-      : n.toLocaleString(undefined, {
-          maximumFractionDigits: metric?.id === "ozone" ? 4 : 2,
-        });
+  const facilityResult = useFacilities(
+    places,
+    preview,
+    mode === "Infrastructure",
+    reset,
+  );
+  const visibleFacilities = useMemo(
+    () =>
+      (facilityResult(selected)?.items || []).filter((f) =>
+        filter.includes(f.category),
+      ),
+    [facilityResult(selected), filter],
+  );
+  const observations = places.map((p) => observation(p));
+  const available = observations.filter(
+    (o): o is Observation => !!o && o.rawValue !== null,
+  );
+  const compatible =
+    available.length > 0 &&
+    available.every((o) => o.comparisonKey === available[0].comparisonKey);
+  const vals = available.map((o) => o.rawValue!);
+  const spread =
+    compatible && vals.length > 1
+      ? Math.max(...vals) - Math.min(...vals)
+      : null;
+  const sameTract =
+    places.length > 1 &&
+    places.every((p) => p.selection.tractId === places[0].selection.tractId);
+  const title =
+    group === "age"
+      ? "Generations, side by side."
+      : group === "race"
+        ? "Many communities. One place."
+        : metric?.label || "Nearby essentials";
+  const intro = introductions[mode];
   return (
-    <main className="atlas-app">
-      <a href="#evidence" className="skip">
+    <main
+      className={`atlas-app ${hasPlaces ? "has-places" : ""} ${collapsed ? "canvas-collapsed" : ""} ${preview ? "is-preview" : ""}`}
+      data-mode={mode}
+      style={
+        {
+          "--accent":
+            mode === "Health"
+              ? "#9d5488"
+              : mode === "Community"
+                ? "#467fa5"
+                : "#5759bb",
+        } as React.CSSProperties
+      }
+    >
+      <a className="skip" href="#evidence">
         Skip to evidence
       </a>
-      <header className="atlas-header">
-        <div className="atlas-brand">
-          <svg viewBox="0 0 32 40" aria-hidden="true">
-            <path d="M8 2h10v15l12 16-8 5-8-7-2-10-6-9z" />
-          </svg>
-          <h1>
-            California<span>Environmental Atlas</span>
-          </h1>
-        </div>
-        <form className="atlas-search" onSubmit={search}>
-          <label className="sr-only" htmlFor="search">
-            {target ? "Replace address" : "Search California address"}
-          </label>
-          <input
-            id="search"
-            name="address"
-            autoComplete="street-address"
-            value={query}
-            onChange={(e) => {
-              invalidate();
-              setQuery(e.target.value);
-            }}
-            placeholder={
-              preview ? "Try Example 1…" : "Street address, city, CA…"
-            }
-            required
-            maxLength={240}
-          />
-          <button disabled={busy}>
-            {busy ? "Finding…" : target ? "Replace" : "Search"}
-          </button>
-          {target && (
-            <button
-              type="button"
-              onClick={() => {
-                setTarget("");
-                setQuery("");
-                invalidate();
+      <div className="map-stage">
+        <Map
+          places={places}
+          active={active}
+          metric={metric}
+          mode={mode}
+          preview={preview}
+          scenario={scenario}
+          categories={filter}
+          facilities={visibleFacilities}
+          facility={facility}
+          onFacility={setFacility}
+          onInspect={setInspection}
+          onFocus={setActive}
+          reset={reset}
+          raster={raster}
+        />
+      </div>
+      <header className="masthead">
+        <button
+          className="brand"
+          onClick={() => {
+            setActive("all");
+            setReset((n) => n + 1);
+          }}
+          aria-label="Common ground, return to map overview"
+        >
+          <BrandMark />
+          <span>
+            <strong>Common ground</strong>
+            <small>California environmental atlas</small>
+          </span>
+        </button>
+        <div className="search-wrap">
+          <form
+            className={`search-box ${searchOpen ? "searching" : ""}`}
+            onSubmit={search}
+          >
+            <Icon name="search" size={20} />
+            <input
+              ref={input}
+              aria-label={
+                target ? "Replace address" : "Search a California address"
+              }
+              placeholder={
+                preview
+                  ? "Search a synthetic example…"
+                  : target
+                    ? "Replace this address…"
+                    : "Find a California address…"
+              }
+              value={query}
+              onFocus={() => setSearchOpen(true)}
+              onKeyDown={(e) => {
+                if (e.key === "Escape") {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  invalidate();
+                  setSearchOpen(false);
+                }
               }}
+              onChange={(e) => {
+                invalidate();
+                setQuery(e.target.value);
+                setSearchOpen(true);
+              }}
+              maxLength={240}
+              minLength={preview ? 1 : 6}
+              required
+              autoComplete="off"
+              aria-describedby="search-help"
+            />
+            <button
+              className="search-submit"
+              type="submit"
+              aria-label="Search"
+              disabled={busy}
             >
-              Cancel
+              {busy ? (
+                <span className="spinner" />
+              ) : (
+                <Icon name="arrow" size={20} />
+              )}
             </button>
-          )}
-          {candidates.length > 0 && (
-            <div className="atlas-candidates">
-              <p>
-                {preview
-                  ? "Confirm synthetic example"
-                  : "Confirm the Census match · address-range estimate"}
-              </p>
-              {candidates.map((c) => (
-                <button type="button" key={c.label} onClick={() => add(c)}>
-                  {c.label} · Use match →
+          </form>
+          {searchOpen && (
+            <div className="search-results">
+              <div className="search-results-head">
+                <span>
+                  {target ? "Replace a place" : "Find your point of view"}
+                </span>
+                <button
+                  className="icon-button"
+                  aria-label="Close search"
+                  onClick={() => {
+                    invalidate();
+                    setSearchOpen(false);
+                    setTarget("");
+                  }}
+                >
+                  <Icon name="close" size={17} />
+                </button>
+              </div>
+              {searchError && (
+                <p role="alert" className="error">
+                  {searchError}
+                </p>
+              )}
+              {candidates.map((s, i) => (
+                <button
+                  className="candidate"
+                  key={s.label + i}
+                  onClick={() => add(s)}
+                >
+                  <Icon name="target" />
+                  <span>
+                    <strong>{s.label}</strong>
+                    <small>
+                      {s.cached ? "Verified cached match. " : ""}
+                      {s.precision}
+                    </small>
+                    <em>Confirm this address</em>
+                  </span>
+                  <Icon name="check" />
                 </button>
               ))}
+              {!candidates.length && !busy && (
+                <>
+                  <p id="search-help">
+                    {preview
+                      ? "Try “Example 1” to explore synthetic evidence."
+                      : "Enter a street address, city and ZIP. Confirm the Census match before exploring."}
+                  </p>
+                  <div className="example-links">
+                    {preview ? (
+                      <button
+                        onClick={() => setCandidates([example(places.length)])}
+                      >
+                        Try an example
+                      </button>
+                    ) : (
+                      <>
+                        <span>Or explore</span>
+                        <button onClick={() => cachedExample(0)}>
+                          Oakland
+                        </button>
+                        <button onClick={() => cachedExample(1)}>Fresno</button>
+                      </>
+                    )}
+                  </div>
+                  <small className="privacy-note">
+                    {preview
+                      ? "Synthetic examples never become live findings."
+                      : "Address searches are sent to the US Census geocoder."}
+                  </small>
+                </>
+              )}
             </div>
           )}
-        </form>
-        <button onClick={switchProvider}>
-          {preview ? "Return to live" : "Explore full UI preview"}
+        </div>
+        <button
+          className="about-button"
+          onClick={() => setAbout(true)}
+          aria-label="Atlas menu"
+        >
+          <Icon name="more" />
         </button>
       </header>
       {preview && (
-        <div className="preview-banner">
-          <strong>{previewLabel}</strong>
-          <label>
-            Scenario{" "}
-            <select
-              aria-label="Scenario"
-              value={scenario}
-              onChange={(e) => {
-                invalidate();
-                setScenario(e.target.value);
-                setError("");
-              }}
+        <div className="preview-status">
+          <span>Preview data · synthetic examples</span>
+          <button onClick={switchProvider}>Return to live</button>
+        </div>
+      )}
+      {catalogError && (
+        <div className="catalog-error" role="alert">
+          {catalogError}
+          <button onClick={() => setReset((n) => n + 1)}>Retry</button>
+        </div>
+      )}
+      {hasPlaces && (
+        <div className="place-ribbon" aria-label="Your places">
+          <button
+            className={`all-places ${active === "all" ? "is-active" : ""}`}
+            onClick={() => setActive("all")}
+          >
+            <Icon name="layers" size={17} />
+            <span>{places.length > 1 ? "Together" : "Overview"}</span>
+          </button>
+          {places.map((p, i) => (
+            <div
+              className={`place-chip ${active === p.id ? "is-active" : ""}`}
+              key={p.id}
+              style={{ "--place": color(p.id) } as React.CSSProperties}
             >
-              <option value="normal">Normal</option>
-              <option value="missing">Missing value</option>
-              <option value="zero">Valid zero</option>
-              <option value="incompatible">Incompatible evidence</option>
-              <option value="failure">Request failure</option>
-            </select>
-          </label>
-          <button onClick={() => add(example(places.length))}>
-            Add example location
+              <button className="place-focus" onClick={() => setActive(p.id)}>
+                <b>{letter(p.id)}</b>
+                <span>{p.selection.place}</span>
+              </button>
+              <details className="place-options">
+                <summary aria-label={`Options for ${p.selection.place}`}>
+                  <Icon name="more" size={17} />
+                </summary>
+                <div className="place-menu">
+                  <p>{p.selection.label}</p>
+                  <button
+                    onClick={() => {
+                      setReference(p.id);
+                      document
+                        .querySelectorAll("details[open]")
+                        .forEach((e) => e.removeAttribute("open"));
+                    }}
+                  >
+                    Use as reference
+                  </button>
+                  <button onClick={() => startSearch(p.id)}>
+                    Replace address
+                  </button>
+                  <button
+                    disabled={i === 0}
+                    onClick={() =>
+                      setPlaces((xs) => {
+                        const a = [...xs];
+                        [a[i - 1], a[i]] = [a[i], a[i - 1]];
+                        return a;
+                      })
+                    }
+                  >
+                    Move earlier
+                  </button>
+                  <button onClick={() => remove(p.id)}>Remove place</button>
+                </div>
+              </details>
+            </div>
+          ))}
+          <button className="add-place" onClick={() => startSearch()}>
+            <Icon name="plus" size={17} />
+            Add a place
+          </button>
+          {preview && (
+            <button
+              className="preview-add"
+              onClick={() => add(example(places.length))}
+            >
+              Add example
+            </button>
+          )}
+        </div>
+      )}
+      <nav className="domain-dock" aria-label="Explore a domain">
+        {modes.map((m) => (
+          <button
+            key={m}
+            className={mode === m ? "selected" : ""}
+            aria-pressed={mode === m}
+            onClick={() => chooseMode(m)}
+          >
+            <span className="domain-icon">
+              <Icon name={m} size={25} />
+            </span>
+            <span>{m}</span>
+            <i />
+          </button>
+        ))}
+      </nav>
+      {!hasPlaces && (
+        <section className={`opening-lens ${lensExpanded ? "expanded" : ""}`}>
+          <div className="lens-name">
+            <Icon name={mode} size={18} />
+            {mode}
+          </div>
+          <h1 key={mode}>{intro[0]}</h1>
+          <p>{intro[1]}</p>
+          {mode !== "Infrastructure" && (
+            <button
+              className="mobile-layer-toggle"
+              aria-expanded={lensExpanded}
+              onClick={() => setLensExpanded((v) => !v)}
+            >
+              {shortLabels[selectedMetric] || selectedMetric}
+              <span>{lensExpanded ? "Close layers" : "Change layer"}</span>
+              <Icon name="layers" size={14} />
+            </button>
+          )}
+          <div className="opening-topics">
+            {mode === "Infrastructure" ? (
+              <p className="infrastructure-note">
+                Healthcare and public schools, from verified source inventories.
+                Enter an address to explore nearby locations. Power plants
+                remain in a separate synthetic preview.
+              </p>
+            ) : (
+              topicIds.map((id) => (
+                <button
+                  key={id}
+                  aria-pressed={!overview && selectedMetric === id}
+                  className={
+                    !overview && selectedMetric === id ? "selected" : ""
+                  }
+                  onClick={() => setRemember((r) => ({ ...r, [mode]: id }))}
+                >
+                  <span>{shortLabels[id] || id}</span>
+                  {selectedMetric === id ? (
+                    <span className="topic-dot" />
+                  ) : (
+                    <Icon name="chevron" size={14} />
+                  )}
+                </button>
+              ))
+            )}
+          </div>
+          <button className="explore-button" onClick={() => startSearch()}>
+            Explore an address
+            <Icon name="arrow" size={18} />
+          </button>
+          {preview && (
+            <button className="text-button" onClick={() => add(example(0))}>
+              Add a synthetic example
+            </button>
+          )}
+        </section>
+      )}
+      <div className="map-key">
+        <div className="map-key-title">
+          <span>
+            {mode === "Infrastructure"
+              ? "Infrastructure"
+              : metric?.label || "Loading evidence…"}
+          </span>
+          <button
+            aria-label="About this measure"
+            onClick={() => setSourceOpen(true)}
+          >
+            <Icon name="info" size={15} />
           </button>
         </div>
-      )}
-      <nav className="atlas-toolbar" aria-label="Atlas modes">
-        <div className="mode-buttons">
-          {modes.map((m) => (
-            <button
-              key={m}
-              aria-pressed={mode === m}
-              onClick={() => chooseMode(m)}
-            >
-              {m}
-            </button>
-          ))}
-        </div>
-        <label className="indicator-control">
-          Indicator{" "}
-          <select
-            aria-label="Indicator"
-            value={remember[mode]}
-            onChange={(e) => {
-              setRemember({ ...remember, [mode]: e.target.value });
-              setInspection("");
-              setError("");
-            }}
+        {mode !== "Infrastructure" ? (
+          <>
+            <div
+              className="color-ramp"
+              style={{
+                background: `linear-gradient(90deg,${ramps[mode].join(",")})`,
+              }}
+            />
+            <div className="key-ends">
+              <span>0</span>
+              <span>
+                {metric?.percentileField
+                  ? "Statewide percentile"
+                  : "Population %"}
+              </span>
+              <span>100</span>
+            </div>
+          </>
+        ) : (
+          <span className="key-caption">
+            {preview
+              ? "Synthetic facility locations"
+              : "Healthcare & public schools"}
+          </span>
+        )}
+        {preview && <small>Synthetic examples</small>}
+      </div>
+      <button
+        className="recenter"
+        onClick={() => {
+          setActive("all");
+          setReset((n) => n + 1);
+        }}
+        aria-label="Show all places"
+      >
+        <Icon name="target" size={19} />
+      </button>
+      <section
+        id="evidence"
+        className="comparison-canvas"
+        aria-label="Place evidence"
+        aria-hidden={!hasPlaces}
+        inert={!hasPlaces}
+      >
+        <div className="canvas-topline">
+          <div>
+            <span className="context-dot" />
+            {preview
+              ? "Synthetic exploration"
+              : places.length > 1
+                ? `${places.length} places, one shared perspective`
+                : "A closer look"}
+            <span className="context-caption">
+              {!preview
+                ? mode === "Infrastructure"
+                  ? "CDPH · CDE"
+                  : "CalEnviroScreen 5.0"
+                : ""}
+            </span>
+          </div>
+          <button
+            className="text-button"
+            onClick={() => setCollapsed((v) => !v)}
           >
-            {(preview
-              ? catalog.filter((i) => i.mode === mode.toLowerCase())
-              : specs
-                  .filter((s) => s[1] === mode)
-                  .map(
-                    (s) =>
-                      catalog.find((i) => i.id === s[0]) ?? {
-                        id: s[0],
-                        label: s[2],
-                      },
-                  )
-            ).map((i) => (
-              <option key={i.id} value={i.id}>
-                {i.label}
-              </option>
-            ))}
-          </select>
-        </label>
-        <button onClick={() => setPanel(!panel)} aria-expanded={panel}>
-          {panel ? "Hide evidence" : "Show evidence"}
-        </button>
-      </nav>
-      {error && (
-        <div className="atlas-error" role="alert">
-          {error} <button onClick={() => setError("")}>Dismiss</button>
+            {collapsed ? "Open evidence" : "More map"}
+            <span className={collapsed ? "caret up" : "caret"} />
+          </button>
         </div>
-      )}
-      <div className="atlas-workspace">
-        <section className="map-region" aria-label="Atlas maps">
-          {places.length > 0 && (
-            <div className="location-strip">
-              {places.map((p, i) => (
-                <button
-                  key={p.id}
-                  aria-pressed={selected?.id === p.id}
-                  onClick={() => setActive(p.id)}
-                >
-                  {p.id} · {p.selection.place}
-                  {p.id === refPlace?.id ? " · reference" : ""}
-                </button>
-              ))}
+        <div className="canvas-content">
+          <div className="topic-strip" aria-label="Choose a measure">
+            {places.length > 1 && mode !== "Infrastructure" && (
               <button
-                onClick={() => {
-                  setPlaces([]);
-                  setReference("");
-                  setInspection("");
-                  setActive("");
-                  setPanel(false);
-                }}
+                className={overview ? "selected overview-tab" : "overview-tab"}
+                aria-pressed={overview}
+                onClick={() => setOverview(true)}
               >
-                Clear all
+                At a glance
               </button>
+            )}
+            {mode === "Infrastructure" ? (
+              <span className="infrastructure-heading">Nearby essentials</span>
+            ) : (
+              topicIds.map((id) => (
+                <button
+                  key={id}
+                  aria-pressed={!overview && selectedMetric === id}
+                  className={
+                    !overview && selectedMetric === id ? "selected" : ""
+                  }
+                  onClick={() => {
+                    setRemember((r) => ({ ...r, [mode]: id }));
+                    setOverview(false);
+                    setCompositionField("");
+                  }}
+                >
+                  {shortLabels[id] || id}
+                </button>
+              ))
+            )}
+            <button
+              className="source-button"
+              onClick={() => setSourceOpen(true)}
+            >
+              <Icon name="info" size={16} />
+              About the evidence
+            </button>
+          </div>
+          {mode === "Infrastructure" ? (
+            <Infrastructure
+              places={places}
+              selected={selected}
+              result={facilityResult}
+              preview={preview}
+              filter={filter}
+              setFilter={setFilter}
+              facility={facility}
+              onFacility={setFacility}
+              onFocus={setActive}
+              switchProvider={switchProvider}
+            />
+          ) : overview && places.length > 1 ? (
+            <ComparisonOverview
+              places={places}
+              metrics={scalar}
+              observe={observation}
+              mode={mode}
+              onChoose={(id) => {
+                setRemember((r) => ({ ...r, [mode]: id }));
+                setOverview(false);
+              }}
+            />
+          ) : (
+            <div className="evidence-layout">
+              <div className="narrative">
+                <h2>{title}</h2>
+                {group ? (
+                  <p>
+                    Population composition, shown as a share of the tract.
+                    Select a group to see its geography.
+                  </p>
+                ) : (
+                  <>
+                    <p className="measure-definition">{metric?.definition}</p>
+                    {places.length > 1 ? (
+                      <div className="finding" key={selectedMetric}>
+                        {sameTract ? (
+                          <>
+                            <strong>Shared tract. Shared evidence.</strong>
+                            <p>
+                              These addresses have the same tract observations,
+                              even when the properties differ.
+                            </p>
+                          </>
+                        ) : spread === null ? (
+                          <>
+                            <strong>
+                              {available.length
+                                ? "A comparison needs matching evidence."
+                                : "Gathering the evidence…"}
+                            </strong>
+                            <p>
+                              Missing or incompatible measurements are left
+                              unscored.
+                            </p>
+                          </>
+                        ) : spread === 0 ? (
+                          <>
+                            <strong>The same recorded value.</strong>
+                            <p>
+                              No difference in this measure across the selected
+                              tracts.
+                            </p>
+                          </>
+                        ) : (
+                          <>
+                            <strong>
+                              <span>{format(spread, metric?.id)}</span>{" "}
+                              {differenceUnit(metric)}
+                            </strong>
+                            <p>
+                              between the highest and lowest recorded values
+                              here. A descriptive difference, not a test of
+                              significance.
+                            </p>
+                          </>
+                        )}
+                      </div>
+                    ) : (
+                      <div className="single-invitation">
+                        <span className="overlapping-dots">
+                          <i>A</i>
+                          <i>+</i>
+                        </span>
+                        <p>
+                          Places make more sense
+                          <br />
+                          when seen together.
+                        </p>
+                        <button onClick={() => startSearch()}>
+                          Add a place to compare
+                          <Icon name="plus" size={16} />
+                        </button>
+                      </div>
+                    )}
+                  </>
+                )}
+                <div className="evidence-footnote">
+                  {preview
+                    ? "Synthetic example period"
+                    : metric?.measurementPeriod}
+                  <button onClick={() => setSourceOpen(true)}>
+                    Definition & source
+                  </button>
+                </div>
+              </div>
+              {group ? (
+                <div className="composition-view">
+                  <div className="composition-legend">
+                    {groups[group].map((id, i) => (
+                      <button
+                        key={id}
+                        className={metric?.id === id ? "selected" : ""}
+                        onClick={() => setCompositionField(id)}
+                      >
+                        <i style={{ background: compositionColors[i] }} />
+                        {catalog.find((m) => m.id === id)?.label}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="composition-rows">
+                    {places.map((p) => (
+                      <div className="composition-row" key={p.id}>
+                        <div>
+                          <b
+                            className="letter"
+                            style={{ background: color(p.id) }}
+                          >
+                            {letter(p.id)}
+                          </b>
+                          <strong>{p.selection.place}</strong>
+                        </div>
+                        <div
+                          className="composition-bar"
+                          aria-label={`${p.selection.place} population composition`}
+                        >
+                          {groups[group].map((id, i) => {
+                            const o = observation(p, id);
+                            return o?.rawValue == null ? null : (
+                              <button
+                                key={id}
+                                style={{
+                                  width: `${o.rawValue}%`,
+                                  background: compositionColors[i],
+                                }}
+                                onClick={() => setCompositionField(id)}
+                                aria-label={`${catalog.find((m) => m.id === id)?.label}: ${format(o.rawValue)}%`}
+                              >
+                                {o.rawValue > 8 ? `${format(o.rawValue)}%` : ""}
+                              </button>
+                            );
+                          })}
+                        </div>
+                        <p>
+                          {groups[group]
+                            .map(
+                              (id) =>
+                                `${catalog.find((m) => m.id === id)?.label}: ${format(observation(p, id)?.rawValue)}${observation(p, id)?.rawValue == null ? "" : "%"}`,
+                            )
+                            .join(" · ")}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                  <small>
+                    Each bar uses 0–100%. Rounding may leave small gaps. Missing
+                    groups are not zero. Demographics are not hazards.
+                  </small>
+                </div>
+              ) : (
+                <div className="comparison-score">
+                  <div className="score-header">
+                    <span>
+                      {places.length > 1
+                        ? "Compared with " + refPlace?.selection.place
+                        : "Your selected place"}
+                    </span>
+                    <span>
+                      {metric?.percentileField
+                        ? "Position among California tracts"
+                        : "Population share"}
+                    </span>
+                    <span>Recorded value</span>
+                  </div>
+                  <div className="score-rows">
+                    {places.map((p) => {
+                      const o = observation(p),
+                        d = delta(
+                          refPlace ? observation(refPlace) : undefined,
+                          o,
+                        ),
+                        position = o?.percentile,
+                        err = evidenceErrors[p.id];
+                      return (
+                        <div
+                          className={`score-row ${active === p.id ? "focused" : ""}`}
+                          key={p.id}
+                          style={
+                            { "--place": color(p.id) } as React.CSSProperties
+                          }
+                        >
+                          <button
+                            className="score-place"
+                            onClick={() => setActive(p.id)}
+                          >
+                            <b className="letter">{letter(p.id)}</b>
+                            <span>
+                              <strong>{p.selection.place}</strong>
+                              <small title={p.selection.label}>
+                                {p.selection.label}
+                              </small>
+                            </span>
+                          </button>
+                          <div
+                            className="score-track"
+                            aria-label={`${p.selection.place} statewide percentile: ${format(position)}`}
+                          >
+                            <div className="track-grid" />
+                            <div className="track-line" />
+                            {position != null ? (
+                              <div
+                                className="score-bead"
+                                style={{ left: `${position}%` }}
+                              >
+                                <b>{letter(p.id)}</b>
+                                <span>{format(position)}</span>
+                              </div>
+                            ) : (
+                              <span className="no-percentile">
+                                {err
+                                  ? "Evidence unavailable"
+                                  : o
+                                    ? "Not reported"
+                                    : "Loading…"}
+                              </span>
+                            )}
+                          </div>
+                          <div className="score-value">
+                            <strong>
+                              {err
+                                ? "Unavailable"
+                                : o
+                                  ? format(o.rawValue, metric?.id)
+                                  : "…"}
+                            </strong>
+                            <span>{metric?.unit}</span>
+                            <small>
+                              {places.length > 1
+                                ? p.id === refPlace?.id
+                                  ? "Reference"
+                                  : d === null
+                                    ? "Difference unavailable"
+                                    : `${d > 0 ? "+" : ""}${format(d, metric?.id)} ${differenceUnit(metric)}`
+                                : "Tract-level observation"}
+                            </small>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className="score-axis">
+                    <span>0</span>
+                    <span>25</span>
+                    <span>50</span>
+                    <span>75</span>
+                    <span>100</span>
+                  </div>
+                  <p className="score-note">
+                    {preview ? "Synthetic examples. " : ""}Percentiles describe
+                    relative position for this measure, not personal risk.
+                    {mode === "Health"
+                      ? " Population rates are not individual disease probabilities."
+                      : ""}
+                  </p>
+                  {Object.values(evidenceErrors).length > 0 && (
+                    <p role="alert" className="error">
+                      {Object.values(evidenceErrors)[0]}{" "}
+                      <button onClick={() => setReset((n) => n + 1)}>
+                        Retry evidence
+                      </button>
+                    </p>
+                  )}
+                </div>
+              )}
             </div>
           )}
-          <div className={"atlas-maps count-" + Math.max(1, shown.length)}>
-            {(shown.length ? shown : [null]).map((p) => (
-              <Map
-                key={p?.id ?? "overview"}
-                location={p?.selection ?? null}
-                letter={p?.id ?? "CA"}
-                metric={remember[mode]}
-                enabled={enabled}
-                preview={preview}
-                scenario={scenario}
-                categories={filter}
-                selectedFacility={facility}
-                onFacility={(id) => {
-                  setFacility(id);
-                  if (p) setActive(p.id);
-                  setPanel(true);
-                }}
-                onInspect={(id) => {
-                  setInspection(id);
-                  setPanel(true);
-                }}
-                camera={linked ? camera : null}
-                onCamera={setCamera}
-                reset={reset}
-                raster={raster}
-              />
-            ))}
-          </div>
-          <div className="map-tools">
-            <button aria-pressed={linked} onClick={() => setLinked(!linked)}>
-              {linked ? "Cameras linked" : "Cameras unlocked"}
+        </div>
+      </section>
+      <Dialog
+        open={sourceOpen}
+        onClose={() => setSourceOpen(false)}
+        title="Behind the measure"
+      >
+        <div className="source-content">
+          <span className="source-badge">
+            {preview
+              ? "Synthetic preview"
+              : mode === "Infrastructure"
+                ? "CDPH healthcare · CDE schools"
+                : "CalEnviroScreen 5.0 · final release"}
+          </span>
+          <h3>{metric?.label || "Infrastructure coverage"}</h3>
+          <p>
+            {metric?.definition ||
+              "Healthcare and public schools come from CDPH and CDE inventories. Open a facility for dates, source status and limitations. Power plants remain in a separate synthetic preview."}
+          </p>
+          <dl>
+            <div>
+              <dt>Measurement period</dt>
+              <dd>{metric?.measurementPeriod || "Not available"}</dd>
+            </div>
+            <div>
+              <dt>Unit</dt>
+              <dd>{metric?.unit || "Not applicable"}</dd>
+            </div>
+            <div>
+              <dt>Geography</dt>
+              <dd>
+                {preview
+                  ? "Synthetic example geography"
+                  : mode === "Infrastructure"
+                    ? "Published facility points"
+                    : "2020 Census tracts"}
+              </dd>
+            </div>
+            <div>
+              <dt>Map scale</dt>
+              <dd>
+                {mode === "Infrastructure"
+                  ? "Facility category symbols"
+                  : metric?.percentileField
+                    ? "Source percentile, 0–100"
+                    : "Population percentage, 0–100"}
+              </dd>
+            </div>
+          </dl>
+          {metric?.definitionSource && (
+            <a
+              className="source-link"
+              target="_blank"
+              rel="noreferrer"
+              href={metric.definitionSource}
+            >
+              Read the original source
+              <Icon name="arrow" size={17} />
+            </a>
+          )}
+          <h4>Read this as context.</h4>
+          <p>
+            Tract statistics describe an area, not an individual or property.
+            Co-occurring conditions do not establish causation. Comparisons use
+            the same measure, definition, period and source version.
+          </p>
+          {metric?.limitations?.map((l) => (
+            <p key={l}>{l}</p>
+          ))}
+          <p>
+            Address points use Census address-range interpolation, not rooftop
+            precision. Missing observations remain unavailable. A
+            percentile-point difference is not a percentage change.
+          </p>
+        </div>
+      </Dialog>
+      <Dialog
+        open={about}
+        onClose={() => setAbout(false)}
+        title="A little more context"
+      >
+        <div className="about-content">
+          <BrandMark />
+          <h3>Common ground</h3>
+          <p>
+            A California environmental atlas. Explore a place, change your
+            perspective, and compare it with the places that matter to you.
+          </p>
+          <div className="menu-actions">
+            <button onClick={switchProvider}>
+              <Icon name="layers" />
+              {preview ? "Return to live evidence" : "Explore full UI preview"}
+              <Icon name="arrow" size={17} />
             </button>
             <button
               onClick={() => {
-                setCamera(null);
-                setReset(reset + 1);
+                setRaster((r) => !r);
+                setAbout(false);
               }}
             >
-              Reset views
+              Use {raster ? "vector" : "fallback raster"} basemap
             </button>
-            <button onClick={() => setRaster(!raster)}>
-              {raster ? "Vector basemap" : "Fallback basemap"}
+            <button
+              onClick={() => {
+                setReset((n) => n + 1);
+                setAbout(false);
+              }}
+            >
+              Retry map & evidence
+            </button>
+            <button
+              onClick={() => {
+                setPlaces([]);
+                setOverview(false);
+                setActive("all");
+                setReference("");
+                setAbout(false);
+              }}
+            >
+              Clear all places
             </button>
           </div>
-          <div className="atlas-legend">
-            <div>
-              <b>
-                {metric?.label ??
-                  specs.find((s) => s[0] === remember[mode])?.[2]}
-              </b>
-              <small>
-                {preview
-                  ? previewLabel
-                  : enabled
-                    ? "CES 5.0 · California tract percentiles"
-                    : "Live layer unavailable · explore the preview"}
-              </small>
-            </div>
-            {enabled && metric?.percentileField && (
-              <div className="legend-ramp">
-                <div>
-                  {palette.map((c) => (
-                    <i key={c} style={{ background: c }} />
-                  ))}
-                </div>
-                <span>0</span>
-                <span>100 · shared scale</span>
-              </div>
-            )}
-            <small>▧ No data</small>
-          </div>
-        </section>
-        {panel && (
-          <aside id="evidence" className="evidence-panel" tabIndex={-1}>
-            <div className="panel-heading">
-              <h2>
-                {inspection
-                  ? "Inspected tract"
-                  : places.length > 1
-                    ? "Places in comparison"
-                    : "A closer look"}
-              </h2>
-              <button
-                aria-label="Close evidence"
-                onClick={() => setPanel(false)}
+          {preview && (
+            <label className="scenario">
+              Preview scenario
+              <select
+                value={scenario}
+                onChange={(e) => {
+                  setScenario(e.target.value);
+                  setAbout(false);
+                }}
               >
-                ×
-              </button>
-            </div>
-            <p className="context-label">
-              {preview
-                ? previewLabel
-                : "Live evidence · CES 5.0 · release July 2026"}
+                <option value="normal">Typical values</option>
+                <option value="missing">Missing observation</option>
+                <option value="zero">Valid zero</option>
+                <option value="incompatible">Incompatible evidence</option>
+                <option value="failure">Source failure</option>
+              </select>
+            </label>
+          )}
+          <p className="small">
+            Live environment, health and community evidence comes from
+            CalEnviroScreen 5.0. Healthcare and schools use their own source
+            inventories; power plants remain in synthetic preview. Map data ©
+            OpenStreetMap contributors, OpenMapTiles and OpenFreeMap.
+          </p>
+        </div>
+      </Dialog>
+      <Dialog
+        open={!!inspection}
+        onClose={() => setInspection("")}
+        title="A closer look at this tract"
+      >
+        <div className="source-content">
+          <span className="source-badge">
+            {preview ? "Synthetic tract" : "Census tract"} {inspection}
+          </span>
+          <h3>{metric?.label}</h3>
+          {inspectionError ? (
+            <p role="alert" className="error">
+              {inspectionError}
             </p>
-            {inspection && (
-              <section className="inspection">
-                <b>{inspection}</b>
-                <p>
-                  {fmt(inspectionValue?.rawValue)} {metric?.unit}
-                </p>
-                <button onClick={() => setInspection("")}>
-                  Return to selected locations
-                </button>
-                <p>Inspection does not replace an address.</p>
-              </section>
-            )}
-            {!places.length && (
-              <p>
-                Search and confirm an address to explore its tract. Click a
-                shaded tract to inspect it.
-              </p>
-            )}
-            {places.length > 0 && (
-              <>
-                <div className="panel-tabs">
-                  <button
-                    aria-pressed={!overview}
-                    onClick={() => setOverview(false)}
-                  >
-                    Selected indicator
-                  </button>
-                  <button
-                    aria-pressed={overview}
-                    onClick={() => setOverview(true)}
-                  >
-                    Overview
-                  </button>
-                </div>
-                {overview && (
-                  <section>
-                    <h3>Explore a question</h3>
-                    {[
-                      "Air around these places",
-                      "Health in neighborhood context",
-                      "Community context",
-                      "Nearby essentials",
-                    ].map((s, i) => (
-                      <button
-                        className="story"
-                        key={s}
-                        onClick={() => {
-                          chooseMode(modes[i]);
-                          setRemember((r) => ({
-                            ...r,
-                            [modes[i]]: ["pm", "asthma", "pov", "facilities"][
-                              i
-                            ],
-                          }));
-                          setOverview(false);
-                          setStory(true);
-                        }}
-                      >
-                        {s} →
-                      </button>
-                    ))}
-                    <p>
-                      Follow the indicators in each mode. No combined score or
-                      overall neighborhood winner.
-                    </p>
-                  </section>
-                )}
-                {story && (
-                  <section className="story-steps">
-                    <p>
-                      {preview ? previewLabel : "Source-backed exploration"} ·{" "}
-                      {mode} story
-                    </p>
-                    {specs
-                      .filter((s) => s[1] === mode)
-                      .map((s) => (
-                        <button
-                          key={s[0]}
-                          aria-pressed={remember[mode] === s[0]}
-                          onClick={() => {
-                            setRemember((r) => ({ ...r, [mode]: s[0] }));
-                            setInspection("");
-                          }}
-                        >
-                          {s[2]}
-                        </button>
-                      ))}
-                    <button onClick={() => setStory(false)}>Leave story</button>
-                  </section>
-                )}
-                <div className="collection">
-                  {places.map((p, i) => (
-                    <details key={p.id}>
-                      <summary>
-                        {p.id} · {p.selection.label}
-                      </summary>
-                      <div className="collection-actions">
-                        <button
-                          onClick={() => {
-                            setTarget(p.id);
-                            setQuery(p.selection.label);
-                            invalidate();
-                            document.getElementById("search")?.focus();
-                          }}
-                        >
-                          Replace
-                        </button>
-                        <button
-                          onClick={() => {
-                            setPlaces(places.filter((x) => x.id !== p.id));
-                            setInspection("");
-                          }}
-                        >
-                          Remove
-                        </button>
-                        <button onClick={() => setReference(p.id)}>
-                          Reference
-                        </button>
-                        <button
-                          disabled={i === 0}
-                          onClick={() =>
-                            setPlaces((a) => {
-                              const b = [...a];
-                              [b[i - 1], b[i]] = [b[i], b[i - 1]];
-                              return b;
-                            })
-                          }
-                        >
-                          Move earlier
-                        </button>
-                        <label>
-                          <input
-                            type="checkbox"
-                            checked={p.visible}
-                            disabled={
-                              !p.visible &&
-                              places.filter((x) => x.visible).length >= 4
-                            }
-                            onChange={() =>
-                              setPlaces((a) =>
-                                a.map((x) =>
-                                  x.id === p.id
-                                    ? { ...x, visible: !x.visible }
-                                    : x,
-                                ),
-                              )
-                            }
-                          />{" "}
-                          Show map
-                        </label>
-                      </div>
-                    </details>
-                  ))}
-                </div>
-              </>
-            )}
-            {mode === "Infrastructure" ? (
-              <section>
-                <h3>Nearby essentials</h3>
-                {categories.map((c) => (
-                  <label className="filter" key={c}>
-                    <input
-                      type="checkbox"
-                      checked={filter.includes(c)}
-                      onChange={() =>
-                        setFilter((a) =>
-                          a.includes(c) ? a.filter((x) => x !== c) : [...a, c],
-                        )
-                      }
-                    />
-                    {c}
-                  </label>
-                ))}
-                {!preview ? (
-                  <p>
-                    Live facility API is not available. No coverage or access is
-                    inferred. Explore full UI preview for synthetic facilities.
-                  </p>
-                ) : !selected ? (
-                  <p>Add an example location to explore facilities.</p>
-                ) : (
-                  <>
-                    {list.map((f) => (
-                      <button
-                        className={
-                          "facility " + (facility === f.id ? "chosen" : "")
-                        }
-                        key={f.id}
-                        onClick={() => setFacility(f.id)}
-                      >
-                        <b>{f.name}</b>
-                        <span>
-                          {f.category} · approximately {f.distance.toFixed(1)}{" "}
-                          km straight-line (synthetic)
-                        </span>
-                        {facility === f.id && (
-                          <small>
-                            {previewLabel}. Example status: operating. Example
-                            date: 2026. Not travel time, capacity, eligibility
-                            or service access. Distance is demonstrative.
-                          </small>
-                        )}
-                      </button>
-                    ))}
-                    {!list.length && <p>No categories selected.</p>}
-                  </>
-                )}
-              </section>
-            ) : (
-              <>
-                <h3>{metric?.label ?? "Indicator evidence"}</h3>
-                {!enabled ? (
-                  <p>
-                    This live indicator is not verified for display. No
-                    measurements or substitute layer are shown. Explore full UI
-                    preview to use this feature.
-                  </p>
-                ) : (
-                  <>
-                    {metric && <p>{metric.definition}</p>}
-                    {!["age", "race"].includes(remember[mode]) &&
-                      places.map((p) => {
-                        const o =
-                          loadedKey === evidenceKey
-                            ? observations[p.id]
-                            : undefined;
-                        return (
-                          <section className="measurement" key={p.id}>
-                            <div>
-                              <b>
-                                {p.id} · {p.selection.place}
-                              </b>
-                              <small>{p.selection.tractId}</small>
-                            </div>
-                            <strong className="measurement-value">
-                              {fmt(o?.rawValue)} <small>{metric?.unit}</small>
-                            </strong>
-                            {metric?.percentileField && (
-                              <>
-                                <div
-                                  className="data-track"
-                                  aria-label={`${fmt(o?.percentile)} percentile`}
-                                >
-                                  <i
-                                    style={{ width: `${o?.percentile ?? 0}%` }}
-                                  />
-                                </div>
-                                <small>
-                                  {fmt(o?.percentile)} percentile ·{" "}
-                                  {o?.measurementPeriod ?? "Loading evidence…"}
-                                </small>
-                              </>
-                            )}
-                            <p>
-                              {p.id === refPlace?.id
-                                ? "Reference location"
-                                : loadedKey !== evidenceKey ||
-                                    differences[p.id] == null
-                                  ? "Difference unavailable: missing or incompatible evidence."
-                                  : `${fmt(differences[p.id])} ${metric?.unit} relative to ${refPlace?.id}${differences[p.id] === 0 ? " · same measured value" : ""}`}
-                            </p>
-                            {refPlace &&
-                              p.id !== refPlace.id &&
-                              p.selection.tractId ===
-                                refPlace.selection.tractId && (
-                                <small>
-                                  Same tract observations; distinct address
-                                  pins.
-                                </small>
-                              )}
-                          </section>
-                        );
-                      })}
-                    {preview && ["age", "race"].includes(remember[mode]) && (
-                      <section aria-label="Population composition">
-                        <p>
-                          Neutral synthetic composition · percent of example
-                          population
-                        </p>
-                        {places.map((p) => (
-                          <section key={p.id}>
-                            <h3>
-                              {p.id} · {p.selection.place}
-                            </h3>
-                            {composition(
-                              p.selection.tractId,
-                              remember[mode],
-                            ).map((c) => (
-                              <div className="composition" key={c.label}>
-                                <span>
-                                  {c.label} ·{" "}
-                                  {scenario === "missing" && p.id === "2"
-                                    ? "Unavailable"
-                                    : c.value + "%"}
-                                </span>
-                                <div className="data-track">
-                                  <i
-                                    style={{
-                                      width:
-                                        (scenario === "missing" && p.id === "2"
-                                          ? 0
-                                          : c.value) + "%",
-                                    }}
-                                  />
-                                </div>
-                              </div>
-                            ))}
-                          </section>
-                        ))}
-                      </section>
-                    )}
-                    <details className="source-details">
-                      <summary>Definition, period & sources</summary>
-                      <p>{metric?.definition}</p>
-                      <p>
-                        Measurement: {metric?.measurementPeriod ?? "Unverified"}
-                        .{" "}
-                        {preview
-                          ? previewLabel
-                          : "Release: July 2026; geography: 2020 census tracts."}
-                      </p>
-                      {metric?.definitionSource && (
-                        <a
-                          href={metric.definitionSource}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          Official indicator source ↗
-                        </a>
-                      )}
-                      <p>
-                        Tract context is not a property measurement, causal
-                        explanation or personal health prediction. Percentiles
-                        are statewide positions, not percent change.
-                      </p>
-                    </details>
-                  </>
-                )}
-              </>
-            )}
-          </aside>
-        )}
-      </div>
+          ) : (
+            <p className="inspection-value">
+              {inspectionData
+                ? format(inspectionData.rawValue, metric?.id)
+                : "Loading…"}{" "}
+              <small>{metric?.unit}</small>
+            </p>
+          )}
+          <p>{metric?.definition}</p>
+          <p>
+            This is a map inspection. Your selected addresses have not changed.
+          </p>
+          <button
+            className="primary"
+            onClick={() => {
+              setInspection("");
+              setSourceOpen(true);
+            }}
+          >
+            Definition & source
+          </button>
+        </div>
+      </Dialog>
     </main>
   );
 }

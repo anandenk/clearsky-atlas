@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import "../src/styles/atlas.css";
 export const metadata: Metadata = {
-  title: "California Environmental Atlas",
+  title: "Common ground — California Environmental Atlas",
   description:
-    "Compare two California addresses through shared, source-backed tract evidence.",
+    "Explore and compare California addresses through shared, source-backed tract evidence.",
 };
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
