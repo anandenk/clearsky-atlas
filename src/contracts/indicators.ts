@@ -397,13 +397,14 @@ export function catalog() {
       "Source-supplied statewide relative position, not concentration, percent change, or personal risk. Zero conventions can vary by indicator.",
     indicators: indicatorContracts,
     facilities: {
-      apiAvailable: false,
+      apiAvailable: true,
+      catalogUrl: "/api/facilities/catalog",
       healthcare:
-        "Supplied feed is Los Angeles only; statewide source unresolved.",
+        "Statewide CDPH snapshot 2026-10-16 available; coverage and subtype limitations in facility catalog.",
       schools:
-        "2025–26 schema/sample verified; completeness and reuse terms unresolved.",
+        "CDE 2025–26 inventory available; historical status and coverage limitations in facility catalog.",
       power:
-        "Includes out-of-state records; vintage/status/coverage require verification.",
+        "Complete candidate audited; unavailable pending reporting-period and retirement-code evidence. See facility catalog blockers.",
     },
   };
 }

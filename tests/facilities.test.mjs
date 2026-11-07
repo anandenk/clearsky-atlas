@@ -354,3 +354,36 @@ test("facility catalog exposes ready inventories and explicit unavailable power 
   );
   assert.ok(power.blockers.every((b) => b.trigger));
 });
+
+test("opt-in linked evidence reduces repeated manifests while retaining identical facility facts and versioned evidence reference", () => {
+  const full = facilityQuery(
+    new URLSearchParams("category=schools&near=-122.271,37.803&limit=6"),
+    bundle,
+  );
+  const linked = facilityQuery(
+    new URLSearchParams(
+      "category=schools&near=-122.271,37.803&limit=6&evidence=linked",
+    ),
+    bundle,
+  );
+  assert.deepEqual(linked.facilities, full.facilities);
+  assert.deepEqual(linked.coverage, full.coverage);
+  assert.deepEqual(linked.rights, full.rights);
+  assert.equal(linked.matchedCount, full.matchedCount);
+  assert.equal(linked.provenance.catalogUrl, "/api/facilities/catalog");
+  assert.equal(linked.provenance.datasetVersion, full.datasetVersion);
+  assert.equal(linked.provenance.category, "schools");
+  assert.ok(JSON.stringify(linked).length < JSON.stringify(full).length / 2);
+  assert.deepEqual(
+    facilityCatalog().categories.find((c) => c.id === "schools").provenance,
+    full.provenance,
+  );
+  assert.throws(
+    () =>
+      facilityQuery(
+        new URLSearchParams("category=schools&near=0,0&evidence=none"),
+        bundle,
+      ),
+    (e) => e.status === 400,
+  );
+});

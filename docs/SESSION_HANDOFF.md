@@ -1,6 +1,6 @@
 # Backend session migration — 2026-11-07
 
-**Current resume checkpoint:** school and statewide CDPH healthcare inventories are implemented; see latest BACKEND_CHANGES.md and NEXT_SESSION_PROMPT.md. CEC complete source/spatial audit is staged; activation awaits reporting-period and retired-code evidence. Next independent work is grounded multi-location comparisons and measured payload/query performance. Historical pause, old hashes and availability descriptions below are migration-time evidence, superseded by resumed sections. Main and frontend remain separate; coordinate before integration.
+**Current resume checkpoint:** school and statewide CDPH healthcare inventories are implemented; see latest BACKEND_CHANGES.md and NEXT_SESSION_PROMPT.md. CEC complete source/spatial audit is staged; activation awaits reporting-period and retired-code evidence. Multi-location overview and HTTP measurement work are now implemented; next is bounded statewide display delivery (measured 15.7 MB), preserving full lookup and existing contracts. Historical pause, old hashes and availability descriptions below are migration-time evidence, superseded by resumed sections. Main and frontend remain separate; coordinate before integration.
 
 ## Historical migration record
 
@@ -161,3 +161,8 @@ After 746f2a5, audited plan/ownership/source/API claims and reran the existing 3
 ## CEC source gate checkpoint
 
 Complete 2,378-record CEC candidate acquired/audited; 2,334 coordinates within CES coverage, 44 excluded with raw geometry preserved. Status/period remain null, backendReady=false. /api/facilities/catalog now exposes ready schools/healthcare and explicit power blockers/triggers; power query still 422. Exact evidence/terms/access failures and 36-test/build/smoke checkpoint are in latest BACKEND_CHANGES. No frontend changes/integration. Continue independent comparison/performance work while waiting for actual new source evidence; do not repeat the same failed QFER requests by default.
+
+
+## Multi-location overview / payload checkpoint
+
+POST /api/compare/overview now provides stable location IDs, reference differences, all-23-field aligned rows and qualified within-indicator summaries; null/same-tract/percentage-point rules use existing helpers. Optional facility evidence=linked removes repeated manifests from per-location requests while full provenance remains in catalog. Stale /api/indicators facility-unavailable text corrected. See latest BACKEND_CHANGES, real overview sample and benchmark JSON. 43 Node tests/cache/TypeScript/build and both-port smokes pass; no frontend merge/UI certification. Next: bounded statewide display delivery based on measured 15.7 MB response; then grounded guided stories and demographic agreement. Power source triggers unchanged, sponsors parked.

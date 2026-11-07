@@ -348,7 +348,8 @@
       -122.271,
       37.803
     ],
-    "limit": 3
+    "limit": 3,
+    "evidence": "full"
   },
   "distance": {
     "method": "spherical-great-circle",

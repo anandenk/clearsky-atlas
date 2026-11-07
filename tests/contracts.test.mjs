@@ -48,7 +48,9 @@ test("unverified contracts remain explicit and cannot appear fully approved", ()
       assert(i.unresolved.length > 0);
     }
   }
-  assert.equal(metadata.facilities.apiAvailable, false);
+  assert.equal(metadata.facilities.apiAvailable, true);
+  assert.equal(metadata.facilities.catalogUrl, "/api/facilities/catalog");
+  assert.match(metadata.facilities.power, /unavailable/);
   assert.equal(metadata.dataset.namedLicense, null);
 });
 test("bounds reject empty tokens, nonfinite values, inverted axes, out-of-range and dateline wrapping", () => {

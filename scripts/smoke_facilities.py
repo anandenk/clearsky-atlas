@@ -43,6 +43,10 @@ if __name__ == '__main__':
         assert request(origin, 'category=healthcare&bbox=0,0,1,1')['facilities'] == []
         assert request(origin, 'category=healthcare&near=0,0&version=' + version, 409)['code']
         samples['healthcare-' + str(port)] = health
+        linked = request(origin, 'category=schools&near=-122.271,37.803&limit=3&evidence=linked')
+        assert linked['facilities'] == result['facilities']
+        assert linked['provenance']['kind'] == 'catalog-reference'
+        assert linked['provenance']['datasetVersion'] == result['datasetVersion']
         samples[str(port)] = result
         print(origin, 'facility smoke passed')
     assert samples['catalog-3000'] == samples['catalog-3001']

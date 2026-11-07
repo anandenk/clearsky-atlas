@@ -1,0 +1,139 @@
+{
+  "measuredAt": "2026-11-07T21:22:37.447270+00:00",
+  "origin": "http://127.0.0.1:3000",
+  "servingMode": "development",
+  "architecture": "arm64",
+  "sourceHashes": {
+    "src/contracts/overview.ts": "193aa34aeb219ea9ecbb2a0919b0909c5ae3c1c42c88aa10f073fe7591e65e9f",
+    "src/contracts/facilities.ts": "d30c3ba674300242da4383e3f256648159091dcecc21f749f52d1e632d4847fb",
+    "src/data.ts": "12e42dd83ceffe7ecf447867ab9c0f185c8832d51c3943bdc9f7a42b4b1c6ed6",
+    "scripts/measure_backend.py": "d96ea3a3980bcb111eefd45b9873939844f8628d60677fdc5628df86c6e4b8dc"
+  },
+  "method": "First request plus five sequential warm local HTTP requests, read through complete body; no controlled process-cold start or concurrent-load isolation. Accept-Encoding identity. Offline gzip estimate is not observed wire compression.",
+  "limitations": [
+    "Development timings are not production latency or browser/GPU/frame/memory evidence.",
+    "Frontend may issue concurrent requests; no controlled device/network profile or statistical percentile inference.",
+    "Payload sizes describe current complete-feature responses, not clipped polygons or tiles."
+  ],
+  "results": [
+    {
+      "case": "statewide-pm",
+      "firstRequestMs": 68.11,
+      "warmSamplesMs": [
+        45.29,
+        75.22,
+        46.21,
+        57.04,
+        65.51
+      ],
+      "warmMedianMs": 57.04,
+      "warmMaxMs": 75.22,
+      "responseBytes": 15702991,
+      "offlineGzipBytes": 4083042,
+      "contentEncoding": null,
+      "featureCount": 9106
+    },
+    {
+      "case": "oakland-pm",
+      "firstRequestMs": 4.11,
+      "warmSamplesMs": [
+        2.74,
+        2.09,
+        1.98,
+        1.72,
+        1.72
+      ],
+      "warmMedianMs": 1.98,
+      "warmMaxMs": 2.74,
+      "responseBytes": 27159,
+      "offlineGzipBytes": 6102,
+      "contentEncoding": null,
+      "featureCount": 33
+    },
+    {
+      "case": "schools-nearest-six",
+      "firstRequestMs": 7.32,
+      "warmSamplesMs": [
+        5.04,
+        4.18,
+        4.12,
+        4.19,
+        4.09
+      ],
+      "warmMedianMs": 4.18,
+      "warmMaxMs": 5.04,
+      "responseBytes": 117903,
+      "offlineGzipBytes": 30539,
+      "contentEncoding": null,
+      "featureCount": null
+    },
+    {
+      "case": "healthcare-nearest-six",
+      "firstRequestMs": 8.52,
+      "warmSamplesMs": [
+        7.09,
+        7.19,
+        6.73,
+        6.81,
+        7.14
+      ],
+      "warmMedianMs": 7.09,
+      "warmMaxMs": 7.19,
+      "responseBytes": 21729,
+      "offlineGzipBytes": 4870,
+      "contentEncoding": null,
+      "featureCount": null
+    },
+    {
+      "case": "schools-nearest-six-linked",
+      "firstRequestMs": 5.02,
+      "warmSamplesMs": [
+        4.21,
+        4.01,
+        3.91,
+        3.86,
+        4.24
+      ],
+      "warmMedianMs": 4.01,
+      "warmMaxMs": 4.24,
+      "responseBytes": 7371,
+      "offlineGzipBytes": 2470,
+      "contentEncoding": null,
+      "featureCount": null
+    },
+    {
+      "case": "overview-three-23",
+      "firstRequestMs": 2.23,
+      "warmSamplesMs": [
+        1.65,
+        1.52,
+        1.63,
+        1.62,
+        1.61
+      ],
+      "warmMedianMs": 1.62,
+      "warmMaxMs": 1.65,
+      "responseBytes": 67482,
+      "offlineGzipBytes": 5499,
+      "contentEncoding": null,
+      "featureCount": null
+    },
+    {
+      "case": "overview-six-23",
+      "firstRequestMs": 1.73,
+      "warmSamplesMs": [
+        1.83,
+        1.67,
+        1.55,
+        1.73,
+        1.56
+      ],
+      "warmMedianMs": 1.67,
+      "warmMaxMs": 1.83,
+      "responseBytes": 99588,
+      "offlineGzipBytes": 7616,
+      "contentEncoding": null,
+      "featureCount": null
+    }
+  ]
+}

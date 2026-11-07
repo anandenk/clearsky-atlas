@@ -1,0 +1,2504 @@
+{
+  "contractVersion": "atlas-overview-v1",
+  "datasetVersion": "ces-5.0-final-2026-07-01",
+  "referenceId": "fresno",
+  "comparisonDirection": "location-minus-reference",
+  "locations": [
+    {
+      "id": "oakland",
+      "tractId": "06001403402",
+      "place": "Oakland",
+      "county": "Alameda"
+    },
+    {
+      "id": "fresno",
+      "tractId": "06019000602",
+      "place": "Fresno",
+      "county": "Fresno"
+    },
+    {
+      "id": "oakland-second",
+      "tractId": "06001403402",
+      "place": "Oakland",
+      "county": "Alameda"
+    }
+  ],
+  "ordering": "Requested indicator order; default catalog order. No cross-indicator importance ranking.",
+  "limitations": [
+    "Each row retains its own source definition, unit and period; periods differ between indicators.",
+    "Repeated tracts preserve distinct location IDs and share tract evidence. No property-level, personal-risk, causal or significance inference.",
+    "Demographic percentages have no hazard direction or source percentile. No composition renormalization or aggregation is performed."
+  ],
+  "rows": [
+    {
+      "indicatorId": "pm",
+      "label": "Fine particulate matter",
+      "mode": "environment",
+      "unit": "µg/m³",
+      "measurementPeriod": "2022–2024",
+      "definition": "Annual mean fine-particle concentration averaged over three years; monitor/satellite estimates exclude wildfire-smoke days statewide.",
+      "definitionSource": "https://oehha.ca.gov/calenviroscreen/fact-sheet/air-quality-pm25",
+      "visualization": {
+        "kind": "source-percentile",
+        "property": "percentile",
+        "domain": [
+          0,
+          100
+        ],
+        "interpretation": "Relative position for this indicator only; not personal risk."
+      },
+      "limitations": [
+        "Descriptive tract context; not a property measurement or causal explanation."
+      ],
+      "provenance": {
+        "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+        "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+        "rawField": "pm",
+        "percentileField": "pmP",
+        "evidenceURLs": [
+          "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=5068668b6c4744ada5b6d38ec621ba5f"
+        ]
+      },
+      "values": [
+        {
+          "locationId": "oakland",
+          "tractId": "06001403402",
+          "rawValue": 8.325309645,
+          "percentile": 44.3663518559192,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": -4.1500174749999985,
+            "unit": "µg/m³",
+            "rawDifferenceUnit": "µg/m³",
+            "percentilePointDifferenceBMinusA": -53.3933670107621,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "fresno",
+          "tractId": "06019000602",
+          "rawValue": 12.47532712,
+          "percentile": 97.7597188666813,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": true,
+            "rawDifferenceBMinusA": 0,
+            "unit": "µg/m³",
+            "rawDifferenceUnit": "µg/m³",
+            "percentilePointDifferenceBMinusA": 0,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "oakland-second",
+          "tractId": "06001403402",
+          "rawValue": 8.325309645,
+          "percentile": 44.3663518559192,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": -4.1500174749999985,
+            "unit": "µg/m³",
+            "rawDifferenceUnit": "µg/m³",
+            "percentilePointDifferenceBMinusA": -53.3933670107621,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        }
+      ],
+      "summary": {
+        "compatible": true,
+        "selectedLocationCount": 3,
+        "distinctTractCount": 2,
+        "availableLocationCount": 3,
+        "missingLocationCount": 0,
+        "percentileLocationCount": 3,
+        "allSameTract": false,
+        "rawRange": {
+          "min": 8.325309645,
+          "max": 12.47532712,
+          "spread": 4.1500174749999985,
+          "unit": "µg/m³",
+          "spreadUnit": "µg/m³"
+        },
+        "percentileRange": {
+          "min": 44.3663518559192,
+          "max": 97.7597188666813,
+          "spread": 53.3933670107621,
+          "unit": "source percentile",
+          "spreadUnit": "percentile points"
+        },
+        "interpretation": "Descriptive range across selected locations; no importance ranking, significance or causal inference."
+      }
+    },
+    {
+      "indicatorId": "ozone",
+      "label": "Ozone",
+      "mode": "environment",
+      "unit": "ppm",
+      "measurementPeriod": "2022–2024",
+      "definition": "Mean May–October daily maximum 8-hour ozone concentration; ordinary kriging estimates at tract centers.",
+      "definitionSource": "https://oehha.ca.gov/calenviroscreen/fact-sheet/air-quality-ozone",
+      "visualization": {
+        "kind": "source-percentile",
+        "property": "percentile",
+        "domain": [
+          0,
+          100
+        ],
+        "interpretation": "Relative position for this indicator only; not personal risk."
+      },
+      "limitations": [
+        "Descriptive tract context; not a property measurement or causal explanation."
+      ],
+      "provenance": {
+        "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+        "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+        "rawField": "ozone",
+        "percentileField": "ozoneP",
+        "evidenceURLs": [
+          "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=fc7c46d8b7e14ce69c0bc17fe71eb34b"
+        ]
+      },
+      "values": [
+        {
+          "locationId": "oakland",
+          "tractId": "06001403402",
+          "rawValue": 0.02701669682,
+          "percentile": 0.527124972545574,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": -0.02741529656,
+            "unit": "ppm",
+            "rawDifferenceUnit": "ppm",
+            "percentilePointDifferenceBMinusA": -73.87436854821001,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "fresno",
+          "tractId": "06019000602",
+          "rawValue": 0.05443199338,
+          "percentile": 74.4014935207556,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": true,
+            "rawDifferenceBMinusA": 0,
+            "unit": "ppm",
+            "rawDifferenceUnit": "ppm",
+            "percentilePointDifferenceBMinusA": 0,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "oakland-second",
+          "tractId": "06001403402",
+          "rawValue": 0.02701669682,
+          "percentile": 0.527124972545574,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": -0.02741529656,
+            "unit": "ppm",
+            "rawDifferenceUnit": "ppm",
+            "percentilePointDifferenceBMinusA": -73.87436854821001,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        }
+      ],
+      "summary": {
+        "compatible": true,
+        "selectedLocationCount": 3,
+        "distinctTractCount": 2,
+        "availableLocationCount": 3,
+        "missingLocationCount": 0,
+        "percentileLocationCount": 3,
+        "allSameTract": false,
+        "rawRange": {
+          "min": 0.02701669682,
+          "max": 0.05443199338,
+          "spread": 0.02741529656,
+          "unit": "ppm",
+          "spreadUnit": "ppm"
+        },
+        "percentileRange": {
+          "min": 0.527124972545574,
+          "max": 74.4014935207556,
+          "spread": 73.87436854821001,
+          "unit": "source percentile",
+          "spreadUnit": "percentile points"
+        },
+        "interpretation": "Descriptive range across selected locations; no importance ranking, significance or causal inference."
+      }
+    },
+    {
+      "indicatorId": "diesel",
+      "label": "Diesel particles",
+      "mode": "environment",
+      "unit": "tons/year",
+      "measurementPeriod": "2021 or 2022 by source",
+      "definition": "Diesel PM emissions within and near populated parts of the tract, including on-road, stationary, area and ocean-going vessel sources; not ambient concentration.",
+      "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+      "visualization": {
+        "kind": "source-percentile",
+        "property": "percentile",
+        "domain": [
+          0,
+          100
+        ],
+        "interpretation": "Relative position for this indicator only; not personal risk."
+      },
+      "limitations": [
+        "Descriptive tract context; not a property measurement or causal explanation."
+      ],
+      "provenance": {
+        "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+        "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+        "rawField": "diesel",
+        "percentileField": "dieselP",
+        "evidenceURLs": [
+          "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=b53e1ba5a61540e0b1b59c8a433690ca"
+        ]
+      },
+      "values": [
+        {
+          "locationId": "oakland",
+          "tractId": "06001403402",
+          "rawValue": 0.947291889,
+          "percentile": 99.1975376497746,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": 0.7567803770000001,
+            "unit": "tons/year",
+            "rawDifferenceUnit": "tons/year",
+            "percentilePointDifferenceBMinusA": 12.113883697922304,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "fresno",
+          "tractId": "06019000602",
+          "rawValue": 0.190511512,
+          "percentile": 87.0836539518523,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": true,
+            "rawDifferenceBMinusA": 0,
+            "unit": "tons/year",
+            "rawDifferenceUnit": "tons/year",
+            "percentilePointDifferenceBMinusA": 0,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "oakland-second",
+          "tractId": "06001403402",
+          "rawValue": 0.947291889,
+          "percentile": 99.1975376497746,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": 0.7567803770000001,
+            "unit": "tons/year",
+            "rawDifferenceUnit": "tons/year",
+            "percentilePointDifferenceBMinusA": 12.113883697922304,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        }
+      ],
+      "summary": {
+        "compatible": true,
+        "selectedLocationCount": 3,
+        "distinctTractCount": 2,
+        "availableLocationCount": 3,
+        "missingLocationCount": 0,
+        "percentileLocationCount": 3,
+        "allSameTract": false,
+        "rawRange": {
+          "min": 0.190511512,
+          "max": 0.947291889,
+          "spread": 0.7567803770000001,
+          "unit": "tons/year",
+          "spreadUnit": "tons/year"
+        },
+        "percentileRange": {
+          "min": 87.0836539518523,
+          "max": 99.1975376497746,
+          "spread": 12.113883697922304,
+          "unit": "source percentile",
+          "spreadUnit": "percentile points"
+        },
+        "interpretation": "Descriptive range across selected locations; no importance ranking, significance or causal inference."
+      }
+    },
+    {
+      "indicatorId": "traffic",
+      "label": "Traffic impacts",
+      "mode": "environment",
+      "unit": "vehicles/hour",
+      "measurementPeriod": "2023",
+      "definition": "Adjusted traffic volume in vehicle-km/hour divided by road length in km within and up to 150 m around the tract; not a vehicle count or travel-time estimate.",
+      "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+      "visualization": {
+        "kind": "source-percentile",
+        "property": "percentile",
+        "domain": [
+          0,
+          100
+        ],
+        "interpretation": "Relative position for this indicator only; not personal risk."
+      },
+      "limitations": [
+        "Descriptive tract context; not a property measurement or causal explanation."
+      ],
+      "provenance": {
+        "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+        "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+        "rawField": "traffic",
+        "percentileField": "trafficP",
+        "evidenceURLs": [
+          "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=587db38078ca47c2ade04acfca0c80cf"
+        ]
+      },
+      "values": [
+        {
+          "locationId": "oakland",
+          "tractId": "06001403402",
+          "rawValue": 329.312,
+          "percentile": 36.6494448719358,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": -109.92099999999999,
+            "unit": "vehicles/hour",
+            "rawDifferenceUnit": "vehicles/hour",
+            "percentilePointDifferenceBMinusA": -14.631197097944401,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "fresno",
+          "tractId": "06019000602",
+          "rawValue": 439.233,
+          "percentile": 51.2806419698802,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": true,
+            "rawDifferenceBMinusA": 0,
+            "unit": "vehicles/hour",
+            "rawDifferenceUnit": "vehicles/hour",
+            "percentilePointDifferenceBMinusA": 0,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "oakland-second",
+          "tractId": "06001403402",
+          "rawValue": 329.312,
+          "percentile": 36.6494448719358,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": -109.92099999999999,
+            "unit": "vehicles/hour",
+            "rawDifferenceUnit": "vehicles/hour",
+            "percentilePointDifferenceBMinusA": -14.631197097944401,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        }
+      ],
+      "summary": {
+        "compatible": true,
+        "selectedLocationCount": 3,
+        "distinctTractCount": 2,
+        "availableLocationCount": 3,
+        "missingLocationCount": 0,
+        "percentileLocationCount": 3,
+        "allSameTract": false,
+        "rawRange": {
+          "min": 329.312,
+          "max": 439.233,
+          "spread": 109.92099999999999,
+          "unit": "vehicles/hour",
+          "spreadUnit": "vehicles/hour"
+        },
+        "percentileRange": {
+          "min": 36.6494448719358,
+          "max": 51.2806419698802,
+          "spread": 14.631197097944401,
+          "unit": "source percentile",
+          "spreadUnit": "percentile points"
+        },
+        "interpretation": "Descriptive range across selected locations; no importance ranking, significance or causal inference."
+      }
+    },
+    {
+      "indicatorId": "toxic-releases",
+      "label": "Toxic air releases",
+      "mode": "environment",
+      "unit": "toxicity-weighted score",
+      "measurementPeriod": "2021–2023",
+      "definition": "Source RSEI toxicity-weighted modeled air-concentration score for large-facility releases; not unweighted emissions, a physical concentration, or personal risk.",
+      "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+      "visualization": {
+        "kind": "source-percentile",
+        "property": "percentile",
+        "domain": [
+          0,
+          100
+        ],
+        "interpretation": "Relative position for this indicator only; not personal risk."
+      },
+      "limitations": [
+        "Descriptive tract context; not a property measurement or causal explanation."
+      ],
+      "provenance": {
+        "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+        "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+        "rawField": "RSEIhaz",
+        "percentileField": "RSEIhazP",
+        "evidenceURLs": [
+          "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=d934fa4b27ab4187b55bda8cce13f5de"
+        ]
+      },
+      "values": [
+        {
+          "locationId": "oakland",
+          "tractId": "06001403402",
+          "rawValue": 478.208994566667,
+          "percentile": 51.4276265020395,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": -1711.017649300003,
+            "unit": "toxicity-weighted score",
+            "rawDifferenceUnit": "toxicity-weighted score",
+            "percentilePointDifferenceBMinusA": -34.9244846213207,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "fresno",
+          "tractId": "06019000602",
+          "rawValue": 2189.22664386667,
+          "percentile": 86.3521111233602,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": true,
+            "rawDifferenceBMinusA": 0,
+            "unit": "toxicity-weighted score",
+            "rawDifferenceUnit": "toxicity-weighted score",
+            "percentilePointDifferenceBMinusA": 0,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "oakland-second",
+          "tractId": "06001403402",
+          "rawValue": 478.208994566667,
+          "percentile": 51.4276265020395,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": -1711.017649300003,
+            "unit": "toxicity-weighted score",
+            "rawDifferenceUnit": "toxicity-weighted score",
+            "percentilePointDifferenceBMinusA": -34.9244846213207,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        }
+      ],
+      "summary": {
+        "compatible": true,
+        "selectedLocationCount": 3,
+        "distinctTractCount": 2,
+        "availableLocationCount": 3,
+        "missingLocationCount": 0,
+        "percentileLocationCount": 3,
+        "allSameTract": false,
+        "rawRange": {
+          "min": 478.208994566667,
+          "max": 2189.22664386667,
+          "spread": 1711.017649300003,
+          "unit": "toxicity-weighted score",
+          "spreadUnit": "toxicity-weighted score"
+        },
+        "percentileRange": {
+          "min": 51.4276265020395,
+          "max": 86.3521111233602,
+          "spread": 34.9244846213207,
+          "unit": "source percentile",
+          "spreadUnit": "percentile points"
+        },
+        "interpretation": "Descriptive range across selected locations; no importance ranking, significance or causal inference."
+      }
+    },
+    {
+      "indicatorId": "cleanup",
+      "label": "Cleanup sites",
+      "mode": "environment",
+      "unit": "weighted site score",
+      "measurementPeriod": "March 2026 source snapshot",
+      "definition": "Weighted sum of cleanup and NPL Superfund sites by site characteristics and proximity to populated areas; not a site count.",
+      "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+      "visualization": {
+        "kind": "source-percentile",
+        "property": "percentile",
+        "domain": [
+          0,
+          100
+        ],
+        "interpretation": "Relative position for this indicator only; not personal risk."
+      },
+      "limitations": [
+        "Descriptive tract context; not a property measurement or causal explanation."
+      ],
+      "provenance": {
+        "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+        "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+        "rawField": "cleanups",
+        "percentileField": "cleanupsP",
+        "evidenceURLs": [
+          "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=5ba363814e1d4b799feaaf3a3c6a38d0"
+        ]
+      },
+      "values": [
+        {
+          "locationId": "oakland",
+          "tractId": "06001403402",
+          "rawValue": 24.45,
+          "percentile": 84.8233162186651,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": 20.2,
+            "unit": "weighted site score",
+            "rawDifferenceUnit": "weighted site score",
+            "percentilePointDifferenceBMinusA": 47.8556327393537,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "fresno",
+          "tractId": "06019000602",
+          "rawValue": 4.25,
+          "percentile": 36.9676834793114,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": true,
+            "rawDifferenceBMinusA": 0,
+            "unit": "weighted site score",
+            "rawDifferenceUnit": "weighted site score",
+            "percentilePointDifferenceBMinusA": 0,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "oakland-second",
+          "tractId": "06001403402",
+          "rawValue": 24.45,
+          "percentile": 84.8233162186651,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": 20.2,
+            "unit": "weighted site score",
+            "rawDifferenceUnit": "weighted site score",
+            "percentilePointDifferenceBMinusA": 47.8556327393537,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        }
+      ],
+      "summary": {
+        "compatible": true,
+        "selectedLocationCount": 3,
+        "distinctTractCount": 2,
+        "availableLocationCount": 3,
+        "missingLocationCount": 0,
+        "percentileLocationCount": 3,
+        "allSameTract": false,
+        "rawRange": {
+          "min": 4.25,
+          "max": 24.45,
+          "spread": 20.2,
+          "unit": "weighted site score",
+          "spreadUnit": "weighted site score"
+        },
+        "percentileRange": {
+          "min": 36.9676834793114,
+          "max": 84.8233162186651,
+          "spread": 47.8556327393537,
+          "unit": "source percentile",
+          "spreadUnit": "percentile points"
+        },
+        "interpretation": "Descriptive range across selected locations; no importance ranking, significance or causal inference."
+      }
+    },
+    {
+      "indicatorId": "asthma",
+      "label": "Asthma emergency visits",
+      "mode": "health",
+      "unit": "ED visits per 10,000 people",
+      "measurementPeriod": "2022–2023",
+      "definition": "Age-adjusted asthma emergency department visit rate averaged over 2022–2023; population-level rate, not personal disease probability.",
+      "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+      "visualization": {
+        "kind": "source-percentile",
+        "property": "percentile",
+        "domain": [
+          0,
+          100
+        ],
+        "interpretation": "Relative position for this indicator only; not personal risk."
+      },
+      "limitations": [
+        "Population-level source estimate, not personal disease probability."
+      ],
+      "provenance": {
+        "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+        "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+        "rawField": "asthma",
+        "percentileField": "asthmaP",
+        "evidenceURLs": [
+          "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=392a3dfd505e4749b0ffe4ca12619d08"
+        ]
+      },
+      "values": [
+        {
+          "locationId": "oakland",
+          "tractId": "06001403402",
+          "rawValue": 65.25,
+          "percentile": 91.7778022704728,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": -22.75,
+            "unit": "ED visits per 10,000 people",
+            "rawDifferenceUnit": "ED visits per 10,000 people",
+            "percentilePointDifferenceBMinusA": -6.183180866306699,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "fresno",
+          "tractId": "06019000602",
+          "rawValue": 88,
+          "percentile": 97.9609831367795,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": true,
+            "rawDifferenceBMinusA": 0,
+            "unit": "ED visits per 10,000 people",
+            "rawDifferenceUnit": "ED visits per 10,000 people",
+            "percentilePointDifferenceBMinusA": 0,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "oakland-second",
+          "tractId": "06001403402",
+          "rawValue": 65.25,
+          "percentile": 91.7778022704728,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": -22.75,
+            "unit": "ED visits per 10,000 people",
+            "rawDifferenceUnit": "ED visits per 10,000 people",
+            "percentilePointDifferenceBMinusA": -6.183180866306699,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        }
+      ],
+      "summary": {
+        "compatible": true,
+        "selectedLocationCount": 3,
+        "distinctTractCount": 2,
+        "availableLocationCount": 3,
+        "missingLocationCount": 0,
+        "percentileLocationCount": 3,
+        "allSameTract": false,
+        "rawRange": {
+          "min": 65.25,
+          "max": 88,
+          "spread": 22.75,
+          "unit": "ED visits per 10,000 people",
+          "spreadUnit": "ED visits per 10,000 people"
+        },
+        "percentileRange": {
+          "min": 91.7778022704728,
+          "max": 97.9609831367795,
+          "spread": 6.183180866306699,
+          "unit": "source percentile",
+          "spreadUnit": "percentile points"
+        },
+        "interpretation": "Descriptive range across selected locations; no importance ranking, significance or causal inference."
+      }
+    },
+    {
+      "indicatorId": "heart-attacks",
+      "label": "Heart-attack emergency visits",
+      "mode": "health",
+      "unit": "ED visits per 10,000 people",
+      "measurementPeriod": "2021–2023",
+      "definition": "Age-adjusted acute myocardial infarction emergency department visit rate averaged over 2021–2023; not all cardiovascular diagnoses or personal disease probability.",
+      "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+      "visualization": {
+        "kind": "source-percentile",
+        "property": "percentile",
+        "domain": [
+          0,
+          100
+        ],
+        "interpretation": "Relative position for this indicator only; not personal risk."
+      },
+      "limitations": [
+        "Population-level source estimate, not personal disease probability."
+      ],
+      "provenance": {
+        "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+        "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+        "rawField": "cvd",
+        "percentileField": "cvdP",
+        "evidenceURLs": [
+          "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=e33909a08f4e41cf836bc2698e5e17a3"
+        ]
+      },
+      "values": [
+        {
+          "locationId": "oakland",
+          "tractId": "06001403402",
+          "rawValue": 7.05,
+          "percentile": 3.92070484581498,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": -15.07,
+            "unit": "ED visits per 10,000 people",
+            "rawDifferenceUnit": "ED visits per 10,000 people",
+            "percentilePointDifferenceBMinusA": -87.66519823788542,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "fresno",
+          "tractId": "06019000602",
+          "rawValue": 22.12,
+          "percentile": 91.5859030837004,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": true,
+            "rawDifferenceBMinusA": 0,
+            "unit": "ED visits per 10,000 people",
+            "rawDifferenceUnit": "ED visits per 10,000 people",
+            "percentilePointDifferenceBMinusA": 0,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "oakland-second",
+          "tractId": "06001403402",
+          "rawValue": 7.05,
+          "percentile": 3.92070484581498,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": -15.07,
+            "unit": "ED visits per 10,000 people",
+            "rawDifferenceUnit": "ED visits per 10,000 people",
+            "percentilePointDifferenceBMinusA": -87.66519823788542,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        }
+      ],
+      "summary": {
+        "compatible": true,
+        "selectedLocationCount": 3,
+        "distinctTractCount": 2,
+        "availableLocationCount": 3,
+        "missingLocationCount": 0,
+        "percentileLocationCount": 3,
+        "allSameTract": false,
+        "rawRange": {
+          "min": 7.05,
+          "max": 22.12,
+          "spread": 15.07,
+          "unit": "ED visits per 10,000 people",
+          "spreadUnit": "ED visits per 10,000 people"
+        },
+        "percentileRange": {
+          "min": 3.92070484581498,
+          "max": 91.5859030837004,
+          "spread": 87.66519823788542,
+          "unit": "source percentile",
+          "spreadUnit": "percentile points"
+        },
+        "interpretation": "Descriptive range across selected locations; no importance ranking, significance or causal inference."
+      }
+    },
+    {
+      "indicatorId": "diabetes",
+      "label": "Diabetes prevalence",
+      "mode": "health",
+      "unit": "%",
+      "measurementPeriod": "2023",
+      "definition": "Model-based diabetes prevalence among adults aged 18 and older from CDC PLACES, 2023; not a diagnosis or personal disease probability.",
+      "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+      "visualization": {
+        "kind": "source-percentile",
+        "property": "percentile",
+        "domain": [
+          0,
+          100
+        ],
+        "interpretation": "Relative position for this indicator only; not personal risk."
+      },
+      "limitations": [
+        "Population-level source estimate, not personal disease probability."
+      ],
+      "provenance": {
+        "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+        "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+        "rawField": "diabetes",
+        "percentileField": "diabetesP",
+        "evidenceURLs": [
+          "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=b0d33bc0fd444598bb3fc67cc503ea13"
+        ]
+      },
+      "values": [
+        {
+          "locationId": "oakland",
+          "tractId": "06001403402",
+          "rawValue": 8.4,
+          "percentile": 11.6979051819184,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": -10.6,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": -86.9459757442117,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "fresno",
+          "tractId": "06019000602",
+          "rawValue": 19,
+          "percentile": 98.6438809261301,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": true,
+            "rawDifferenceBMinusA": 0,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": 0,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "oakland-second",
+          "tractId": "06001403402",
+          "rawValue": 8.4,
+          "percentile": 11.6979051819184,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": -10.6,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": -86.9459757442117,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        }
+      ],
+      "summary": {
+        "compatible": true,
+        "selectedLocationCount": 3,
+        "distinctTractCount": 2,
+        "availableLocationCount": 3,
+        "missingLocationCount": 0,
+        "percentileLocationCount": 3,
+        "allSameTract": false,
+        "rawRange": {
+          "min": 8.4,
+          "max": 19,
+          "spread": 10.6,
+          "unit": "%",
+          "spreadUnit": "percentage points"
+        },
+        "percentileRange": {
+          "min": 11.6979051819184,
+          "max": 98.6438809261301,
+          "spread": 86.9459757442117,
+          "unit": "source percentile",
+          "spreadUnit": "percentile points"
+        },
+        "interpretation": "Descriptive range across selected locations; no importance ranking, significance or causal inference."
+      }
+    },
+    {
+      "indicatorId": "low-birth-weight",
+      "label": "Low birth weight",
+      "mode": "health",
+      "unit": "%",
+      "measurementPeriod": "2018–2024",
+      "definition": "Percent of live births weighing less than 2,500 g, averaged over 2018–2024; records with too few births may be missing.",
+      "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+      "visualization": {
+        "kind": "source-percentile",
+        "property": "percentile",
+        "domain": [
+          0,
+          100
+        ],
+        "interpretation": "Relative position for this indicator only; not personal risk."
+      },
+      "limitations": [
+        "Population-level source estimate, not personal disease probability."
+      ],
+      "provenance": {
+        "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+        "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+        "rawField": "lbw",
+        "percentileField": "lbwP",
+        "evidenceURLs": [
+          "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=4ead6dc88f51438fb0edbaaed56548a6"
+        ]
+      },
+      "values": [
+        {
+          "locationId": "oakland",
+          "tractId": "06001403402",
+          "rawValue": 6.45,
+          "percentile": 69.4268953068592,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": -3.669999999999999,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": -29.399819494584904,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "fresno",
+          "tractId": "06019000602",
+          "rawValue": 10.12,
+          "percentile": 98.8267148014441,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": true,
+            "rawDifferenceBMinusA": 0,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": 0,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "oakland-second",
+          "tractId": "06001403402",
+          "rawValue": 6.45,
+          "percentile": 69.4268953068592,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": -3.669999999999999,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": -29.399819494584904,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        }
+      ],
+      "summary": {
+        "compatible": true,
+        "selectedLocationCount": 3,
+        "distinctTractCount": 2,
+        "availableLocationCount": 3,
+        "missingLocationCount": 0,
+        "percentileLocationCount": 3,
+        "allSameTract": false,
+        "rawRange": {
+          "min": 6.45,
+          "max": 10.12,
+          "spread": 3.669999999999999,
+          "unit": "%",
+          "spreadUnit": "percentage points"
+        },
+        "percentileRange": {
+          "min": 69.4268953068592,
+          "max": 98.8267148014441,
+          "spread": 29.399819494584904,
+          "unit": "source percentile",
+          "spreadUnit": "percentile points"
+        },
+        "interpretation": "Descriptive range across selected locations; no importance ranking, significance or causal inference."
+      }
+    },
+    {
+      "indicatorId": "poverty",
+      "label": "Poverty",
+      "mode": "community",
+      "unit": "%",
+      "measurementPeriod": "2020–2024 ACS 5-year",
+      "definition": "Percent of people living below twice the federal poverty level, 2020–2024 ACS; not percent below the single federal poverty threshold.",
+      "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+      "visualization": {
+        "kind": "source-percentile",
+        "property": "percentile",
+        "domain": [
+          0,
+          100
+        ],
+        "interpretation": "Relative position for this indicator only; not personal risk."
+      },
+      "limitations": [
+        "Descriptive tract context; not a property measurement or causal explanation."
+      ],
+      "provenance": {
+        "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+        "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+        "rawField": "pov",
+        "percentileField": "povP",
+        "evidenceURLs": [
+          "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=54a0510621d1480087975e48e28077d9"
+        ]
+      },
+      "values": [
+        {
+          "locationId": "oakland",
+          "tractId": "06001403402",
+          "rawValue": 13.8276553106212,
+          "percentile": 22.2209932529587,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": -57.34117585821001,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": -76.5402057294547,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "fresno",
+          "tractId": "06019000602",
+          "rawValue": 71.1688311688312,
+          "percentile": 98.7611989824134,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": true,
+            "rawDifferenceBMinusA": 0,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": 0,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "oakland-second",
+          "tractId": "06001403402",
+          "rawValue": 13.8276553106212,
+          "percentile": 22.2209932529587,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": -57.34117585821001,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": -76.5402057294547,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        }
+      ],
+      "summary": {
+        "compatible": true,
+        "selectedLocationCount": 3,
+        "distinctTractCount": 2,
+        "availableLocationCount": 3,
+        "missingLocationCount": 0,
+        "percentileLocationCount": 3,
+        "allSameTract": false,
+        "rawRange": {
+          "min": 13.8276553106212,
+          "max": 71.1688311688312,
+          "spread": 57.34117585821001,
+          "unit": "%",
+          "spreadUnit": "percentage points"
+        },
+        "percentileRange": {
+          "min": 22.2209932529587,
+          "max": 98.7611989824134,
+          "spread": 76.5402057294547,
+          "unit": "source percentile",
+          "spreadUnit": "percentile points"
+        },
+        "interpretation": "Descriptive range across selected locations; no importance ranking, significance or causal inference."
+      }
+    },
+    {
+      "indicatorId": "education",
+      "label": "Educational attainment",
+      "mode": "community",
+      "unit": "%",
+      "measurementPeriod": "2020–2024 ACS 5-year",
+      "definition": "Percent of adults aged 25 and older with less than a high school education, 2020–2024 ACS.",
+      "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+      "visualization": {
+        "kind": "source-percentile",
+        "property": "percentile",
+        "domain": [
+          0,
+          100
+        ],
+        "interpretation": "Relative position for this indicator only; not personal risk."
+      },
+      "limitations": [
+        "Descriptive tract context; not a property measurement or causal explanation."
+      ],
+      "provenance": {
+        "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+        "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+        "rawField": "edu",
+        "percentileField": "eduP",
+        "evidenceURLs": [
+          "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=c94a8dd16d7b43e091f97a146b861e2d"
+        ]
+      },
+      "values": [
+        {
+          "locationId": "oakland",
+          "tractId": "06001403402",
+          "rawValue": 5.49450549450549,
+          "percentile": 26.4562027567808,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": -31.674654459464612,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": -64.0840373499333,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "fresno",
+          "tractId": "06019000602",
+          "rawValue": 37.1691599539701,
+          "percentile": 90.5402401067141,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": true,
+            "rawDifferenceBMinusA": 0,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": 0,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "oakland-second",
+          "tractId": "06001403402",
+          "rawValue": 5.49450549450549,
+          "percentile": 26.4562027567808,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": -31.674654459464612,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": -64.0840373499333,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        }
+      ],
+      "summary": {
+        "compatible": true,
+        "selectedLocationCount": 3,
+        "distinctTractCount": 2,
+        "availableLocationCount": 3,
+        "missingLocationCount": 0,
+        "percentileLocationCount": 3,
+        "allSameTract": false,
+        "rawRange": {
+          "min": 5.49450549450549,
+          "max": 37.1691599539701,
+          "spread": 31.674654459464612,
+          "unit": "%",
+          "spreadUnit": "percentage points"
+        },
+        "percentileRange": {
+          "min": 26.4562027567808,
+          "max": 90.5402401067141,
+          "spread": 64.0840373499333,
+          "unit": "source percentile",
+          "spreadUnit": "percentile points"
+        },
+        "interpretation": "Descriptive range across selected locations; no importance ranking, significance or causal inference."
+      }
+    },
+    {
+      "indicatorId": "housing",
+      "label": "Housing burden",
+      "mode": "community",
+      "unit": "%",
+      "measurementPeriod": "2018–2022 HUD CHAS",
+      "definition": "Percent of households with income below 80% of county median family income and housing costs above 50% of household income, 2018–2022 HUD CHAS.",
+      "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+      "visualization": {
+        "kind": "source-percentile",
+        "property": "percentile",
+        "domain": [
+          0,
+          100
+        ],
+        "interpretation": "Relative position for this indicator only; not personal risk."
+      },
+      "limitations": [
+        "Descriptive tract context; not a property measurement or causal explanation."
+      ],
+      "provenance": {
+        "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+        "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+        "rawField": "housingB",
+        "percentileField": "housingBP",
+        "evidenceURLs": [
+          "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=5037fd8114964398a5da63b66276ad24"
+        ]
+      },
+      "values": [
+        {
+          "locationId": "oakland",
+          "tractId": "06001403402",
+          "rawValue": 12.2448979591837,
+          "percentile": 27.6274944567627,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": -23.171768707483,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": -69.31263858093129,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "fresno",
+          "tractId": "06019000602",
+          "rawValue": 35.4166666666667,
+          "percentile": 96.940133037694,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": true,
+            "rawDifferenceBMinusA": 0,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": 0,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "oakland-second",
+          "tractId": "06001403402",
+          "rawValue": 12.2448979591837,
+          "percentile": 27.6274944567627,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": -23.171768707483,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": -69.31263858093129,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        }
+      ],
+      "summary": {
+        "compatible": true,
+        "selectedLocationCount": 3,
+        "distinctTractCount": 2,
+        "availableLocationCount": 3,
+        "missingLocationCount": 0,
+        "percentileLocationCount": 3,
+        "allSameTract": false,
+        "rawRange": {
+          "min": 12.2448979591837,
+          "max": 35.4166666666667,
+          "spread": 23.171768707483,
+          "unit": "%",
+          "spreadUnit": "percentage points"
+        },
+        "percentileRange": {
+          "min": 27.6274944567627,
+          "max": 96.940133037694,
+          "spread": 69.31263858093129,
+          "unit": "source percentile",
+          "spreadUnit": "percentile points"
+        },
+        "interpretation": "Descriptive range across selected locations; no importance ranking, significance or causal inference."
+      }
+    },
+    {
+      "indicatorId": "pop_und10",
+      "label": "Children under 10",
+      "mode": "community",
+      "unit": "%",
+      "measurementPeriod": "2020–2024 ACS 5-year",
+      "definition": "Percent of population under age 10.",
+      "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+      "visualization": {
+        "kind": "neutral-percentage",
+        "property": "value",
+        "domain": [
+          0,
+          100
+        ],
+        "interpretation": "Population composition; no hazard direction or source percentile."
+      },
+      "limitations": [
+        "Descriptive tract context; not a property measurement or causal explanation."
+      ],
+      "provenance": {
+        "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+        "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+        "rawField": "pop_und10",
+        "percentileField": null,
+        "evidenceURLs": [
+          "https://publish.data.ca.gov/dataset/calenviroscreen-5-0"
+        ]
+      },
+      "values": [
+        {
+          "locationId": "oakland",
+          "tractId": "06001403402",
+          "rawValue": 1.8,
+          "percentile": null,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": -13.91,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": null,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "fresno",
+          "tractId": "06019000602",
+          "rawValue": 15.71,
+          "percentile": null,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": true,
+            "rawDifferenceBMinusA": 0,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": null,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "oakland-second",
+          "tractId": "06001403402",
+          "rawValue": 1.8,
+          "percentile": null,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": -13.91,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": null,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        }
+      ],
+      "summary": {
+        "compatible": true,
+        "selectedLocationCount": 3,
+        "distinctTractCount": 2,
+        "availableLocationCount": 3,
+        "missingLocationCount": 0,
+        "percentileLocationCount": 0,
+        "allSameTract": false,
+        "rawRange": {
+          "min": 1.8,
+          "max": 15.71,
+          "spread": 13.91,
+          "unit": "%",
+          "spreadUnit": "percentage points"
+        },
+        "percentileRange": null,
+        "interpretation": "Descriptive range across selected locations; no importance ranking, significance or causal inference."
+      }
+    },
+    {
+      "indicatorId": "pop_10_64",
+      "label": "Population ages 10–64",
+      "mode": "community",
+      "unit": "%",
+      "measurementPeriod": "2020–2024 ACS 5-year",
+      "definition": "Percent of population ages 10 through 64.",
+      "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+      "visualization": {
+        "kind": "neutral-percentage",
+        "property": "value",
+        "domain": [
+          0,
+          100
+        ],
+        "interpretation": "Population composition; no hazard direction or source percentile."
+      },
+      "limitations": [
+        "Descriptive tract context; not a property measurement or causal explanation."
+      ],
+      "provenance": {
+        "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+        "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+        "rawField": "pop_10_64",
+        "percentileField": null,
+        "evidenceURLs": [
+          "https://publish.data.ca.gov/dataset/calenviroscreen-5-0"
+        ]
+      },
+      "values": [
+        {
+          "locationId": "oakland",
+          "tractId": "06001403402",
+          "rawValue": 89.68,
+          "percentile": null,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": 17.75,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": null,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "fresno",
+          "tractId": "06019000602",
+          "rawValue": 71.93,
+          "percentile": null,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": true,
+            "rawDifferenceBMinusA": 0,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": null,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "oakland-second",
+          "tractId": "06001403402",
+          "rawValue": 89.68,
+          "percentile": null,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": 17.75,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": null,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        }
+      ],
+      "summary": {
+        "compatible": true,
+        "selectedLocationCount": 3,
+        "distinctTractCount": 2,
+        "availableLocationCount": 3,
+        "missingLocationCount": 0,
+        "percentileLocationCount": 0,
+        "allSameTract": false,
+        "rawRange": {
+          "min": 71.93,
+          "max": 89.68,
+          "spread": 17.75,
+          "unit": "%",
+          "spreadUnit": "percentage points"
+        },
+        "percentileRange": null,
+        "interpretation": "Descriptive range across selected locations; no importance ranking, significance or causal inference."
+      }
+    },
+    {
+      "indicatorId": "pop_ov64",
+      "label": "Population ages 65+",
+      "mode": "community",
+      "unit": "%",
+      "measurementPeriod": "2020–2024 ACS 5-year",
+      "definition": "Percent of population aged 65 and older.",
+      "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+      "visualization": {
+        "kind": "neutral-percentage",
+        "property": "value",
+        "domain": [
+          0,
+          100
+        ],
+        "interpretation": "Population composition; no hazard direction or source percentile."
+      },
+      "limitations": [
+        "Descriptive tract context; not a property measurement or causal explanation."
+      ],
+      "provenance": {
+        "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+        "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+        "rawField": "pop_ov64",
+        "percentileField": null,
+        "evidenceURLs": [
+          "https://publish.data.ca.gov/dataset/calenviroscreen-5-0"
+        ]
+      },
+      "values": [
+        {
+          "locationId": "oakland",
+          "tractId": "06001403402",
+          "rawValue": 8.52,
+          "percentile": null,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": -3.84,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": null,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "fresno",
+          "tractId": "06019000602",
+          "rawValue": 12.36,
+          "percentile": null,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": true,
+            "rawDifferenceBMinusA": 0,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": null,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "oakland-second",
+          "tractId": "06001403402",
+          "rawValue": 8.52,
+          "percentile": null,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": -3.84,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": null,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        }
+      ],
+      "summary": {
+        "compatible": true,
+        "selectedLocationCount": 3,
+        "distinctTractCount": 2,
+        "availableLocationCount": 3,
+        "missingLocationCount": 0,
+        "percentileLocationCount": 0,
+        "allSameTract": false,
+        "rawRange": {
+          "min": 8.52,
+          "max": 12.36,
+          "spread": 3.84,
+          "unit": "%",
+          "spreadUnit": "percentage points"
+        },
+        "percentileRange": null,
+        "interpretation": "Descriptive range across selected locations; no importance ranking, significance or causal inference."
+      }
+    },
+    {
+      "indicatorId": "hisp",
+      "label": "Hispanic or Latino",
+      "mode": "community",
+      "unit": "%",
+      "measurementPeriod": "2020–2024 ACS 5-year",
+      "definition": "Percent identifying as Hispanic or Latino.",
+      "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+      "visualization": {
+        "kind": "neutral-percentage",
+        "property": "value",
+        "domain": [
+          0,
+          100
+        ],
+        "interpretation": "Population composition; no hazard direction or source percentile."
+      },
+      "limitations": [
+        "Descriptive tract context; not a property measurement or causal explanation."
+      ],
+      "provenance": {
+        "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+        "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+        "rawField": "hisp",
+        "percentileField": null,
+        "evidenceURLs": [
+          "https://publish.data.ca.gov/dataset/calenviroscreen-5-0"
+        ]
+      },
+      "values": [
+        {
+          "locationId": "oakland",
+          "tractId": "06001403402",
+          "rawValue": 23.85,
+          "percentile": null,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": -43.02,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": null,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "fresno",
+          "tractId": "06019000602",
+          "rawValue": 66.87,
+          "percentile": null,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": true,
+            "rawDifferenceBMinusA": 0,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": null,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "oakland-second",
+          "tractId": "06001403402",
+          "rawValue": 23.85,
+          "percentile": null,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": -43.02,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": null,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        }
+      ],
+      "summary": {
+        "compatible": true,
+        "selectedLocationCount": 3,
+        "distinctTractCount": 2,
+        "availableLocationCount": 3,
+        "missingLocationCount": 0,
+        "percentileLocationCount": 0,
+        "allSameTract": false,
+        "rawRange": {
+          "min": 23.85,
+          "max": 66.87,
+          "spread": 43.02,
+          "unit": "%",
+          "spreadUnit": "percentage points"
+        },
+        "percentileRange": null,
+        "interpretation": "Descriptive range across selected locations; no importance ranking, significance or causal inference."
+      }
+    },
+    {
+      "indicatorId": "white",
+      "label": "Non-Hispanic White",
+      "mode": "community",
+      "unit": "%",
+      "measurementPeriod": "2020–2024 ACS 5-year",
+      "definition": "Percent identifying as non-Hispanic White.",
+      "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+      "visualization": {
+        "kind": "neutral-percentage",
+        "property": "value",
+        "domain": [
+          0,
+          100
+        ],
+        "interpretation": "Population composition; no hazard direction or source percentile."
+      },
+      "limitations": [
+        "Descriptive tract context; not a property measurement or causal explanation."
+      ],
+      "provenance": {
+        "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+        "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+        "rawField": "white",
+        "percentileField": null,
+        "evidenceURLs": [
+          "https://publish.data.ca.gov/dataset/calenviroscreen-5-0"
+        ]
+      },
+      "values": [
+        {
+          "locationId": "oakland",
+          "tractId": "06001403402",
+          "rawValue": 33.97,
+          "percentile": null,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": 13.07,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": null,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "fresno",
+          "tractId": "06019000602",
+          "rawValue": 20.9,
+          "percentile": null,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": true,
+            "rawDifferenceBMinusA": 0,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": null,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "oakland-second",
+          "tractId": "06001403402",
+          "rawValue": 33.97,
+          "percentile": null,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": 13.07,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": null,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        }
+      ],
+      "summary": {
+        "compatible": true,
+        "selectedLocationCount": 3,
+        "distinctTractCount": 2,
+        "availableLocationCount": 3,
+        "missingLocationCount": 0,
+        "percentileLocationCount": 0,
+        "allSameTract": false,
+        "rawRange": {
+          "min": 20.9,
+          "max": 33.97,
+          "spread": 13.07,
+          "unit": "%",
+          "spreadUnit": "percentage points"
+        },
+        "percentileRange": null,
+        "interpretation": "Descriptive range across selected locations; no importance ranking, significance or causal inference."
+      }
+    },
+    {
+      "indicatorId": "black",
+      "label": "Non-Hispanic Black",
+      "mode": "community",
+      "unit": "%",
+      "measurementPeriod": "2020–2024 ACS 5-year",
+      "definition": "Percent identifying as non-Hispanic African American or Black.",
+      "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+      "visualization": {
+        "kind": "neutral-percentage",
+        "property": "value",
+        "domain": [
+          0,
+          100
+        ],
+        "interpretation": "Population composition; no hazard direction or source percentile."
+      },
+      "limitations": [
+        "Descriptive tract context; not a property measurement or causal explanation."
+      ],
+      "provenance": {
+        "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+        "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+        "rawField": "black",
+        "percentileField": null,
+        "evidenceURLs": [
+          "https://publish.data.ca.gov/dataset/calenviroscreen-5-0"
+        ]
+      },
+      "values": [
+        {
+          "locationId": "oakland",
+          "tractId": "06001403402",
+          "rawValue": 29.16,
+          "percentile": null,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": 20.89,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": null,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "fresno",
+          "tractId": "06019000602",
+          "rawValue": 8.27,
+          "percentile": null,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": true,
+            "rawDifferenceBMinusA": 0,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": null,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "oakland-second",
+          "tractId": "06001403402",
+          "rawValue": 29.16,
+          "percentile": null,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": 20.89,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": null,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        }
+      ],
+      "summary": {
+        "compatible": true,
+        "selectedLocationCount": 3,
+        "distinctTractCount": 2,
+        "availableLocationCount": 3,
+        "missingLocationCount": 0,
+        "percentileLocationCount": 0,
+        "allSameTract": false,
+        "rawRange": {
+          "min": 8.27,
+          "max": 29.16,
+          "spread": 20.89,
+          "unit": "%",
+          "spreadUnit": "percentage points"
+        },
+        "percentileRange": null,
+        "interpretation": "Descriptive range across selected locations; no importance ranking, significance or causal inference."
+      }
+    },
+    {
+      "indicatorId": "amind",
+      "label": "Non-Hispanic Native American",
+      "mode": "community",
+      "unit": "%",
+      "measurementPeriod": "2020–2024 ACS 5-year",
+      "definition": "Percent identifying as non-Hispanic Native American.",
+      "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+      "visualization": {
+        "kind": "neutral-percentage",
+        "property": "value",
+        "domain": [
+          0,
+          100
+        ],
+        "interpretation": "Population composition; no hazard direction or source percentile."
+      },
+      "limitations": [
+        "Descriptive tract context; not a property measurement or causal explanation."
+      ],
+      "provenance": {
+        "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+        "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+        "rawField": "amind",
+        "percentileField": null,
+        "evidenceURLs": [
+          "https://publish.data.ca.gov/dataset/calenviroscreen-5-0"
+        ]
+      },
+      "values": [
+        {
+          "locationId": "oakland",
+          "tractId": "06001403402",
+          "rawValue": 0,
+          "percentile": null,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": -0.75,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": null,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "fresno",
+          "tractId": "06019000602",
+          "rawValue": 0.75,
+          "percentile": null,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": true,
+            "rawDifferenceBMinusA": 0,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": null,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "oakland-second",
+          "tractId": "06001403402",
+          "rawValue": 0,
+          "percentile": null,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": -0.75,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": null,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        }
+      ],
+      "summary": {
+        "compatible": true,
+        "selectedLocationCount": 3,
+        "distinctTractCount": 2,
+        "availableLocationCount": 3,
+        "missingLocationCount": 0,
+        "percentileLocationCount": 0,
+        "allSameTract": false,
+        "rawRange": {
+          "min": 0,
+          "max": 0.75,
+          "spread": 0.75,
+          "unit": "%",
+          "spreadUnit": "percentage points"
+        },
+        "percentileRange": null,
+        "interpretation": "Descriptive range across selected locations; no importance ranking, significance or causal inference."
+      }
+    },
+    {
+      "indicatorId": "asian",
+      "label": "Non-Hispanic Asian",
+      "mode": "community",
+      "unit": "%",
+      "measurementPeriod": "2020–2024 ACS 5-year",
+      "definition": "Percent identifying as non-Hispanic Asian.",
+      "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+      "visualization": {
+        "kind": "neutral-percentage",
+        "property": "value",
+        "domain": [
+          0,
+          100
+        ],
+        "interpretation": "Population composition; no hazard direction or source percentile."
+      },
+      "limitations": [
+        "Descriptive tract context; not a property measurement or causal explanation."
+      ],
+      "provenance": {
+        "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+        "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+        "rawField": "asian",
+        "percentileField": null,
+        "evidenceURLs": [
+          "https://publish.data.ca.gov/dataset/calenviroscreen-5-0"
+        ]
+      },
+      "values": [
+        {
+          "locationId": "oakland",
+          "tractId": "06001403402",
+          "rawValue": 7.62,
+          "percentile": null,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": 5.78,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": null,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "fresno",
+          "tractId": "06019000602",
+          "rawValue": 1.84,
+          "percentile": null,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": true,
+            "rawDifferenceBMinusA": 0,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": null,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "oakland-second",
+          "tractId": "06001403402",
+          "rawValue": 7.62,
+          "percentile": null,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": 5.78,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": null,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        }
+      ],
+      "summary": {
+        "compatible": true,
+        "selectedLocationCount": 3,
+        "distinctTractCount": 2,
+        "availableLocationCount": 3,
+        "missingLocationCount": 0,
+        "percentileLocationCount": 0,
+        "allSameTract": false,
+        "rawRange": {
+          "min": 1.84,
+          "max": 7.62,
+          "spread": 5.78,
+          "unit": "%",
+          "spreadUnit": "percentage points"
+        },
+        "percentileRange": null,
+        "interpretation": "Descriptive range across selected locations; no importance ranking, significance or causal inference."
+      }
+    },
+    {
+      "indicatorId": "pacisl",
+      "label": "Non-Hispanic Pacific Islander",
+      "mode": "community",
+      "unit": "%",
+      "measurementPeriod": "2020–2024 ACS 5-year",
+      "definition": "Percent identifying as non-Hispanic Pacific Islander.",
+      "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+      "visualization": {
+        "kind": "neutral-percentage",
+        "property": "value",
+        "domain": [
+          0,
+          100
+        ],
+        "interpretation": "Population composition; no hazard direction or source percentile."
+      },
+      "limitations": [
+        "Descriptive tract context; not a property measurement or causal explanation."
+      ],
+      "provenance": {
+        "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+        "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+        "rawField": "pacisl",
+        "percentileField": null,
+        "evidenceURLs": [
+          "https://publish.data.ca.gov/dataset/calenviroscreen-5-0"
+        ]
+      },
+      "values": [
+        {
+          "locationId": "oakland",
+          "tractId": "06001403402",
+          "rawValue": 0,
+          "percentile": null,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": 0,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": null,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "fresno",
+          "tractId": "06019000602",
+          "rawValue": 0,
+          "percentile": null,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": true,
+            "rawDifferenceBMinusA": 0,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": null,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "oakland-second",
+          "tractId": "06001403402",
+          "rawValue": 0,
+          "percentile": null,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": 0,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": null,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        }
+      ],
+      "summary": {
+        "compatible": true,
+        "selectedLocationCount": 3,
+        "distinctTractCount": 2,
+        "availableLocationCount": 3,
+        "missingLocationCount": 0,
+        "percentileLocationCount": 0,
+        "allSameTract": false,
+        "rawRange": {
+          "min": 0,
+          "max": 0,
+          "spread": 0,
+          "unit": "%",
+          "spreadUnit": "percentage points"
+        },
+        "percentileRange": null,
+        "interpretation": "Descriptive range across selected locations; no importance ranking, significance or causal inference."
+      }
+    },
+    {
+      "indicatorId": "othmult",
+      "label": "Other or multiple races",
+      "mode": "community",
+      "unit": "%",
+      "measurementPeriod": "2020–2024 ACS 5-year",
+      "definition": "Percent identifying as non-Hispanic other or multiple races.",
+      "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+      "visualization": {
+        "kind": "neutral-percentage",
+        "property": "value",
+        "domain": [
+          0,
+          100
+        ],
+        "interpretation": "Population composition; no hazard direction or source percentile."
+      },
+      "limitations": [
+        "Descriptive tract context; not a property measurement or causal explanation."
+      ],
+      "provenance": {
+        "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+        "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+        "rawField": "othmult",
+        "percentileField": null,
+        "evidenceURLs": [
+          "https://publish.data.ca.gov/dataset/calenviroscreen-5-0"
+        ]
+      },
+      "values": [
+        {
+          "locationId": "oakland",
+          "tractId": "06001403402",
+          "rawValue": 5.41,
+          "percentile": null,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": 4.04,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": null,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "fresno",
+          "tractId": "06019000602",
+          "rawValue": 1.37,
+          "percentile": null,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": true,
+            "rawDifferenceBMinusA": 0,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": null,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        },
+        {
+          "locationId": "oakland-second",
+          "tractId": "06001403402",
+          "rawValue": 5.41,
+          "percentile": null,
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonToReference": {
+            "compatible": true,
+            "sameTract": false,
+            "rawDifferenceBMinusA": 4.04,
+            "unit": "%",
+            "rawDifferenceUnit": "percentage points",
+            "percentilePointDifferenceBMinusA": null,
+            "reason": "comparable",
+            "limitation": "Descriptive tract comparison; no causal, significance, property-level or personal-risk inference."
+          }
+        }
+      ],
+      "summary": {
+        "compatible": true,
+        "selectedLocationCount": 3,
+        "distinctTractCount": 2,
+        "availableLocationCount": 3,
+        "missingLocationCount": 0,
+        "percentileLocationCount": 0,
+        "allSameTract": false,
+        "rawRange": {
+          "min": 1.37,
+          "max": 5.41,
+          "spread": 4.04,
+          "unit": "%",
+          "spreadUnit": "percentage points"
+        },
+        "percentileRange": null,
+        "interpretation": "Descriptive range across selected locations; no importance ranking, significance or causal inference."
+      }
+    }
+  ]
+}

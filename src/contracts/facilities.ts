@@ -84,6 +84,9 @@ export function facilityQuery(params: URLSearchParams, bundle: Bundle) {
       "facility-category-unavailable",
       "Requested category does not match the loaded inventory",
     );
+  const evidence = params.get("evidence") ?? "full";
+  if (evidence !== "full" && evidence !== "linked")
+    fail("evidence must be full or linked");
   const version = params.get("version");
   if (version !== null && version !== bundle.datasetVersion)
     throw new ContractError(
@@ -140,7 +143,18 @@ export function facilityQuery(params: URLSearchParams, bundle: Bundle) {
   const { facilities: _facilities, ...metadata } = bundle;
   return {
     ...metadata,
-    query: { category, bbox, near, limit },
+    provenance:
+      evidence === "linked"
+        ? {
+            kind: "catalog-reference",
+            catalogUrl: "/api/facilities/catalog",
+            category,
+            datasetVersion: bundle.datasetVersion,
+            meaning:
+              "Full source URLs, retrieval times and SHA-256 hashes are in this category’s catalog provenance; match datasetVersion before reuse.",
+          }
+        : bundle.provenance,
+    query: { category, bbox, near, limit, evidence },
     distance: {
       method: "spherical-great-circle",
       unit: "km",
