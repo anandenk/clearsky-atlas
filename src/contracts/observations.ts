@@ -98,6 +98,8 @@ export function normalizeObservation(
     measurementPeriod: i.measurementPeriod,
     definition: i.definition,
     definitionSource: i.definitionSource,
+    visualization: i.visualization,
+    limitations: i.limitations,
     provenance: {
       ...CSV_PROVENANCE,
       rawField: i.rawField,
@@ -141,6 +143,11 @@ export function compareObservations(a: Observation, b: Observation) {
         ? b.rawValue - a.rawValue
         : null,
     unit: compatible ? a.unit : null,
+    rawDifferenceUnit: compatible
+      ? a.unit === "%"
+        ? "percentage points"
+        : a.unit
+      : null,
     percentilePointDifferenceBMinusA:
       compatible && a.percentile !== null && b.percentile !== null
         ? b.percentile - a.percentile

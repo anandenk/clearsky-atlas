@@ -51,4 +51,6 @@ A single-location view is a useful completed state, not a different product. Two
 
 ## Future scope decisions
 
+Sponsor services are parked by user decision until near MVP readiness; revisit after the core atlas data and frontend flow are integrated and reviewable. Original atlas scope remains intact.
+
 Deferral means a feature remains in this inventory with a reason and revisit condition. A missing field must produce an explicit coverage decision, never an invented substitute. No feature is currently deferred.

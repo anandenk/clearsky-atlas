@@ -10,31 +10,17 @@ Catalog rights: **No restrictions on public use**. License field: **License not 
 
 Measured: CSV has 9,106 unique tract IDs, joined 1:1 to 9,106 shapefile features. The dictionary explicitly identifies **2020 Census geography**. Numeric IDs are padded to 11-character strings. Source CRS is EPSG:3310 / NAD83 California Teale Albers; output WGS84 is EPSG:4326 with longitude first. All source geometries valid under Shapely. Lookup geometry is unsimplified. Display geometry is simplified by 30 meters in source CRS before reprojection. `data/validation.json` records field-level null counts. NA/empty values become null; zero is retained. Raw source is preserved.
 
-### Intended indicator coverage
+### Current intended indicator coverage
 
-Field existence and raw/percentile null counts were measured from the CSV. Definitions were read from the downloaded dictionary. **Present is not the same as ready for display.** Unverified units or periods block activation; source release date is never substituted for a measurement period.
+All 13 intended scalar indicators and 10 demographic fields now have verified backend contracts. The current units, dates, field mapping and important distinctions are tabulated in the latest section of [BACKEND_CHANGES.md](BACKEND_CHANGES.md). Machine evidence is `data/contracts/indicator-evidence.json`; source null counts remain in `data/validation.json`. Backend-ready does not mean rendered frontend layers are complete.
 
-| Original target | CSV fields | Definition / contract | State |
-| --- | --- | --- | --- |
-| PM2.5 | pm / pmP | Annual fine-particle concentration, µg/m³; 2022–2024; monitor/satellite estimates; wildfire-smoke days excluded | Backend-ready; 0 raw/percentile nulls |
-| Ozone | ozone / ozoneP | Mean May–October daily maximum 8-hour concentration; ppm; 2022–2024 verified by official fact sheet and linked app | Backend-ready; 0 raw/percentile nulls |
-| Diesel particles | diesel / dieselP | Emissions near populated blocks; unit/measurement years unresolved | Present; 9 nulls; inactive |
-| Traffic impacts | traffic / trafficP | Vehicle-km/hour per road length within 150 m; period unresolved | Present; 9 nulls; inactive |
-| Toxic air releases | RSEIhaz / RSEIhazP | Toxicity-weighted air concentrations; unit/period unresolved | Present; 0 nulls; inactive |
-| Cleanup sites | cleanups / cleanupsP | Weighted proximity sum; site snapshot years unresolved | Present; 0 nulls; inactive |
-| Asthma emergency visits | asthma / asthmaP | Age-adjusted ED rate; denominator/period require source contract | Present; 33 nulls; inactive |
-| Cardiovascular / heart-attack ED visits | cvd / cvdP | Age-adjusted heart-attack ED visits per 10,000; period unresolved | Present; 26 nulls; inactive |
-| Diabetes prevalence | diabetes / diabetesP | Model-based adult 18+ prevalence; period/model vintage unresolved | Present; 36 nulls; inactive |
-| Low birth weight | lbw / lbwP | Percent infants under 2,500 g; period unresolved | Present; 234 nulls; inactive |
-| Poverty | pov / povP | Percent below twice federal poverty level; ACS period needs indicator-level confirmation | Present; 50 nulls; inactive |
-| Educational attainment | edu / eduP | Percent aged 25+ with less than high school education; period unresolved | Present; 28 nulls; inactive |
-| Housing burden | housingB / housingBP | Percent low-income households severely burdened by housing costs; threshold/period unresolved | Present; 64 nulls; inactive |
-| Age breakdown | pop_und10 / pop_10_64 / pop_ov64 | Percent under 10, 10–64, 65+; dictionary: 2020–2024 ACS | Present; 25 nulls per field; Phase 3 charts remain |
-| Racial/ethnic breakdown | hisp / white / black / amind / asian / pacisl / othmult | Dictionary categories; 2020–2024 ACS | Present; 25 nulls per field; neutral Phase 3 charts remain |
+The official final-app descriptions and expression templates corroborate scalar units/periods. Source originals, item metadata, URLs, timestamps and SHA-256 are cached. All 26 scalar raw/percentile fields match the final publisher layer at both demo points within 1e-8. Demographic definitions, percentages and 2020–2024 ACS period are in the downloaded dictionary. Nulls remain null; observed zeros remain zero.
 
-The official [PM2.5 fact sheet](https://oehha.ca.gov/calenviroscreen/fact-sheet/air-quality-pm25) was successfully inspected with the web reader on 2026-11-07: annual means for 2022–2024, averaged across years, then grid cells averaged by tract; satellite-detected wildfire-smoke days anywhere in the state excluded. Raw direct downloads of the fact pages and technical report instead returned security HTML (HTTP 200). Their cached response bytes are labeled FAILED in the manifest and are **not PDF/document evidence**. The fact sheet's web-reader text is evidence for the active period/method, not a successful original-byte download. Full-report acquisition remains blocked by origin security response; no archived/draft report substituted. **Update:** PM units are corroborated by the official linked CES5 app configuration (micrograms per cubic meter), and ozone units/period are corroborated by its companion official app (ppm, 2022–2024). Both original app responses and publisher item metadata are cached. See `data/contracts/air-evidence.json` and `scripts/verify_air_sources.py`. The full-report download remains blocked, but these two unit contracts no longer depend on recovering that file.
+Environmental source distinctions: PM2.5 µg/m³ and ozone ppm use 2022–2024; diesel is tons/year with 2021/2022 source vintages; traffic is vehicles/hour from a normalized road-volume measure for 2023; toxic releases are a toxicity-weighted score averaged 2021–2023; cleanup is a weighted site score using a March 2026 source snapshot. Neither source score is presented as a physical concentration or facility count.
 
-CES estimates describe tracts, not properties or personal disease probabilities. The map shows source PM2.5 percentiles on one fixed statewide 0–100 domain; numerical evidence shows raw concentration separately. Percentiles are source values, never recalculated in this app. Statistical uncertainty is not provided in this bundle; differences are descriptive and not significance or cause claims.
+Health is tract population context: age-adjusted asthma ED rate 2022–2023, age-adjusted heart-attack ED rate 2021–2023, adult modeled diabetes prevalence 2023, low-birth-weight share 2018–2024. Housing uses 2018–2022 HUD CHAS; poverty/education/demographics use 2020–2024 ACS. No single common measurement period is substituted for these differences.
+
+The full technical-report and some direct fact-page downloads remain blocked by HTTP-200 security HTML, explicitly recorded as failed bytes. No draft or old release was substituted. Final publisher apps directly corroborate the required contracts; detailed score-weight reconstruction and statistical uncertainty remain limitations of comparing published outputs. See the source log for evidence provenance.
 
 ## Location and maps
 
@@ -61,3 +47,7 @@ See FACILITY_SOURCES.md and the cached original schema/sample responses. **The s
 ## Current backend air milestone
 
 PM2.5 and ozone are backend-ready in catalog atlas-indicators-v1.1. Normalized tract observations, indicator-specific map fields and checked pairwise comparisons are live; details in BACKEND_CHANGES.md. Live official indicator-layer point queries agree with the cached CSV for all four air fields at both demo tracts. Other indicator contracts and facility blockers remain as recorded above. No unsupported source was substituted.
+
+## Current breadth milestone
+
+Catalog v1.2 exposes the full intended scalar/demographic field set through existing normalized and named-map APIs. Demographic maps use neutral raw percentages with no source percentiles. Percent-valued raw differences are labeled percentage points. Infrastructure remains a separate unfinished acquisition/coverage milestone. Sponsor services are parked by user decision until near MVP readiness.

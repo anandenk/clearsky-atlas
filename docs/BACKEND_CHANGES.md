@@ -113,3 +113,67 @@ Default indicator pm. Compatibility requires matching version, indicator, defini
 A Next dev hot-reload graph briefly served stale readiness in the newly added route while the catalog was current; restarting ONLY the main backend reconciled it. HTTP smoke checks now confirm the same readiness and values across routes. Frontend preview/worktree were not restarted or modified. No shared types, dependencies or framework configuration changed in this pass. Readiness metadata is not a claim that frontend controls or rendered ozone maps are implemented; that verification belongs to the frontend session.
 
 Production build also passed after stopping only the main dev process; backend :3000 was restored and both-port smoke checks passed again. Frontend :3001 was retained. `data/samples/air-api-v1.json` now snapshots real normalized responses for the two verified demo tracts and both pairwise comparisons; reproduce with `python3 scripts/prepare_air_api_sample.py` while the backend runs. This is a sample, not synthetic data or a statewide verification claim.
+
+## 2026-11-07 — original indicator breadth, catalog v1.2
+
+**User decision:** sponsor services are parked until near MVP readiness, after the core atlas data and frontend flow are integrated and reviewable. No sponsor-service work in this pass; optional services remain future candidates.
+
+### What is now available
+
+All **13 originally intended scalar indicators** (six environment, four health, three socioeconomic) and **ten age/racial-ethnic population percentages** are backend-ready. These 23 entries are the target field set, not the 23-indicator CES model or a claim that infrastructure is implemented. Catalog is `atlas-indicators-v1.2`; dataset remains `ces-5.0-final-2026-07-01` and source observations are unchanged.
+
+`GET /api/tracts/{id}` now defaults to all 23 ready entries; use `?indicators=...` for an explicit smaller set. Existing response shape and numeric/null semantics remain. Explicit indicator requests to /api/map and /api/compare support the same 23 IDs. /api/demo, /api/geocode, and /api/map without an indicator retain legacy behavior/fields. No frontend branch merge, shared src/domain.ts edit, package change, or framework-config change was needed.
+
+| ID | Raw field | Unit | Measurement/source period |
+| --- | --- | --- | --- |
+| pm | pm | µg/m³ | 2022–2024 |
+| ozone | ozone | ppm | 2022–2024, May–October daily maximum 8-hour means |
+| diesel | diesel | tons/year | 2021 or 2022 depending on emission source |
+| traffic | traffic | vehicles/hour | 2023; adjusted vehicle-km/hour divided by km roadway within/up to 150 m |
+| toxic-releases | RSEIhaz | toxicity-weighted score | 2021–2023 average; not a physical concentration or mass |
+| cleanup | cleanups | weighted site score | March 2026 source snapshot; not a site count or averaging period |
+| asthma | asthma | ED visits per 10,000 people | 2022–2023, age-adjusted |
+| heart-attacks | cvd | ED visits per 10,000 people | 2021–2023, age-adjusted acute myocardial infarctions |
+| diabetes | diabetes | % | 2023, model-based prevalence among adults 18+ |
+| low-birth-weight | lbw | % of live births | 2018–2024, infants under 2,500 g |
+| poverty | pov | % of people | 2020–2024 ACS, below twice federal poverty level |
+| education | edu | % of adults 25+ | 2020–2024 ACS, less than high school education |
+| housing | housingB | % of households | 2018–2022 HUD CHAS; income below 80% of county median family income, housing cost above 50% of household income |
+| pop_und10 / pop_10_64 / pop_ov64 | same names | % of population | 2020–2024 ACS |
+| hisp / white / black / amind / asian / pacisl / othmult | same names | % of population | 2020–2024 ACS; dictionary category definitions |
+
+### Evidence and important interpretation
+
+`data/contracts/indicator-evidence.json` records all 13 scalar contracts, exact publisher item IDs, owner, JSON paths, source hashes, unit/period assertions, and two representative live-source point responses. `scripts/verify_indicator_sources.py` reproduces validation and generates backend-owned verified-targets.ts. The publisher's final app **popup expressions**, not just description text, explicitly supply diesel tons/year, traffic vehicles/hour, and diabetes percent. Their field values match our CSV across all 26 scalar raw/percentile fields at both demo locations, within 1e-8. Demographic percentages and periods are from the already-downloaded CES dictionary.
+
+Primary fact sheets corroborate distinct dates for cardiovascular, low-birth-weight, diabetes, education, housing, traffic, toxic releases and cleanup. No old CES4 or draft date was carried into this release. Full report acquisition is still blocked by origin security HTML; no draft report substituted. Site and RSEI measures remain **weighted source scores**, not invented physical units or counts. Detailed source weighting methods cannot be independently reconstructed from this bundle; we compare publisher outputs under the same release/definition.
+
+Source null/suppression counts remain unchanged: e.g. 234 low-birth-weight missing observations, 36 diabetes, 33 asthma, 26 cardiovascular, 25 per demographic field. Do not turn a missing observation into zero. Conversely a valid zero remains an observed value even if publisher popup code uses IsEmpty; we do not copy its zero-hiding behavior. Population health rates/prevalence are not personal disease probabilities; community composition has no hazard direction.
+
+### Frontend consumption changes
+
+Every catalog entry now includes:
+
+```ts
+visualization: {
+  kind: "source-percentile" | "neutral-percentage",
+  property: "percentile" | "value",
+  domain: [0, 100],
+  interpretation: string
+};
+limitations: string[];
+```
+
+- Scalar indicators use source percentiles on the shared 0–100 domain. Their raw units and periods remain distinct; don't rank unlike raw units or mix measurement years into a common label.
+- Age/racial-ethnic entries have `percentileField=null`, `percentileDomain=null`, and no manufactured percentile. Named map responses use `metadata.legend.property="value"`, `kind="neutral-percentage"`, raw domain 0–100. Use neutral presentation rather than hazard coloring.
+- The named map route now joins the **requested** field from canonical observation records to cached display features, without adding every indicator to the legacy statewide geometry payload. Feature ID/geometry are unchanged. Read properties.value, properties.percentile and metadata.legend; do not assume every map is PM or every legend is a percentile.
+- /api/compare adds `rawDifferenceUnit`. For percentage-valued observations it is **percentage points**; legacy `unit` remains the raw observation unit `%`. percentilePointDifferenceBMinusA remains separate. Percentage change is not computed.
+- Read live metadata through the proxy; don't import backend-only generated files into the frontend branch. Backend readiness is not a claim that frontend controls/charts or rendered maps have been implemented/verified.
+
+Representative real responses: `data/samples/breadth-api-v1.json`, including a genuinely suppressed health observation and a genuine zero cleanup score. Reproduce with `python3 scripts/prepare_breadth_sample.py` while the backend runs.
+
+### Verification and remaining work
+
+26 backend tests passed: all 23 fields over 9,106 tracts, original raw/percentile null counts and zeros, evidence hashes/assertions, all intended scalar source-point matches, compatible/same-tract/missing comparisons, neutral demographic legends, existing lookup boundaries/holes/outside-CA checks. TypeScript and production build passed. Actual HTTP smoke checks passed on both :3000 and :3001 for all 23 named maps, normalized observations, comparison units, a real suppression, error handling and unchanged legacy maps. Backend server was restarted after build; frontend server/worktree remained untouched.
+
+Infrastructure APIs remain unavailable: statewide healthcare source, facility coverage/status/license/date validation, complete acquisition and qualified distance queries are still to do. Broad-area performance measurement, richer comparison/story summaries and final integration remain planned. Sponsor services stay parked. No UI completion, full clinical-method reproduction, facility access, or deployment claim is made.

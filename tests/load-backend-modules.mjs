@@ -14,17 +14,21 @@ export async function loadBackendModules() {
       "observations",
       "map-response",
       "provenance",
+      "verified-targets",
     ]) {
       const source = await fs.readFile(`src/contracts/${name}.ts`, "utf8");
       const output = stripTypeScriptTypes(source, {
         mode: "strip",
       }).replace(
-        /from ["']\.\/(indicators|observations|provenance)["']/g,
+        /from ["']\.\/(indicators|observations|provenance|verified-targets)["']/g,
         'from "./$1.mjs"',
       );
       await fs.writeFile(path.join(directory, name + ".mjs"), output);
     }
     return {
+      indicators: await import(
+        pathToFileURL(path.join(directory, "indicators.mjs"))
+      ),
       observations: await import(
         pathToFileURL(path.join(directory, "observations.mjs"))
       ),

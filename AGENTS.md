@@ -6,6 +6,8 @@ Authorized 2026-11-07: advance through Phase 1 data-source verification and Phas
 
 Bounded Codex CLI workers through `$parallel-worktrees`, Worktrunk worktrees, and local commits/merges are authorized. Preserve existing work before branching. Normally use zero or one worker, choose model/effort deliberately, prohibit worker delegation, and reserve allowance for integration/tests. Remaining allowance is unknown.
 
+Subsequent user authorization, 2026-11-07: continue backend indicator-contract and layer breadth while the frontend session remains separate. Sponsor services are parked until near MVP readiness; do not work on sponsor accounts/integrations during current backend milestones.
+
 Keep all work local. No push, publication, deployment, purchases, billing/global configuration changes, or revival of archived investigations. If credentials or paid access block a source, finish independent work and document the specific blocker.
 
 ## Interactive frontend split — authorized 2026-11-07

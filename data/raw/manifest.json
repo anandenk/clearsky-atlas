@@ -251,5 +251,237 @@
     "bytes": 956,
     "httpStatus": 200,
     "validation": "passed-json-envelope"
+  },
+  "ces5-official-item-search.json": {
+    "url": "https://www.arcgis.com/sharing/rest/search?q=owner%3Asam.burns_oehha+CES5&f=json&num=100",
+    "retrievedAt": "2026-11-07T20:34:01.982650+00:00",
+    "sha256": "31f13e7bf5f9af76fbda25c8d7d89aefd4888e81150743a20da6a3839a14d0c8",
+    "bytes": 126894,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "ces5-official-item-search-page2.json": {
+    "url": "https://www.arcgis.com/sharing/rest/search?q=owner%3Asam.burns_oehha+CES5&f=json&num=100&start=101",
+    "retrievedAt": "2026-11-07T20:34:13.236565+00:00",
+    "sha256": "3d16e68851f58f11c5c2f82ebb839c39a4fc7450df12678bebbd2de3fb714bfe",
+    "bytes": 68929,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "diesel-official-app.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/b53e1ba5a61540e0b1b59c8a433690ca/data?f=json",
+    "retrievedAt": "2026-11-07T20:34:29.000904+00:00",
+    "sha256": "4a9dced7819220b874e7ab5662324f8f30456b8487719506fbbf0a2937e98b73",
+    "bytes": 18000,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "diesel-official-item.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/b53e1ba5a61540e0b1b59c8a433690ca?f=json",
+    "retrievedAt": "2026-11-07T20:34:29.046512+00:00",
+    "sha256": "6c8a984838a65410b7af4fe8294d2d2273cba72f4fa48c8f8132e800f7b24245",
+    "bytes": 1169,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "traffic-official-app.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/587db38078ca47c2ade04acfca0c80cf/data?f=json",
+    "retrievedAt": "2026-11-07T20:34:29.192367+00:00",
+    "sha256": "5b63aec12e6c799503501b53c83ba2cc2443a7a5da70b7388758afa321c97c08",
+    "bytes": 18118,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "traffic-official-item.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/587db38078ca47c2ade04acfca0c80cf?f=json",
+    "retrievedAt": "2026-11-07T20:34:29.239348+00:00",
+    "sha256": "402eef76ea1a2bcebe70d05569686059c08a2365f1bffb0f99db21c1d79766ee",
+    "bytes": 1191,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "toxic-releases-official-app.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/d934fa4b27ab4187b55bda8cce13f5de/data?f=json",
+    "retrievedAt": "2026-11-07T20:34:29.415542+00:00",
+    "sha256": "45d33deb4a3f757c7b1c4d7076472d35075d8fb003ad0e87ec5ffb7992fd1bda",
+    "bytes": 35662,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "toxic-releases-official-item.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/d934fa4b27ab4187b55bda8cce13f5de?f=json",
+    "retrievedAt": "2026-11-07T20:34:29.466453+00:00",
+    "sha256": "bfe947597de21000ff22f785f7a2606b97b948685fafe7dab5ab3f74f4291035",
+    "bytes": 1206,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "cleanup-official-app.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/5ba363814e1d4b799feaaf3a3c6a38d0/data?f=json",
+    "retrievedAt": "2026-11-07T20:34:29.613451+00:00",
+    "sha256": "cf30793f7fafe4d52dfdfeefecffe1f9e040ee06d1f7fcc7f9c4adad1e28791d",
+    "bytes": 17616,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "cleanup-official-item.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/5ba363814e1d4b799feaaf3a3c6a38d0?f=json",
+    "retrievedAt": "2026-11-07T20:34:29.663855+00:00",
+    "sha256": "13b16ce3ea99de26f505a35b632fa1e128c43b2ec83c0aec1639518d4cfa77f7",
+    "bytes": 1189,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "asthma-official-app.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/392a3dfd505e4749b0ffe4ca12619d08/data?f=json",
+    "retrievedAt": "2026-11-07T20:34:29.854403+00:00",
+    "sha256": "b556e6d8662b60dc50a0bef5348a717c50f5a2f9c2b601a795a695a1006d4e8b",
+    "bytes": 17393,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "asthma-official-item.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/392a3dfd505e4749b0ffe4ca12619d08?f=json",
+    "retrievedAt": "2026-11-07T20:34:29.908684+00:00",
+    "sha256": "7de77339d41077bdac329e31d6f26c1152e88d252ce1c7fef13b074954470d3c",
+    "bytes": 1182,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "heart-attacks-official-app.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/e33909a08f4e41cf836bc2698e5e17a3/data?f=json",
+    "retrievedAt": "2026-11-07T20:34:30.059982+00:00",
+    "sha256": "124db2ef5dcbd274cc957b371bb1979496807b96813e00d0c4c55d6fa7086e45",
+    "bytes": 17567,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "heart-attacks-official-item.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/e33909a08f4e41cf836bc2698e5e17a3?f=json",
+    "retrievedAt": "2026-11-07T20:34:30.116194+00:00",
+    "sha256": "84f08c9a5111627b4a21c023bf37b705d15b85bf761dcee750e776873bd010d6",
+    "bytes": 1197,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "diabetes-official-app.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/b0d33bc0fd444598bb3fc67cc503ea13/data?f=json",
+    "retrievedAt": "2026-11-07T20:34:30.286473+00:00",
+    "sha256": "6816c668fb22d2422fd40e63f3e0f6fdc10dc9149c856d503178e9c751fb3966",
+    "bytes": 17393,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "diabetes-official-item.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/b0d33bc0fd444598bb3fc67cc503ea13?f=json",
+    "retrievedAt": "2026-11-07T20:34:30.333745+00:00",
+    "sha256": "cc1b7f00bdf9c473c076b0e7489b39350e5a9ddc5bb25c8079410ee3f1a268f3",
+    "bytes": 1195,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "low-birth-weight-official-app.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/4ead6dc88f51438fb0edbaaed56548a6/data?f=json",
+    "retrievedAt": "2026-11-07T20:34:30.504664+00:00",
+    "sha256": "14e87076764282311de1974a9de98bac7648aed3506109e26a3e21d3db660d66",
+    "bytes": 17660,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "low-birth-weight-official-item.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/4ead6dc88f51438fb0edbaaed56548a6?f=json",
+    "retrievedAt": "2026-11-07T20:34:30.555921+00:00",
+    "sha256": "b44b8871bcc0806990e08896e7f0b3be5246758a4b925f23c1a29f62472ad0b2",
+    "bytes": 1199,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "poverty-official-app.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/54a0510621d1480087975e48e28077d9/data?f=json",
+    "retrievedAt": "2026-11-07T20:34:30.731553+00:00",
+    "sha256": "3fe8947ccdc4eda1b2774004ecab43c7721d38b5996795ead3914e7bf401730f",
+    "bytes": 17516,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "poverty-official-item.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/54a0510621d1480087975e48e28077d9?f=json",
+    "retrievedAt": "2026-11-07T20:34:30.785004+00:00",
+    "sha256": "b6181bccaea9f2c48a4555d16b97c77f76333fd0329e80cd92fea7f41ee5e73d",
+    "bytes": 1183,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "education-official-app.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/c94a8dd16d7b43e091f97a146b861e2d/data?f=json",
+    "retrievedAt": "2026-11-07T20:34:30.975078+00:00",
+    "sha256": "97bf9c65a0fbad937ebcd7132c9959f71f001a4592f6be5b0a140e83d3805a5d",
+    "bytes": 17478,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "education-official-item.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/c94a8dd16d7b43e091f97a146b861e2d?f=json",
+    "retrievedAt": "2026-11-07T20:34:31.028223+00:00",
+    "sha256": "6032fa238c1b5299b0ada5ec61aae622a2c2d19b56e5aec30bd3e314a1d46232",
+    "bytes": 1197,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "housing-official-app.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/5037fd8114964398a5da63b66276ad24/data?f=json",
+    "retrievedAt": "2026-11-07T20:34:31.211529+00:00",
+    "sha256": "6d4cc16bb08de4334824efac63ee331b1ef4abe54ded9e882cb46877a946dd2a",
+    "bytes": 18157,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "housing-official-item.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/5037fd8114964398a5da63b66276ad24?f=json",
+    "retrievedAt": "2026-11-07T20:34:31.267005+00:00",
+    "sha256": "e2b1a744939d6295edffb119b1e3c0b96d069b3b2eea0c1a01851a7cb5088b52",
+    "bytes": 1190,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "diesel-official-webmap.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/971f5753667d4eb3b43a13ad22f46a30/data?f=json",
+    "retrievedAt": "2026-11-07T20:35:35.862015+00:00",
+    "sha256": "a1381fc2b2025fb70339dc6dee0cf1d6848426e333a01f48887b87079810cd33",
+    "bytes": 1531,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "diabetes-official-webmap.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/1be6c4df2868419abac9db6b6f45731e/data?f=json",
+    "retrievedAt": "2026-11-07T20:35:36.074325+00:00",
+    "sha256": "30a98dcc801491636edee5892ab5833302fdad0b3e9c507ccdeb7fe8d4278298",
+    "bytes": 1525,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "traffic-official-webmap.json": {
+    "url": "https://www.arcgis.com/sharing/rest/content/items/9a5b75894c2b402887d47eddb1819c67/data?f=json",
+    "retrievedAt": "2026-11-07T20:35:36.376940+00:00",
+    "sha256": "d87f9b3b520c10f535a67f70810de42479e28deea1f411b3fd2333d09e1f1298",
+    "bytes": 1522,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "target-point-oakland-central.json": {
+    "url": "https://services1.arcgis.com/PCHfdHz4GlDNAhBb/arcgis/rest/services/CES5_final_webmap_gdb/FeatureServer/0/query?f=json&geometry=-122.26360620685%2C37.801240729976&geometryType=esriGeometryPoint&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields=tract%2Cpm%2CpmP%2Cozone%2CozoneP%2Cdiesel%2CdieselP%2Ctraffic%2CtrafficP%2CRSEIhaz%2CRSEIhazP%2Ccleanups%2CcleanupsP%2Casthma%2CasthmaP%2Ccvd%2CcvdP%2Cdiabetes%2CdiabetesP%2Clbw%2ClbwP%2Cpov%2CpovP%2Cedu%2CeduP%2ChousingB%2ChousingBP&returnGeometry=false",
+    "retrievedAt": "2026-11-07T20:37:36.182886+00:00",
+    "sha256": "4fb84adc7e05dec640c1daae68aeaa5c7bcfb83fba3c7e36e7d3a05ecf2fe314",
+    "bytes": 4191,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
+  },
+  "target-point-fresno.json": {
+    "url": "https://services1.arcgis.com/PCHfdHz4GlDNAhBb/arcgis/rest/services/CES5_final_webmap_gdb/FeatureServer/0/query?f=json&geometry=-119.786060995932%2C36.740250711973&geometryType=esriGeometryPoint&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields=tract%2Cpm%2CpmP%2Cozone%2CozoneP%2Cdiesel%2CdieselP%2Ctraffic%2CtrafficP%2CRSEIhaz%2CRSEIhazP%2Ccleanups%2CcleanupsP%2Casthma%2CasthmaP%2Ccvd%2CcvdP%2Cdiabetes%2CdiabetesP%2Clbw%2ClbwP%2Cpov%2CpovP%2Cedu%2CeduP%2ChousingB%2ChousingBP&returnGeometry=false",
+    "retrievedAt": "2026-11-07T20:37:36.298107+00:00",
+    "sha256": "45d4678d36da640a9c931f685347fdd53e9d86d90a3430e3f76ad32fa1da1612",
+    "bytes": 4183,
+    "httpStatus": 200,
+    "validation": "passed-json-envelope"
   }
 }

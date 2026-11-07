@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { parseBounds } from "../../../src/contracts/bounds";
-import { mapData } from "../../../src/data";
+import { mapData, metricMapData } from "../../../src/data";
 import { DATASET_VERSION } from "../../../src/contracts/indicators";
 import { indicatorMap } from "../../../src/contracts/map-response";
 import {
@@ -16,7 +16,8 @@ export function GET(req: NextRequest) {
     validateVersion(req.nextUrl.searchParams.get("version"));
     const indicator = req.nextUrl.searchParams.get("indicator");
     if (indicator !== null) readyIndicator(indicator);
-    const data = mapData(bbox);
+    const data =
+      indicator === null ? mapData(bbox) : metricMapData(bbox, indicator);
     return NextResponse.json(
       indicator === null ? data : indicatorMap(data, indicator),
       {

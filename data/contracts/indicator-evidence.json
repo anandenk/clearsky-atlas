@@ -1,0 +1,286 @@
+{
+  "datasetVersion": "ces-5.0-final-2026-07-01",
+  "indicators": {
+    "pm": {
+      "unit": "\u00b5g/m\u00b3",
+      "measurementPeriod": "2022\u20132024",
+      "definition": "Annual mean fine-particle concentration averaged over three years; monitor/satellite estimates exclude wildfire-smoke days statewide.",
+      "rawField": "pm",
+      "percentileField": "pmP",
+      "sourceURL": "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=5068668b6c4744ada5b6d38ec621ba5f",
+      "cacheFile": "data/raw/pm-official-app.json",
+      "sha256": "7f6fd7a11aa3ecda331e43e78593b79b7172ed8a053aade51ae8debd03f984aa",
+      "owner": "sam.burns_oehha",
+      "jsonPath": "values.searchConfiguration.sources[1].popupTemplate (description + popupElements expressions)",
+      "assertions": [
+        "micrograms per meter cubed",
+        "2022 to 2024"
+      ]
+    },
+    "ozone": {
+      "unit": "ppm",
+      "measurementPeriod": "2022\u20132024",
+      "definition": "Mean May\u2013October daily maximum 8-hour ozone concentration; ordinary kriging estimates at tract centers.",
+      "rawField": "ozone",
+      "percentileField": "ozoneP",
+      "sourceURL": "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=fc7c46d8b7e14ce69c0bc17fe71eb34b",
+      "cacheFile": "data/raw/ozone-official-app.json",
+      "sha256": "6d9f4769b47c22c3ce63bc6c05e0a5808fcf4cce2ef09581e235ae663acd8b8a",
+      "owner": "sam.burns_oehha",
+      "jsonPath": "values.searchConfiguration.sources[1].popupTemplate (description + popupElements expressions)",
+      "assertions": [
+        "parts per million",
+        "2022 to 2024"
+      ]
+    },
+    "diesel": {
+      "unit": "tons/year",
+      "measurementPeriod": "2021 or 2022 by source",
+      "definition": "Diesel PM emissions within and near populated parts of the tract, including on-road, stationary, area and ocean-going vessel sources; not ambient concentration.",
+      "rawField": "diesel",
+      "percentileField": "dieselP",
+      "sourceURL": "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=b53e1ba5a61540e0b1b59c8a433690ca",
+      "cacheFile": "data/raw/diesel-official-app.json",
+      "sha256": "4a9dced7819220b874e7ab5662324f8f30456b8487719506fbbf0a2937e98b73",
+      "owner": "sam.burns_oehha",
+      "jsonPath": "values.searchConfiguration.sources[1].popupTemplate (description + popupElements expressions)",
+      "assertions": [
+        "tons per year",
+        "2021 or 2022"
+      ]
+    },
+    "traffic": {
+      "unit": "vehicles/hour",
+      "measurementPeriod": "2023",
+      "definition": "Adjusted traffic volume in vehicle-km/hour divided by road length in km within and up to 150 m around the tract; not a vehicle count or travel-time estimate.",
+      "rawField": "traffic",
+      "percentileField": "trafficP",
+      "sourceURL": "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=587db38078ca47c2ade04acfca0c80cf",
+      "cacheFile": "data/raw/traffic-official-app.json",
+      "sha256": "5b63aec12e6c799503501b53c83ba2cc2443a7a5da70b7388758afa321c97c08",
+      "owner": "sam.burns_oehha",
+      "jsonPath": "values.searchConfiguration.sources[1].popupTemplate (description + popupElements expressions)",
+      "assertions": [
+        "vehicles per hour",
+        "2023",
+        "kilometers of roadway"
+      ]
+    },
+    "toxic-releases": {
+      "unit": "toxicity-weighted score",
+      "measurementPeriod": "2021\u20132023",
+      "definition": "Source RSEI toxicity-weighted modeled air-concentration score for large-facility releases; not unweighted emissions, a physical concentration, or personal risk.",
+      "rawField": "RSEIhaz",
+      "percentileField": "RSEIhazP",
+      "sourceURL": "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=d934fa4b27ab4187b55bda8cce13f5de",
+      "cacheFile": "data/raw/toxic-releases-official-app.json",
+      "sha256": "45d33deb4a3f757c7b1c4d7076472d35075d8fb003ad0e87ec5ffb7992fd1bda",
+      "owner": "sam.burns_oehha",
+      "jsonPath": "values.searchConfiguration.sources[1].popupTemplate (description + popupElements expressions)",
+      "assertions": [
+        "indicator scores",
+        "2021\u20132023"
+      ]
+    },
+    "cleanup": {
+      "unit": "weighted site score",
+      "measurementPeriod": "March 2026 source snapshot",
+      "definition": "Weighted sum of cleanup and NPL Superfund sites by site characteristics and proximity to populated areas; not a site count.",
+      "rawField": "cleanups",
+      "percentileField": "cleanupsP",
+      "sourceURL": "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=5ba363814e1d4b799feaaf3a3c6a38d0",
+      "cacheFile": "data/raw/cleanup-official-app.json",
+      "sha256": "cf30793f7fafe4d52dfdfeefecffe1f9e040ee06d1f7fcc7f9c4adad1e28791d",
+      "owner": "sam.burns_oehha",
+      "jsonPath": "values.searchConfiguration.sources[1].popupTemplate (description + popupElements expressions)",
+      "assertions": [
+        "weighted by site characteristics",
+        "March 2026"
+      ]
+    },
+    "asthma": {
+      "unit": "ED visits per 10,000 people",
+      "measurementPeriod": "2022\u20132023",
+      "definition": "Age-adjusted asthma emergency department visit rate averaged over 2022\u20132023; population-level rate, not personal disease probability.",
+      "rawField": "asthma",
+      "percentileField": "asthmaP",
+      "sourceURL": "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=392a3dfd505e4749b0ffe4ca12619d08",
+      "cacheFile": "data/raw/asthma-official-app.json",
+      "sha256": "b556e6d8662b60dc50a0bef5348a717c50f5a2f9c2b601a795a695a1006d4e8b",
+      "owner": "sam.burns_oehha",
+      "jsonPath": "values.searchConfiguration.sources[1].popupTemplate (description + popupElements expressions)",
+      "assertions": [
+        "age-adjusted",
+        "10,000",
+        "2022 to 2023"
+      ]
+    },
+    "heart-attacks": {
+      "unit": "ED visits per 10,000 people",
+      "measurementPeriod": "2021\u20132023",
+      "definition": "Age-adjusted acute myocardial infarction emergency department visit rate averaged over 2021\u20132023; not all cardiovascular diagnoses or personal disease probability.",
+      "rawField": "cvd",
+      "percentileField": "cvdP",
+      "sourceURL": "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=e33909a08f4e41cf836bc2698e5e17a3",
+      "cacheFile": "data/raw/heart-attacks-official-app.json",
+      "sha256": "124db2ef5dcbd274cc957b371bb1979496807b96813e00d0c4c55d6fa7086e45",
+      "owner": "sam.burns_oehha",
+      "jsonPath": "values.searchConfiguration.sources[1].popupTemplate (description + popupElements expressions)",
+      "assertions": [
+        "age-adjusted",
+        "10,000",
+        "2021 to 2023"
+      ]
+    },
+    "diabetes": {
+      "unit": "%",
+      "measurementPeriod": "2023",
+      "definition": "Model-based diabetes prevalence among adults aged 18 and older from CDC PLACES, 2023; not a diagnosis or personal disease probability.",
+      "rawField": "diabetes",
+      "percentileField": "diabetesP",
+      "sourceURL": "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=b0d33bc0fd444598bb3fc67cc503ea13",
+      "cacheFile": "data/raw/diabetes-official-app.json",
+      "sha256": "6816c668fb22d2422fd40e63f3e0f6fdc10dc9149c856d503178e9c751fb3966",
+      "owner": "sam.burns_oehha",
+      "jsonPath": "values.searchConfiguration.sources[1].popupTemplate (description + popupElements expressions)",
+      "assertions": [
+        "2023",
+        "% of adults have diabetes"
+      ]
+    },
+    "low-birth-weight": {
+      "unit": "%",
+      "measurementPeriod": "2018\u20132024",
+      "definition": "Percent of live births weighing less than 2,500 g, averaged over 2018\u20132024; records with too few births may be missing.",
+      "rawField": "lbw",
+      "percentileField": "lbwP",
+      "sourceURL": "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=4ead6dc88f51438fb0edbaaed56548a6",
+      "cacheFile": "data/raw/low-birth-weight-official-app.json",
+      "sha256": "14e87076764282311de1974a9de98bac7648aed3506109e26a3e21d3db660d66",
+      "owner": "sam.burns_oehha",
+      "jsonPath": "values.searchConfiguration.sources[1].popupTemplate (description + popupElements expressions)",
+      "assertions": [
+        "2,500 grams",
+        "2018 to 2024"
+      ]
+    },
+    "poverty": {
+      "unit": "%",
+      "measurementPeriod": "2020\u20132024 ACS 5-year",
+      "definition": "Percent of people living below twice the federal poverty level, 2020\u20132024 ACS; not percent below the single federal poverty threshold.",
+      "rawField": "pov",
+      "percentileField": "povP",
+      "sourceURL": "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=54a0510621d1480087975e48e28077d9",
+      "cacheFile": "data/raw/poverty-official-app.json",
+      "sha256": "3fe8947ccdc4eda1b2774004ecab43c7721d38b5996795ead3914e7bf401730f",
+      "owner": "sam.burns_oehha",
+      "jsonPath": "values.searchConfiguration.sources[1].popupTemplate (description + popupElements expressions)",
+      "assertions": [
+        "percentage of people",
+        "2020 to 2024"
+      ]
+    },
+    "education": {
+      "unit": "%",
+      "measurementPeriod": "2020\u20132024 ACS 5-year",
+      "definition": "Percent of adults aged 25 and older with less than a high school education, 2020\u20132024 ACS.",
+      "rawField": "edu",
+      "percentileField": "eduP",
+      "sourceURL": "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=c94a8dd16d7b43e091f97a146b861e2d",
+      "cacheFile": "data/raw/education-official-app.json",
+      "sha256": "97bf9c65a0fbad937ebcd7132c9959f71f001a4592f6be5b0a140e83d3805a5d",
+      "owner": "sam.burns_oehha",
+      "jsonPath": "values.searchConfiguration.sources[1].popupTemplate (description + popupElements expressions)",
+      "assertions": [
+        "percentage of adults",
+        "2020 to 2024"
+      ]
+    },
+    "housing": {
+      "unit": "%",
+      "measurementPeriod": "2018\u20132022 HUD CHAS",
+      "definition": "Percent of households with income below 80% of county median family income and housing costs above 50% of household income, 2018\u20132022 HUD CHAS.",
+      "rawField": "housingB",
+      "percentileField": "housingBP",
+      "sourceURL": "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=5037fd8114964398a5da63b66276ad24",
+      "cacheFile": "data/raw/housing-official-app.json",
+      "sha256": "6d4cc16bb08de4334824efac63ee331b1ef4abe54ded9e882cb46877a946dd2a",
+      "owner": "sam.burns_oehha",
+      "jsonPath": "values.searchConfiguration.sources[1].popupTemplate (description + popupElements expressions)",
+      "assertions": [
+        "less than 80%",
+        "more than 50%",
+        "2018 to 2022"
+      ]
+    }
+  },
+  "pointChecks": [
+    {
+      "tractId": "06001403402",
+      "cacheFile": "data/raw/target-point-oakland-central.json",
+      "fields": [
+        "pm",
+        "pmP",
+        "ozone",
+        "ozoneP",
+        "diesel",
+        "dieselP",
+        "traffic",
+        "trafficP",
+        "RSEIhaz",
+        "RSEIhazP",
+        "cleanups",
+        "cleanupsP",
+        "asthma",
+        "asthmaP",
+        "cvd",
+        "cvdP",
+        "diabetes",
+        "diabetesP",
+        "lbw",
+        "lbwP",
+        "pov",
+        "povP",
+        "edu",
+        "eduP",
+        "housingB",
+        "housingBP"
+      ],
+      "tolerance": 1e-08
+    },
+    {
+      "tractId": "06019000602",
+      "cacheFile": "data/raw/target-point-fresno.json",
+      "fields": [
+        "pm",
+        "pmP",
+        "ozone",
+        "ozoneP",
+        "diesel",
+        "dieselP",
+        "traffic",
+        "trafficP",
+        "RSEIhaz",
+        "RSEIhazP",
+        "cleanups",
+        "cleanupsP",
+        "asthma",
+        "asthmaP",
+        "cvd",
+        "cvdP",
+        "diabetes",
+        "diabetesP",
+        "lbw",
+        "lbwP",
+        "pov",
+        "povP",
+        "edu",
+        "eduP",
+        "housingB",
+        "housingBP"
+      ],
+      "tolerance": 1e-08
+    }
+  ],
+  "interpretation": "Descriptive tract observations only; source zero/null rules preserved; health is not personal probability; weighted scores are not physical concentrations/site counts."
+}

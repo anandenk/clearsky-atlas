@@ -25,10 +25,13 @@ export function indicatorMap(data: FeatureCollection, id: string) {
       unit: i.unit,
       measurementPeriod: i.measurementPeriod,
       definitionSource: i.definitionSource,
+      visualization: i.visualization,
+      limitations: i.limitations,
       legend: {
-        property: "percentile",
-        domain: i.percentileDomain,
-        meaning: "source-supplied statewide percentile",
+        property: i.visualization.property,
+        domain: i.visualization.domain,
+        meaning: i.visualization.interpretation,
+        kind: i.visualization.kind,
       },
       geometry: {
         crs: "EPSG:4326",

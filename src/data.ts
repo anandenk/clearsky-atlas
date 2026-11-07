@@ -9,6 +9,11 @@ import type {
   FeatureCollection,
 } from "geojson";
 import { Selection } from "./domain";
+import {
+  readyIndicator,
+  sourceNumber,
+  ContractError,
+} from "./contracts/observations";
 type Tract = Feature<
   Polygon | MultiPolygon,
   {
@@ -93,4 +98,37 @@ export function demos() {
 export function tractRecord(id: string) {
   observations ??= read("observations.json");
   return observations[id] ?? null;
+}
+
+// Enrich only the requested metric. Keep legacy display payloads and lookup geometry unchanged.
+export function metricMapData(bbox: number[], id: string): FeatureCollection {
+  const indicator = readyIndicator(id);
+  const data = mapData(bbox);
+  return {
+    ...data,
+    features: data.features.map((feature) => {
+      const tid = feature.properties?.id;
+      const row = typeof tid === "string" ? tractRecord(tid) : null;
+      if (!row)
+        throw new ContractError(
+          503,
+          "missing-map-attributes",
+          "A display tract has no matching observation record.",
+        );
+      return {
+        ...feature,
+        properties: {
+          ...feature.properties,
+          [indicator.rawField]: sourceNumber(row[indicator.rawField]),
+          ...(indicator.percentileField
+            ? {
+                [indicator.percentileField]: sourceNumber(
+                  row[indicator.percentileField],
+                ),
+              }
+            : {}),
+        },
+      };
+    }),
+  };
 }

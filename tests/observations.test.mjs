@@ -19,10 +19,7 @@ const rows = JSON.parse(fs.readFileSync("data/observations.json"));
 const a = "06001403402",
   b = "06019000602";
 test("both ready air indicators normalize all 9,106 source tracts without invented percentiles", () => {
-  assert.deepEqual(
-    requestedIndicators(null).map((i) => i.id),
-    ["pm", "ozone"],
-  );
+  assert.equal(requestedIndicators(null).length, 23);
   for (const id of ["pm", "ozone"]) {
     const i = readyIndicator(id);
     for (const [tid, row] of Object.entries(rows)) {
@@ -144,10 +141,16 @@ test("invalid IDs, unsupported indicators and dataset versions fail before servi
   for (const id of ["6001403402", "11001980000", "06001403402x"])
     assert.throws(() => validateTractId(id));
   validateTractId(a);
-  assert.throws(
-    () => readyIndicator("asthma"),
-    (e) => e.status === 422,
-  );
+  const contract = readyIndicator("asthma");
+  contract.backendReady = false;
+  try {
+    assert.throws(
+      () => readyIndicator("asthma"),
+      (e) => e.status === 422,
+    );
+  } finally {
+    contract.backendReady = true;
+  }
   assert.throws(
     () => readyIndicator("invented"),
     (e) => e.status === 400,

@@ -1,0 +1,939 @@
+{
+  "sampleStatus": "Representative real source-backed local API responses; not synthetic and not proof of every geocode.",
+  "sourceEvidence": "data/contracts/indicator-evidence.json",
+  "tracts": [
+    {
+      "contractVersion": "atlas-observations-v1",
+      "datasetVersion": "ces-5.0-final-2026-07-01",
+      "tractId": "06001403402",
+      "tractVintage": "2020",
+      "place": "Oakland",
+      "county": "Alameda",
+      "observations": [
+        {
+          "tractId": "06001403402",
+          "indicatorId": "asthma",
+          "datasetVersion": "ces-5.0-final-2026-07-01",
+          "geographicLevel": "2020-census-tract",
+          "rawValue": 65.25,
+          "percentile": 91.7778022704728,
+          "unit": "ED visits per 10,000 people",
+          "measurementPeriod": "2022\u20132023",
+          "definition": "Age-adjusted asthma emergency department visit rate averaged over 2022\u20132023; population-level rate, not personal disease probability.",
+          "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+          "visualization": {
+            "kind": "source-percentile",
+            "property": "percentile",
+            "domain": [
+              0,
+              100
+            ],
+            "interpretation": "Relative position for this indicator only; not personal risk."
+          },
+          "limitations": [
+            "Population-level source estimate, not personal disease probability."
+          ],
+          "provenance": {
+            "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+            "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+            "rawField": "asthma",
+            "percentileField": "asthmaP",
+            "evidenceURLs": [
+              "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=392a3dfd505e4749b0ffe4ca12619d08"
+            ]
+          },
+          "percentileDomain": [
+            0,
+            100
+          ],
+          "sourceId": "ces-5.0-final-2026-07-01",
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonKey": "ces-5.0-final-2026-07-01|asthma|2020-census-tract|ED visits per 10,000 people|2022\u20132023"
+        },
+        {
+          "tractId": "06001403402",
+          "indicatorId": "heart-attacks",
+          "datasetVersion": "ces-5.0-final-2026-07-01",
+          "geographicLevel": "2020-census-tract",
+          "rawValue": 7.05,
+          "percentile": 3.92070484581498,
+          "unit": "ED visits per 10,000 people",
+          "measurementPeriod": "2021\u20132023",
+          "definition": "Age-adjusted acute myocardial infarction emergency department visit rate averaged over 2021\u20132023; not all cardiovascular diagnoses or personal disease probability.",
+          "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+          "visualization": {
+            "kind": "source-percentile",
+            "property": "percentile",
+            "domain": [
+              0,
+              100
+            ],
+            "interpretation": "Relative position for this indicator only; not personal risk."
+          },
+          "limitations": [
+            "Population-level source estimate, not personal disease probability."
+          ],
+          "provenance": {
+            "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+            "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+            "rawField": "cvd",
+            "percentileField": "cvdP",
+            "evidenceURLs": [
+              "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=e33909a08f4e41cf836bc2698e5e17a3"
+            ]
+          },
+          "percentileDomain": [
+            0,
+            100
+          ],
+          "sourceId": "ces-5.0-final-2026-07-01",
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonKey": "ces-5.0-final-2026-07-01|heart-attacks|2020-census-tract|ED visits per 10,000 people|2021\u20132023"
+        },
+        {
+          "tractId": "06001403402",
+          "indicatorId": "diabetes",
+          "datasetVersion": "ces-5.0-final-2026-07-01",
+          "geographicLevel": "2020-census-tract",
+          "rawValue": 8.4,
+          "percentile": 11.6979051819184,
+          "unit": "%",
+          "measurementPeriod": "2023",
+          "definition": "Model-based diabetes prevalence among adults aged 18 and older from CDC PLACES, 2023; not a diagnosis or personal disease probability.",
+          "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+          "visualization": {
+            "kind": "source-percentile",
+            "property": "percentile",
+            "domain": [
+              0,
+              100
+            ],
+            "interpretation": "Relative position for this indicator only; not personal risk."
+          },
+          "limitations": [
+            "Population-level source estimate, not personal disease probability."
+          ],
+          "provenance": {
+            "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+            "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+            "rawField": "diabetes",
+            "percentileField": "diabetesP",
+            "evidenceURLs": [
+              "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=b0d33bc0fd444598bb3fc67cc503ea13"
+            ]
+          },
+          "percentileDomain": [
+            0,
+            100
+          ],
+          "sourceId": "ces-5.0-final-2026-07-01",
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonKey": "ces-5.0-final-2026-07-01|diabetes|2020-census-tract|%|2023"
+        },
+        {
+          "tractId": "06001403402",
+          "indicatorId": "low-birth-weight",
+          "datasetVersion": "ces-5.0-final-2026-07-01",
+          "geographicLevel": "2020-census-tract",
+          "rawValue": 6.45,
+          "percentile": 69.4268953068592,
+          "unit": "%",
+          "measurementPeriod": "2018\u20132024",
+          "definition": "Percent of live births weighing less than 2,500 g, averaged over 2018\u20132024; records with too few births may be missing.",
+          "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+          "visualization": {
+            "kind": "source-percentile",
+            "property": "percentile",
+            "domain": [
+              0,
+              100
+            ],
+            "interpretation": "Relative position for this indicator only; not personal risk."
+          },
+          "limitations": [
+            "Population-level source estimate, not personal disease probability."
+          ],
+          "provenance": {
+            "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+            "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+            "rawField": "lbw",
+            "percentileField": "lbwP",
+            "evidenceURLs": [
+              "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=4ead6dc88f51438fb0edbaaed56548a6"
+            ]
+          },
+          "percentileDomain": [
+            0,
+            100
+          ],
+          "sourceId": "ces-5.0-final-2026-07-01",
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonKey": "ces-5.0-final-2026-07-01|low-birth-weight|2020-census-tract|%|2018\u20132024"
+        },
+        {
+          "tractId": "06001403402",
+          "indicatorId": "poverty",
+          "datasetVersion": "ces-5.0-final-2026-07-01",
+          "geographicLevel": "2020-census-tract",
+          "rawValue": 13.8276553106212,
+          "percentile": 22.2209932529587,
+          "unit": "%",
+          "measurementPeriod": "2020\u20132024 ACS 5-year",
+          "definition": "Percent of people living below twice the federal poverty level, 2020\u20132024 ACS; not percent below the single federal poverty threshold.",
+          "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+          "visualization": {
+            "kind": "source-percentile",
+            "property": "percentile",
+            "domain": [
+              0,
+              100
+            ],
+            "interpretation": "Relative position for this indicator only; not personal risk."
+          },
+          "limitations": [
+            "Descriptive tract context; not a property measurement or causal explanation."
+          ],
+          "provenance": {
+            "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+            "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+            "rawField": "pov",
+            "percentileField": "povP",
+            "evidenceURLs": [
+              "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=54a0510621d1480087975e48e28077d9"
+            ]
+          },
+          "percentileDomain": [
+            0,
+            100
+          ],
+          "sourceId": "ces-5.0-final-2026-07-01",
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonKey": "ces-5.0-final-2026-07-01|poverty|2020-census-tract|%|2020\u20132024 ACS 5-year"
+        },
+        {
+          "tractId": "06001403402",
+          "indicatorId": "housing",
+          "datasetVersion": "ces-5.0-final-2026-07-01",
+          "geographicLevel": "2020-census-tract",
+          "rawValue": 12.2448979591837,
+          "percentile": 27.6274944567627,
+          "unit": "%",
+          "measurementPeriod": "2018\u20132022 HUD CHAS",
+          "definition": "Percent of households with income below 80% of county median family income and housing costs above 50% of household income, 2018\u20132022 HUD CHAS.",
+          "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+          "visualization": {
+            "kind": "source-percentile",
+            "property": "percentile",
+            "domain": [
+              0,
+              100
+            ],
+            "interpretation": "Relative position for this indicator only; not personal risk."
+          },
+          "limitations": [
+            "Descriptive tract context; not a property measurement or causal explanation."
+          ],
+          "provenance": {
+            "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+            "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+            "rawField": "housingB",
+            "percentileField": "housingBP",
+            "evidenceURLs": [
+              "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=5037fd8114964398a5da63b66276ad24"
+            ]
+          },
+          "percentileDomain": [
+            0,
+            100
+          ],
+          "sourceId": "ces-5.0-final-2026-07-01",
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonKey": "ces-5.0-final-2026-07-01|housing|2020-census-tract|%|2018\u20132022 HUD CHAS"
+        },
+        {
+          "tractId": "06001403402",
+          "indicatorId": "diesel",
+          "datasetVersion": "ces-5.0-final-2026-07-01",
+          "geographicLevel": "2020-census-tract",
+          "rawValue": 0.947291889,
+          "percentile": 99.1975376497746,
+          "unit": "tons/year",
+          "measurementPeriod": "2021 or 2022 by source",
+          "definition": "Diesel PM emissions within and near populated parts of the tract, including on-road, stationary, area and ocean-going vessel sources; not ambient concentration.",
+          "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+          "visualization": {
+            "kind": "source-percentile",
+            "property": "percentile",
+            "domain": [
+              0,
+              100
+            ],
+            "interpretation": "Relative position for this indicator only; not personal risk."
+          },
+          "limitations": [
+            "Descriptive tract context; not a property measurement or causal explanation."
+          ],
+          "provenance": {
+            "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+            "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+            "rawField": "diesel",
+            "percentileField": "dieselP",
+            "evidenceURLs": [
+              "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=b53e1ba5a61540e0b1b59c8a433690ca"
+            ]
+          },
+          "percentileDomain": [
+            0,
+            100
+          ],
+          "sourceId": "ces-5.0-final-2026-07-01",
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonKey": "ces-5.0-final-2026-07-01|diesel|2020-census-tract|tons/year|2021 or 2022 by source"
+        },
+        {
+          "tractId": "06001403402",
+          "indicatorId": "cleanup",
+          "datasetVersion": "ces-5.0-final-2026-07-01",
+          "geographicLevel": "2020-census-tract",
+          "rawValue": 24.45,
+          "percentile": 84.8233162186651,
+          "unit": "weighted site score",
+          "measurementPeriod": "March 2026 source snapshot",
+          "definition": "Weighted sum of cleanup and NPL Superfund sites by site characteristics and proximity to populated areas; not a site count.",
+          "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+          "visualization": {
+            "kind": "source-percentile",
+            "property": "percentile",
+            "domain": [
+              0,
+              100
+            ],
+            "interpretation": "Relative position for this indicator only; not personal risk."
+          },
+          "limitations": [
+            "Descriptive tract context; not a property measurement or causal explanation."
+          ],
+          "provenance": {
+            "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+            "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+            "rawField": "cleanups",
+            "percentileField": "cleanupsP",
+            "evidenceURLs": [
+              "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=5ba363814e1d4b799feaaf3a3c6a38d0"
+            ]
+          },
+          "percentileDomain": [
+            0,
+            100
+          ],
+          "sourceId": "ces-5.0-final-2026-07-01",
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonKey": "ces-5.0-final-2026-07-01|cleanup|2020-census-tract|weighted site score|March 2026 source snapshot"
+        },
+        {
+          "tractId": "06001403402",
+          "indicatorId": "pop_und10",
+          "datasetVersion": "ces-5.0-final-2026-07-01",
+          "geographicLevel": "2020-census-tract",
+          "rawValue": 1.8,
+          "percentile": null,
+          "unit": "%",
+          "measurementPeriod": "2020\u20132024 ACS 5-year",
+          "definition": "Percent of population under age 10.",
+          "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+          "visualization": {
+            "kind": "neutral-percentage",
+            "property": "value",
+            "domain": [
+              0,
+              100
+            ],
+            "interpretation": "Population composition; no hazard direction or source percentile."
+          },
+          "limitations": [
+            "Descriptive tract context; not a property measurement or causal explanation."
+          ],
+          "provenance": {
+            "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+            "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+            "rawField": "pop_und10",
+            "percentileField": null,
+            "evidenceURLs": [
+              "https://publish.data.ca.gov/dataset/calenviroscreen-5-0"
+            ]
+          },
+          "percentileDomain": null,
+          "sourceId": "ces-5.0-final-2026-07-01",
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonKey": "ces-5.0-final-2026-07-01|pop_und10|2020-census-tract|%|2020\u20132024 ACS 5-year"
+        },
+        {
+          "tractId": "06001403402",
+          "indicatorId": "hisp",
+          "datasetVersion": "ces-5.0-final-2026-07-01",
+          "geographicLevel": "2020-census-tract",
+          "rawValue": 23.85,
+          "percentile": null,
+          "unit": "%",
+          "measurementPeriod": "2020\u20132024 ACS 5-year",
+          "definition": "Percent identifying as Hispanic or Latino.",
+          "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+          "visualization": {
+            "kind": "neutral-percentage",
+            "property": "value",
+            "domain": [
+              0,
+              100
+            ],
+            "interpretation": "Population composition; no hazard direction or source percentile."
+          },
+          "limitations": [
+            "Descriptive tract context; not a property measurement or causal explanation."
+          ],
+          "provenance": {
+            "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+            "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+            "rawField": "hisp",
+            "percentileField": null,
+            "evidenceURLs": [
+              "https://publish.data.ca.gov/dataset/calenviroscreen-5-0"
+            ]
+          },
+          "percentileDomain": null,
+          "sourceId": "ces-5.0-final-2026-07-01",
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonKey": "ces-5.0-final-2026-07-01|hisp|2020-census-tract|%|2020\u20132024 ACS 5-year"
+        }
+      ]
+    },
+    {
+      "contractVersion": "atlas-observations-v1",
+      "datasetVersion": "ces-5.0-final-2026-07-01",
+      "tractId": "06019000602",
+      "tractVintage": "2020",
+      "place": "Fresno",
+      "county": "Fresno",
+      "observations": [
+        {
+          "tractId": "06019000602",
+          "indicatorId": "asthma",
+          "datasetVersion": "ces-5.0-final-2026-07-01",
+          "geographicLevel": "2020-census-tract",
+          "rawValue": 88,
+          "percentile": 97.9609831367795,
+          "unit": "ED visits per 10,000 people",
+          "measurementPeriod": "2022\u20132023",
+          "definition": "Age-adjusted asthma emergency department visit rate averaged over 2022\u20132023; population-level rate, not personal disease probability.",
+          "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+          "visualization": {
+            "kind": "source-percentile",
+            "property": "percentile",
+            "domain": [
+              0,
+              100
+            ],
+            "interpretation": "Relative position for this indicator only; not personal risk."
+          },
+          "limitations": [
+            "Population-level source estimate, not personal disease probability."
+          ],
+          "provenance": {
+            "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+            "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+            "rawField": "asthma",
+            "percentileField": "asthmaP",
+            "evidenceURLs": [
+              "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=392a3dfd505e4749b0ffe4ca12619d08"
+            ]
+          },
+          "percentileDomain": [
+            0,
+            100
+          ],
+          "sourceId": "ces-5.0-final-2026-07-01",
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonKey": "ces-5.0-final-2026-07-01|asthma|2020-census-tract|ED visits per 10,000 people|2022\u20132023"
+        },
+        {
+          "tractId": "06019000602",
+          "indicatorId": "heart-attacks",
+          "datasetVersion": "ces-5.0-final-2026-07-01",
+          "geographicLevel": "2020-census-tract",
+          "rawValue": 22.12,
+          "percentile": 91.5859030837004,
+          "unit": "ED visits per 10,000 people",
+          "measurementPeriod": "2021\u20132023",
+          "definition": "Age-adjusted acute myocardial infarction emergency department visit rate averaged over 2021\u20132023; not all cardiovascular diagnoses or personal disease probability.",
+          "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+          "visualization": {
+            "kind": "source-percentile",
+            "property": "percentile",
+            "domain": [
+              0,
+              100
+            ],
+            "interpretation": "Relative position for this indicator only; not personal risk."
+          },
+          "limitations": [
+            "Population-level source estimate, not personal disease probability."
+          ],
+          "provenance": {
+            "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+            "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+            "rawField": "cvd",
+            "percentileField": "cvdP",
+            "evidenceURLs": [
+              "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=e33909a08f4e41cf836bc2698e5e17a3"
+            ]
+          },
+          "percentileDomain": [
+            0,
+            100
+          ],
+          "sourceId": "ces-5.0-final-2026-07-01",
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonKey": "ces-5.0-final-2026-07-01|heart-attacks|2020-census-tract|ED visits per 10,000 people|2021\u20132023"
+        },
+        {
+          "tractId": "06019000602",
+          "indicatorId": "diabetes",
+          "datasetVersion": "ces-5.0-final-2026-07-01",
+          "geographicLevel": "2020-census-tract",
+          "rawValue": 19,
+          "percentile": 98.6438809261301,
+          "unit": "%",
+          "measurementPeriod": "2023",
+          "definition": "Model-based diabetes prevalence among adults aged 18 and older from CDC PLACES, 2023; not a diagnosis or personal disease probability.",
+          "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+          "visualization": {
+            "kind": "source-percentile",
+            "property": "percentile",
+            "domain": [
+              0,
+              100
+            ],
+            "interpretation": "Relative position for this indicator only; not personal risk."
+          },
+          "limitations": [
+            "Population-level source estimate, not personal disease probability."
+          ],
+          "provenance": {
+            "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+            "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+            "rawField": "diabetes",
+            "percentileField": "diabetesP",
+            "evidenceURLs": [
+              "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=b0d33bc0fd444598bb3fc67cc503ea13"
+            ]
+          },
+          "percentileDomain": [
+            0,
+            100
+          ],
+          "sourceId": "ces-5.0-final-2026-07-01",
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonKey": "ces-5.0-final-2026-07-01|diabetes|2020-census-tract|%|2023"
+        },
+        {
+          "tractId": "06019000602",
+          "indicatorId": "low-birth-weight",
+          "datasetVersion": "ces-5.0-final-2026-07-01",
+          "geographicLevel": "2020-census-tract",
+          "rawValue": 10.12,
+          "percentile": 98.8267148014441,
+          "unit": "%",
+          "measurementPeriod": "2018\u20132024",
+          "definition": "Percent of live births weighing less than 2,500 g, averaged over 2018\u20132024; records with too few births may be missing.",
+          "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+          "visualization": {
+            "kind": "source-percentile",
+            "property": "percentile",
+            "domain": [
+              0,
+              100
+            ],
+            "interpretation": "Relative position for this indicator only; not personal risk."
+          },
+          "limitations": [
+            "Population-level source estimate, not personal disease probability."
+          ],
+          "provenance": {
+            "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+            "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+            "rawField": "lbw",
+            "percentileField": "lbwP",
+            "evidenceURLs": [
+              "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=4ead6dc88f51438fb0edbaaed56548a6"
+            ]
+          },
+          "percentileDomain": [
+            0,
+            100
+          ],
+          "sourceId": "ces-5.0-final-2026-07-01",
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonKey": "ces-5.0-final-2026-07-01|low-birth-weight|2020-census-tract|%|2018\u20132024"
+        },
+        {
+          "tractId": "06019000602",
+          "indicatorId": "poverty",
+          "datasetVersion": "ces-5.0-final-2026-07-01",
+          "geographicLevel": "2020-census-tract",
+          "rawValue": 71.1688311688312,
+          "percentile": 98.7611989824134,
+          "unit": "%",
+          "measurementPeriod": "2020\u20132024 ACS 5-year",
+          "definition": "Percent of people living below twice the federal poverty level, 2020\u20132024 ACS; not percent below the single federal poverty threshold.",
+          "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+          "visualization": {
+            "kind": "source-percentile",
+            "property": "percentile",
+            "domain": [
+              0,
+              100
+            ],
+            "interpretation": "Relative position for this indicator only; not personal risk."
+          },
+          "limitations": [
+            "Descriptive tract context; not a property measurement or causal explanation."
+          ],
+          "provenance": {
+            "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+            "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+            "rawField": "pov",
+            "percentileField": "povP",
+            "evidenceURLs": [
+              "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=54a0510621d1480087975e48e28077d9"
+            ]
+          },
+          "percentileDomain": [
+            0,
+            100
+          ],
+          "sourceId": "ces-5.0-final-2026-07-01",
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonKey": "ces-5.0-final-2026-07-01|poverty|2020-census-tract|%|2020\u20132024 ACS 5-year"
+        },
+        {
+          "tractId": "06019000602",
+          "indicatorId": "housing",
+          "datasetVersion": "ces-5.0-final-2026-07-01",
+          "geographicLevel": "2020-census-tract",
+          "rawValue": 35.4166666666667,
+          "percentile": 96.940133037694,
+          "unit": "%",
+          "measurementPeriod": "2018\u20132022 HUD CHAS",
+          "definition": "Percent of households with income below 80% of county median family income and housing costs above 50% of household income, 2018\u20132022 HUD CHAS.",
+          "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+          "visualization": {
+            "kind": "source-percentile",
+            "property": "percentile",
+            "domain": [
+              0,
+              100
+            ],
+            "interpretation": "Relative position for this indicator only; not personal risk."
+          },
+          "limitations": [
+            "Descriptive tract context; not a property measurement or causal explanation."
+          ],
+          "provenance": {
+            "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+            "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+            "rawField": "housingB",
+            "percentileField": "housingBP",
+            "evidenceURLs": [
+              "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=5037fd8114964398a5da63b66276ad24"
+            ]
+          },
+          "percentileDomain": [
+            0,
+            100
+          ],
+          "sourceId": "ces-5.0-final-2026-07-01",
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonKey": "ces-5.0-final-2026-07-01|housing|2020-census-tract|%|2018\u20132022 HUD CHAS"
+        },
+        {
+          "tractId": "06019000602",
+          "indicatorId": "diesel",
+          "datasetVersion": "ces-5.0-final-2026-07-01",
+          "geographicLevel": "2020-census-tract",
+          "rawValue": 0.190511512,
+          "percentile": 87.0836539518523,
+          "unit": "tons/year",
+          "measurementPeriod": "2021 or 2022 by source",
+          "definition": "Diesel PM emissions within and near populated parts of the tract, including on-road, stationary, area and ocean-going vessel sources; not ambient concentration.",
+          "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+          "visualization": {
+            "kind": "source-percentile",
+            "property": "percentile",
+            "domain": [
+              0,
+              100
+            ],
+            "interpretation": "Relative position for this indicator only; not personal risk."
+          },
+          "limitations": [
+            "Descriptive tract context; not a property measurement or causal explanation."
+          ],
+          "provenance": {
+            "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+            "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+            "rawField": "diesel",
+            "percentileField": "dieselP",
+            "evidenceURLs": [
+              "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=b53e1ba5a61540e0b1b59c8a433690ca"
+            ]
+          },
+          "percentileDomain": [
+            0,
+            100
+          ],
+          "sourceId": "ces-5.0-final-2026-07-01",
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonKey": "ces-5.0-final-2026-07-01|diesel|2020-census-tract|tons/year|2021 or 2022 by source"
+        },
+        {
+          "tractId": "06019000602",
+          "indicatorId": "cleanup",
+          "datasetVersion": "ces-5.0-final-2026-07-01",
+          "geographicLevel": "2020-census-tract",
+          "rawValue": 4.25,
+          "percentile": 36.9676834793114,
+          "unit": "weighted site score",
+          "measurementPeriod": "March 2026 source snapshot",
+          "definition": "Weighted sum of cleanup and NPL Superfund sites by site characteristics and proximity to populated areas; not a site count.",
+          "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+          "visualization": {
+            "kind": "source-percentile",
+            "property": "percentile",
+            "domain": [
+              0,
+              100
+            ],
+            "interpretation": "Relative position for this indicator only; not personal risk."
+          },
+          "limitations": [
+            "Descriptive tract context; not a property measurement or causal explanation."
+          ],
+          "provenance": {
+            "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+            "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+            "rawField": "cleanups",
+            "percentileField": "cleanupsP",
+            "evidenceURLs": [
+              "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=5ba363814e1d4b799feaaf3a3c6a38d0"
+            ]
+          },
+          "percentileDomain": [
+            0,
+            100
+          ],
+          "sourceId": "ces-5.0-final-2026-07-01",
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonKey": "ces-5.0-final-2026-07-01|cleanup|2020-census-tract|weighted site score|March 2026 source snapshot"
+        },
+        {
+          "tractId": "06019000602",
+          "indicatorId": "pop_und10",
+          "datasetVersion": "ces-5.0-final-2026-07-01",
+          "geographicLevel": "2020-census-tract",
+          "rawValue": 15.71,
+          "percentile": null,
+          "unit": "%",
+          "measurementPeriod": "2020\u20132024 ACS 5-year",
+          "definition": "Percent of population under age 10.",
+          "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+          "visualization": {
+            "kind": "neutral-percentage",
+            "property": "value",
+            "domain": [
+              0,
+              100
+            ],
+            "interpretation": "Population composition; no hazard direction or source percentile."
+          },
+          "limitations": [
+            "Descriptive tract context; not a property measurement or causal explanation."
+          ],
+          "provenance": {
+            "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+            "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+            "rawField": "pop_und10",
+            "percentileField": null,
+            "evidenceURLs": [
+              "https://publish.data.ca.gov/dataset/calenviroscreen-5-0"
+            ]
+          },
+          "percentileDomain": null,
+          "sourceId": "ces-5.0-final-2026-07-01",
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonKey": "ces-5.0-final-2026-07-01|pop_und10|2020-census-tract|%|2020\u20132024 ACS 5-year"
+        },
+        {
+          "tractId": "06019000602",
+          "indicatorId": "hisp",
+          "datasetVersion": "ces-5.0-final-2026-07-01",
+          "geographicLevel": "2020-census-tract",
+          "rawValue": 66.87,
+          "percentile": null,
+          "unit": "%",
+          "measurementPeriod": "2020\u20132024 ACS 5-year",
+          "definition": "Percent identifying as Hispanic or Latino.",
+          "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+          "visualization": {
+            "kind": "neutral-percentage",
+            "property": "value",
+            "domain": [
+              0,
+              100
+            ],
+            "interpretation": "Population composition; no hazard direction or source percentile."
+          },
+          "limitations": [
+            "Descriptive tract context; not a property measurement or causal explanation."
+          ],
+          "provenance": {
+            "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+            "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+            "rawField": "hisp",
+            "percentileField": null,
+            "evidenceURLs": [
+              "https://publish.data.ca.gov/dataset/calenviroscreen-5-0"
+            ]
+          },
+          "percentileDomain": null,
+          "sourceId": "ces-5.0-final-2026-07-01",
+          "status": "available",
+          "qualityFlags": [],
+          "comparisonKey": "ces-5.0-final-2026-07-01|hisp|2020-census-tract|%|2020\u20132024 ACS 5-year"
+        }
+      ]
+    }
+  ],
+  "genuineMissing": {
+    "contractVersion": "atlas-observations-v1",
+    "datasetVersion": "ces-5.0-final-2026-07-01",
+    "tractId": "06001402802",
+    "tractVintage": "2020",
+    "place": "Oakland",
+    "county": "Alameda",
+    "observations": [
+      {
+        "tractId": "06001402802",
+        "indicatorId": "low-birth-weight",
+        "datasetVersion": "ces-5.0-final-2026-07-01",
+        "geographicLevel": "2020-census-tract",
+        "rawValue": null,
+        "percentile": null,
+        "unit": "%",
+        "measurementPeriod": "2018\u20132024",
+        "definition": "Percent of live births weighing less than 2,500 g, averaged over 2018\u20132024; records with too few births may be missing.",
+        "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+        "visualization": {
+          "kind": "source-percentile",
+          "property": "percentile",
+          "domain": [
+            0,
+            100
+          ],
+          "interpretation": "Relative position for this indicator only; not personal risk."
+        },
+        "limitations": [
+          "Population-level source estimate, not personal disease probability."
+        ],
+        "provenance": {
+          "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+          "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+          "rawField": "lbw",
+          "percentileField": "lbwP",
+          "evidenceURLs": [
+            "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=4ead6dc88f51438fb0edbaaed56548a6"
+          ]
+        },
+        "percentileDomain": [
+          0,
+          100
+        ],
+        "sourceId": "ces-5.0-final-2026-07-01",
+        "status": "missing",
+        "qualityFlags": [
+          "raw-value-missing",
+          "percentile-missing"
+        ],
+        "comparisonKey": "ces-5.0-final-2026-07-01|low-birth-weight|2020-census-tract|%|2018\u20132024"
+      }
+    ]
+  },
+  "genuineZero": {
+    "contractVersion": "atlas-observations-v1",
+    "datasetVersion": "ces-5.0-final-2026-07-01",
+    "tractId": "06001400200",
+    "tractVintage": "2020",
+    "place": "Oakland",
+    "county": "Alameda",
+    "observations": [
+      {
+        "tractId": "06001400200",
+        "indicatorId": "cleanup",
+        "datasetVersion": "ces-5.0-final-2026-07-01",
+        "geographicLevel": "2020-census-tract",
+        "rawValue": 0,
+        "percentile": 0,
+        "unit": "weighted site score",
+        "measurementPeriod": "March 2026 source snapshot",
+        "definition": "Weighted sum of cleanup and NPL Superfund sites by site characteristics and proximity to populated areas; not a site count.",
+        "definitionSource": "https://publish.data.ca.gov/dataset/calenviroscreen-5-0",
+        "visualization": {
+          "kind": "source-percentile",
+          "property": "percentile",
+          "domain": [
+            0,
+            100
+          ],
+          "interpretation": "Relative position for this indicator only; not personal risk."
+        },
+        "limitations": [
+          "Descriptive tract context; not a property measurement or causal explanation."
+        ],
+        "provenance": {
+          "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+          "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+          "rawField": "cleanups",
+          "percentileField": "cleanupsP",
+          "evidenceURLs": [
+            "https://oehha.maps.arcgis.com/apps/instant/sidebar/index.html?appid=5ba363814e1d4b799feaaf3a3c6a38d0"
+          ]
+        },
+        "percentileDomain": [
+          0,
+          100
+        ],
+        "sourceId": "ces-5.0-final-2026-07-01",
+        "status": "available",
+        "qualityFlags": [],
+        "comparisonKey": "ces-5.0-final-2026-07-01|cleanup|2020-census-tract|weighted site score|March 2026 source snapshot"
+      }
+    ]
+  }
+}

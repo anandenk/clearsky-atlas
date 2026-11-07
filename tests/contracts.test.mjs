@@ -1,9 +1,11 @@
-import { test } from "node:test";
+import { test, after } from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import { catalog } from "../src/contracts/indicators.ts";
+import { loadBackendModules } from "./load-backend-modules.mjs";
+const modules = await loadBackendModules();
+after(modules.cleanup);
 import { parseBounds } from "../src/contracts/bounds.ts";
-const metadata = catalog();
+const metadata = modules.indicators.catalog();
 const rows = JSON.parse(fs.readFileSync("data/observations.json"));
 test("catalog fields and null counts match all cached source observations", () => {
   assert.equal(metadata.indicators.length, 23);

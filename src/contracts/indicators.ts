@@ -1,5 +1,6 @@
 /** Backend-owned source contracts. Unknown evidence stays null; do not infer from release dates. */
-export const CONTRACT_VERSION = "atlas-indicators-v1.1";
+export const CONTRACT_VERSION = "atlas-indicators-v1.2";
+import { verifiedTargets } from "./verified-targets";
 export const DATASET_VERSION = "ces-5.0-final-2026-07-01";
 const dictionary = "https://publish.data.ca.gov/dataset/calenviroscreen-5-0";
 type Mode = "environment" | "health" | "community";
@@ -18,12 +19,22 @@ export type IndicatorContract = {
     | "unresolved";
   measurementPeriod: string | null;
   periodVerification:
-    "verified-factsheet" | "verified-dictionary" | "unresolved";
+    | "verified-factsheet"
+    | "verified-dictionary"
+    | "verified-primary-map"
+    | "unresolved";
   availability:
     "backend-ready" | "baseline-active-provisional" | "metadata-only";
   backendReady: boolean;
   evidence: { sourceURL: string; cacheFile: string; assertion: string }[];
   geographicLevel: "2020-census-tract";
+  visualization: {
+    kind: "source-percentile" | "neutral-percentage";
+    property: "percentile" | "value";
+    domain: readonly [0, 100];
+    interpretation: string;
+  };
+  limitations: string[];
   sourceId: string;
   definitionSource: string;
   missingRawCount: number;
@@ -60,6 +71,26 @@ function row(
     backendReady: false,
     evidence: [],
     geographicLevel: "2020-census-tract",
+    visualization: percentileField
+      ? {
+          kind: "source-percentile",
+          property: "percentile",
+          domain: [0, 100],
+          interpretation:
+            "Relative position for this indicator only; not personal risk.",
+        }
+      : {
+          kind: "neutral-percentage",
+          property: "value",
+          domain: [0, 100],
+          interpretation:
+            "Population composition; no hazard direction or source percentile.",
+        },
+    limitations: [
+      mode === "health"
+        ? "Population-level source estimate, not personal disease probability."
+        : "Descriptive tract context; not a property measurement or causal explanation.",
+    ],
     sourceId: DATASET_VERSION,
     definitionSource: dictionary,
     missingRawCount,
@@ -310,6 +341,43 @@ export const indicatorContracts: IndicatorContract[] = [
     rawDifferencePolicy: "same-definition-period-unit-only" as const,
   })),
 ];
+// Promote only source-verified contracts; dictionary demographics have no hazard percentile.
+for (const indicator of indicatorContracts) {
+  const proof = verifiedTargets[indicator.id as keyof typeof verifiedTargets];
+  if (proof) {
+    indicator.unit = proof.unit;
+    indicator.unitVerification = "verified-primary-map";
+    indicator.measurementPeriod = proof.measurementPeriod;
+    indicator.periodVerification = "verified-primary-map";
+    indicator.definition = proof.definition;
+    indicator.backendReady = true;
+    indicator.availability = "backend-ready";
+    indicator.rawDifferencePolicy = "same-definition-period-unit-only";
+    indicator.unresolved = [];
+    indicator.evidence = [
+      {
+        sourceURL: proof.sourceURL,
+        cacheFile: proof.cacheFile,
+        assertion:
+          "Inspected final publisher popup descriptions and expression results corroborate unit, definition and source period.",
+      },
+    ];
+  } else if (
+    indicator.percentileField === null &&
+    indicator.periodVerification === "verified-dictionary"
+  ) {
+    indicator.backendReady = true;
+    indicator.availability = "backend-ready";
+    indicator.evidence = [
+      {
+        sourceURL: dictionary,
+        cacheFile: "data/raw/ces.pdf",
+        assertion:
+          "Downloaded CES5 dictionary demographic table supplies population-percentage definition and 2020–2024 ACS period.",
+      },
+    ];
+  }
+}
 export function catalog() {
   return {
     contractVersion: CONTRACT_VERSION,

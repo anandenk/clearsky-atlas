@@ -51,3 +51,11 @@ Catalog atlas-indicators-v1.1 marks PM and ozone backend-ready. Added normalized
 21 backend tests and TypeScript passed. Repeatable HTTP smoke checks passed on :3000 and :3001, including source/value/map consistency and unsupported/invalid/version errors. Full frontend source ownership remains with the other session; no UI edits, dependency/config changes, or frontend merges in this pass. Additional source breadth and infrastructure remain planned. See BACKEND_CHANGES.md for consumption instructions and exact checks.
 
 Final milestone checkpoint: production build passed, main dev server restored, both-port HTTP smoke checks passed again. Real API sample is data/samples/air-api-v1.json. No remaining PM/ozone unit gap; remaining scientific/source uncertainty is recorded by indicator instead of blocking unrelated implementation.
+
+## Current milestone — full intended scalar/demographic backend breadth
+
+This supersedes earlier two-indicator-only backend status. All 13 original scalar targets plus 10 demographic entries are backend-ready in catalog v1.2. Final publisher app descriptions/expressions corroborated units/periods; all 26 scalar values/percentiles matched at both source-point checks. Demographic period/units are dictionary-verified. Source null/zero behavior preserved across all 9,106 tracts. Named maps join only the selected metric; demographic legends use neutral raw percentages, not hazard percentiles. Percent-valued raw comparison differences now explicitly label percentage points.
+
+26 backend tests, TypeScript, production build and all-23-indicator HTTP smoke checks on :3000 and :3001 passed. No frontend-owned code was edited or merged. Source matrix, API consumption changes and limits are in BACKEND_CHANGES.md; representative real API records including null/zero cases are data/samples/breadth-api-v1.json.
+
+Next backend milestone: complete verified infrastructure feeds and qualified facility queries/distances. Statewide healthcare source and other facility coverage/status/license details remain blockers. Comparison/story summaries, measured statewide performance and integration remain later work. Sponsor services parked until near MVP readiness, by user decision; full atlas scope retained.

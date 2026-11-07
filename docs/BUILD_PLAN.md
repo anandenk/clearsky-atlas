@@ -38,6 +38,8 @@ No automatic region restriction or field cut is authorized by this table. Do not
 
 ## Sponsor and theme strategy
 
+**User decision, 2026-11-07:** sponsor services are parked until the core atlas nears MVP readiness. Revisit after supported data layers and the frontend exploration/comparison flow are integrated and reviewed. No sponsor accounts, service integration, or track-specific implementation work is part of current backend passes. The optional routes below remain future candidates; they do not reduce the full atlas scope.
+
 Sources inspected in the planning conversation on 2026-11-07:
 - https://hackrpi-2026.devpost.com/
 - https://hackrpi.com/event/
