@@ -29,7 +29,7 @@ export const placeColors = [
   "#407b9e",
 ];
 // Revise this key when the style changes: open maps must reload static style fixes.
-export const vectorStyle = "/ui/basemap.json?v=neutral-ground-2";
+export const vectorStyle = "/ui/clearsky-city.json?v=1";
 export const rasterStyle: StyleSpecification = {
   version: 8,
   sources: {

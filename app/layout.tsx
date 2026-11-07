@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import "../src/styles/atlas.css";
 import "../src/styles/comparison.css";
+import "../src/styles/city.css";
 export const metadata: Metadata = {
-  title: "Common ground — California Environmental Atlas",
+  title: "ClearSky — California Environmental Atlas",
   description:
     "Explore and compare California addresses through shared, source-backed tract evidence.",
 };

@@ -432,11 +432,11 @@ export default function Page() {
             setActive("all");
             setReset((n) => n + 1);
           }}
-          aria-label="Common ground, return to map overview"
+          aria-label="ClearSky, return to map overview"
         >
           <BrandMark />
           <span>
-            <strong>Common ground</strong>
+            <strong>ClearSky</strong>
             <small>California environmental atlas</small>
           </span>
         </button>
@@ -911,7 +911,7 @@ export default function Page() {
       >
         <div className="about-content">
           <BrandMark />
-          <h3>Common ground</h3>
+          <h3>ClearSky</h3>
           <p>
             A California environmental atlas. Explore a place, change your
             perspective, and compare it with the places that matter to you.

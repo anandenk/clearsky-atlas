@@ -94,8 +94,14 @@ export default function AtlasMap(p: Props) {
     });
     map.current = m;
     container.current.dataset.instance = String(Date.now());
+    m.on("idle", () => {
+      if (container.current && m.getLayer("city-buildings")) {
+        container.current.dataset.buildingsRendered = String(m.queryRenderedFeatures({layers:["city-buildings"]}).length);
+        container.current.dataset.pitch = String(m.getPitch());
+      }
+    });
     m.addControl(
-      new gl.NavigationControl({ showCompass: false }),
+      new gl.NavigationControl({ showCompass: true }),
       "bottom-right",
     );
     const ro = new ResizeObserver(() => m.resize());
@@ -151,7 +157,7 @@ export default function AtlasMap(p: Props) {
             type: "line",
             source: "tracts" + i,
             filter: ["in", ["get", "id"], ["literal", []]],
-            paint: { "line-color": "#454582", "line-width": 2.5 },
+            paint: { "line-color": "#5DBDB0", "line-width": 2.5 },
           },
           before,
         );
@@ -471,12 +477,14 @@ export default function AtlasMap(p: Props) {
     const side = mobile || p.collapsed || !p.places.length ? 0 :
       (panel ? panel.offsetLeft + panel.offsetWidth + 24 : 468);
     const deck = 0;
-    const duration = reduced() ? 0 : 1100;
+    const duration = reduced() ? 0 : 1800;
     const focus = p.places.find((v) => v.id === p.active);
     if (focus)
       m.flyTo({
         center: focus.selection.coordinate,
-        zoom: 11.5,
+        zoom: 15.6,
+        pitch: p.raster ? 0 : 58,
+        bearing: -25,
         duration,
         essential: false,
         padding: {
@@ -503,7 +511,9 @@ export default function AtlasMap(p: Props) {
     } else if (p.places.length === 1)
       m.flyTo({
         center: p.places[0].selection.coordinate,
-        zoom: 11.5,
+        zoom: 15.6,
+        pitch: p.raster ? 0 : 58,
+        bearing: -25,
         duration,
         padding: {
           top: mobile ? 230 : 90,
@@ -608,6 +618,7 @@ export default function AtlasMap(p: Props) {
         className="atlas-map"
         aria-label="Interactive California map"
       />
+      <p className="city-provenance">City View · <a href="https://openmaptiles.org/schema/#building" target="_blank" rel="noreferrer">OpenStreetMap buildings</a> via OpenFreeMap. Heights approximate; coverage varies. Ground colors describe tracts.</p>
       {hover && (
         <div
           className="map-tooltip"
