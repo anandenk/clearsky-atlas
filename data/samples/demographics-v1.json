@@ -1,0 +1,474 @@
+{
+  "profile": {
+    "contractVersion": "atlas-demographics-v1",
+    "datasetVersion": "ces-5.0-final-2026-07-01",
+    "measurementPeriod": "2020–2024 ACS 5-year",
+    "unit": "%",
+    "geographicLevel": "2020-census-tract",
+    "denominator": {
+      "concept": "Tract population estimate as supplied by CES demographic profile",
+      "sourceField": "ACS2024Pop",
+      "sourceLabel": "Total Population",
+      "unit": "people",
+      "categoryCountDerivation": "none",
+      "populationEstimate": 998
+    },
+    "visualization": {
+      "kind": "neutral-percentage",
+      "domain": [
+        0,
+        100
+      ],
+      "recommended": "independent-neutral-bars",
+      "interpretation": "Source population percentages, no hazard direction or source percentile."
+    },
+    "normalization": "none",
+    "derivedCategoryCounts": false,
+    "rounding": {
+      "sourceDecimalPlaces": 2,
+      "interpretation": "Sum allowance is arithmetic from rounding each reported share to two decimals, not a confidence interval, missing-share estimate or margin of error."
+    },
+    "limitations": [
+      "Publisher-defined profile fields, not independently reconstructed ACS counts or reclassified race/ethnicity categories.",
+      "Rounding allowance describes arithmetic of reported two-decimal shares, not a confidence interval or margin of error.",
+      "Never normalize available shares to 100%, split combined Other/Multiple, or invent residual categories.",
+      "These are publisher-defined combined profile categories. Other/Multiple is retained as supplied; no separate race/ethnicity reclassification or residual category is inferred.",
+      "Use reported percentages as values. Label missing shares and sum discrepancies; never rescale bars or available shares to total 100%."
+    ],
+    "source": {
+      "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+      "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+      "dictionaryUrl": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/31ddb21a-44bb-4cb0-81d8-6e2f80ee359d/download/final-calenviroscreen-5.0-data-dictionary.pdf",
+      "dictionarySha256": "1c730d0a9a7e727185039d2850d466ebc76ebcbc0b986e0d5494ca0388fe7eab",
+      "dictionaryPages": [
+        4,
+        5,
+        6
+      ]
+    },
+    "groups": [
+      {
+        "id": "age",
+        "label": "Age profile",
+        "dictionaryPage": 4,
+        "categories": [
+          {
+            "id": "pop_und10",
+            "indicatorId": "pop_und10",
+            "label": "Children under 10",
+            "sourceLabel": "Children <10 years (%)",
+            "definition": "Percent of population under age 10.",
+            "rawField": "pop_und10",
+            "sourceLayerField": "pop_und10",
+            "value": 1.8,
+            "status": "available",
+            "percentile": null,
+            "qualityFlags": []
+          },
+          {
+            "id": "pop_10_64",
+            "indicatorId": "pop_10_64",
+            "label": "Population ages 10–64",
+            "sourceLabel": "Population10–64 years (%)",
+            "definition": "Percent of population ages 10 through 64.",
+            "rawField": "pop_10_64",
+            "sourceLayerField": "pop_10_64",
+            "value": 89.68,
+            "status": "available",
+            "percentile": null,
+            "qualityFlags": []
+          },
+          {
+            "id": "pop_ov64",
+            "indicatorId": "pop_ov64",
+            "label": "Population ages 65+",
+            "sourceLabel": "Elderly ≥65 years (%)",
+            "definition": "Percent of population aged 65 and older.",
+            "rawField": "pop_ov64",
+            "sourceLayerField": "pop_ov64",
+            "value": 8.52,
+            "status": "available",
+            "percentile": null,
+            "qualityFlags": []
+          }
+        ],
+        "status": "available",
+        "complete": true,
+        "missingCategoryIds": [],
+        "availableShareSumPercent": 100,
+        "reportedSumPercent": 100,
+        "residualTo100PercentagePoints": 0,
+        "isWithinRoundingAllowance": true,
+        "roundingAllowancePercentagePoints": 0.015,
+        "qualityFlags": [],
+        "sumInterpretation": "Reported sum and residual are diagnostics, not new categories. A residual must never be displayed as Other or used to replace missing shares."
+      },
+      {
+        "id": "race-ethnicity",
+        "label": "Publisher race/ethnicity profile",
+        "dictionaryPage": 5,
+        "categories": [
+          {
+            "id": "hisp",
+            "indicatorId": "hisp",
+            "label": "Hispanic or Latino",
+            "sourceLabel": "Latino (%)",
+            "definition": "Percent identifying as Hispanic or Latino.",
+            "rawField": "hisp",
+            "sourceLayerField": "Hispanic",
+            "value": 23.85,
+            "status": "available",
+            "percentile": null,
+            "qualityFlags": []
+          },
+          {
+            "id": "white",
+            "indicatorId": "white",
+            "label": "Non-Hispanic White",
+            "sourceLabel": "White (%)",
+            "definition": "Percent identifying as non-Hispanic White.",
+            "rawField": "white",
+            "sourceLayerField": "white",
+            "value": 33.97,
+            "status": "available",
+            "percentile": null,
+            "qualityFlags": []
+          },
+          {
+            "id": "black",
+            "indicatorId": "black",
+            "label": "Non-Hispanic Black",
+            "sourceLabel": "Black (%)",
+            "definition": "Percent identifying as non-Hispanic African American or Black.",
+            "rawField": "black",
+            "sourceLayerField": "black",
+            "value": 29.16,
+            "status": "available",
+            "percentile": null,
+            "qualityFlags": []
+          },
+          {
+            "id": "amind",
+            "indicatorId": "amind",
+            "label": "Non-Hispanic Native American",
+            "sourceLabel": "Native American (%)",
+            "definition": "Percent identifying as non-Hispanic Native American.",
+            "rawField": "amind",
+            "sourceLayerField": "Native_American",
+            "value": 0,
+            "status": "available",
+            "percentile": null,
+            "qualityFlags": []
+          },
+          {
+            "id": "asian",
+            "indicatorId": "asian",
+            "label": "Non-Hispanic Asian",
+            "sourceLabel": "Asian American (%)",
+            "definition": "Percent identifying as non-Hispanic Asian.",
+            "rawField": "asian",
+            "sourceLayerField": "asian",
+            "value": 7.62,
+            "status": "available",
+            "percentile": null,
+            "qualityFlags": []
+          },
+          {
+            "id": "pacisl",
+            "indicatorId": "pacisl",
+            "label": "Non-Hispanic Pacific Islander",
+            "sourceLabel": "Pacific Islander (%)",
+            "definition": "Percent identifying as non-Hispanic Pacific Islander.",
+            "rawField": "pacisl",
+            "sourceLayerField": "Pacific_Islander",
+            "value": 0,
+            "status": "available",
+            "percentile": null,
+            "qualityFlags": []
+          },
+          {
+            "id": "othmult",
+            "indicatorId": "othmult",
+            "label": "Other or multiple races",
+            "sourceLabel": "Other/Multiple (%)",
+            "definition": "Percent identifying as non-Hispanic other or multiple races.",
+            "rawField": "othmult",
+            "sourceLayerField": "Other_Multiple",
+            "value": 5.41,
+            "status": "available",
+            "percentile": null,
+            "qualityFlags": []
+          }
+        ],
+        "status": "available",
+        "complete": true,
+        "missingCategoryIds": [],
+        "availableShareSumPercent": 100.01,
+        "reportedSumPercent": 100.01,
+        "residualTo100PercentagePoints": -0.01,
+        "isWithinRoundingAllowance": true,
+        "roundingAllowancePercentagePoints": 0.035,
+        "qualityFlags": [],
+        "sumInterpretation": "Reported sum and residual are diagnostics, not new categories. A residual must never be displayed as Other or used to replace missing shares."
+      }
+    ],
+    "tractId": "06001403402",
+    "place": "Oakland",
+    "county": "Alameda"
+  },
+  "zeroPopulationMissingProfile": {
+    "contractVersion": "atlas-demographics-v1",
+    "datasetVersion": "ces-5.0-final-2026-07-01",
+    "measurementPeriod": "2020–2024 ACS 5-year",
+    "unit": "%",
+    "geographicLevel": "2020-census-tract",
+    "denominator": {
+      "concept": "Tract population estimate as supplied by CES demographic profile",
+      "sourceField": "ACS2024Pop",
+      "sourceLabel": "Total Population",
+      "unit": "people",
+      "categoryCountDerivation": "none",
+      "populationEstimate": 0
+    },
+    "visualization": {
+      "kind": "neutral-percentage",
+      "domain": [
+        0,
+        100
+      ],
+      "recommended": "independent-neutral-bars",
+      "interpretation": "Source population percentages, no hazard direction or source percentile."
+    },
+    "normalization": "none",
+    "derivedCategoryCounts": false,
+    "rounding": {
+      "sourceDecimalPlaces": 2,
+      "interpretation": "Sum allowance is arithmetic from rounding each reported share to two decimals, not a confidence interval, missing-share estimate or margin of error."
+    },
+    "limitations": [
+      "Publisher-defined profile fields, not independently reconstructed ACS counts or reclassified race/ethnicity categories.",
+      "Rounding allowance describes arithmetic of reported two-decimal shares, not a confidence interval or margin of error.",
+      "Never normalize available shares to 100%, split combined Other/Multiple, or invent residual categories.",
+      "These are publisher-defined combined profile categories. Other/Multiple is retained as supplied; no separate race/ethnicity reclassification or residual category is inferred.",
+      "Use reported percentages as values. Label missing shares and sum discrepancies; never rescale bars or available shares to total 100%."
+    ],
+    "source": {
+      "sourceURL": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/c4e277e0-cf23-4a8f-b07e-c8544c5d3d2b/download/calenviroscreen50_070126.csv",
+      "sha256": "3abb90971997cc151afe8c0ba46a01f544d1f8aaf4bc8b5d1f72c6d46007a296",
+      "dictionaryUrl": "https://publish.data.ca.gov/dataset/72b28c84-ceac-4886-9f71-d422470d2223/resource/31ddb21a-44bb-4cb0-81d8-6e2f80ee359d/download/final-calenviroscreen-5.0-data-dictionary.pdf",
+      "dictionarySha256": "1c730d0a9a7e727185039d2850d466ebc76ebcbc0b986e0d5494ca0388fe7eab",
+      "dictionaryPages": [
+        4,
+        5,
+        6
+      ]
+    },
+    "groups": [
+      {
+        "id": "age",
+        "label": "Age profile",
+        "dictionaryPage": 4,
+        "categories": [
+          {
+            "id": "pop_und10",
+            "indicatorId": "pop_und10",
+            "label": "Children under 10",
+            "sourceLabel": "Children <10 years (%)",
+            "definition": "Percent of population under age 10.",
+            "rawField": "pop_und10",
+            "sourceLayerField": "pop_und10",
+            "value": null,
+            "status": "missing",
+            "percentile": null,
+            "qualityFlags": [
+              "raw-value-missing"
+            ]
+          },
+          {
+            "id": "pop_10_64",
+            "indicatorId": "pop_10_64",
+            "label": "Population ages 10–64",
+            "sourceLabel": "Population10–64 years (%)",
+            "definition": "Percent of population ages 10 through 64.",
+            "rawField": "pop_10_64",
+            "sourceLayerField": "pop_10_64",
+            "value": null,
+            "status": "missing",
+            "percentile": null,
+            "qualityFlags": [
+              "raw-value-missing"
+            ]
+          },
+          {
+            "id": "pop_ov64",
+            "indicatorId": "pop_ov64",
+            "label": "Population ages 65+",
+            "sourceLabel": "Elderly ≥65 years (%)",
+            "definition": "Percent of population aged 65 and older.",
+            "rawField": "pop_ov64",
+            "sourceLayerField": "pop_ov64",
+            "value": null,
+            "status": "missing",
+            "percentile": null,
+            "qualityFlags": [
+              "raw-value-missing"
+            ]
+          }
+        ],
+        "status": "missing",
+        "complete": false,
+        "missingCategoryIds": [
+          "pop_und10",
+          "pop_10_64",
+          "pop_ov64"
+        ],
+        "availableShareSumPercent": null,
+        "reportedSumPercent": null,
+        "residualTo100PercentagePoints": null,
+        "isWithinRoundingAllowance": null,
+        "roundingAllowancePercentagePoints": 0.015,
+        "qualityFlags": [
+          "missing-source-shares",
+          "zero-source-population-estimate"
+        ],
+        "sumInterpretation": "Reported sum and residual are diagnostics, not new categories. A residual must never be displayed as Other or used to replace missing shares."
+      },
+      {
+        "id": "race-ethnicity",
+        "label": "Publisher race/ethnicity profile",
+        "dictionaryPage": 5,
+        "categories": [
+          {
+            "id": "hisp",
+            "indicatorId": "hisp",
+            "label": "Hispanic or Latino",
+            "sourceLabel": "Latino (%)",
+            "definition": "Percent identifying as Hispanic or Latino.",
+            "rawField": "hisp",
+            "sourceLayerField": "Hispanic",
+            "value": null,
+            "status": "missing",
+            "percentile": null,
+            "qualityFlags": [
+              "raw-value-missing"
+            ]
+          },
+          {
+            "id": "white",
+            "indicatorId": "white",
+            "label": "Non-Hispanic White",
+            "sourceLabel": "White (%)",
+            "definition": "Percent identifying as non-Hispanic White.",
+            "rawField": "white",
+            "sourceLayerField": "white",
+            "value": null,
+            "status": "missing",
+            "percentile": null,
+            "qualityFlags": [
+              "raw-value-missing"
+            ]
+          },
+          {
+            "id": "black",
+            "indicatorId": "black",
+            "label": "Non-Hispanic Black",
+            "sourceLabel": "Black (%)",
+            "definition": "Percent identifying as non-Hispanic African American or Black.",
+            "rawField": "black",
+            "sourceLayerField": "black",
+            "value": null,
+            "status": "missing",
+            "percentile": null,
+            "qualityFlags": [
+              "raw-value-missing"
+            ]
+          },
+          {
+            "id": "amind",
+            "indicatorId": "amind",
+            "label": "Non-Hispanic Native American",
+            "sourceLabel": "Native American (%)",
+            "definition": "Percent identifying as non-Hispanic Native American.",
+            "rawField": "amind",
+            "sourceLayerField": "Native_American",
+            "value": null,
+            "status": "missing",
+            "percentile": null,
+            "qualityFlags": [
+              "raw-value-missing"
+            ]
+          },
+          {
+            "id": "asian",
+            "indicatorId": "asian",
+            "label": "Non-Hispanic Asian",
+            "sourceLabel": "Asian American (%)",
+            "definition": "Percent identifying as non-Hispanic Asian.",
+            "rawField": "asian",
+            "sourceLayerField": "asian",
+            "value": null,
+            "status": "missing",
+            "percentile": null,
+            "qualityFlags": [
+              "raw-value-missing"
+            ]
+          },
+          {
+            "id": "pacisl",
+            "indicatorId": "pacisl",
+            "label": "Non-Hispanic Pacific Islander",
+            "sourceLabel": "Pacific Islander (%)",
+            "definition": "Percent identifying as non-Hispanic Pacific Islander.",
+            "rawField": "pacisl",
+            "sourceLayerField": "Pacific_Islander",
+            "value": null,
+            "status": "missing",
+            "percentile": null,
+            "qualityFlags": [
+              "raw-value-missing"
+            ]
+          },
+          {
+            "id": "othmult",
+            "indicatorId": "othmult",
+            "label": "Other or multiple races",
+            "sourceLabel": "Other/Multiple (%)",
+            "definition": "Percent identifying as non-Hispanic other or multiple races.",
+            "rawField": "othmult",
+            "sourceLayerField": "Other_Multiple",
+            "value": null,
+            "status": "missing",
+            "percentile": null,
+            "qualityFlags": [
+              "raw-value-missing"
+            ]
+          }
+        ],
+        "status": "missing",
+        "complete": false,
+        "missingCategoryIds": [
+          "hisp",
+          "white",
+          "black",
+          "amind",
+          "asian",
+          "pacisl",
+          "othmult"
+        ],
+        "availableShareSumPercent": null,
+        "reportedSumPercent": null,
+        "residualTo100PercentagePoints": null,
+        "isWithinRoundingAllowance": null,
+        "roundingAllowancePercentagePoints": 0.035,
+        "qualityFlags": [
+          "missing-source-shares",
+          "zero-source-population-estimate"
+        ],
+        "sumInterpretation": "Reported sum and residual are diagnostics, not new categories. A residual must never be displayed as Other or used to replace missing shares."
+      }
+    ],
+    "tractId": "06001444303",
+    "place": "Fremont",
+    "county": "Alameda"
+  }
+}
