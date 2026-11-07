@@ -1,6 +1,6 @@
 # California Environmental Atlas
 
-Status: local Phase 2 comparison implemented. Source verification has explicit remaining contract gaps. See [current status](docs/STATUS.md) and [data verification](docs/DATA_VERIFICATION.md).
+Status: verified local backend covers all intended scalar/demographic fields, schools and statewide healthcare. Power source gates and coordinated frontend integration remain open. See the [readiness audit](docs/READINESS_AUDIT.md), [current status](docs/STATUS.md) and [data verification](docs/DATA_VERIFICATION.md).
 
 An address-first California atlas for exploring and comparing environmental conditions, population health, community context, and essential infrastructure.
 

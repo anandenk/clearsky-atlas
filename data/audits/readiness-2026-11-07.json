@@ -1,0 +1,132 @@
+{
+  "auditedAt": "2026-11-07T22:37:09.578828+00:00",
+  "backendHead": "4f8306b1ab10e6ed7871558e2d95b2a5761c5588",
+  "frontendHead": "4899c8d3a5ba10b652e9158314677485de2286bf",
+  "baseline": "2f405625a5272ff7d09cf132d9ccc6f8a2066be4",
+  "integrity": {
+    "rawManifest": 161,
+    "initialFacilitySamples": 6,
+    "derivedManifest": 7,
+    "schoolsManifest": 2,
+    "healthcareManifest": 2,
+    "powerStagedArtifact": 1
+  },
+  "failures": [],
+  "knownUnusableRawResponses": [
+    "ces-report.pdf",
+    "pm-facts.html",
+    "ozone-facts.html"
+  ],
+  "sourcePdfUnchangedFromBaseline": true,
+  "ownership": {
+    "backendTouchedFrontendOwned": [],
+    "frontendTouchedBackendOwned": [],
+    "frontendWorkingStatus": [
+      "M app/page.tsx",
+      " M src/AtlasMap.tsx",
+      "?? src/components/ComparisonPanel.tsx"
+    ],
+    "frontendUntracked": [
+      "src/components/ComparisonPanel.tsx"
+    ],
+    "sharedRuntimeConfigDiff": []
+  },
+  "frontendInspectedFileHashes": {
+    "src/frontend/provider.ts": "602f20795000dcdc40cdc45689e53910676f9a9d03f94c709bac766f1c37c01b",
+    "src/hooks/useFacilities.ts": "4f00538d474b794495df97c8015df8f5c5f8a7f919b4540a10f306c01ca78b50",
+    "src/components/ComparisonOverview.tsx": "33d4055cdd248cad8ab51129edde06d763f3002f65fc873cc2bfb655960ecd33",
+    "src/components/Infrastructure.tsx": "9b403ce899019c27ce58f517efac9326a5ba514922db2ae2f5d947c4cb374678",
+    "src/AtlasMap.tsx": "9f5fdd8d427802f362d85321b0b49654a36478a09f19f5e9ff48ba228a6bddf1",
+    "app/page.tsx": "7134e29c6226ac4cffa615ba37a70cccfaadbc71720d3a79fc263576864f662c",
+    "docs/FRONTEND_PROGRESS.md": "2066af6fbc615ef82fa9a4467e7aa71c31e105ac0ca5580c861d92aed79dd215"
+  },
+  "availability": {
+    "http://127.0.0.1:3000": {
+      "/api/health": {
+        "status": 200,
+        "bytes": 321,
+        "contractVersion": "baseline-v1"
+      },
+      "/api/indicators": {
+        "status": 200,
+        "bytes": 30101,
+        "contractVersion": "atlas-indicators-v1.2"
+      },
+      "/api/facilities/catalog": {
+        "status": 200,
+        "bytes": 137610,
+        "contractVersion": "atlas-facility-catalog-v1"
+      },
+      "/api/demographics": {
+        "status": 200,
+        "bytes": 4465,
+        "contractVersion": "atlas-demographics-v1"
+      },
+      "/api/stories": {
+        "status": 200,
+        "bytes": 11048,
+        "contractVersion": "atlas-stories-v1"
+      }
+    },
+    "http://127.0.0.1:3001": {
+      "/api/health": {
+        "status": 200,
+        "bytes": 321,
+        "contractVersion": "baseline-v1"
+      },
+      "/api/indicators": {
+        "status": 200,
+        "bytes": 30101,
+        "contractVersion": "atlas-indicators-v1.2"
+      },
+      "/api/facilities/catalog": {
+        "status": 200,
+        "bytes": 137610,
+        "contractVersion": "atlas-facility-catalog-v1"
+      },
+      "/api/demographics": {
+        "status": 200,
+        "bytes": 4465,
+        "contractVersion": "atlas-demographics-v1"
+      },
+      "/api/stories": {
+        "status": 200,
+        "bytes": 11048,
+        "contractVersion": "atlas-stories-v1"
+      }
+    }
+  },
+  "publicExampleLiveGeocode": {
+    "checkedAt": "2026-11-07T22:37:10.552630+00:00",
+    "httpStatus": 200,
+    "usableCandidateCount": 1,
+    "tractIds": [
+      "06001403402"
+    ],
+    "expectedTractPresent": true,
+    "humanConfirmationPerformed": false,
+    "rawResponsePersisted": false
+  },
+  "supplementalFrontendProbe": {
+    "checkedAt": "2026-11-07T22:41:49.192063+00:00",
+    "method": "Extract actual format and delta helpers with Node stripTypeScriptTypes; synthetic numerical/metadata probes, no rendered UI test and no frontend modification",
+    "providerSha256": "602f20795000dcdc40cdc45689e53910676f9a9d03f94c709bac766f1c37c01b",
+    "activePanelPath": "src/components/ComparisonPanel.tsx",
+    "activePanelSha256": "b65a061a1ad80108774681006584ad979758e1417c042210cf5f3434c632278b",
+    "formatProbe": {
+      "input": 0.004,
+      "indicator": "pm",
+      "output": "0",
+      "ozoneOutput": "0.004"
+    },
+    "deltaProbe": {
+      "comparisonKey": "same",
+      "aRawValue": 1,
+      "bRawValue": 2,
+      "aDefinition": "old",
+      "bDefinition": "new",
+      "returnedDifference": 1,
+      "scope": "Synthetic same-key incompatible metadata; canonical backend also checks definition and provenance"
+    }
+  }
+}

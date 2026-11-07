@@ -6,6 +6,10 @@ Confirmed by user: solo builder; beautiful comparison atlas is the centerpiece; 
 
 The supplied three-page handoff defines the initial concept. Its CES 5.0 coverage, source availability, fields, dates, and infrastructure feeds were initially unverified. Current inspected evidence, gaps, and measured results are in DATA_VERIFICATION.md and STATUS.md. Architectural and design choices below remain the full target; individual implementation status is tracked separately.
 
+## Presentation checkpoint
+
+The original two-address/paired-map journey below is the planning baseline. The user-directed frontend now explores a map-first, multi-location Common ground experience in its separate worktree. Reconcile that presentation with EXPERIENCE.md and ARCHITECTURE.md at the coordinated integration checkpoint; this note neither certifies the active UI nor authorizes merging it. Shared evidence, comparable legends and distinct address coordinates remain requirements.
+
 ## Product promise
 
 Explore two California locations through the same evidence, understand their differences, and see exactly what each comparison can and cannot establish.
@@ -53,4 +57,4 @@ A single-location view is a useful completed state, not a different product. Two
 
 Sponsor services are parked by user decision until near MVP readiness; revisit after the core atlas data and frontend flow are integrated and reviewable. Original atlas scope remains intact.
 
-Deferral means a feature remains in this inventory with a reason and revisit condition. A missing field must produce an explicit coverage decision, never an invented substitute. No feature is currently deferred.
+Deferral means a feature remains in this inventory with a reason and revisit condition. A missing field must produce an explicit coverage decision, never an invented substitute. Power activation is explicitly deferred pending verified reporting-period and retirement-code evidence (or a verified alternative source); staged records remain unavailable. Fire/remediation remain conditional on suitable verified feeds. Optional terrain/buildings, sharing, AI and voice remain unimplemented extensions. See [readiness audit](READINESS_AUDIT.md) for current gates; none of these items is removed from the full target.

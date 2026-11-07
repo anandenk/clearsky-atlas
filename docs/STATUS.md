@@ -6,11 +6,17 @@ Authorized: Phase 1 source verification and Phase 2 local implementation; bounde
 
 64 backend tests and four source-cache tests pass. All 13 target scalar indicators and ten demographic fields have verified normalized tract/map/comparison contracts. Real facilities now support schools (9,946 records) and statewide CDPH healthcare (14,921 records; 14,919 coordinate-bearing query points), with explicit historical dates, subtypes, provenance and distance limitations. Power remains unavailable: complete candidate/spatial audit finished, but reporting-period and retirement-code evidence remains unresolved. /api/facilities/catalog exposes ready categories and explicit power blockers/triggers. See latest BACKEND_CHANGES.md for exact APIs and performed checks.
 
-Backend main remains separate from active frontend work; no integration performed. Frontend owns current map-first/multi-location UI; older two-address UI descriptions below describe the initial baseline. Sponsors remain parked. Full original scope is retained; grouped demographic composition, richer comparisons/stories, measured performance and coordinated rendered-interface integration remain planned.
+Backend main remains separate from active frontend work; no integration performed. Frontend owns current map-first/multi-location UI; older two-address UI descriptions below describe the initial baseline. Sponsors remain parked. Full original scope is retained. Grouped demographic, richer comparison/story and confirmed-coordinate facility narrative contracts are implemented; their frontend adoption, controlled device performance and coordinated rendered-interface integration remain pending.
 
 Current additive backend APIs include POST /api/compare/overview for stable multi-location/reference comparisons and optional evidence=linked facility payloads. Local development measurements found a 15.7 MB statewide map response; linked six-school evidence reduces ~117.9 KB to ~7.4 KB with unchanged records. See latest BACKEND_CHANGES and data/benchmarks for methods/limits. Opt-in detail=overview now reduces statewide PM from 15.70 MB to 5.92 MB (~62%), with all IDs/source values preserved and isolated MapLibre rendering checked. Default detail and exact lookup remain unchanged. Adoption and device/transition profiling remain frontend/integration work.
 
 Optional guided-story APIs now provide four curated topics over all 23 verified fields, with deterministic source-qualified text and exact comparison evidence. Nearby-essentials now links to an optional confirmed-coordinate facility comparison/narrative API, which checks unique unsimplified tract membership and preserves inventory/status/date/distance qualifications; live school/healthcare queries remain available. A source-backed optional grouped demographic API is now available (age and publisher race/ethnicity profile, source population denominator, exact shares and missing/rounding diagnostics, no renormalization). Frontend group/story/overview adoption still needs its coordinated checkpoint. See latest BACKEND_CHANGES for exact behavior and performed checks.
+
+## Readiness audit checkpoint
+
+[READINESS_AUDIT.md](READINESS_AUDIT.md) records the current source/integration gates and concrete frontend handoff. Fresh checks: 64 Node tests, four Python cache tests, TypeScript, all backend HTTP smoke suites through both ports, 179 artifact integrity checks and one successful public-address Census request. No new app code, production build or rendered UI certification in this audit. The last production build passed for application commit `4f8306b`. `/api/health` reports baseline file presence, not full scientific/source/interface readiness. Both servers and active frontend edits were preserved; no integration performed.
+
+Sections below retain historical milestone evidence; current availability is defined above and in the readiness audit.
 
 ## Historical initial comparison increment
 
@@ -24,13 +30,13 @@ Next.js + TypeScript + MapLibre comparison at `http://127.0.0.1:3000` when `npm 
 - Production build and TypeScript passed. Initial CommonJS mismatch and MapLibre worker 404 were corrected; successful builds alone did not catch the worker problem, rendered tests did.
 - Desktop and narrow/tablet screenshots visually inspected. Local screenshots in ignored `artifacts/`. No comprehensive accessibility, screen-reader, hardware performance, all-address spatial accuracy, 3D or deployment claims.
 
-## Source findings / remaining work
+## Historical source findings / remaining work
 
 See DATA_VERIFICATION.md for all indicators and FACILITY_SOURCES.md for exact feeds. CES CSV/dictionary/shapefile/layer metadata downloaded with provenance; 9,106 joined, valid source geometries. All original CES target fields exist; most individual measurement periods/units remain unverified and inactive. Direct technical-report/fact-page downloads returned security HTML, explicitly labeled failed; official PM fact sheet was readable through web extraction. No unsupported indicator was substituted.
 
 Supplied healthcare feed is LA-only (3,620 records), so statewide healthcare needs a suitable verified source. School/power schemas and samples are cached; reuse, current reporting vintage/status and completeness require further checks. Power includes out-of-state records. No credentials/payment currently needed for working comparison.
 
-## Handoff / next work
+## Historical handoff / next work
 
 1. Finish per-indicator period/unit contracts and source permissions, then Phase 3 registry breadth. Seek statewide CDPH feed; do not treat LA copy as statewide.
 2. Add sources through shared contracts, then full stories, neutral demographic charts, facility overlays and qualified distances.

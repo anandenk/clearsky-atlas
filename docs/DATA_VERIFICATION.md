@@ -1,6 +1,6 @@
 # Source contracts — 2026-11-07
 
-Phase 1 completed a bounded source inspection; it did **not** establish every original indicator's full measurement contract. Unsupported contracts stay unavailable. No data is fabricated or replaced. The backend now supports verified PM2.5 and ozone contracts; frontend activation is separate. The full target in PRODUCT.md remains intact.
+The backend now supports verified contracts for all 13 intended scalar indicators and ten demographic fields, plus qualified CDE school and statewide CDPH healthcare inventories. Power is staged but unavailable pending source evidence. Backend contract verification does not establish full scientific uncertainty, current real-world completeness or rendered frontend readiness. No data is fabricated or replaced; the full target in PRODUCT.md remains intact. See [READINESS_AUDIT.md](READINESS_AUDIT.md) for current evidence and integration gates.
 
 ## CES 5.0 — verified inputs
 
@@ -34,20 +34,20 @@ MapLibre GL is bundled locally with its BSD license and explicit worker assets. 
 
 ## Infrastructure and unsupported categories
 
-See FACILITY_SOURCES.md and the cached original schema/sample responses. **The supplied healthcare feed is Los Angeles only (3,620 records)**; no statewide healthcare claim is supported. Schools have 58 district-county groups in a 2025–26 snapshot, without proof of exhaustive geographic completeness or clear item license text. Power plants include out-of-state counties and nulls; vintage/status decoding still needs resolution. No fire feed was supplied. Remediation markers remain conditional; a tract cleanup index is not a point inventory.
+See [FACILITY_SOURCES.md](FACILITY_SOURCES.md), the original cached bytes and category manifests. The supplied LA-only healthcare feed is historical investigation evidence; it is **not** the live statewide inventory.
+
+- **Schools ready:** 9,946 unique CDE 2025–26 source records, all with CES-covered coordinates (9,944 Active / two Closed). Geographic county coverage spans 58 counties. State catalog rights say no restrictions on public use, with no named license specified. These are historical source statuses; source completeness does not prove every real-world school is present.
+- **Healthcare ready:** 14,921 unique first-party statewide CDPH records dated 2026-10-16; 14,919 query coordinates covered by CES. Two out-of-coverage Nevada/Oregon points remain in the preserved source with null query coordinates. CSV/XLSX downloads returned 403; complete selected-field DataStore JSON and dictionaries/lookup tables were cached instead. Some subtypes are home health, hospice or laboratories, not walk-in destinations. The source CRS-label inconsistency and coordinate checks remain documented; no access guarantee.
+- **Power unavailable:** complete 2,378-record source candidate is staged (2,334 CES-covered / 44 excluded). May 2022 prose and June 2026 edits do not establish a reporting period; LastReportedYear is absent. Retired_Plant numeric 0/1 meanings remain unverified. Item-linked CEC conditions and catalog CC label differ; both are preserved. Index/statistical source pages reset connections. Revisit only with new date/code evidence, changed source access or a verified alternative; do not repeat the exhausted search by default. See `data/contracts/power-readiness.json`.
+- **Conditional categories:** no suitable fire or remediation-point feed is verified. A CES tract cleanup score is not a facility inventory.
+
+Distances use original coordinates and spherical straight lines, qualified by the named source inventory, bounds and snapshot. Status does not establish present operation, capacity, eligibility or travel access. School and healthcare source versions are independent of CES and each other; consumers must preserve category versions.
 
 ## Concrete continuation gates
 
-- Phase 3 health/community/environment controls: activate each only after unit, period, quality thresholds and source definition are verified. Trigger: missing contract above, not a decision to remove indicators.
-- Statewide healthcare: find/verify a first-party statewide feed and reuse terms; supplied LA subset cannot satisfy it.
-- Facilities: resolve licenses, full coverage, CRS/status/vintage and pagination before adapters/nearest claims.
-- Map display at statewide zoom: current viewport GeoJSON is functional, but 14 MB statewide display and 122 MB server lookup are measured disk sizes, not performance claims. Trigger for tiles/index: measured latency/memory on intended demo hardware; PMTiles remains planned.
-- Broad stories, 3D, camera linking, terrain/buildings, remaining layers and optional integrations stay in phases 3–6. They are outside this authorized initial implementation increment, not deleted scope.
-
-## Current backend air milestone
-
-PM2.5 and ozone are backend-ready in catalog atlas-indicators-v1.1. Normalized tract observations, indicator-specific map fields and checked pairwise comparisons are live; details in BACKEND_CHANGES.md. Live official indicator-layer point queries agree with the cached CSV for all four air fields at both demo tracts. Other indicator contracts and facility blockers remain as recorded above. No unsupported source was substituted.
-
-## Current breadth milestone
-
-Catalog v1.2 exposes the full intended scalar/demographic field set through existing normalized and named-map APIs. Demographic maps use neutral raw percentages with no source percentiles. Percent-valued raw differences are labeled percentage points. Infrastructure remains a separate unfinished acquisition/coverage milestone. Sponsor services are parked by user decision until near MVP readiness.
+- All intended scalar/demographic contracts are now active in catalog v1.2; final publisher definitions/units/periods and dictionary mappings are cached. Detailed score-weight reconstruction and statistical uncertainty remain limitations, not invented values.
+- Grouped demographics and deterministic story/narrative APIs are implemented. Frontend adoption needs source/period/null/version semantics reviewed at a coordinated checkpoint; shares must not be renormalized or turned into derived category counts.
+- Power activation requires the specific reporting-period/retirement-code evidence above or a verified alternative source. Its full-target requirement is retained.
+- Opt-in overview geometry delivers statewide PM in 5.92 MB versus 15.70 MB standard detail, with all 9,106 IDs/source values retained. Source topology exceptions, area guard and isolated MapLibre results are in the map-overview proof and BACKEND_CHANGES.md. Exact lookup remains unsimplified. Intended-device latency/memory/transition profiling and active frontend adoption remain pending; choose tiles/index only from measured need.
+- Reconcile the original paired-map presentation plan with the active user-directed map-first/multi-location UI at integration. Freeze and review the frontend owned diff, address comparison safeguards and numerical formatting, then run combined rendered/semantic checks. See READINESS_AUDIT.md.
+- Conditional fire/remediation and optional terrain/buildings, sharing, AI/voice remain in scope as recorded in PRODUCT.md. Sponsors remain parked until the core atlas is integrated and reviewable. No publication/deployment is authorized.
