@@ -1,0 +1,15 @@
+{
+  "datasetVersion": "cde-schools-2025-26-afab827833d2",
+  "pipeline": "scripts/prepare_schools.py",
+  "sourceManifest": "data/raw/manifest.json",
+  "files": {
+    "schools.json": {
+      "sha256": "8aab1ab71c85982ef9b595d6ba905158e63cae2f45e880d0f4ad96ad608225b9",
+      "bytes": 6723885
+    },
+    "schools-validation.json": {
+      "sha256": "982e48a51d6d61ea1ae79811cfb538d137ad5197af999d1aa7c742dbad5d05d8",
+      "bytes": 1697
+    }
+  }
+}

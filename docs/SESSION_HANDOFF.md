@@ -144,3 +144,7 @@ Reported frontend remaining requests:
 7. Keep interface additions explicit in BACKEND_CHANGES; provide small real samples and errors/unavailability. Make reviewed local commits. No facility placeholder data presented as live. Fire/remediation points remain conditional.
 
 After infrastructure: richer grounded comparison/story summaries, measured statewide payload/index/tile performance, fuller spatial validation, coordinated integration/combined UI checks. Sponsor/AI/voice/hosting remain optional and parked per user decision. Do not claim original scope finished merely because scalar APIs are ready.
+
+## Resumed backend increment — supersedes next-milestone status above
+
+2026-11-07: schools category is now complete through cached acquisition, versioned normalization, `/api/facilities` viewport/nearest queries, distance/coverage tests and both-port HTTP smoke. Read latest BACKEND_CHANGES.md and FACILITY_SOURCES.md. 9,946 schools / all coordinates / 58 geographic counties; Active and Closed retained. Rights resolved from cached state catalog. Healthcare/power remain unavailable. Next concrete source investigation: statewide CDPH listing candidate linked there, followed by CEC vintage/status gates. No integration or frontend edits. Frontend HEAD observed `dd9d57e`, with `design.md` modified; recheck before coordination. Main/preview sessions preserved. This resume explicitly proceeds past the earlier departing-session pause.
