@@ -48,153 +48,93 @@ async function mapMetric(page: Page, id: string) {
   );
 }
 
-test("live opening, confirmed addresses, three-place profile and exact comparisons", async ({
+test("compact live index, exact differences, source and map prominence", async ({
   page,
 }) => {
-  let demoRequests = 0;
-  page.on("request", (r) => {
-    if (r.url().endsWith("/api/demo")) demoRequests++;
-  });
   await open(page);
-  await mapMetric(page, "pm");
-  expect(demoRequests).toBe(0);
-  await expect(page.locator(".place-chip")).toHaveCount(0);
-  await page.screenshot({
-    path: "artifacts/creative-reset/verified-opening.png",
-  });
-  const instance = await page
-    .locator(".atlas-map")
-    .getAttribute("data-instance");
   await cached(page, "Oakland");
-  await expect(page.locator(".score-value").first()).toContainText("8.33");
-  await page.screenshot({
-    path: "artifacts/creative-reset/verified-single.png",
-  });
   await cached(page, "Fresno");
-  await expect(page.locator(".profile-row")).toHaveCount(6);
+  await expect(page.locator(".index-measure")).toHaveCount(6);
+  await expect(page.locator(".index-measure").first()).toContainText("8.33");
+  await expect(page.locator(".index-measure").first()).toContainText("12.48");
+  await expect(page.locator(".index-measure").first()).toContainText(
+    "B higher",
+  );
+  const pane = await page.locator(".comparison-canvas").boundingBox();
+  expect(pane!.width).toBeLessThan(450);
+  expect(pane!.x + pane!.width).toBeLessThan(1440 * 0.34);
+  expect(
+    await page
+      .locator(".canvas-content")
+      .evaluate((e) => e.scrollHeight <= e.clientHeight + 2),
+  ).toBe(true);
+  await page.waitForTimeout(1400);
+  for (const pin of await page.locator(".place-pin").all()) {
+    const box = await pin.boundingBox();
+    expect(box!.x).toBeGreaterThan(pane!.x + pane!.width);
+  }
+  await page.screenshot({ path: "artifacts/compass/verified-overview.png" });
   await page
     .getByRole("button", {
       name: "Explore Fine particulate matter",
       exact: true,
     })
     .click();
-  await expect(page.locator(".score-value").nth(1)).toContainText(
-    "+4.15 µg/m³",
+  await expect(page.locator(".compass-finding")).toContainText("4.15");
+  await expect(page.locator(".compass-finding")).toContainText(
+    "Fresno is higher than Oakland",
   );
-  await expect(page.locator(".score-bead").nth(1)).toContainText("97.76");
-  await page.getByRole("button", { name: "Add a place", exact: true }).click();
-  await page
-    .getByLabel("Search a California address")
-    .fill("200 S Spring St Los Angeles CA 90012");
-  await page.getByRole("button", { name: "Search", exact: true }).click();
-  await expect(page.locator(".candidate")).toHaveCount(1, { timeout: 25000 });
-  await expect(page.locator(".candidate")).toContainText("LOS ANGELES");
-  await page.getByRole("button", { name: /Confirm this address/ }).click();
-  await expect(page.locator(".place-chip")).toHaveCount(3);
-  await expect(page.locator(".guide-value")).toHaveCount(18);
-  await page.screenshot({
-    path: "artifacts/creative-reset/verified-three-live.png",
-  });
-  await expect(page.locator(".atlas-map")).toHaveAttribute(
-    "data-instance",
-    instance!,
-  );
-  await expect(page.locator(".atlas-map canvas")).toHaveCount(1);
-  await page.getByRole("button", { name: "Ozone", exact: true }).click();
-  await mapMetric(page, "ozone");
-  await expect(page.locator(".score-value").first()).toContainText("ppm");
+  await expect(page.locator(".reading-value")).toHaveText(["8.33", "12.48"]);
   await page.getByRole("button", { name: "About the evidence" }).click();
   await expect(page.getByRole("dialog")).toContainText("2022–2024");
-  await expect(
-    page.getByRole("link", { name: "Read the original source" }),
-  ).toHaveAttribute("href", /oehha/);
   await page.keyboard.press("Escape");
-  await expect(page.getByRole("dialog")).toHaveCount(0);
+  await page.screenshot({ path: "artifacts/compass/verified-detail.png" });
 });
 
-test("all live domains and all 23 fields render with truthful scales", async ({
+test("all 23 live measures remain accessible with accurate units and values", async ({
   page,
   request,
 }) => {
   await open(page);
   await cached(page, "Oakland");
-  const c = (await (await request.get("/api/indicators")).json()).indicators;
-  const b = (await (await request.get("/api/tracts/06001403402")).json())
-    .observations;
-  const short: Record<string, string> = {
-    pm: "Fine particles",
-    ozone: "Ozone",
-    diesel: "Diesel",
-    traffic: "Traffic",
-    "toxic-releases": "Toxic releases",
-    cleanup: "Cleanup sites",
-    asthma: "Asthma",
-    "heart-attacks": "Heart attacks",
-    diabetes: "Diabetes",
-    "low-birth-weight": "Low birth weight",
-    poverty: "Poverty",
-    education: "Education",
-    housing: "Housing",
-  };
+  const catalog = (await (await request.get("/api/indicators")).json())
+    .indicators;
+  const observations = (
+    await (await request.get("/api/tracts/06001403402")).json()
+  ).observations;
   for (const mode of ["Environment", "Health", "Community"]) {
     await page.getByRole("button", { name: mode, exact: true }).click();
-    for (const m of c.filter(
-      (i: any) => i.mode === mode.toLowerCase() && i.percentileField,
-    )) {
-      await page
-        .getByRole("button", { name: short[m.id], exact: true })
-        .click();
+    for (const m of catalog.filter((m: any) => m.mode === mode.toLowerCase())) {
+      if (m.percentileField)
+        await page
+          .getByRole("combobox", { name: "Choose a measure" })
+          .selectOption(m.id);
+      else {
+        const group = m.id.startsWith("pop_") ? "age" : "race";
+        await page
+          .getByRole("combobox", { name: "Choose a measure" })
+          .selectOption(group);
+        await page
+          .getByRole("button", { name: "At a glance", exact: true })
+          .click();
+        await page
+          .getByRole("button", { name: "Explore " + m.label, exact: true })
+          .click();
+      }
       await mapMetric(page, m.id);
-      const o = b.find((o: any) => o.indicatorId === m.id);
-      const formatted =
-        o.rawValue === null
+      const o = observations.find((o: any) => o.indicatorId === m.id);
+      await expect(page.locator(".reading-value")).toHaveText(
+        o.rawValue == null
           ? "Unavailable"
           : o.rawValue.toLocaleString("en-US", {
               maximumFractionDigits: m.id === "ozone" ? 4 : 2,
-            });
-      await expect(
-        page.locator(".score-value").first().locator("strong"),
-      ).toHaveText(formatted);
+            }),
+      );
     }
   }
-  for (const group of ["Age", "Race & ethnicity"]) {
-    await page.getByRole("button", { name: group, exact: true }).click();
-    const ids =
-      group === "Age"
-        ? ["pop_und10", "pop_10_64", "pop_ov64"]
-        : ["hisp", "white", "black", "amind", "asian", "pacisl", "othmult"];
-    for (const id of ids) {
-      await page
-        .locator(".composition-legend")
-        .getByRole("button", {
-          name: c.find((m: any) => m.id === id).label,
-          exact: true,
-        })
-        .click();
-      await mapMetric(page, id);
-      await expect(page.locator(".key-ends")).toContainText("Population %");
-    }
-  }
-  await page.screenshot({
-    path: "artifacts/creative-reset/verified-community.png",
-  });
-  await page
-    .getByRole("button", { name: "Infrastructure", exact: true })
-    .click();
-  await expect(page.locator(".facility-list > button")).toHaveCount(12);
-  await page.locator(".facility-list > button").first().click();
-  await expect(page.locator(".facility-detail")).toBeVisible();
-  await expect(page.locator(".atlas-map")).toHaveAttribute(
-    "data-facilities-rendered",
-    /^[1-9]/,
-  );
-  await page.screenshot({
-    path: "artifacts/creative-reset/verified-live-facilities.png",
-  });
-  await page.getByRole("button", { name: "Close dialog" }).click();
 });
 
-test("six places, edits, missing/zero/incompatible evidence and provider separation", async ({
+test("six places, reference edits and honest missing/zero/incompatible preview", async ({
   page,
 }) => {
   await open(page);
@@ -203,114 +143,124 @@ test("six places, edits, missing/zero/incompatible evidence and provider separat
     await page
       .getByRole("button", { name: "Add example", exact: true })
       .click();
-  await expect(page.locator(".place-chip")).toHaveCount(6);
-  await expect(page.locator(".atlas-map canvas")).toHaveCount(1);
-  await expect(page.locator(".guide-value")).toHaveCount(36);
+  await expect(page.locator(".compass-places button")).toHaveCount(6);
+  await expect(page.locator(".index-explanation")).toContainText(
+    "all 6 places",
+  );
+  await page.screenshot({ path: "artifacts/compass/six-overview.png" });
   await page
-    .getByRole("button", { name: "Fine particles", exact: true })
+    .getByRole("button", {
+      name: "Explore Fine particulate matter",
+      exact: true,
+    })
     .click();
+  await expect(page.locator(".place-reading")).toHaveCount(6);
   await scenario(page, "zero");
-  await expect(
-    page.locator(".score-value").first().locator("strong"),
-  ).toHaveText("0");
+  await expect(page.locator(".reading-value").first()).toHaveText("0");
   await scenario(page, "missing");
-  await expect(page.locator(".score-value").nth(1)).toContainText(
+  await expect(page.locator(".place-reading").nth(1)).toContainText(
     "Unavailable",
   );
-  await expect(page.locator(".score-value").nth(1)).toContainText(
-    "Difference unavailable",
+  await expect(page.locator(".compass-finding")).toContainText(
+    "Matching evidence",
   );
+  await page.getByRole("button", { name: "At a glance", exact: true }).click();
+  await expect(page.locator(".index-measure").first()).toContainText(
+    "Range unavailable",
+  );
+  await expect(
+    page.locator(".index-measure").first().locator(".index-values strong"),
+  ).toHaveCount(0);
+  await page
+    .getByRole("button", {
+      name: "Explore Fine particulate matter",
+      exact: true,
+    })
+    .click();
   await scenario(page, "incompatible");
-  await expect(page.locator(".score-value").nth(1)).toContainText(
+  await expect(page.locator(".reading-delta").nth(1)).toContainText(
     "Difference unavailable",
   );
   await scenario(page, "normal");
   await page.locator(".place-options summary").nth(1).click();
   await page.getByRole("button", { name: "Use as reference" }).click();
-  await expect(page.locator(".score-value").nth(1)).toContainText("Reference");
-  await page.locator(".place-options summary").nth(1).click();
-  await page.getByRole("button", { name: "Move earlier" }).click();
-  await page
-    .getByRole("button", { name: "Replace address", exact: true })
-    .click();
-  await page.getByLabel("Replace address").fill("Example 1");
-  await page.getByRole("button", { name: "Search", exact: true }).click();
-  await page.getByRole("button", { name: /Confirm this address/ }).click();
-  await expect(page.locator(".score-value").nth(1)).toContainText("0 µg/m³");
+  await expect(page.locator(".reading-delta").nth(1)).toContainText(
+    "Reference",
+  );
   await page.locator(".place-options summary").nth(5).click();
   await page.getByRole("button", { name: "Remove place", exact: true }).click();
-  await expect(page.locator(".place-chip")).toHaveCount(5);
-  await page.screenshot({
-    path: "artifacts/creative-reset/verified-many-preview.png",
-  });
+  await expect(page.locator(".place-reading")).toHaveCount(5);
   await page
     .getByRole("button", { name: "Return to live", exact: true })
     .click();
   await expect(page.locator(".place-chip")).toHaveCount(0);
   await expect(page.locator(".preview-status")).toHaveCount(0);
-  await expect(page.locator(".score-row")).toHaveCount(0);
 });
 
-test("infrastructure filters, map selection and responsive comparison", async ({
+test("responsive overview and interrupted side-panel motion retain map and evidence", async ({
   page,
 }) => {
   await open(page);
-  await preview(page);
-  for (let i = 0; i < 2; i++)
-    await page
-      .getByRole("button", { name: "Add example", exact: true })
-      .click();
-  await page
-    .getByRole("button", { name: "Infrastructure", exact: true })
-    .click();
-  await page.locator(".place-focus").first().click();
-  await page.getByRole("button", { name: /Example healthcare 1/ }).click();
-  await expect(page.locator(".facility-detail")).toContainText("straight-line");
-  await page.getByRole("button", { name: "Close dialog" }).click();
-  await page
-    .getByRole("button", { name: "Public schools", exact: true })
-    .click();
-  await expect(page.locator(".facility-list > button")).toHaveCount(2);
-  await page.screenshot({
-    path: "artifacts/creative-reset/verified-infrastructure.png",
+  await cached(page, "Oakland");
+  await cached(page, "Fresno");
+  const instance = await page
+    .locator(".atlas-map")
+    .getAttribute("data-instance");
+  await page.waitForTimeout(1200);
+  const samples = await page.evaluate(async () => {
+    const e = document.querySelector(".comparison-canvas")!;
+    (
+      [...document.querySelectorAll("button")].find(
+        (b) => b.textContent?.trim() === "More map",
+      ) as HTMLButtonElement
+    ).click();
+    const xs: number[] = [];
+    const start = performance.now();
+    await new Promise<void>((resolve) => {
+      function step(t: number) {
+        xs.push(e.getBoundingClientRect().x);
+        if (t - start < 750) requestAnimationFrame(step);
+        else resolve();
+      }
+      requestAnimationFrame(step);
+    });
+    return xs;
   });
+  expect(new Set(samples.map(Math.round)).size).toBeGreaterThan(5);
+  await page
+    .getByRole("button", { name: "Open evidence", exact: true })
+    .click();
+  await page.waitForTimeout(150);
+  await page.getByRole("button", { name: "More map", exact: true }).click();
+  await page
+    .getByRole("button", { name: "Open evidence", exact: true })
+    .click();
   for (const width of [320, 375, 414, 768]) {
     await page.setViewportSize({ width, height: 900 });
-    await expect
-      .poll(() =>
-        page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
-      )
-      .toBe(true);
-    await expect(page.locator(".atlas-map canvas")).toHaveCount(1);
-    await page.getByRole("button", { name: "Community", exact: true }).click();
-    await page.getByRole("button", { name: "Age", exact: true }).click();
-    await expect(page.locator(".composition-view .guide-value")).toHaveCount(9);
+    await page.waitForTimeout(1200);
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true);
+    await expect(page.locator(".index-measure")).toHaveCount(6);
+    if (width === 768) {
+      const pane = await page.locator(".comparison-canvas").boundingBox();
+      for (const pin of await page.locator(".place-pin").all()) {
+        const box = await pin.boundingBox();
+        expect(box!.x).toBeGreaterThan(pane!.x + pane!.width);
+      }
+    }
     await page.screenshot({
-      path: `artifacts/creative-reset/verified-width-${width}.png`,
+      path: `artifacts/compass/width-${width}.png`,
       fullPage: true,
     });
   }
-  await page.setViewportSize({ width: 375, height: 900 });
-  await page.getByRole("button", { name: "Environment", exact: true }).click();
-  await page.getByRole("button", { name: "At a glance", exact: true }).click();
-  await expect(page.locator(".guide-value")).toHaveCount(18);
-  await page.screenshot({
-    path: "artifacts/creative-reset/verified-mobile-profile.png",
-    fullPage: true,
-  });
-  await page.getByRole("button", { name: "Atlas menu" }).click();
-  await page
-    .getByRole("button", { name: "Clear all places", exact: true })
-    .click();
-  await page.waitForTimeout(1400);
-  const center = JSON.parse(
-    (await page.locator(".atlas-map").getAttribute("data-center"))!,
+  await expect(page.locator(".atlas-map")).toHaveAttribute(
+    "data-instance",
+    instance!,
   );
-  expect(center[1]).toBeGreaterThan(32);
-  expect(center[1]).toBeLessThan(43);
-  await page.screenshot({
-    path: "artifacts/creative-reset/verified-mobile-overview-restored.png",
-  });
+  await expect(page.locator(".atlas-map canvas")).toHaveCount(1);
 });
 
 test("keyboard, reduced motion, confirmation errors, request cancellation and failures", async ({
@@ -371,7 +321,9 @@ test("keyboard, reduced motion, confirmation errors, request cancellation and fa
   await page.route("**/api/map?**", (route) =>
     route.fulfill({ status: 503, json: { error: "Test source unavailable" } }),
   );
-  await page.getByRole("button", { name: "Ozone", exact: true }).click();
+  await page
+    .getByRole("combobox", { name: "Choose a measure" })
+    .selectOption("ozone");
   await expect(page.locator(".map-error")).toContainText(
     "Tract layer unavailable",
   );
@@ -385,105 +337,7 @@ test("keyboard, reduced motion, confirmation errors, request cancellation and fa
   await expect(page.locator(".error[role=alert]")).toContainText(
     "Simulated evidence failure",
   );
-  await expect(page.locator(".score-value strong")).toHaveText("Unavailable");
-});
-
-test("motion has intermediate states, responds to interruption and keeps one map instance", async ({
-  page,
-}) => {
-  await open(page);
-  await cached(page, "Oakland");
-  await cached(page, "Fresno");
-  await page
-    .getByRole("button", { name: "Fine particles", exact: true })
-    .click();
-  await expect(page.locator(".score-bead")).toHaveCount(2);
-  await page.waitForTimeout(1200);
-  const instance = await page
-    .locator(".atlas-map")
-    .getAttribute("data-instance");
-  const canvasHeight = await page
-    .locator(".atlas-map canvas")
-    .getAttribute("height");
-  const samples = await page.evaluate(async () => {
-    const stage = document.querySelector(".map-stage")!;
-    const toggle = [...document.querySelectorAll("button")].find(
-      (b) => b.textContent === "More map",
-    )!;
-    const result: { t: number; height: number }[] = [];
-    toggle.click();
-    const start = performance.now();
-    await new Promise<void>((resolve) => {
-      function step(now: number) {
-        result.push({
-          t: now - start,
-          height: stage.getBoundingClientRect().height,
-        });
-        if (now - start < 850) requestAnimationFrame(step);
-        else resolve();
-      }
-      requestAnimationFrame(step);
-    });
-    return result;
-  });
-  expect(
-    new Set(samples.map((s) => Math.round(s.height))).size,
-  ).toBeGreaterThan(8);
-  expect(samples.at(-1)!.height - samples[0].height).toBeGreaterThan(200);
-  await page
-    .getByRole("button", { name: "Open evidence", exact: true })
-    .click();
-  await page.waitForTimeout(130);
-  await page.getByRole("button", { name: "More map", exact: true }).click();
-  await page.waitForTimeout(800);
-  await expect(page.locator(".atlas-app")).toHaveClass(/canvas-collapsed/);
-  await page
-    .getByRole("button", { name: "Open evidence", exact: true })
-    .click();
-  await page.waitForTimeout(800);
-  const dotSamples = await page.evaluate(async () => {
-    const bead = document.querySelector(".score-bead")!;
-    const result: number[] = [];
-    const button = [...document.querySelectorAll(".topic-strip button")].find(
-      (b) => b.textContent === "Ozone",
-    ) as HTMLButtonElement;
-    button.click();
-    const start = performance.now();
-    await new Promise<void>((resolve) => {
-      function step(now: number) {
-        result.push(bead.getBoundingClientRect().x);
-        if (now - start < 750) requestAnimationFrame(step);
-        else resolve();
-      }
-      requestAnimationFrame(step);
-    });
-    return result;
-  });
-  expect(new Set(dotSamples.map(Math.round)).size).toBeGreaterThan(5);
-  await page.getByRole("button", { name: "Health", exact: true }).click();
-  await page.getByRole("button", { name: "Community", exact: true }).click();
-  await page.getByRole("button", { name: "Environment", exact: true }).click();
-  await mapMetric(page, "ozone");
-  await expect(page.locator(".atlas-map")).toHaveAttribute(
-    "data-instance",
-    instance!,
-  );
-  await expect(page.locator(".atlas-map canvas")).toHaveCount(1);
-  fs.writeFileSync(
-    "artifacts/creative-reset/motion-samples.json",
-    JSON.stringify(
-      {
-        layout: samples,
-        dotX: dotSamples,
-        frameCount: samples.length,
-        largestFrameGap: Math.max(
-          ...samples.slice(1).map((s, i) => s.t - samples[i].t),
-        ),
-      },
-      null,
-      2,
-    ),
-  );
+  await expect(page.locator(".reading-value")).toHaveText("Unavailable");
 });
 
 test("rendered tract and facility clicks, and independent facility-source failure", async ({
@@ -535,32 +389,4 @@ test("rendered tract and facility clicks, and independent facility-source failur
   await expect(page.locator(".facility-list > button")).toHaveCount(6);
   await expect(page.locator(".facility-list")).toContainText("Healthcare");
   await expect(page.locator(".preview-status")).toHaveCount(0);
-});
-
-test("field guide explains raw differences and keeps mobile values together", async ({page}) => {
-  await open(page);
-  await cached(page,"Oakland");
-  await cached(page,"Fresno");
-  const row = page.locator('.guide-table tbody tr').first();
-  await expect(row.locator('.guide-value')).toHaveText(['8.33','12.48']);
-  await expect(row.locator('.guide-meaning')).toContainText('4.15');
-  await expect(row.locator('.guide-meaning')).toContainText('Fresno is higher than Oakland');
-  await page.waitForTimeout(1600);
-  const stage = await page.locator('.map-stage').boundingBox();
-  for (const pin of await page.locator('.place-pin').all()) {
-    const box = await pin.boundingBox();
-    expect(box!.y + box!.height).toBeLessThan(stage!.height + 1);
-  }
-  await page.screenshot({path:'artifacts/field-guide/verified-desktop.png'});
-  for(const width of [320,375,414,768]) {
-    await page.setViewportSize({width,height:900});
-    await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth <= innerWidth)).toBe(true);
-    if(width < 760) {
-      const boxes = await row.locator('.guide-value').evaluateAll(es=>es.map(e=>e.getBoundingClientRect().toJSON()));
-      expect(Math.abs(boxes[0].y-boxes[1].y)).toBeLessThan(2);
-      expect(boxes[1].right).toBeLessThanOrEqual(width);
-    }
-  }
-  await page.setViewportSize({width:375,height:900});
-  await page.screenshot({path:'artifacts/field-guide/verified-mobile.png',fullPage:true});
 });

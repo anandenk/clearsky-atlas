@@ -20,7 +20,7 @@ import { Icon, BrandMark } from "../src/components/Icon";
 import Dialog from "../src/components/Dialog";
 import Infrastructure from "../src/components/Infrastructure";
 import { useFacilities } from "../src/hooks/useFacilities";
-import ComparisonOverview from "../src/components/ComparisonOverview";
+import ComparisonPanel from "../src/components/ComparisonPanel";
 const Map = dynamic(() => import("../src/AtlasMap"), {
   ssr: false,
   loading: () => <div className="map-loading">Opening California…</div>,
@@ -408,6 +408,7 @@ export default function Page() {
       <div className="map-stage">
         <Map
           places={places}
+          collapsed={collapsed}
           active={active}
           metric={metric}
           mode={mode}
@@ -415,6 +416,7 @@ export default function Page() {
           scenario={scenario}
           categories={filter}
           facilities={visibleFacilities}
+          facilitiesReady={!selected || !!facilityResult(selected)}
           facility={facility}
           onFacility={setFacility}
           onInspect={setInspection}
@@ -778,12 +780,13 @@ export default function Page() {
       >
         <Icon name="target" size={19} />
       </button>
+      {hasPlaces && collapsed && <button className="evidence-reopen" onClick={()=>setCollapsed(false)}><Icon name="layers" size={17}/>Open evidence</button>}
       <section
         id="evidence"
         className="comparison-canvas"
         aria-label="Place evidence"
-        aria-hidden={!hasPlaces}
-        inert={!hasPlaces}
+        aria-hidden={!hasPlaces || collapsed}
+        inert={!hasPlaces || collapsed}
       >
         <div className="canvas-topline">
           <div>
@@ -791,7 +794,7 @@ export default function Page() {
             {preview
               ? "Synthetic exploration"
               : places.length > 1
-                ? `${places.length} places, one shared perspective`
+                ? `${places.length} places`
                 : "A closer look"}
             <span className="context-caption">
               {!preview
@@ -809,296 +812,21 @@ export default function Page() {
             <span className={collapsed ? "caret up" : "caret"} />
           </button>
         </div>
-        <div className="canvas-content">
-          <div className="topic-strip" aria-label="Choose a measure">
-            {places.length > 1 && mode !== "Infrastructure" && (
-              <button
-                className={overview ? "selected overview-tab" : "overview-tab"}
-                aria-pressed={overview}
-                onClick={() => setOverview(true)}
-              >
-                At a glance
-              </button>
-            )}
-            {mode === "Infrastructure" ? (
-              <span className="infrastructure-heading">Nearby essentials</span>
-            ) : (
-              topicIds.map((id) => (
-                <button
-                  key={id}
-                  aria-pressed={!overview && selectedMetric === id}
-                  className={
-                    !overview && selectedMetric === id ? "selected" : ""
-                  }
-                  onClick={() => {
-                    setRemember((r) => ({ ...r, [mode]: id }));
-                    setOverview(false);
-                    setCompositionField("");
-                  }}
-                >
-                  {shortLabels[id] || id}
-                </button>
-              ))
-            )}
-            <button
-              className="source-button"
-              onClick={() => setSourceOpen(true)}
-            >
-              <Icon name="info" size={16} />
-              About the evidence
-            </button>
-          </div>
-          {mode === "Infrastructure" ? (
-            <Infrastructure
-              places={places}
-              selected={selected}
-              result={facilityResult}
-              preview={preview}
-              filter={filter}
-              setFilter={setFilter}
-              facility={facility}
-              onFacility={setFacility}
-              onFocus={setActive}
-              switchProvider={switchProvider}
-            />
-          ) : overview && places.length > 1 ? (
-            <ComparisonOverview
-              places={places}
-              metrics={scalar}
-              observe={observation}
-              mode={mode}
-              onChoose={(id) => {
-                setRemember((r) => ({ ...r, [mode]: id }));
-                setOverview(false);
-              }}
-            />
-          ) : (
-            <div className="evidence-layout">
-              <div className="narrative">
-                <h2>{title}</h2>
-                {group ? (
-                  <p>
-                    Population composition, shown as a share of the tract.
-                    Select a group to see its geography.
-                  </p>
-                ) : (
-                  <>
-                    <p className="measure-definition">{metric?.definition}</p>
-                    {places.length > 1 ? (
-                      <div className="finding" key={selectedMetric}>
-                        {sameTract ? (
-                          <>
-                            <strong>Shared tract. Shared evidence.</strong>
-                            <p>
-                              These addresses have the same tract observations,
-                              even when the properties differ.
-                            </p>
-                          </>
-                        ) : spread === null ? (
-                          <>
-                            <strong>
-                              {available.length
-                                ? "A comparison needs matching evidence."
-                                : "Gathering the evidence…"}
-                            </strong>
-                            <p>
-                              Missing or incompatible measurements are left
-                              unscored.
-                            </p>
-                          </>
-                        ) : spread === 0 ? (
-                          <>
-                            <strong>The same recorded value.</strong>
-                            <p>
-                              No difference in this measure across the selected
-                              tracts.
-                            </p>
-                          </>
-                        ) : (
-                          <>
-                            <strong>
-                              <span>{format(spread, metric?.id)}</span>{" "}
-                              {differenceUnit(metric)}
-                            </strong>
-                            <p>
-                              between the highest and lowest recorded values
-                              here. A descriptive difference, not a test of
-                              significance.
-                            </p>
-                          </>
-                        )}
-                      </div>
-                    ) : (
-                      <div className="single-invitation">
-                        <span className="overlapping-dots">
-                          <i>A</i>
-                          <i>+</i>
-                        </span>
-                        <p>
-                          Places make more sense
-                          <br />
-                          when seen together.
-                        </p>
-                        <button onClick={() => startSearch()}>
-                          Add a place to compare
-                          <Icon name="plus" size={16} />
-                        </button>
-                      </div>
-                    )}
-                  </>
-                )}
-                <div className="evidence-footnote">
-                  {preview
-                    ? "Synthetic example period"
-                    : metric?.measurementPeriod}
-                  <button onClick={() => setSourceOpen(true)}>
-                    Definition & source
-                  </button>
-                </div>
-              </div>
-              {group ? (
-                <div className="composition-view">
-                  <div className="composition-legend">
-                    {groups[group].map((id, i) => (
-                      <button
-                        key={id}
-                        className={metric?.id === id ? "selected" : ""}
-                        onClick={() => setCompositionField(id)}
-                      >
-                        <i style={{ background: compositionColors[i] }} />
-                        {catalog.find((m) => m.id === id)?.label}
-                      </button>
-                    ))}
-                  </div>
-                  <ComparisonOverview
-                    places={places}
-                    metrics={catalog.filter(m => groups[group].includes(m.id))}
-                    observe={observation}
-                    mode="Community"
-                    onChoose={(id) => { setCompositionField(id); setSourceOpen(true); }}
-                  />
-                  <small>
-                    Shares describe the population of each tract. Missing groups
-                    are not zero. Demographics are not hazards.
-                  </small>
-                </div>
-              ) : (
-                <div className="comparison-score">
-                  <div className="score-header">
-                    <span>
-                      {places.length > 1
-                        ? "Compared with " + refPlace?.selection.place
-                        : "Your selected place"}
-                    </span>
-                    <span>
-                      {metric?.percentileField
-                        ? "Position among California tracts"
-                        : "Population share"}
-                    </span>
-                    <span>Recorded value</span>
-                  </div>
-                  <div className="score-rows">
-                    {places.map((p) => {
-                      const o = observation(p),
-                        d = delta(
-                          refPlace ? observation(refPlace) : undefined,
-                          o,
-                        ),
-                        position = o?.percentile,
-                        err = evidenceErrors[p.id];
-                      return (
-                        <div
-                          className={`score-row ${active === p.id ? "focused" : ""}`}
-                          key={p.id}
-                          style={
-                            { "--place": color(p.id) } as React.CSSProperties
-                          }
-                        >
-                          <button
-                            className="score-place"
-                            onClick={() => setActive(p.id)}
-                          >
-                            <b className="letter">{letter(p.id)}</b>
-                            <span>
-                              <strong>{p.selection.place}</strong>
-                              <small title={p.selection.label}>
-                                {p.selection.label}
-                              </small>
-                            </span>
-                          </button>
-                          <div
-                            className="score-track"
-                            aria-label={`${p.selection.place} statewide percentile: ${format(position)}`}
-                          >
-                            <div className="track-grid" />
-                            <div className="track-line" />
-                            {position != null ? (
-                              <div
-                                className="score-bead"
-                                style={{ left: `${position}%` }}
-                              >
-                                <b>{letter(p.id)}</b>
-                                <span>{format(position)}</span>
-                              </div>
-                            ) : (
-                              <span className="no-percentile">
-                                {err
-                                  ? "Evidence unavailable"
-                                  : o
-                                    ? "Not reported"
-                                    : "Loading…"}
-                              </span>
-                            )}
-                          </div>
-                          <div className="score-value">
-                            <strong>
-                              {err
-                                ? "Unavailable"
-                                : o
-                                  ? format(o.rawValue, metric?.id)
-                                  : "…"}
-                            </strong>
-                            <span>{metric?.unit}</span>
-                            <small>
-                              {places.length > 1
-                                ? p.id === refPlace?.id
-                                  ? "Reference"
-                                  : d === null
-                                    ? "Difference unavailable"
-                                    : `${d > 0 ? "+" : ""}${format(d, metric?.id)} ${differenceUnit(metric)}`
-                                : "Tract-level observation"}
-                            </small>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                  <div className="score-axis">
-                    <span>0</span>
-                    <span>25</span>
-                    <span>50</span>
-                    <span>75</span>
-                    <span>100</span>
-                  </div>
-                  <p className="score-note">
-                    {preview ? "Synthetic examples. " : ""}Percentiles describe
-                    relative position for this measure, not personal risk.
-                    {mode === "Health"
-                      ? " Population rates are not individual disease probabilities."
-                      : ""}
-                  </p>
-                  {Object.values(evidenceErrors).length > 0 && (
-                    <p role="alert" className="error">
-                      {Object.values(evidenceErrors)[0]}{" "}
-                      <button onClick={() => setReset((n) => n + 1)}>
-                        Retry evidence
-                      </button>
-                    </p>
-                  )}
-                </div>
-              )}
-            </div>
-          )}
+        <div className="canvas-content" inert={collapsed}>
+          {mode === "Infrastructure" ? <><header className="compass-heading"><div><h2>Nearby essentials</h2><p>{preview ? "Synthetic preview" : "CDPH healthcare · CDE schools"}</p></div><button onClick={()=>setSourceOpen(true)} aria-label="About the evidence"><Icon name="info" size={19}/></button></header><Infrastructure
+            places={places} selected={selected} result={facilityResult} preview={preview}
+            filter={filter} setFilter={setFilter} facility={facility} onFacility={setFacility}
+            onFocus={setActive} switchProvider={switchProvider}
+          /></> : <ComparisonPanel
+            places={places} metrics={group ? catalog.filter(m=>groups[group].includes(m.id)) : scalar}
+            metric={metric} observe={observation} overview={overview}
+            onOverview={()=>setOverview(true)}
+            onChoose={id=>{if(group) setCompositionField(id); else setRemember(r=>({...r,[mode]:id})); setOverview(false);}}
+            onTopic={id=>{setRemember(r=>({...r,[mode]:id}));setCompositionField("");setOverview(id==="age"||id==="race");}}
+            onSource={()=>setSourceOpen(true)} onFocus={setActive} reference={reference}
+            topics={topicIds.map(id=>({id,label:shortLabels[id]||id}))} selectedTopic={selectedMetric}
+            preview={preview} mode={mode} errors={Object.values(evidenceErrors)} onRetry={()=>setReset(n=>n+1)}
+          />}
         </div>
       </section>
       <Dialog

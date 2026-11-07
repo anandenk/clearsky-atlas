@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "../src/styles/atlas.css";
+import "../src/styles/comparison.css";
 export const metadata: Metadata = {
   title: "Common ground — California Environmental Atlas",
   description:

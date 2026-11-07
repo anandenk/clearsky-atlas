@@ -3,11 +3,14 @@ import { useEffect, useRef, useState } from "react";
 import * as gl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { ramps, placeColors, vectorStyle, rasterStyle } from "./map-theme";
-import { json, version, type Place, type Indicator } from "./frontend/provider";
+import { type Place, type Indicator } from "./frontend/provider";
+import { StatewideOverlays } from "./frontend/map-coverage";
 import { value, percentile } from "./frontend/fixtures/preview";
 import type { Facility } from "./hooks/useFacilities";
 type Props = {
+  collapsed: boolean;
   facilities: Facility[];
+  facilitiesReady: boolean;
   places: Place[];
   active: string;
   metric: Indicator | undefined;
@@ -48,13 +51,17 @@ export default function AtlasMap(p: Props) {
     map = useRef<gl.Map | null>(null),
     latest = useRef(p),
     slot = useRef(0),
-    frame = useRef(0);
+    frame = useRef(0),
+    blend = useRef<Promise<void>>(Promise.resolve()),
+    coverage = useRef(new StatewideOverlays()),
+    coverageReset = useRef(p.reset);
   latest.current = p;
   const geometryKey = JSON.stringify(
     p.places
       .map((x) => [x.id, x.selection.tractId, ...x.selection.coordinate])
       .sort((a, b) => String(a[0]).localeCompare(String(b[0]))),
   );
+  const dataGeometryKey = p.preview ? geometryKey : "statewide";
   const [narrow, setNarrow] = useState(false);
   useEffect(() => {
     const q = matchMedia("(max-width:759px)");
@@ -169,6 +176,8 @@ export default function AtlasMap(p: Props) {
         type: "circle",
         source: "facilities",
         paint: {
+          "circle-opacity": 0,
+          "circle-stroke-opacity": 0,
           "circle-radius": ["case", ["==", ["get", "id"], ""], 12, 8],
           "circle-color": [
             "match",
@@ -186,7 +195,7 @@ export default function AtlasMap(p: Props) {
       setReady(true);
     });
     m.on("mousemove", (e) => {
-      const layers = ["facilities", ...(container.current?.dataset.metric === latest.current.metric?.id ? ["fill" + slot.current] : [])].filter(
+      const layers = [...(latest.current.mode === "Infrastructure" ? ["facilities"] : []), ...(container.current?.dataset.metric && container.current.dataset.metric === latest.current.metric?.id ? ["fill" + slot.current] : [])].filter(
         (l) => !!m.getLayer(l),
       );
       if (!layers.length) return;
@@ -207,7 +216,7 @@ export default function AtlasMap(p: Props) {
     });
     m.on("mouseout", () => setHover(null));
     m.on("click", (e) => {
-      const layers = ["facilities", ...(container.current?.dataset.metric === latest.current.metric?.id ? ["fill" + slot.current] : [])].filter(
+      const layers = [...(latest.current.mode === "Infrastructure" ? ["facilities"] : []), ...(container.current?.dataset.metric && container.current.dataset.metric === latest.current.metric?.id ? ["fill" + slot.current] : [])].filter(
         (l) => !!m.getLayer(l),
       );
       if (!layers.length) return;
@@ -271,49 +280,24 @@ export default function AtlasMap(p: Props) {
   useEffect(() => {
     const m = map.current;
     if (!m || !ready || !m.getLayer("fill0")) return;
-    let controller: AbortController | undefined,
-      timer: ReturnType<typeof setTimeout>;
-    let generation = 0;
-    let disposed = false;
-    let firstReveal = true;
-    setLoading(!!p.metric && p.mode !== "Infrastructure");
-    if (container.current) delete container.current.dataset.metric;
-    const fadeDuration = reduced() ? 0 : 180;
-    for (let i = 0; i < 2; i++) {
-      m.setPaintProperty("fill" + i, "fill-opacity-transition", {duration: fadeDuration});
-      m.setPaintProperty("fill" + i, "fill-opacity", 0);
-      for (const layer of ["boundary", "selected", "inspection"]) {
-        m.setPaintProperty(layer + i, "line-opacity-transition", {duration: fadeDuration});
-        m.setPaintProperty(layer + i, "line-opacity", 0);
-      }
+    if (coverageReset.current !== p.reset) {
+      coverage.current.clear();
+      coverageReset.current = p.reset;
     }
-    // Finish the outgoing fade before repurposing either source. Rapid changes
-    // cancel the effect; a superseded timer must never hide a newer layer.
-    const fadedOut = new Promise<void>(resolve => setTimeout(() => {
-      if (!disposed && map.current === m) {
-        for (let i = 0; i < 2; i++)
-          for (const layer of ["fill", "boundary", "selected", "inspection"])
-            m.setFilter(layer + i, ["==", ["get", "__atlasFrame"], -1]);
-      }
-      resolve();
-    }, fadeDuration));
+    let controller: AbortController | undefined;
+    let generation = 0;
+    let firstReveal = true;
+    setLoading(p.mode === "Infrastructure" || !!p.metric);
+    setError("");
+    setHover(null);
+    if (container.current) delete container.current.dataset.metric;
     async function update() {
       const g = ++generation;
       controller?.abort();
       controller = new AbortController();
       const request = controller;
       const metric = p.metric;
-      if (!metric || p.mode === "Infrastructure") {
-        await fadedOut;
-        if (request.signal.aborted || disposed) return;
-        setLoading(false);
-        for (let i = 0; i < 2; i++) {
-          m!.setPaintProperty("fill" + i, "fill-opacity", 0);
-          m!.setPaintProperty("boundary" + i, "line-opacity", 0);
-          (m!.getSource("tracts" + i) as gl.GeoJSONSource).setData(empty);
-        }
-        return;
-      }
+      if (!metric || p.mode === "Infrastructure") return;
       try {
         let data: GeoJSON.FeatureCollection;
         if (p.preview) {
@@ -351,19 +335,11 @@ export default function AtlasMap(p: Props) {
             ),
           };
         } else {
-          const b = m!.getBounds();
-          const bounds = [
-            Math.max(-180, b.getWest()),
-            Math.max(-85, b.getSouth()),
-            Math.min(180, b.getEast()),
-            Math.min(85, b.getNorth()),
-          ];
-          data = await json(
-            `/api/map?bbox=${bounds.join(",")}&indicator=${metric.id}&version=${version}`,
-            request.signal,
-          );
+          data = await coverage.current.load(metric.id, request.signal);
         }
-        await fadedOut;
+        // Do not reuse the outgoing buffer until its last blend completes.
+        // Requests can fetch concurrently; only the current response can stage.
+        await blend.current;
         if (
           request.signal.aborted ||
           g !== generation ||
@@ -386,11 +362,15 @@ export default function AtlasMap(p: Props) {
         };
         m.setPaintProperty("fill" + next, "fill-opacity-transition", { duration: 0 });
         m.setPaintProperty("fill" + next, "fill-opacity", 0);
+        for (const layer of ["boundary", "selected", "inspection"]) {
+          m.setPaintProperty(layer + next, "line-opacity-transition", {duration: 0});
+          m.setPaintProperty(layer + next, "line-opacity", 0);
+        }
         m.setPaintProperty("fill" + next, "fill-color-transition", { duration: 0 });
         m.setFilter("fill" + next, currentFrame);
         m.setFilter("boundary" + next, currentFrame);
         m.setFilter("selected" + next, ["all", currentFrame,
-          ["in", ["get", "id"], ["literal", p.places.map(x => x.selection.tractId)]],
+          ["in", ["get", "id"], ["literal", latest.current.places.map(x => x.selection.tractId)]],
         ]);
         m.setFilter("inspection" + next, ["==", ["get", "id"], ""]);
         m.setPaintProperty("fill" + next, "fill-color", [
@@ -418,20 +398,35 @@ export default function AtlasMap(p: Props) {
         await (m.getSource("tracts" + next) as gl.GeoJSONSource).setData(tagged);
         await sourceReady(m, "tracts" + next, request.signal);
         if (request.signal.aborted || g !== generation || map.current !== m) return;
-        // Cut the outgoing buffer immediately. Only the matching new frame fades in.
-        for (const layer of ["fill", "boundary", "selected", "inspection"])
-          m.setFilter(layer + slot.current, ["==", ["get", "__atlasFrame"], -1]);
-        m.setPaintProperty("fill" + next, "fill-opacity-transition", {
-          duration: reduced() || !firstReveal ? 0 : 450,
-        });
+        // Keep the previous map intact through fetch + worker + tile readiness.
+        // Only now blend both buffers together, without a bare-map interval.
+        const outgoing = slot.current;
+        const duration = reduced() || !firstReveal ? 0 : 450;
+        for (const i of [outgoing, next]) {
+          m.setPaintProperty("fill" + i, "fill-opacity-transition", {duration});
+          for (const layer of ["boundary", "selected", "inspection"])
+            m.setPaintProperty(layer + i, "line-opacity-transition", {duration});
+        }
         m.setPaintProperty("fill" + next, "fill-opacity", 0.52);
-        for (const layer of ["boundary", "selected", "inspection"])
-          m.setPaintProperty(layer + next, "line-opacity-transition", {duration: reduced() || !firstReveal ? 0 : 450});
         m.setPaintProperty("selected" + next, "line-opacity", 1);
         m.setPaintProperty("inspection" + next, "line-opacity", 1);
         m.setPaintProperty("boundary" + next, "line-opacity", ["interpolate", ["linear"], ["zoom"], 8, 0, 12, 0.12]);
-        m.setPaintProperty("fill" + slot.current, "fill-opacity", 0);
-        m.setPaintProperty("boundary" + slot.current, "line-opacity", 0);
+        m.setPaintProperty("fill" + outgoing, "fill-opacity", 0);
+        for (const layer of ["boundary", "selected", "inspection"])
+          m.setPaintProperty(layer + outgoing, "line-opacity", 0);
+        blend.current = new Promise(resolve => setTimeout(() => {
+          if (map.current === m) {
+            for (const layer of ["fill", "boundary", "selected", "inspection"])
+              m.setFilter(layer + outgoing, ["==", ["get", "__atlasFrame"], -1]);
+            if (latest.current.mode !== "Infrastructure")
+              m.setFilter("facilities", ["==", ["get", "id"], ""]);
+          }
+          resolve();
+        }, duration));
+        for (const prop of ["circle-opacity", "circle-stroke-opacity"] as const) {
+          m.setPaintProperty("facilities", `${prop}-transition` as const, {duration});
+          m.setPaintProperty("facilities", prop, 0);
+        }
         slot.current = next;
         firstReveal = false;
         setLoading(false);
@@ -443,39 +438,39 @@ export default function AtlasMap(p: Props) {
         setError("");
       } catch (e) {
         if (!request.signal.aborted && g === generation && map.current === m && (e as Error).name !== "AbortError") {
-          for (let i = 0; i < 2; i++) {
-            m!.setPaintProperty("fill" + i, "fill-opacity", 0);
-            (m!.getSource("tracts" + i) as gl.GeoJSONSource).setData(empty);
-          }
           setLoading(false);
           setError(
-            "Tract layer unavailable. Try another layer or retry from the map menu.",
+            "Tract layer unavailable. Any last loaded overlay is retained; retry from the map menu.",
           );
         }
       }
     }
-    const move = () => {
-      clearTimeout(timer);
-      timer = setTimeout(update, 180);
-    };
-    m.on("moveend", move);
     update();
     return () => {
-      disposed = true;
       generation++;
       controller?.abort();
-      clearTimeout(timer);
-      m.off("moveend", move);
     };
-  }, [ready, p.metric, p.preview, p.scenario, p.mode, geometryKey, p.reset]);
+  }, [ready, p.metric, p.preview, p.scenario, p.mode, dataGeometryKey, p.reset]);
+  useEffect(() => {
+    const m = map.current;
+    if (!m || !ready) return;
+    // Selection outlines change independently of statewide source data.
+    for (let i = 0; i < 2; i++) {
+      const filter = m.getFilter("fill" + i);
+      if (filter) m.setFilter("selected" + i, ["all", filter as gl.ExpressionSpecification,
+        ["in", ["get", "id"], ["literal", p.places.map(x => x.selection.tractId)]],
+      ]);
+    }
+  }, [ready, geometryKey]);
   useEffect(() => {
     const m = map.current;
     if (!m || !ready) return;
     m.resize();
     const mobile = innerWidth < 760;
-    const app = container.current!.closest(".atlas-app")!;
-    const deck = mobile ? 0 : app.classList.contains("canvas-collapsed") ? 49 :
-      p.places.length ? (app.querySelector(".comparison-canvas") as HTMLElement).clientHeight : 0;
+    const panel = document.querySelector<HTMLElement>(".comparison-canvas");
+    const side = mobile || p.collapsed || !p.places.length ? 0 :
+      (panel ? panel.offsetLeft + panel.offsetWidth + 24 : 468);
+    const deck = 0;
     const duration = reduced() ? 0 : 1100;
     const focus = p.places.find((v) => v.id === p.active);
     if (focus)
@@ -487,7 +482,7 @@ export default function AtlasMap(p: Props) {
         padding: {
           top: mobile ? 230 : 90,
           bottom: mobile ? 90 : deck + 50,
-          left: mobile ? 24 : 100,
+          left: mobile ? 24 : side + 35,
           right: mobile ? 24 : 150,
         },
       });
@@ -499,8 +494,8 @@ export default function AtlasMap(p: Props) {
         padding: {
           top: mobile ? 300 : 190,
           bottom: mobile ? 110 : deck + 90,
-          left: mobile ? 45 : 150,
-          right: mobile ? 45 : 210,
+          left: mobile ? 45 : side + 35,
+          right: mobile ? 45 : 160,
         },
         duration,
         maxZoom: 12,
@@ -513,8 +508,8 @@ export default function AtlasMap(p: Props) {
         padding: {
           top: mobile ? 230 : 90,
           bottom: mobile ? 90 : deck + 50,
-          left: 24,
-          right: 24,
+          left: mobile ? 24 : side + 35,
+          right: mobile ? 24 : 160,
         },
       });
     else
@@ -534,7 +529,7 @@ export default function AtlasMap(p: Props) {
           duration,
         },
       );
-  }, [ready, geometryKey, p.active, p.reset, narrow]);
+  }, [ready, geometryKey, p.active, p.reset, narrow, p.collapsed]);
   useEffect(() => {
     const m = map.current;
     if (!m || !ready) return;
@@ -557,14 +552,9 @@ export default function AtlasMap(p: Props) {
   useEffect(() => {
     const m = map.current;
     if (!m || !ready) return;
-    if (!m.getSource("facilities")) return;
+    if (!m.getSource("facilities") || p.mode !== "Infrastructure" || !p.facilitiesReady) return;
     const controller = new AbortController();
-    const duration = reduced() ? 0 : 180;
-    for (const prop of ["circle-opacity", "circle-stroke-opacity"] as const) {
-      m.setPaintProperty("facilities", `${prop}-transition` as const, {duration});
-      m.setPaintProperty("facilities", prop, 0);
-    }
-    const timer = setTimeout(async () => {
+    const update = async () => {
       try {
         await (m.getSource("facilities") as gl.GeoJSONSource).setData({
       type: "FeatureCollection",
@@ -578,7 +568,18 @@ export default function AtlasMap(p: Props) {
           : [],
         });
         await sourceReady(m, "facilities", controller.signal);
+        await blend.current;
         if (controller.signal.aborted || map.current !== m) return;
+        m.setFilter("facilities", null);
+        for (let i = 0; i < 2; i++) {
+          m.setPaintProperty("fill" + i, "fill-opacity-transition", {duration: reduced() ? 0 : 450});
+          m.setPaintProperty("fill" + i, "fill-opacity", 0);
+          for (const layer of ["boundary", "selected", "inspection"]) {
+            m.setPaintProperty(layer + i, "line-opacity-transition", {duration: reduced() ? 0 : 450});
+            m.setPaintProperty(layer + i, "line-opacity", 0);
+          }
+        }
+        setLoading(false);
         for (const prop of ["circle-opacity", "circle-stroke-opacity"] as const) {
           m.setPaintProperty("facilities", `${prop}-transition` as const, {duration: reduced() ? 0 : 450});
           m.setPaintProperty("facilities", prop, p.mode === "Infrastructure" ? 1 : 0);
@@ -586,9 +587,10 @@ export default function AtlasMap(p: Props) {
       } catch (e) {
         if (!controller.signal.aborted) setError("Facility map layer unavailable. The list is still available.");
       }
-    }, duration);
-    return () => {clearTimeout(timer); controller.abort();};
-  }, [ready, p.mode, p.facilities]);
+    };
+    void update();
+    return () => {controller.abort();};
+  }, [ready, p.mode, p.facilities, p.facilitiesReady]);
   useEffect(() => {
     const m = map.current;
     if (!m || !ready || !m.getLayer("facilities")) return;
@@ -623,7 +625,7 @@ export default function AtlasMap(p: Props) {
           {hover.label}
         </div>
       )}
-      {loading && !error && <p role="status" className="map-update-status">Changing to {p.metric?.label}…</p>}
+      {loading && !error && <p role="status" className="map-update-status">Changing to {p.mode === "Infrastructure" ? "infrastructure" : p.metric?.label}…</p>}
       {error && (
         <p role="status" className="map-error">
           {error}

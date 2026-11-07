@@ -97,7 +97,7 @@ export default function Infrastructure({
                 return <p key={category}><strong>{category}</strong>{first && last ? `${format(first.f!.distance)}–${format(last.f!.distance)} km across these places. ${first.p.selection.place} has the nearest listed location in this selection.` : "Complete source coverage is needed to compare these places."}</p>;
               })}
             </div>
-            <p className="distance-context">Straight-line distance to a source-listed point. A shorter distance does not establish availability, eligibility or travel time.</p>
+            <p className="distance-context">Straight-line distance in kilometers (km) to a source-listed point. A shorter distance does not establish availability, eligibility or travel time.</p>
             <div className="facility-compare-head">
               <span>Place</span>
               <span>Healthcare</span>
@@ -132,6 +132,8 @@ export default function Infrastructure({
             ))}
           </div>
         )}
+        <details className="facility-directory" open={places.length < 2}>
+        <summary>Explore listed locations around {selected?.selection.place}</summary>
         <p className="facility-location">
           Around {selected?.selection.place} ·{" "}
           {preview
@@ -168,6 +170,7 @@ export default function Infrastructure({
             </button>
           ))}
         </div>
+        </details>
         {!data && (
           <p className="facility-location" role="status">
             Finding nearby locations…
