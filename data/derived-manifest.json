@@ -1,8 +1,9 @@
 {
-  "generatedAt": "2026-11-07T19:44:16.828959+00:00",
+  "generatedAt": "2026-11-07T21:47:51.993361+00:00",
   "pipeline": [
     "scripts/prepare_data.py",
-    "scripts/cache_demo.py"
+    "scripts/cache_demo.py",
+    "scripts/prepare_map_overview.py"
   ],
   "sourceManifest": "data/raw/manifest.json",
   "files": {
@@ -25,6 +26,14 @@
     "data/demo-geocodes.json": {
       "sha256": "2b7580e59f322bd8fad2390eb72cd138e1537b1e757c527793a465650481f760",
       "bytes": 11068
+    },
+    "data/display-overview.json": {
+      "sha256": "920aabe8edd460efa72b49b8151cd7d8a265b50d473255e832f12677fec38076",
+      "bytes": 6368272
+    },
+    "data/contracts/map-overview.json": {
+      "sha256": "476c640891c2a890db7a947c25055b08de9cb56f3d06cb3fa4925e47ca56a49f",
+      "bytes": 7240
     }
   }
 }

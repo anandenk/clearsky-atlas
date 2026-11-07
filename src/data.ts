@@ -26,6 +26,7 @@ type Tract = Feature<
 > & { bbox: number[] };
 let exact: Tract[];
 let display: Tract[];
+let overviewDisplay: Tract[];
 let observations: Record<string, Record<string, string | null>>;
 const read = (f: string) =>
   JSON.parse(fs.readFileSync(path.join(process.cwd(), "data", f), "utf8"));
@@ -68,11 +69,17 @@ export function selection(
       "Census address-range interpolation; confirm the matched address",
   };
 }
-export function mapData(bbox: number[]): FeatureCollection {
-  display ??= read("display.json").features;
+export function mapData(
+  bbox: number[],
+  detail: "standard" | "overview" = "standard",
+): FeatureCollection {
+  const features =
+    detail === "overview"
+      ? (overviewDisplay ??= read("display-overview.json").features)
+      : (display ??= read("display.json").features);
   return {
     type: "FeatureCollection",
-    features: display.filter((f) => {
+    features: features.filter((f) => {
       const b = f.bbox;
       return (
         b[0] <= bbox[2] && b[2] >= bbox[0] && b[1] <= bbox[3] && b[3] >= bbox[1]
@@ -101,9 +108,13 @@ export function tractRecord(id: string) {
 }
 
 // Enrich only the requested metric. Keep legacy display payloads and lookup geometry unchanged.
-export function metricMapData(bbox: number[], id: string): FeatureCollection {
+export function metricMapData(
+  bbox: number[],
+  id: string,
+  detail: "standard" | "overview" = "standard",
+): FeatureCollection {
   const indicator = readyIndicator(id);
-  const data = mapData(bbox);
+  const data = mapData(bbox, detail);
   return {
     ...data,
     features: data.features.map((feature) => {

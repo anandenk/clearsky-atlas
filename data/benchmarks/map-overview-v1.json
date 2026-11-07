@@ -1,0 +1,73 @@
+{
+  "measuredAt": "2026-11-07T21:47:55.078071+00:00",
+  "origin": "http://127.0.0.1:3000",
+  "servingMode": "development",
+  "architecture": "arm64",
+  "sourceHashes": {
+    "src/contracts/overview.ts": "193aa34aeb219ea9ecbb2a0919b0909c5ae3c1c42c88aa10f073fe7591e65e9f",
+    "src/contracts/facilities.ts": "d30c3ba674300242da4383e3f256648159091dcecc21f749f52d1e632d4847fb",
+    "src/data.ts": "22a96f67da8597f61faf11ebb3888321cf0682d73c4a5fab3630597055dbeacf",
+    "src/contracts/map-response.ts": "96b230d94f5ea2262f58034b927e6415c898401d99a7dc4c6f5d2f4043a3b21f",
+    "src/contracts/map-overview-proof.ts": "33c5ad180fccfa24b12262f7ea31c40b5231a423178df5d5e5db36b5fac38cfc",
+    "scripts/measure_backend.py": "70051e53e5bfa261b9d71331cf90d1419fa47d878ba443c574ac43e5dc9a9976"
+  },
+  "method": "First request plus five sequential warm local HTTP requests, read through complete body; no controlled process-cold start or concurrent-load isolation. Accept-Encoding identity. Offline gzip estimate is not observed wire compression.",
+  "limitations": [
+    "Development timings are not production latency or browser/GPU/frame/memory evidence.",
+    "Frontend may issue concurrent requests; no controlled device/network profile or statistical percentile inference.",
+    "Payload sizes describe current complete-feature responses, not clipped polygons or tiles."
+  ],
+  "results": [
+    {
+      "case": "statewide-pm",
+      "firstRequestMs": 234.28,
+      "warmSamplesMs": [
+        63.39,
+        44.45,
+        50.5,
+        73.43,
+        45.46
+      ],
+      "warmMedianMs": 50.5,
+      "warmMaxMs": 73.43,
+      "responseBytes": 15702991,
+      "offlineGzipBytes": 4083042,
+      "contentEncoding": null,
+      "featureCount": 9106
+    },
+    {
+      "case": "statewide-pm-overview",
+      "firstRequestMs": 29.39,
+      "warmSamplesMs": [
+        30.24,
+        24.48,
+        21.97,
+        24.77,
+        22.59
+      ],
+      "warmMedianMs": 24.48,
+      "warmMaxMs": 30.24,
+      "responseBytes": 5917703,
+      "offlineGzipBytes": 1209495,
+      "contentEncoding": null,
+      "featureCount": 9106
+    },
+    {
+      "case": "oakland-pm",
+      "firstRequestMs": 3.13,
+      "warmSamplesMs": [
+        2.35,
+        2.92,
+        2.09,
+        2.63,
+        2.21
+      ],
+      "warmMedianMs": 2.35,
+      "warmMaxMs": 2.92,
+      "responseBytes": 27159,
+      "offlineGzipBytes": 6102,
+      "contentEncoding": null,
+      "featureCount": 33
+    }
+  ]
+}

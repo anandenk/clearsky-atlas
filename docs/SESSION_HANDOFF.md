@@ -1,6 +1,6 @@
 # Backend session migration — 2026-11-07
 
-**Current resume checkpoint:** school and statewide CDPH healthcare inventories are implemented; see latest BACKEND_CHANGES.md and NEXT_SESSION_PROMPT.md. CEC complete source/spatial audit is staged; activation awaits reporting-period and retired-code evidence. Multi-location overview and HTTP measurement work are now implemented; next is bounded statewide display delivery (measured 15.7 MB), preserving full lookup and existing contracts. Historical pause, old hashes and availability descriptions below are migration-time evidence, superseded by resumed sections. Main and frontend remain separate; coordinate before integration.
+**Current resume checkpoint:** school and statewide CDPH healthcare inventories are implemented; see latest BACKEND_CHANGES.md and NEXT_SESSION_PROMPT.md. CEC complete source/spatial audit is staged; activation awaits reporting-period and retired-code evidence. Multi-location overview and HTTP measurement work are now implemented; opt-in overview geometry now reduces statewide PM to 5.92 MB; next independent work is grounded guided summaries and remaining demographic agreement, with frontend adoption/device profiling still pending. Historical pause, old hashes and availability descriptions below are migration-time evidence, superseded by resumed sections. Main and frontend remain separate; coordinate before integration.
 
 ## Historical migration record
 
@@ -166,3 +166,8 @@ Complete 2,378-record CEC candidate acquired/audited; 2,334 coordinates within C
 ## Multi-location overview / payload checkpoint
 
 POST /api/compare/overview now provides stable location IDs, reference differences, all-23-field aligned rows and qualified within-indicator summaries; null/same-tract/percentage-point rules use existing helpers. Optional facility evidence=linked removes repeated manifests from per-location requests while full provenance remains in catalog. Stale /api/indicators facility-unavailable text corrected. See latest BACKEND_CHANGES, real overview sample and benchmark JSON. 43 Node tests/cache/TypeScript/build and both-port smokes pass; no frontend merge/UI certification. Next: bounded statewide display delivery based on measured 15.7 MB response; then grounded guided stories and demographic agreement. Power source triggers unchanged, sponsors parked.
+
+
+## Overview geometry checkpoint
+
+Optional named-map detail=overview is implemented and separately versioned/hashed, with 9,106 tract IDs, unchanged source values/nulls and shared legends. Default 30 m display and exact lookup untouched. Source coverage had five invalid participants, retained; valid remainder shared-edge simplification plus 278 area-sensitive retained shapes and 1e-6 degree precision introduce no new error participants. See latest BACKEND_CHANGES and data/contracts/map-overview.json for accuracy limits. Payload measured 15.70 MB → 5.92 MB; isolated MapLibre render shows all 9,106 IDs per canvas with tolerance=0. 46 tests/cache/TypeScript/build and both-port checks pass; no frontend integration. Frontend now committed at 14a7215, initially clean; coordinate before integration. Next: grounded guided summaries/demographic agreement and frontend/device-driven performance work. Power/source and sponsor gates unchanged.

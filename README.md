@@ -48,3 +48,5 @@ npm run test:ui
 ```
 
 The browser suite records ignored screenshots in `artifacts/`. It verifies actual tract features render, plus comparison/failure behaviors. See STATUS.md for performed checks and limits. This is an initial complete comparison increment, with the original full scope still planned.
+
+Optional statewide map overview: named `/api/map` requests may add `detail=overview` at broad scales (recommended through zoom 7); default detail remains unchanged. See BACKEND_CHANGES.md for compact properties, source topology exceptions and display limitations. To regenerate its separate artifact from cached source bytes, run `.venv/bin/python scripts/prepare_map_overview.py`, format generated `src/contracts/map-overview-proof.ts` with installed Prettier, then `python3 scripts/write_derived_manifest.py` and restart only main. Exact lookup never uses the overview geometry. Verify with `python3 scripts/smoke_map_overview.py`; isolated rendering uses `node scripts/verify_map_overview_render.mjs` and installed Chrome/Node Playwright.
