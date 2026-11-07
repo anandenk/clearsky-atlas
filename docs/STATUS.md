@@ -34,3 +34,10 @@ One worker: facility-sources, gpt-6.1-terra medium; reviewed and integrated loca
 User now authorizes a separate interactive frontend session. Main owns backend/data/shared contracts/configuration and integration; frontend/atlas-interactive owns rendering/UI/interactions. See FRONTEND_HANDOFF.md for exact owned paths, real sample and the :3001 → :3000 proxy. No frontend agent launched. Baseline local tag frontend-handoff-v1 identifies the starting commit. No frontend merge while edits are active without a user-coordinated checkpoint. Backend updates are logged in BACKEND_CHANGES.md.
 
 Handoff preparation checks: 10 backend tests, TypeScript, and targeted rendered-map interaction test passed after palette extraction. Subsequent proxy setup verification is recorded in BACKEND_CHANGES.md.
+
+## Backend refinement after frontend baseline
+
+- Frontend worktree `/Users/anand/Projects/hackathon.frontend`, branch `frontend/atlas-interactive`, immutable baseline `2f405625a5272ff7d09cf132d9ccc6f8a2066be4` (tag frontend-handoff-v1). Dependencies installed independently; frontend preview :3001 proxies main :3000. User-run session only; no frontend worker launched.
+- Added `/api/indicators` machine-readable metadata/readiness and `/api/health` local-file-presence readiness. Existing selection/map response shapes retained; bbox validation tightened. Interface details and verification are in BACKEND_CHANGES.md, readable from main while frontend works independently. No frontend branch merge.
+- Source cache now rejects malformed/security/error responses even on HTTP 200, including legacy failed responses on reuse. Original successful cache bytes unchanged.
+- Checks: 14 spatial/data/contract tests, 4 cache regressions, TypeScript, one targeted rendered-map interaction test through frontend proxy, actual HTTP GET/POST and cross-port JSON equivalence. Source evidence gaps (including PM unit) remain unresolved. No new full build or broad UI-pass claim.
