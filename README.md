@@ -4,6 +4,10 @@ Status: local Phase 2 comparison implemented. Source verification has explicit r
 
 An address-first California atlas for exploring and comparing environmental conditions, population health, community context, and essential infrastructure.
 
+## Session continuation
+
+For backend migration, read [SESSION_HANDOFF.md](docs/SESSION_HANDOFF.md); [NEXT_SESSION_PROMPT.md](docs/NEXT_SESSION_PROMPT.md) is the ready-to-paste continuation prompt. Recheck active frontend work and servers before edits.
+
 ## Start here
 
 - [Product scope](docs/PRODUCT.md): full target, comparison stories, feature boundaries.

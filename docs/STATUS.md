@@ -59,3 +59,9 @@ This supersedes earlier two-indicator-only backend status. All 13 original scala
 26 backend tests, TypeScript, production build and all-23-indicator HTTP smoke checks on :3000 and :3001 passed. No frontend-owned code was edited or merged. Source matrix, API consumption changes and limits are in BACKEND_CHANGES.md; representative real API records including null/zero cases are data/samples/breadth-api-v1.json.
 
 Next backend milestone: complete verified infrastructure feeds and qualified facility queries/distances. Statewide healthcare source and other facility coverage/status/license details remain blockers. Comparison/story summaries, measured statewide performance and integration remain later work. Sponsor services parked until near MVP readiness, by user decision; full atlas scope retained.
+
+## Session migration checkpoint — 2026-11-07
+
+Implementation paused at user request for fresh-session migration, not due to a technical blocker. Latest substantive implementation commit: 50a1e1ce3e027b6106a47ccb9f2364ae08c74da7. Main was clean before migration documentation. See SESSION_HANDOFF.md and NEXT_SESSION_PROMPT.md for current contracts, authorizations, worktrees/ownership, actual checks, source blockers, server recovery and ordered infrastructure work.
+
+Migration availability check at 20:46 UTC: both pages/health/catalog responded successfully on :3000 and :3001; catalog v1.2 with 23 ready entries. Frontend remains active and uncommitted at baseline branch; its progress reports a map-first/multi-location foundation and its own checks, not independently certified in this backend migration. Do not merge/overwrite that work. No new implementation or full test rerun during migration; leave both preview servers running.
