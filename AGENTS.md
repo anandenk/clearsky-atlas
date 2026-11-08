@@ -12,6 +12,14 @@ Authorized 2026-11-07: preserve the current verified application as **MVP Protot
 
 Except for the scoped private Prototype 1 backup above, keep all work local. No other push, public publication, deployment, purchases, billing/global configuration changes, or revival of archived investigations. If credentials or paid access block a source, finish independent work and document the specific blocker.
 
+## Current post-Prototype-1 refinement authorization
+
+The user explicitly requests seven desktop fixes and **one parallel agent per issue**: infrastructure readability, current menu, flexible address resolution, facility-directory layout, direct remove controls on place chips, immediate City transition on place focus, and parking Compare Geography behind an opt-in. This supersedes the earlier no-automated-frontend-worker rule for this task. Integration is in the main worktree on `development/prototype-2`; the separate frontend worktree remains frozen and untouched.
+
+Use seven bounded Worktrunk/tmux CLI workers, normally up to three concurrently, each assigned one issue and explicit paths. Workers must not delegate, mutate root configuration/dependencies/data outside their assignment, run shared servers/browser/performance work, or push. Integration owner reviews full diffs, commits/merges locally, resolves shared-page edits, performs rendered verification and updates documentation. Baseline-lockfile npm ci in each worker is allowed. Preserve the known generated next-env.d.ts churn outside feature commits; its original bytes/patch are saved in artifacts/refinement/ before branching. Do not hand-edit or silently stash it.
+
+The fixed `mvp-prototype-1` tag and private release remain unchanged. This new development task authorizes no push, deployment, public release, sponsor integration or new paid/credentialed provider. Keep data definitions, nulls, versions, provenance, explicit address confirmation and exact lookup semantics intact. Mobile remains deferred. Earlier ownership rules apply to the inactive split; the current integration owner may coordinate the explicitly assigned frontend/backend corrections in this development branch.
+
 ## Interactive frontend split — authorized 2026-11-07
 
 The user opens their own frontend session; do not launch a frontend worker. Backend/integration owner works in the main worktree, frontend owner in `frontend/atlas-interactive`. See `docs/FRONTEND_HANDOFF.md` before edits. These ownership rules supersede the earlier sequential-solo rule for this explicitly authorized two-session arrangement.
