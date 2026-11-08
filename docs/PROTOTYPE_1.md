@@ -5,7 +5,7 @@ The verified integrated desktop application is frozen at annotated tag
 Integration merge: `634b1a63ec8d5ac54f43437cb86fd8c5de04254e`.
 Preservation documentation on main may advance without moving this tag.
 
-Private backup target: [anandenk/clearsky-atlas](https://github.com/anandenk/clearsky-atlas).
+Verified private backup: [anandenk/clearsky-atlas](https://github.com/anandenk/clearsky-atlas).
 Private release: [MVP Prototype 1](https://github.com/anandenk/clearsky-atlas/releases/tag/mvp-prototype-1).
 This is private preservation, not public release or deployment. No workers or
 recovery branches are uploaded. Original worktrees, caches, logs and partial
@@ -77,3 +77,23 @@ Explore Alternatives, per-tile arrival animation and optional extensions remain
 deferred. Historical failed-test/mobile screenshots are evidence records rather
 than fresh acceptance claims. No deployment or live-provider reliability is
 inferred from preservation.
+
+## Completed preservation verification
+
+Private repository and non-draft prerelease verified on 2026-11-08 UTC. A fresh
+GitHub clone matched the reviewed main/tag objects and passed Git object-integrity
+checks. All 10 assets were downloaded independently and matched the reviewed
+local bytes and GitHub SHA-256 digests; all 1,109 snapshot members reverified.
+Unauthenticated repository access returned HTTP 404 while authenticated metadata
+confirmed PRIVATE visibility.
+
+A fresh local source-bundle restore passed dependency installation, all 69 backend
+tests, four Python cache tests, TypeScript, production build, all seven API smoke
+suites and a rendered Oakland/tract/Overture-building check. The temporary restore
+server was stopped; the original :3000 app and frozen :3001 preview remain intact.
+No application code changed during preservation. Only the known generated
+next-env.d.ts churn remains outside commits.
+
+Local capsule and readback evidence: `~/Project-Backups/clearsky-mvp-prototype-1-20261107-232231/`,
+including `release-assets/`, `github-release-readback/`, `restore-logs/` and
+`BACKUP_COMPLETE.json`. The checksummed source tag remains fixed at `6dc04f3`.
