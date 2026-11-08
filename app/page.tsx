@@ -15,6 +15,7 @@ import {
   differenceUnit,
 } from "../src/frontend/provider";
 import { example, categories } from "../src/frontend/fixtures/preview";
+import { METRES_PER_PERCENTILE } from "../src/frontend/landscape";
 import { placeColors, ramps } from "../src/map-theme";
 import { Icon, BrandMark } from "../src/components/Icon";
 import Dialog from "../src/components/Dialog";
@@ -738,7 +739,7 @@ export default function Page() {
         </section>
       )}
       <div className="map-key">
-        {landscape && display.mode !== "Infrastructure" && display.metric?.percentileField && <p className="analytical-height">Analytical height: percentile × 3 m (0–300 m). Not building height. Nulls unscored.</p>}
+        {landscape && display.mode !== "Infrastructure" && display.metric?.percentileField && <p className="analytical-height">Analytical height: percentile × {METRES_PER_PERCENTILE} m (0–{100 * METRES_PER_PERCENTILE} m). Not building height. Nulls unscored.</p>}
         {(display.mode !== mode || (mode !== "Infrastructure" && display.metric?.id !== metric?.id)) && <small>Showing last loaded layer</small>}
         <div className="map-key-title">
           <span>

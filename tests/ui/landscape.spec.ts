@@ -1,6 +1,6 @@
 import {test,expect} from '@playwright/test';
 import {landscapeHeight} from '../../src/frontend/landscape';
-test('analytical scale preserves zero and missing values',()=>{expect(landscapeHeight(0)).toBe(0);expect(landscapeHeight(null)).toBeNull();expect(landscapeHeight(100)).toBe(300);});
+test('analytical scale preserves zero and missing values',()=>{expect(landscapeHeight(0)).toBe(0);expect(landscapeHeight(null)).toBeNull();expect(landscapeHeight(100)).toBe(900);});
 test('live landscape grows, reverses, and preserves map and selected address',async({page})=>{
  test.setTimeout(60000);const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await page.setViewportSize({width:1440,height:960});await page.goto('/');
  await page.getByLabel('Search a California address').focus();await page.getByRole('button',{name:'Oakland',exact:true}).click();await page.getByRole('button',{name:/Confirm this address/}).click();
