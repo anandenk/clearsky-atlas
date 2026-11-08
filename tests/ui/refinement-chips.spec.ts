@@ -17,11 +17,14 @@ async function addCached(page: Page, name: "Oakland" | "Fresno") {
 async function openReadings(page: Page) {
   const open = page.getByRole("button", { name: "Open evidence", exact: true });
   if (await open.isVisible()) await open.click();
+  await expect(page.locator("#evidence")).toHaveAttribute("aria-hidden", "false");
   const explore = page.getByRole("button", {
     name: "Explore Fine particulate matter", exact: true,
   });
+  const reading = page.locator(".reading-value").first();
+  await expect(explore.or(reading)).toBeVisible();
   if (await explore.isVisible()) await explore.click();
-  await expect(page.locator(".reading-value").first()).toBeVisible();
+  await expect(reading).toBeVisible();
 }
 
 test("direct X removes only its place, retaining identities, active place and evidence", async ({ page }) => {

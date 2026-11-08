@@ -42,6 +42,7 @@ test('verified same-tract addresses retain original coordinates and direct remov
  await expect(page.locator('.reading-delta')).toHaveText('Reference');
  await page.getByLabel('Search a California address').focus();
  await page.getByRole('button',{name:'Fresno',exact:true}).click();await page.getByRole('button',{name:/Confirm this address/}).click();
+ await evidence(page);
  await page.getByRole('button',{name:'Explore Fine particulate matter',exact:true}).click();
  await expect(page.locator('.reading-value')).toHaveText(['8.33','12.48']);
  await expect(page.locator('.reading-delta').last()).toHaveText('+4.15 vs B');

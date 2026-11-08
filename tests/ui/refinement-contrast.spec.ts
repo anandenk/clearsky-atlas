@@ -203,5 +203,8 @@ test("Nearby essentials keeps labels and contrast across row, filter and keyboar
   await expect(facility).toHaveClass("selected");
   await expectReadableText(panel);
   await page.keyboard.press("Escape");
+  await expect(dialog).not.toBeVisible();
+  await expect(page.locator("#evidence")).toHaveAttribute("aria-hidden", "false");
+  await expect(facility).toBeFocused();
   await expectReadableText(panel);
 });

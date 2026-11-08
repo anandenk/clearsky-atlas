@@ -238,6 +238,8 @@ export default function Page() {
         });
     const escape = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
+        // A native modal owns Escape; keep background disclosures/search intact.
+        if (document.querySelector("dialog[open]")) return;
         document
           .querySelectorAll<HTMLDetailsElement>("details[open]")
           .forEach((d) => {
@@ -903,7 +905,7 @@ export default function Page() {
         id="evidence"
         className="comparison-canvas"
         aria-label="Place evidence"
-        onKeyDown={event=>{if(event.key === "Escape"){setCollapsed(true);requestAnimationFrame(()=>document.querySelector<HTMLButtonElement>(".evidence-reopen")?.focus());}}}
+        onKeyDown={event=>{if(event.key === "Escape" && event.currentTarget.contains(event.target as Node)){setCollapsed(true);requestAnimationFrame(()=>document.querySelector<HTMLButtonElement>(".evidence-reopen")?.focus());}}}
         aria-hidden={!hasPlaces || collapsed}
         inert={!hasPlaces || collapsed}
       >
