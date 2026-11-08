@@ -21,6 +21,7 @@ import { placeColors, ramps } from "../src/map-theme";
 import { Icon, BrandMark } from "../src/components/Icon";
 import Dialog from "../src/components/Dialog";
 import AtlasMenu from "../src/components/AtlasMenu";
+import PlaceRibbon from "../src/components/PlaceRibbon";
 import Infrastructure from "../src/components/Infrastructure";
 import { useFacilities, type Facility } from "../src/hooks/useFacilities";
 import { useInfrastructureInventory } from "../src/hooks/useInfrastructureInventory";
@@ -696,73 +697,18 @@ export default function Page() {
         </div>
       )}
       {hasPlaces && (
-        <div className="place-ribbon" aria-label="Your places">
-          <button
-            className={`all-places ${active === "all" ? "is-active" : ""}`}
-            onClick={() => {if(linked)closeGeography();setActive("all");}}
-          >
-            <Icon name="layers" size={17} />
-            <span>{places.length > 1 ? "Together" : "Overview"}</span>
-          </button>
-          {places.map((p, i) => (
-            <div
-              className={`place-chip ${active === p.id ? "is-active" : ""}`}
-              key={p.id}
-              style={{ "--place": color(p.id) } as React.CSSProperties}
-            >
-              <button className="place-focus" onClick={() => linked ? choosePair("left",p.id) : setActive(p.id)}>
-                <b>{letter(p.id)}</b>
-                <span>{p.selection.place}</span>
-              </button>
-              <details className="place-options">
-                <summary aria-label={`Options for ${p.selection.place}`}>
-                  <Icon name="more" size={17} />
-                </summary>
-                <div className="place-menu">
-                  <p>{p.selection.label}</p>
-                  <button
-                    onClick={() => {
-                      setReference(p.id);
-                      document
-                        .querySelectorAll("details[open]")
-                        .forEach((e) => e.removeAttribute("open"));
-                    }}
-                  >
-                    Use as reference
-                  </button>
-                  <button onClick={() => startSearch(p.id)}>
-                    Replace address
-                  </button>
-                  <button
-                    disabled={i === 0}
-                    onClick={() =>
-                      setPlaces((xs) => {
-                        const a = [...xs];
-                        [a[i - 1], a[i]] = [a[i], a[i - 1]];
-                        return a;
-                      })
-                    }
-                  >
-                    Move earlier
-                  </button>
-                  <button onClick={() => remove(p.id)}>Remove place</button>
-                </div>
-              </details>
-            </div>
-          ))}
-          <button className="add-place" onClick={() => startSearch()}>
-            <Icon name="plus" size={17} />
-            Add a place
-          </button>
-          {preview && (
-            <button
-              className="preview-add"
-              onClick={() => add(example(places.length))}
-            >
-              Add example
-            </button>
-          )}
-        </div>
+        <PlaceRibbon
+          places={places}
+          active={active}
+          onFocus={(id) => linked ? choosePair("left", id) : setActive(id)}
+          onOverview={() => {if(linked)closeGeography();setActive("all");}}
+          onRemove={(id) => {
+            if (places.length === 1) input.current?.focus();
+            remove(id);
+          }}
+          onAdd={() => startSearch()}
+          onAddExample={preview ? () => add(example(places.length)) : undefined}
+        />
       )}
       <div className="view-switch">
         <div className="view-primary" role="group" aria-label="Visualization">
