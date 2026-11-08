@@ -20,6 +20,7 @@ import { METRES_PER_PERCENTILE } from "../src/frontend/landscape";
 import { placeColors, ramps } from "../src/map-theme";
 import { Icon, BrandMark } from "../src/components/Icon";
 import Dialog from "../src/components/Dialog";
+import AtlasMenu from "../src/components/AtlasMenu";
 import Infrastructure from "../src/components/Infrastructure";
 import { useFacilities, type Facility } from "../src/hooks/useFacilities";
 import { useInfrastructureInventory } from "../src/hooks/useInfrastructureInventory";
@@ -1045,74 +1046,34 @@ export default function Page() {
       <Dialog
         open={about}
         onClose={() => setAbout(false)}
-        title="A little more context"
+        title="About ClearSky"
       >
-        <div className="about-content">
-          <BrandMark />
-          <h3>ClearSky</h3>
-          <p>
-            A California environmental atlas. Explore a place, change your
-            perspective, and compare it with the places that matter to you.
-          </p>
-          <div className="menu-actions">
-            <button onClick={switchProvider}>
-              <Icon name="layers" />
-              {preview ? "Return to live evidence" : "Explore full UI preview"}
-              <Icon name="arrow" size={17} />
-            </button>
-            <button
-              onClick={() => {
-                setRaster((r) => !r);
-                setAbout(false);
-              }}
-            >
-              Use {raster ? "vector" : "fallback raster"} basemap
-            </button>
-            <button
-              onClick={() => {
-                setReset((n) => n + 1);
-                setAbout(false);
-              }}
-            >
-              Retry map & evidence
-            </button>
-            <button
-              onClick={() => {
-                setPlaces([]);
-                setOverview(false);
-                setActive("all");
-                setReference("");
-                setAbout(false);
-              }}
-            >
-              Clear all places
-            </button>
-          </div>
-          {preview && (
-            <label className="scenario">
-              Preview scenario
-              <select
-                value={scenario}
-                onChange={(e) => {
-                  setScenario(e.target.value);
-                  setAbout(false);
-                }}
-              >
-                <option value="normal">Typical values</option>
-                <option value="missing">Missing observation</option>
-                <option value="zero">Valid zero</option>
-                <option value="incompatible">Incompatible evidence</option>
-                <option value="failure">Source failure</option>
-              </select>
-            </label>
-          )}
-          <p className="small">
-            Live environment, health and community evidence comes from
-            CalEnviroScreen 5.0. Healthcare and schools use their own source
-            inventories; power plants remain in synthetic preview. Map data ©
-            OpenStreetMap contributors, OpenMapTiles and OpenFreeMap.
-          </p>
-        </div>
+        <AtlasMenu
+          key={about ? "open" : "closed"}
+          preview={preview}
+          raster={raster}
+          scenario={scenario}
+          onSwitchProvider={switchProvider}
+          onToggleRaster={() => {
+            setRaster((r) => !r);
+            setAbout(false);
+          }}
+          onRetry={() => {
+            setReset((n) => n + 1);
+            setAbout(false);
+          }}
+          onClearPlaces={() => {
+            setPlaces([]);
+            setOverview(false);
+            setActive("all");
+            setReference("");
+            setAbout(false);
+          }}
+          onScenarioChange={(value) => {
+            setScenario(value);
+            setAbout(false);
+          }}
+        />
       </Dialog>
       <Dialog
         open={!!inspection}

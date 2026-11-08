@@ -1,0 +1,34 @@
+.atlas-menu .atlas-menu-coverage {
+  color: var(--ink);
+}
+
+.atlas-menu .atlas-menu-preview {
+  border-left: 3px solid var(--accent);
+  padding: 10px 12px;
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.atlas-menu .atlas-menu-advanced {
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 14px;
+}
+
+.atlas-menu-advanced > summary {
+  cursor: pointer;
+  padding: 10px 0;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.atlas-menu-advanced > p {
+  margin: 8px 0;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.atlas-menu-advanced .menu-actions {
+  margin: 12px 0 16px;
+}
