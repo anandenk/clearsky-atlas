@@ -230,12 +230,15 @@ export default function Page() {
   }, [places, preview, scenario, catalog, reset]);
   useEffect(() => () => searchAbort.current?.abort(), []);
   useEffect(() => {
-    const close = (e: MouseEvent) =>
+    const close = (e: MouseEvent) => {
+      // Portal clicks belong to their dialog, even if its handler just closed it.
+      if (e.target instanceof Element && e.target.closest("dialog")) return;
       document
         .querySelectorAll<HTMLDetailsElement>("details[open]")
         .forEach((d) => {
           if (!d.contains(e.target as Node)) d.open = false;
         });
+    };
     const escape = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         // A native modal owns Escape; keep background disclosures/search intact.
