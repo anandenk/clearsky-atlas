@@ -102,6 +102,7 @@ export default function Page() {
   const linkedCamera=useMemo(()=>new LinkedCamera(),[geography]);
   const [viewPreference, setViewPreference] = useState<"auto" | MapView>("auto");
   const [zoomView, setZoomView] = useState<MapView>("landscape");
+  const [placeFocus, setPlaceFocus] = useState<{id: string; serial: number}>();
   const onZoomEnd = useCallback((zoom: number) => {
     setZoomView(previous => automaticView(zoom, previous));
   }, []);
@@ -440,6 +441,17 @@ export default function Page() {
     const other=side==="left"?"right":"left";
     return {...current,[side]:id,[other]:current[other]===id ? (side==="left"?leftPlace.id:rightPlace!.id) : current[other]};
   });
+  function focusPlace(id: string, side: "left" | "right" = "left") {
+    if (!places.some(place => place.id === id)) return;
+    // A deliberate focus chooses City now. Auto remains selected so a later
+    // zoom-out can resume Landscape; a manual Landscape choice becomes City.
+    setZoomView("city");
+    setViewPreference(previous => previous === "auto" ? previous : "city");
+    // Repeated clicks on the active place are new recenter requests too.
+    setPlaceFocus(previous => ({id, serial: (previous?.serial ?? 0) + 1}));
+    if (linked) choosePair(side, id);
+    else setActive(id);
+  }
   const infrastructureControls = (
 <div className="infrastructure-map-controls">
           <strong className="infrastructure-control-label">Show on map</strong>
@@ -497,6 +509,7 @@ export default function Page() {
           key={preview ? "preview" : "live"}
           overlays={overlays.current}
           facilityTarget={facilityTarget}
+          placeFocus={placeFocus}
           onZoomEnd={onZoomEnd} onTopDown={onTopDown} onBuildingStatus={setBuildingStatus}
           linked={linked ? {camera:linkedCamera,gate,side:"left",placeId:leftPlace.id,coordinate:leftPlace.selection.coordinate} : undefined}
           overview={flatLandscape}
@@ -516,18 +529,19 @@ export default function Page() {
           facility={mapFacility?.id || facility}
           onFacility={id=>{if(linked)setActive(leftPlace.id);onMapFacility(id);}}
           onInspect={setInspection}
-          onFocus={setActive}
+          onFocus={focusPlace}
           reset={reset}
           raster={raster}
         />
       </div>
       {linked && rightPlace && <div className="comparison-map-stage"><Map
+        placeFocus={placeFocus}
         onZoomEnd={onZoomEnd} onTopDown={onTopDown} onBuildingStatus={setRightBuildingStatus}
         overlays={overlays.current} linked={{camera:linkedCamera,gate,side:"right",placeId:rightPlace.id,coordinate:rightPlace.selection.coordinate}}
         overview={flatLandscape} landscape={landscape} onHeightScale={setRightHeightScale} onDisplay={()=>{}}
         places={places} collapsed={true} active={rightPlace.id} metric={metric} mode={mode} preview={preview} scenario={scenario}
         categories={filter} facilities={preview ? rightFacilities : statewideFacilities} facilitiesReady={preview ? !!facilityResult(rightPlace) : inventoryReady} facility={mapFacility?.id || facility}
-        onFacility={id=>{setActive(rightPlace.id);onMapFacility(id);}} onInspect={setInspection} onFocus={setActive} reset={reset} raster={raster}
+        onFacility={id=>{setActive(rightPlace.id);onMapFacility(id);}} onInspect={setInspection} onFocus={id=>focusPlace(id,"right")} reset={reset} raster={raster}
       /></div>}
       {linked && rightPlace && <GeographyComparison places={places} left={leftPlace} right={rightPlace} metric={display.metric}
         observe={observation} onPair={choosePair} onClose={closeGeography} onEvidence={geographyEvidence}
@@ -700,7 +714,7 @@ export default function Page() {
         <PlaceRibbon
           places={places}
           active={active}
-          onFocus={(id) => linked ? choosePair("left", id) : setActive(id)}
+          onFocus={focusPlace}
           onOverview={() => {if(linked)closeGeography();setActive("all");}}
           onRemove={(id) => {
             if (places.length === 1) input.current?.focus();

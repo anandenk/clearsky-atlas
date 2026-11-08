@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import * as gl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { installBuildings } from "./frontend/buildings";
@@ -13,6 +13,7 @@ import { value, percentile } from "./frontend/fixtures/preview";
 import type { Facility } from "./hooks/useFacilities";
 import type {LinkedPane} from "./frontend/linked-geography";
 type Props = {
+  placeFocus?: {id: string; serial: number};
   facilityTarget?: {coordinate:[number,number];serial:number};
   linked?: LinkedPane;
   onZoomEnd?: (zoom: number) => void;
@@ -107,6 +108,8 @@ export default function AtlasMap(p: Props) {
     ready: Promise<void>;
   } | null>(null);
   const growth = useRef(0);
+  const appliedPlaceFocus = useRef(0);
+  const cancellingFlight = useRef(false);
   const buildings = useRef<ReturnType<typeof installBuildings> | null>(null);
   const roofEdges = useRef<ReturnType<typeof installRoofEdges> | null>(null);
   const [rendered, setRendered] = useState<{metric?: Indicator; mode: string; slot: number}>({mode:"Environment",slot:0});
@@ -147,7 +150,7 @@ export default function AtlasMap(p: Props) {
     map.current = m;
     // Only settled zoom changes affect React state; pitch/pan and relief frames do not.
     const reportZoom = () => {
-      if (latest.current.linked?.camera.isSynchronizing) return;
+      if (cancellingFlight.current || latest.current.linked?.camera.isSynchronizing) return;
       latest.current.onZoomEnd?.(m.getZoom());
     };
     m.on("zoomend", reportZoom);
@@ -683,6 +686,10 @@ export default function AtlasMap(p: Props) {
     const duration = reduced() ? 0 : 1800;
     if (container.current) container.current.dataset.arrivalDuration = String(duration);
     const focus = p.places.find((v) => v.id === p.active);
+    // stop() emits the interrupted flight's zoomend at its intermediate zoom.
+    // It must not undo the click's City intent before the replacement starts.
+    cancellingFlight.current = true;
+    try { m.stop(); } finally { cancellingFlight.current = false; }
     if (focus)
       m.flyTo({
         center: focus.selection.coordinate,
@@ -747,7 +754,7 @@ export default function AtlasMap(p: Props) {
           duration,
         },
       );
-  }, [ready, geometryKey, p.active, p.reset, narrow, p.collapsed, p.linked?.camera]);
+  }, [ready, geometryKey, p.active, p.placeFocus?.serial, p.reset, narrow, p.collapsed, p.linked?.camera]);
   useEffect(()=>{
     const m=map.current, linked=p.linked;
     if(!m || !ready || !linked)return;
@@ -850,11 +857,24 @@ export default function AtlasMap(p: Props) {
       6,
     ]);
   }, [ready, p.facility]);
-  useEffect(() => {
+  useLayoutEffect(() => {
     const m=map.current;
     if(!m || !ready || !m.getLayer("landscape0")) return;
+    if (p.placeFocus && appliedPlaceFocus.current !== p.placeFocus.serial) {
+      appliedPlaceFocus.current = p.placeFocus.serial;
+      // Run before the camera effect and the next paint. The previous layout
+      // cleanup cancels its reversible shrink/growth animation first. Hide both
+      // buffers and rims without rewriting geometry or feature heights; ground
+      // evidence and the last successfully rendered measure remain intact.
+      growth.current = 0;
+      for (const id of ["landscape0", "landscape1", "tract-roof-highlight"]) {
+        if (!m.getLayer(id)) continue;
+        m.setPaintProperty(id, "fill-extrusion-opacity-transition", {duration:0});
+        m.setPaintProperty(id, "fill-extrusion-opacity", 0);
+      }
+    }
     const target=p.landscape && rendered.mode !== "Infrastructure" && rendered.metric?.percentileField ? 1 : 0;
-    const start=growth.current, began=performance.now(), duration=reduced() || p.linked ? 0 : 1100;
+    const start=growth.current, began=performance.now(), duration=reduced() || p.linked || start===target ? 0 : 1100;
     const layer="landscape"+rendered.slot, source="tracts"+rendered.slot;
     // Keep city/place names for orientation; quiet the local road labels when
     // reading elevated tract surfaces. Constant opacity changes do not retile.
@@ -876,7 +896,9 @@ export default function AtlasMap(p: Props) {
       const amount=start+(target-start)*(t*t*(3-2*t));growth.current=amount;
       const scale=metresPerPercentileAtZoom(m.getZoom());
       const height=amount; // Zoom interpolation runs in the renderer; only growth changes this expression.
-      const heightChanged=height!==lastHeight;
+      // A focus-hidden plateau can retain its worker height until Landscape
+      // is requested again. Zero opacity needs no hidden height retiling.
+      const heightChanged=height!==lastHeight && !(start===0 && height===0);
       // Backpressure keeps only the latest desired height while workers finish.
       // Final and reduced-motion states are exact, as are all submitted scales.
       const canWrite=reduced() || (now-lastWrite>=80 && m.isSourceLoaded(source));
@@ -921,7 +943,7 @@ export default function AtlasMap(p: Props) {
     m.on("error",sourceFailed);
     draw();
     return()=>{cancelAnimationFrame(raf);clearTimeout(timer);m.off("zoom",schedule);m.off("sourcedata",sourceChanged);m.off("idle",sourceSettled);m.off("error",sourceFailed);};
-  },[ready,p.landscape,p.overview,rendered]);
+  },[ready,p.landscape,p.overview,rendered,p.placeFocus?.serial]);
   useEffect(()=>{
     const m=map.current;if(!m || !ready) return;
     if(p.linked?.side === "right")return;
