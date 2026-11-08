@@ -16,6 +16,7 @@ test('land-use fills stay below thematic shading across neighborhood zooms', asy
   await page.getByLabel('Search a California address').focus();
   await page.getByRole('button',{name:'Fresno',exact:true}).click();
   await page.getByRole('button',{name:/Confirm this address/}).click();
+  await page.getByRole('button',{name:'Open evidence',exact:true}).click();
   await page.getByRole('combobox',{name:'Choose a measure'}).selectOption('traffic');
   await page.getByRole('button',{name:'More map',exact:true}).click();
   const map = page.locator('.atlas-map');

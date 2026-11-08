@@ -87,7 +87,7 @@ export default function Page() {
   const [rightHeightScale,setRightHeightScale]=useState(METRES_PER_PERCENTILE);
   const [geography,setGeography]=useState(false);
   const [pair,setPair]=useState({left:"",right:""});
-  const collapsedBeforeGeography=useRef(false);
+  const collapsedBeforeGeography=useRef(true);
   const overlays=useRef(new StatewideOverlays());
   const linkedCamera=useMemo(()=>new LinkedCamera(),[geography]);
   const [viewPreference, setViewPreference] = useState<"auto" | MapView>("auto");
@@ -133,7 +133,7 @@ export default function Page() {
     [facility, setFacility] = useState(""),
     [reset, setReset] = useState(0),
     [raster, setRaster] = useState(false),
-    [collapsed, setCollapsed] = useState(false),
+    [collapsed, setCollapsed] = useState(true),
     [overview, setOverview] = useState(false),
     [lensExpanded, setLensExpanded] = useState(false);
   const searchAbort = useRef<AbortController | null>(null),
@@ -292,7 +292,7 @@ export default function Page() {
     setQuery("");
     setCandidates([]);
     setSearchOpen(false);
-    setCollapsed(false);
+    if (!places.length) setCollapsed(true);
     setInspection("");
   }
   async function search(e: React.FormEvent) {
@@ -858,11 +858,18 @@ export default function Page() {
         <Icon name="target" size={19} />
       </button>
       {places.length>1 && !linked && <button className="geography-open" onClick={openGeography}>Compare geography</button>}
-      {hasPlaces && collapsed && !linked && <button className="evidence-reopen" onClick={()=>setCollapsed(false)}><Icon name="layers" size={17}/>Open evidence</button>}
+      {hasPlaces && collapsed && !linked && <div className="evidence-peek">
+        <button className="evidence-reopen" aria-label="Open evidence" aria-expanded={false} aria-controls="evidence" onClick={()=>{setCollapsed(false);requestAnimationFrame(()=>document.querySelector<HTMLButtonElement>(".canvas-topline button")?.focus());}}>
+          <Icon name="layers" size={19}/><span><strong>{mode === "Infrastructure" ? "Nearby essentials" : metric?.label || "Place evidence"}</strong>
+          <small>{places.length > 1 ? `${places.length} places to compare` : selected?.selection.place}{mode !== "Infrastructure" && selected && observation(selected) ? ` · ${format(observation(selected)?.rawValue, metric?.id)} ${observation(selected)?.unit || ""}` : ""}</small></span><span className="peek-action">Open evidence ↑</span>
+        </button>
+        {places.length>1 && <button className="peek-compare" onClick={openGeography}>Compare maps</button>}
+      </div>}
       <section
         id="evidence"
         className="comparison-canvas"
         aria-label="Place evidence"
+        onKeyDown={event=>{if(event.key === "Escape"){setCollapsed(true);requestAnimationFrame(()=>document.querySelector<HTMLButtonElement>(".evidence-reopen")?.focus());}}}
         aria-hidden={!hasPlaces || collapsed}
         inert={!hasPlaces || collapsed}
       >
@@ -884,13 +891,15 @@ export default function Page() {
           </div>
           <button
             className="text-button"
-            onClick={() => setCollapsed((v) => !v)}
+            aria-expanded={!collapsed}
+            aria-controls="evidence-body"
+            onClick={() => {setCollapsed(true);requestAnimationFrame(()=>document.querySelector<HTMLButtonElement>(".evidence-reopen")?.focus());}}
           >
             {collapsed ? "Open evidence" : "More map"}
             <span className={collapsed ? "caret up" : "caret"} />
           </button>
         </div>
-        <div className="canvas-content" inert={collapsed}>
+        <div id="evidence-body" className="canvas-content" inert={collapsed}>
           {mode === "Infrastructure" ? <><header className="compass-heading"><div><h2>Nearby essentials</h2><p>{preview ? "Synthetic preview" : "CDPH healthcare · CDE schools"}</p></div><button onClick={()=>setSourceOpen(true)} aria-label="About the evidence"><Icon name="info" size={19}/></button></header><Infrastructure
             places={places} selected={selected} result={facilityResult} preview={preview}
             filter={filter} setFilter={setFilter} facility={facility} onFacility={setFacility}

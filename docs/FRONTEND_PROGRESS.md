@@ -523,3 +523,13 @@ User decision: main session owns the building-source work; frontend waits for th
 ## Manual top-down selects Flat — 2026-11-07
 
 Issue4 fixed directly: a user-originated pitchend at3degrees or less switches active Data Landscape to Flat. Programmatic arrival/Together camera motions and synthetic linked-follower events do not change the saved depth. Both map panes report the originating gesture. Explicit3D still restores relief/tilt; Auto preference is preserved. Production build passed; keyboard top-down/Flat/3D restoration and existing Together framing checks passed2/2. Buildings source remains with main under the handoff above; wait for user's completion notice before frontend integration.
+
+## Desktop map-first milestone — 2026-11-07
+
+User directed independent frontend progress while main builds Overture, then explicitly deferred mobile integration/refinement from now on. Desktop is the active target; the mobile bottom-sheet target remains deferred until the user reopens mobile scope. Unverified new sheet work was removed from this pass; existing mobile behavior was not comprehensively rechecked.
+
+Desktop now starts confirmed-place exploration with a compact evidence summary instead of the full evidence panel. Summary uses the same real observation/unit helpers; full evidence remains one click away. Opening evidence moves focus to its collapse control; More map/Escape returns focus to Open evidence. An explicitly opened panel stays open when adding another location. Map instance, selections and existing data controls persist. Opening-prompt text and topic controls now have a restrained navy backdrop for readable contrast over light tract colors. No numerical85%-visible-map claim was measured.
+
+Dialogs now render via a body portal, outside hidden/inert evidence-panel ancestors. This directly resolves the previously recorded linked-facility dialog regression: the actual right/left map marker test now opens the correct inventory detail without recentering either place. No facility data semantics changed.
+
+Verification: production build passed; focused desktop summary/evidence/focus test and linked facility test passed2/2 in9.1s. After preserving explicitly opened evidence during additional selections, desktop summary/focus plus all23 live-measure access/unit/value checks passed2/2 in46.4s. Inspected desktop compact, opening and evidence screenshots in artifacts/map-first/. Adjusted existing evidence-focused test interactions to explicitly open the now-collapsed panel. No full-suite/mobile/accessibility certification claimed. Current work stays local, preview:3001 restored, backend untouched; wait for user's Overture completion notice before adopting its contract.

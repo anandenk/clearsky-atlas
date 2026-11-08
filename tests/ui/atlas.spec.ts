@@ -27,11 +27,14 @@ async function cached(page: Page, name: string) {
   await page.getByRole("button", { name, exact: true }).click();
   await expect(page.locator(".candidate")).toHaveCount(1);
   await page.getByRole("button", { name: /Confirm this address/ }).click();
+  const evidence=page.getByRole("button",{name:"Open evidence",exact:true});
+  if(await evidence.isVisible())await evidence.click();
 }
 async function preview(page: Page) {
   await page.getByRole("button", { name: "Atlas menu" }).click();
   await page.getByRole("button", { name: "Explore full UI preview" }).click();
   await page.getByRole("button", { name: "Add a synthetic example" }).click();
+  await page.getByRole("button",{name:"Open evidence",exact:true}).click();
 }
 async function scenario(page: Page, value: string) {
   await page.getByRole("button", { name: "Atlas menu" }).click();

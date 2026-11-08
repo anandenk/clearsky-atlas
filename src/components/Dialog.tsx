@@ -1,5 +1,6 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { Icon } from "./Icon";
 export default function Dialog({
   open,
@@ -13,11 +14,14 @@ export default function Dialog({
   children: React.ReactNode;
 }) {
   const ref = useRef<HTMLDialogElement>(null);
+  const [mounted,setMounted] = useState(false);
+  useEffect(()=>setMounted(true),[]);
   useEffect(() => {
     if (open && !ref.current?.open) ref.current?.showModal();
     else if (!open && ref.current?.open) ref.current.close();
-  }, [open]);
-  return (
+  }, [open,mounted]);
+  if(!mounted)return null;
+  return createPortal(
     <dialog
       className="detail-dialog"
       ref={ref}
@@ -38,6 +42,6 @@ export default function Dialog({
         </button>
       </div>
       {children}
-    </dialog>
+    </dialog>, document.body
   );
 }

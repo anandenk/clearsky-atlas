@@ -17,7 +17,7 @@ test('statewide coverage stays resident through zoom/pan and recently used overl
   await page.getByLabel('Search a California address').focus();
   await page.getByRole('button',{name:'Fresno',exact:true}).click();
   await page.getByRole('button',{name:/Confirm this address/}).click();
-  await page.getByRole('button',{name:'More map',exact:true}).click();
+
   await page.waitForTimeout(1800);
   for(let i=0;i<1;i++){await page.getByRole('button',{name:'Zoom in',exact:true}).click();await page.waitForTimeout(350);}
   for(let i=0;i<9;i++){await page.getByRole('button',{name:'Zoom out',exact:true}).click();await page.waitForTimeout(350);}
