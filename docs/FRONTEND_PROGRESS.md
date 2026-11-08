@@ -1,3 +1,5 @@
+> **Latest resume point:** [Responsiveness first, then remaining milestones](#resume-here--responsiveness-first-then-remaining-milestones). The user requested a fresh session to address severe unresponsiveness before more features. Read that section first; earlier entries are dated implementation evidence.
+
 > **Current direction: ClearSky.** Read the final section, **ClearSky implementation handoff for Astra — 2026-11-07**, before continuing. The earlier Common ground/Astra assignments below are historical implementation evidence. Their visual direction and frontend-first preview workflow are superseded by the latest user discussion recorded in that section. AGENTS.md ownership and local-only boundaries still apply.
 
 # Frontend creative reset — Common ground
@@ -347,3 +349,67 @@ Replaced the three peer choices with City / Data Landscape. Data Landscape expos
 TypeScript and five focused browser checks passed (34.9s): flat/3D zoom behavior, city/landscape reversal, selected address retention, composition exception and missing hatch. Inspected updated statewide desktop and mobile screenshots. No fresh production build for this controls-only change. Local only; no backend/config/dependency/integration changes. Full remaining milestones retained.
 
 Zoomed-out prominence refinement: multiplied the previous adaptive height scale by up to four at zoom 7 and below, tapering continuously back to unchanged 9 m/point at zoom 10+. The factor is shared by all tracts and reported by the existing dynamic legend; Flat and null behavior are unchanged. Inspected statewide screenshot: Central Valley and southern California peaks/edges are visibly stronger; observed scale about808 m/point versus prior202. TypeScript and both focused adaptive-scale/missing-data checks passed (9s), including the unchanged neighborhood scale and retained selection. No fresh production build for this bounded scale adjustment. Full scope and local-only integration boundaries retained.
+
+## Resume here — responsiveness first, then remaining milestones
+
+### User direction at session close
+
+The user reports that the frontend has become **very unresponsive** after the feature additions; responsiveness is critical to the user-centered product goal. They explicitly requested saving this session and migrating to a fresh session to tackle performance and the remaining milestones. Do not continue adding features before investigating this regression. This is a handoff, not a completed performance fix.
+
+The last screenshot showed fragmented triangular extrusion surfaces around Los Angeles after zooming in (legend approximately9 m/point). The user then corrected the report: **it cleared after waiting for loading**. Treat this as user-observed transient rendering/loading behavior, not established permanent corruption or a proven root cause. Screenshot preserved locally at `artifacts/session-handoff/transient-fragmentation-user.png` (ignored). The interrupted investigation made read-only source/web inspections only; no fix, rollback, repro trace or performance measurement was completed. An initial search of MapLibre rendering sources is not evidence that a library bug caused it.
+
+### Exact resume state
+
+- Workspace `/Users/anand/Projects/hackathon.frontend`, branch `frontend/atlas-interactive`.
+- Application checkpoint `4b999a77e531f9ea9a181f7e62d76dd896993e6b` (fourfold distant relief). Worktree clean before this documentation-only handoff.
+- Previous recoverable checkpoints include `d6e3bf3` (all pre-ClearSky frontend work), `cb1a8c4` (city prototype), `5146931` (X-Ray evidence), `4f55f4e` (initial landscape), `be80add` (regional interpretation), `cab1272` (Together framing), `1790053` (source disclosure), `d3b9839` (adaptive exaggeration), `a140d30` (two main modes/nested depth).
+- Both local servers observed listening at handoff: main :3000 and frontend :3001. Frontend started with `ATLAS_BACKEND_ORIGIN=http://127.0.0.1:3000 npm run dev -- --port 3001`. Recheck live processes; do not assume recorded PIDs remain valid. No server restart for this handoff.
+- All changes remain local. Nothing merged into main, pushed, deployed or published. No backend/config/dependency changes were made in this frontend session. No worker agents were launched.
+
+### Read order and boundaries
+
+Read AGENTS.md, this resume section, README and its four planning links, FRONTEND_HANDOFF.md, then the current main-worktree `/Users/anand/Projects/hackathon/docs/BACKEND_CHANGES.md` and `READINESS_AUDIT.md` read-only. The earlier ClearSky implementation handoff in this file preserves all six milestones/reference intent; older Common ground/Astra presentation directions are superseded. Read relevant installed Next.js guides before code changes.
+
+Honor the explicit frontend/backend split. This session owns frontend app except API routes, AtlasMap/map-theme, frontend components/hooks/styles/adapters, UI tests and this progress document. Main owns API/data/scripts/shared types/root configs/package files. Request specific backend/dependency/config changes through the user; do not install or edit them unilaterally. No additional frontend agent is authorized. User-coordinated paused review is required before any integration/merge/rebase/cherry-pick. Preserve source PDF and original six-milestone scope. No archived source investigations, sponsor work, publication or paid access.
+
+### Current product decisions — do not regress during optimization
+
+- Two main choices: **City / Data Landscape**. Data Landscape has nested **Flat / 3D**, remembering depth preference. Do not restore a third peer Overview button.
+- City uses neutral OpenStreetMap/OpenFreeMap physical buildings with qualified approximate heights. Data Landscape uses actual CES tract display polygons and supplied percentiles, not building-level readings.
+- 3D intentionally has stronger distant peaks: `src/frontend/landscape.ts` defines `d=clamp(10-zoom,0,6)` and `scale=9*2^d*(1+3*min(1,d/3))` metres/percentile point. At zoom10+ the scale is9; zoom7 and below has four times the earlier adaptive relief. Tested statewide screenshot about808 m/point. All tracts share one multiplier at the same zoom; linear percentile heights, zero/null distinction and explicit exaggeration legend are mandatory. Flat preserves the boundary-focused non-extruded interpretation alternative. User explicitly requested prominent distant peaks; do not silently remove them as a performance shortcut.
+- Health/community are population-level tract observations, not uniform conditions at every point or personal risks. Large rural polygons have real values and large footprints; do not fabricate smaller measurement cells or treat them as missing. Missing map values use gray hatching, distinct from zero.
+- Infrastructure/composition exceptions remain; no invented demographic hazard rank. Healthcare/schools live, power unavailable. Mode/category/metric/selection/reference/camera remain separate concerns.
+- One persistent primary map, multiple saved locations, confirmed address candidates, source-qualified evidence. Together uses a flat north-up inner frame; single-address arrival is pitched. Mobile comparison has extra map height to avoid pin/control collisions.
+- Source limits are in a disclosure **inside the legend**, not a separate overlapping footer. Opening prompt has no accidental bordered panel. Recent screenshot feedback focused on control/pin visibility and avoiding overlap.
+- Outgoing metric/legend remain identifiable during delayed replacements. Retain previous successful geometry on failures. Exact backend membership stays separate from simplified display geometry.
+
+### Performance investigation: evidence vs hypotheses
+
+Confirmed current source characteristics (inspect rather than assuming a diagnosis):
+
+1. `src/frontend/map-coverage.ts` retains standard statewide geometry per metric, bounded to two successful entries. Historical measurement: 9,106 features and15.7 MB decoded per standard metric. This deliberately fixed navigation gaps from per-move subset replacement. Do not restore naive fetch-on-pan or drop statewide coverage.
+2. `src/AtlasMap.tsx` uses two GeoJSON sources, tagging/copying every feature with a frame token and calling setData for new measures. Each has ground, missing, boundary, selection/inspection and extrusion layers. Buildings are a separate vector source.
+3. Its landscape effect rewrites **data-driven height expressions for both buffers on every zoom event and animation frame**. It also writes opacity and calls the React parent `onHeightScale` with a changing floating-point value. It queries rendered extrusion features and writes diagnostic DOM attributes during animation; other idle/move diagnostics/query work also remains. These are concrete profiling candidates, not proven bottlenecks. Investigate style invalidation/worker recalculation/upload cost and parent rerenders before guessing.
+4. `app/page.tsx` owns much of the UI state; callbacks/derived arrays and useFacilities dependencies warrant profiling. `src/styles/city.css` is a growing override sheet; panel/legend layout and backdrop blur may contribute. Do not call these causal without measurement.
+5. External basemap tile loading, statewide payload fetch/parse/worker processing, main-thread React work, GPU fill/extrusion cost, and development HMR overhead need to be distinguished. Test both cold and warmed flows, development vs production where useful. Starting a production frontend is allowed locally; preserve/restart only the frontend and retain the backend proxy. Do not restart main without coordination.
+
+Suggested first complete increment: reproduce the reported loading/interaction problem, capture a baseline, change one measured hotspot, verify the same flows with before/after traces and visible input responsiveness. Prefer renderer-native camera expressions/uniform-compatible animation where supported and verified; avoid repeated whole-geometry/data-driven style work if traces implicate it. Consider scheduling/deduplicating React legend updates and moving diagnostics off animation hot paths. If geometry delivery is measured as dominant, propose a concrete contract to main (shared versioned geometry + compact values or vector tiles) rather than editing backend here. Existing optional overview geometry is documented only through about zoom7 and must not silently replace neighborhood detail.
+
+Measure real interactions: statewide→LA zoom/pan/rotate while 3D is active, rapid City/Flat/3D reversal, switches across metrics/categories, address confirmation/arrival, Together framing and source failures. Capture long tasks, frame-time distribution, input latency, request/worker timing and memory where tooling permits. Verify whether fragmented surfaces occur only during pending data/style work; preserve or communicate a coherent loading state instead of presenting unready triangles as settled evidence. Do not treat a spinner alone as fixing unresponsiveness. Keep controls interruptible, preserve selection/camera, and verify reduced motion. Avoid editing while a browser test runs: an earlier HMR invalidated a map-instance test and needed rerun.
+
+### Validation history and its limits
+
+Prior build/type/browser passes are detailed chronologically above. Latest **application** production build was during `d3b9839`; subsequent control simplification and fourfold scale adjustment ran TypeScript and focused browser checks, not a fresh build. Latest focused checks at `4b999a7`: adaptive statewide/local scale and missing-hatch tests, 2 passed (9s). Other tests cover live 23-field breadth, six-place preview, comparison incompatibility, tiny gaps, pinned facility versions, source failures, overlay hold/cache behavior, landscape reversal, demographics, framing and responsive layouts. None establish current responsiveness on the user's hardware. Do not cite historical functional passes as performance acceptance or claim a full suite was freshly run.
+
+Test command: `PLAYWRIGHT_BASE_URL=http://127.0.0.1:3001 npm run test:ui`. Targeted suites are `tests/ui/landscape.spec.ts`, `regional.spec.ts` (name retained, now Flat/adaptive), `map-switch.spec.ts`, `map-coverage.spec.ts`, `framing.spec.ts`, `evidence-contract.spec.ts`, `city.spec.ts`, `atlas.spec.ts`. Tests include synthetic fixtures explicitly; those are not live evidence. Some screenshot tests assert metadata rather than visual pixel integrity, so investigate/strengthen the specific failure path rather than trusting screenshots exist. Use a stable frozen implementation while testing.
+
+### Remaining milestones — full target intact
+
+1. Reference-inspired city: implemented prototype with confirmed-address flow; performance/device/coverage limitations remain.
+2. Environmental X-Ray: live four categories/23 fields, evidence and schools/healthcare implemented; visual/layout refinement and integrated failure-matrix review remain. Original ~85%-exposed default and polished bottom-sheet target are not fully achieved.
+3. Data Landscape: implemented, including adaptive prominence and Flat/3D controls. **Responsiveness/loading quality is now the immediate blocker to accepting it.** Rendering polish, roof-edge selection, cross-metric extrusion blending and label density remain review items.
+4. Explore Alternatives: **not implemented**. Define geographic radius/distance semantics, per-indicator criteria, ordering, limits, null/no-match handling with main before backend query work. Use real tract candidates, not invented addresses or centroid-as-confirmed-address facility requests. No composite neighborhood score.
+5. Geographic comparison: existing multi-place evidence and Together view are not the full milestone. Connected A/B geography and linked side-by-side views remain. Sync zoom/bearing/pitch and adaptive height multiplier around each place's own center without feedback loops; common definitions/versions/domains, same-tract distinct pins and null/tiny-gap semantics remain required.
+6. Integrated refinement: performance first now, then lighting/motion/mobile/accessibility/failure and visual quality; full stable diff and user-coordinated main integration followed by combined backend/UI checks. No blanket performance/accessibility claim until measured.
+
+Power remains blocked on documented reporting-period/retired-code evidence or a verified alternative. Fire/remediation need suitable sources; routes need a routing contract. Terrain, sharing, AI/voice and sponsors stay retained but outside these initial increments. Do not silently delete scope or resume exhausted investigations. Continue independent authorized frontend work; document specific owner requests and triggers.
