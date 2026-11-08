@@ -78,6 +78,7 @@ const letter = (id: string) => String.fromCharCode(64 + Number(id));
 const color = (id: string) =>
   placeColors[(Number(id) - 1) % placeColors.length];
 export default function Page() {
+  const [landscape, setLandscape] = useState(false);
   const [display, setDisplay] = useState<{mode: string; metric?: Indicator}>({mode:"Environment"});
   const [preview, setPreview] = useState(false),
     [scenario, setScenario] = useState("normal"),
@@ -408,6 +409,7 @@ export default function Page() {
       </a>
       <div className="map-stage">
         <Map
+          landscape={landscape}
           onDisplay={setDisplay}
           places={places}
           collapsed={collapsed}
@@ -658,6 +660,10 @@ export default function Page() {
           )}
         </div>
       )}
+      <div className="view-switch" role="group" aria-label="Visualization">
+        <button aria-pressed={!landscape || mode === "Infrastructure" || !metric?.percentileField} onClick={()=>setLandscape(false)}>City View</button>
+        <button aria-pressed={landscape && mode !== "Infrastructure" && !!metric?.percentileField} disabled={mode === "Infrastructure" || !metric?.percentileField || raster} onClick={()=>setLandscape(true)}>Data Landscape</button>
+      </div>
       <nav className="domain-dock" aria-label="Explore a domain">
         {modes.map((m) => (
           <button
@@ -732,6 +738,7 @@ export default function Page() {
         </section>
       )}
       <div className="map-key">
+        {landscape && display.mode !== "Infrastructure" && display.metric?.percentileField && <p className="analytical-height">Analytical height: percentile × 3 m (0–300 m). Not building height. Nulls unscored.</p>}
         {(display.mode !== mode || (mode !== "Infrastructure" && display.metric?.id !== metric?.id)) && <small>Showing last loaded layer</small>}
         <div className="map-key-title">
           <span>

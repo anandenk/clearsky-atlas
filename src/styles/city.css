@@ -30,3 +30,5 @@
 .atlas-app .compass-finding{background:#243443;color:#dce8ec}
 .atlas-app .reading-value{color:#dce8ec}
 .atlas-app .compass-finding p,.atlas-app .canvas-topline button{color:#c4d3dd}
+.view-switch{position:absolute;right:24px;top:150px;z-index:10;display:flex;padding:4px;border:1px solid #42586a;border-radius:10px;background:#101e2af7;color:#cad5d9}.view-switch button{padding:10px 12px;border-radius:6px;font-size:12px}.view-switch button[aria-pressed=true]{background:#395968;color:#fff}.analytical-height{max-width:240px;font-size:11px;line-height:1.4;margin:0 0 8px}@media(max-width:759px){.view-switch{top:260px;right:12px}.view-switch button{padding:8px;font-size:11px}.analytical-height{max-width:150px;font-size:10px}}
+@media(max-width:759px){.view-switch{right:auto;left:12px;top:265px}.view-switch button{padding:7px;font-size:10px}.atlas-app.has-places .map-key{top:310px;bottom:auto;max-width:180px}.analytical-height{max-width:155px;font-size:10px;line-height:1.2;margin-bottom:4px}}

@@ -4,10 +4,12 @@ import * as gl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { ramps, placeColors, vectorStyle, rasterStyle } from "./map-theme";
 import { type Place, type Indicator } from "./frontend/provider";
+import { METRES_PER_PERCENTILE } from "./frontend/landscape";
 import { StatewideOverlays } from "./frontend/map-coverage";
 import { value, percentile } from "./frontend/fixtures/preview";
 import type { Facility } from "./hooks/useFacilities";
 type Props = {
+  landscape: boolean;
   onDisplay: (display: {mode: string; metric?: Indicator}) => void;
   collapsed: boolean;
   facilities: Facility[];
@@ -71,6 +73,8 @@ export default function AtlasMap(p: Props) {
     q.addEventListener("change", update);
     return () => q.removeEventListener("change", update);
   }, []);
+  const growth = useRef(0);
+  const [rendered, setRendered] = useState<{metric?: Indicator; mode: string; slot: number}>({mode:"Environment",slot:0});
   const [loading, setLoading] = useState(false);
   const [sourceError, setSourceError] = useState("");
   const [ready, setReady] = useState(false),
@@ -137,6 +141,10 @@ export default function AtlasMap(p: Props) {
           },
           before,
         );
+        m.addLayer({id:"landscape" + i, type:"fill-extrusion", source:"tracts" + i,
+          filter:["==",["get","__atlasFrame"],-1],
+          paint:{"fill-extrusion-color":"#9581cb", "fill-extrusion-height":0,"fill-extrusion-height-transition":{duration:0},"fill-extrusion-opacity-transition":{duration:0},"fill-extrusion-opacity":0}},
+          m.getStyle().layers.find(l=>l.type === "symbol")?.id);
         m.addLayer(
           {
             id: "boundary" + i,
@@ -208,7 +216,7 @@ export default function AtlasMap(p: Props) {
       setReady(true);
     });
     m.on("mousemove", (e) => {
-      const layers = [...(latest.current.mode === "Infrastructure" ? ["facilities"] : []), ...(container.current?.dataset.metric && container.current.dataset.metric === latest.current.metric?.id ? ["fill" + slot.current] : [])].filter(
+      const layers = [...(latest.current.mode === "Infrastructure" ? ["facilities"] : []), ...(container.current?.dataset.metric && container.current.dataset.metric === latest.current.metric?.id ? [...(growth.current > 0.01 ? ["landscape" + slot.current] : []), "fill" + slot.current] : [])].filter(
         (l) => !!m.getLayer(l),
       );
       if (!layers.length) return;
@@ -229,7 +237,7 @@ export default function AtlasMap(p: Props) {
     });
     m.on("mouseout", () => setHover(null));
     m.on("click", (e) => {
-      const layers = [...(latest.current.mode === "Infrastructure" ? ["facilities"] : []), ...(container.current?.dataset.metric && container.current.dataset.metric === latest.current.metric?.id ? ["fill" + slot.current] : [])].filter(
+      const layers = [...(latest.current.mode === "Infrastructure" ? ["facilities"] : []), ...(container.current?.dataset.metric && container.current.dataset.metric === latest.current.metric?.id ? [...(growth.current > 0.01 ? ["landscape" + slot.current] : []), "fill" + slot.current] : [])].filter(
         (l) => !!m.getLayer(l),
       );
       if (!layers.length) return;
@@ -381,6 +389,7 @@ export default function AtlasMap(p: Props) {
         }
         m.setPaintProperty("fill" + next, "fill-color-transition", { duration: 0 });
         m.setFilter("fill" + next, currentFrame);
+        m.setFilter("landscape" + next, ["all",currentFrame,["!=",["get","percentile"],null]]);
         m.setFilter("boundary" + next, currentFrame);
         m.setFilter("selected" + next, ["all", currentFrame,
           ["in", ["get", "id"], ["literal", latest.current.places.map(x => x.selection.tractId)]],
@@ -408,6 +417,7 @@ export default function AtlasMap(p: Props) {
             colors[5],
           ],
         ]);
+        m.setPaintProperty("landscape" + next, "fill-extrusion-color", m.getPaintProperty("fill" + next, "fill-color"));
         await (m.getSource("tracts" + next) as gl.GeoJSONSource).setData(tagged);
         await sourceReady(m, "tracts" + next, request.signal);
         if (request.signal.aborted || g !== generation || map.current !== m) return;
@@ -442,6 +452,7 @@ export default function AtlasMap(p: Props) {
         }
         latest.current.onDisplay({mode: p.mode, metric});
         slot.current = next;
+        setRendered({mode:p.mode,metric,slot:next});
         firstReveal = false;
         setLoading(false);
         if (container.current) {
@@ -590,6 +601,7 @@ export default function AtlasMap(p: Props) {
         await blend.current;
         if (controller.signal.aborted || map.current !== m) return;
         latest.current.onDisplay({mode: "Infrastructure"});
+        setRendered({mode:"Infrastructure",slot:slot.current});
         m.setFilter("facilities", null);
         for (let i = 0; i < 2; i++) {
           m.setPaintProperty("fill" + i, "fill-opacity-transition", {duration: reduced() ? 0 : 450});
@@ -621,6 +633,28 @@ export default function AtlasMap(p: Props) {
       8,
     ]);
   }, [ready, p.facility]);
+  useEffect(() => {
+    const m=map.current;
+    if(!m || !ready || !m.getLayer("landscape0")) return;
+    const target=p.landscape && rendered.mode !== "Infrastructure" && rendered.metric?.percentileField ? 1 : 0;
+    const start=growth.current, began=performance.now(), duration=reduced()?0:1100;
+    let raf=0;
+    const draw=()=>{
+      const t=duration ? Math.min(1,(performance.now()-began)/duration) : 1;
+      const amount=start+(target-start)*(t*t*(3-2*t));growth.current=amount;
+      if(m.getLayer("city-buildings")) {
+        m.setPaintProperty("city-buildings","fill-extrusion-opacity-transition",{duration:0});
+        m.setPaintProperty("city-buildings","fill-extrusion-opacity",.95*(1-amount));
+      }
+      for(let i=0;i<2;i++){
+        m.setPaintProperty("landscape"+i,"fill-extrusion-height",["*",["coalesce",["get","percentile"],0],METRES_PER_PERCENTILE*amount]);
+        m.setPaintProperty("landscape"+i,"fill-extrusion-opacity",i===rendered.slot && rendered.mode!=="Infrastructure" ? .85*amount : 0);
+      }
+      if(container.current){container.current.dataset.landscapeProgress=String(amount);container.current.dataset.landscapeRendered=String(m.queryRenderedFeatures({layers:["landscape"+rendered.slot]}).length);}
+      if(t<1)raf=requestAnimationFrame(draw);
+    };
+    draw();return()=>cancelAnimationFrame(raf);
+  },[ready,p.landscape,rendered]);
   return (
     <div className="atlas-map-shell">
       <div
@@ -628,7 +662,7 @@ export default function AtlasMap(p: Props) {
         className="atlas-map"
         aria-label="Interactive California map"
       />
-      <p className="city-provenance">City View · <a href="https://openmaptiles.org/schema/#building" target="_blank" rel="noreferrer">OpenStreetMap buildings</a> via OpenFreeMap. Heights approximate; coverage varies. Ground colors describe tracts.</p>
+      <p className="city-provenance">{p.landscape && rendered.metric?.percentileField && rendered.mode !== "Infrastructure" ? "Data Landscape · Tract heights are analytical. " : "City View · "}<a href="https://openmaptiles.org/schema/#building" target="_blank" rel="noreferrer">OpenStreetMap buildings</a> via OpenFreeMap. Heights approximate; coverage varies. Ground colors describe tracts.</p>
       {hover && (
         <div
           className="map-tooltip"
