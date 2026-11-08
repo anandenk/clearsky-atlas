@@ -66,7 +66,7 @@ test('map facility callbacks select the clicked pane inventory and preserve nonl
   const callbacks=[...page.matchAll(/onFacility=\{(id=>\{[^}]+\})\}/g)].map(m=>m[1]);
   assert.equal(callbacks.length,2);
   const calls:string[]=[];
-  const callback=(side:number,linked:boolean)=>new Function('linked','leftPlace','rightPlace','setActive','setFacility',
+  const callback=(side:number,linked:boolean)=>new Function('linked','leftPlace','rightPlace','setActive','onMapFacility',
     'return ('+callbacks[side]+');')(linked,{id:'A'},{id:'B'},(id:string)=>calls.push('active:'+id),(id:string)=>calls.push('facility:'+id));
   callback(1,true)('right-only');assert.deepEqual(calls.splice(0),['active:B','facility:right-only']);
   callback(0,true)('left-only');assert.deepEqual(calls.splice(0),['active:A','facility:left-only']);

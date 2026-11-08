@@ -98,6 +98,14 @@ export default function AtlasMap(p: Props) {
     q.addEventListener("change", update);
     return () => q.removeEventListener("change", update);
   }, []);
+  // Each map owns its worker source. Re-entering a mode may reuse a submitted
+  // immutable inventory, but never another map's readiness or a failed write.
+  const facilitySubmission = useRef<{
+    map: gl.Map;
+    reset: number;
+    items: Facility[];
+    ready: Promise<void>;
+  } | null>(null);
   const growth = useRef(0);
   const buildings = useRef<ReturnType<typeof installBuildings> | null>(null);
   const roofEdges = useRef<ReturnType<typeof installRoofEdges> | null>(null);
@@ -403,6 +411,7 @@ export default function AtlasMap(p: Props) {
     return () => {
       cancelAnimationFrame(hoverFrame);
       ro.disconnect();
+      facilitySubmission.current = null;
       roofEdges.current?.dispose();roofEdges.current=null;
       m.remove();
       map.current = null;
@@ -771,17 +780,27 @@ export default function AtlasMap(p: Props) {
     const controller = new AbortController();
     const update = async () => {
       try {
-        await (m.getSource("facilities") as gl.GeoJSONSource).setData({
-      type: "FeatureCollection",
-      features:
-        p.mode === "Infrastructure"
-          ? p.facilities.map((f) => ({
+        let submission = facilitySubmission.current;
+        if (!submission || submission.map !== m || submission.reset !== p.reset
+            || submission.items.length !== p.facilities.length
+            || !submission.items.every((item, i) => item === p.facilities[i])) {
+          const submitted = (m.getSource("facilities") as gl.GeoJSONSource).setData({
+            type: "FeatureCollection",
+            features: p.facilities.map((f) => ({
               type: "Feature" as const,
-              properties: { id: f.id, name: f.name, category: f.category },
-              geometry: { type: "Point" as const, coordinates: f.coordinate },
-            }))
-          : [],
-        });
+              properties: {id:f.id, name:f.name, category:f.category},
+              geometry: {type:"Point" as const, coordinates:f.coordinate},
+            })),
+          });
+          submission = {map:m, reset:p.reset, items:p.facilities, ready:submitted};
+          facilitySubmission.current = submission;
+          const current = submission;
+          void submitted.catch(() => {
+            if (facilitySubmission.current === current) facilitySubmission.current = null;
+          });
+        }
+        await submission.ready;
+        if (controller.signal.aborted || map.current !== m) return;
         await sourceReady(m, "facilities", controller.signal);
         if(p.linked)await p.linked.gate.ready(p.linked.side,controller.signal);
         await blend.current;
@@ -813,7 +832,7 @@ export default function AtlasMap(p: Props) {
     };
     void update();
     return () => {controller.abort();};
-  }, [ready, p.mode, p.facilities, p.facilitiesReady,p.linked?.gate]);
+  }, [ready, p.mode, p.facilities, p.facilitiesReady,p.linked?.gate,p.reset]);
   useEffect(() => {
     const m = map.current;
     if (!m || !ready || !m.getLayer("facilities")) return;

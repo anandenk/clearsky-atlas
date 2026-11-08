@@ -391,6 +391,9 @@ export default function Page() {
     reset,
   );
   const inventory = useInfrastructureInventory(mode === "Infrastructure" && !preview,reset);
+  // Don't clear/recluster a resident inventory during catalog/cache revalidation.
+  // A completed empty/error response still stages empty coverage honestly.
+  const inventoryReady = inventory.ready.length > 0 || (!inventory.loading && inventory.errors.length > 0);
   const statewideFacilities = useMemo(()=>inventory.items.filter(f=>filter.includes(f.category)),[inventory.items,filter]);
   const inventoryById = useMemo(()=>new globalThis.Map(inventory.items.map(f=>[f.id,f])),[inventory.items]);
   const directoryResults = useMemo(()=>statewideFacilities.filter(f=>!facilityQuery.trim() || f.name.toLocaleLowerCase().includes(facilityQuery.trim().toLocaleLowerCase())),[statewideFacilities,facilityQuery]);
@@ -489,7 +492,7 @@ export default function Page() {
           scenario={scenario}
           categories={filter}
           facilities={preview ? (linked ? leftFacilities : visibleFacilities) : statewideFacilities}
-          facilitiesReady={!preview || (linked ? !!facilityResult(leftPlace) : !selected || !!facilityResult(selected))}
+          facilitiesReady={preview ? (linked ? !!facilityResult(leftPlace) : !selected || !!facilityResult(selected)) : inventoryReady}
           facility={mapFacility?.id || facility}
           onFacility={id=>{if(linked)setActive(leftPlace.id);onMapFacility(id);}}
           onInspect={setInspection}
@@ -503,7 +506,7 @@ export default function Page() {
         overlays={overlays.current} linked={{camera:linkedCamera,gate,side:"right",placeId:rightPlace.id,coordinate:rightPlace.selection.coordinate}}
         overview={flatLandscape} landscape={landscape} onHeightScale={setRightHeightScale} onDisplay={()=>{}}
         places={places} collapsed={true} active={rightPlace.id} metric={metric} mode={mode} preview={preview} scenario={scenario}
-        categories={filter} facilities={preview ? rightFacilities : statewideFacilities} facilitiesReady={!preview || !!facilityResult(rightPlace)} facility={mapFacility?.id || facility}
+        categories={filter} facilities={preview ? rightFacilities : statewideFacilities} facilitiesReady={preview ? !!facilityResult(rightPlace) : inventoryReady} facility={mapFacility?.id || facility}
         onFacility={id=>{setActive(rightPlace.id);onMapFacility(id);}} onInspect={setInspection} onFocus={setActive} reset={reset} raster={raster}
       /></div>}
       {linked && rightPlace && <GeographyComparison places={places} left={leftPlace} right={rightPlace} metric={display.metric}

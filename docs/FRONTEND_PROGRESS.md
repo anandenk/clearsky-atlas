@@ -727,3 +727,35 @@ Explore Alternatives is explicitly user-deferred, pending renewed request plus a
 Resumed from performance handoff on frontend/atlas-interactive. Read current ownership/planning/main building contracts; no delegation, dependency or backend changes. Existing generated next-env.d.ts left unstaged. First Landscape CPU sample did not isolate a dominant JS function. Focused probe `node tests/ui/desktop-performance.mjs <label>` confirms hover picking synchronously queried statewide geometry for every event: controlled120-event burst produced120 queries /4919.6ms query time /4937.5ms elapsed. Coalescing to the latest pointer position per animation frame produced1 query /95.7ms query time /97.2ms elapsed. This is a bounded stress workload, not typical input latency or GPU/frame-rate certification. Click picking remains immediate; mouseout and unmount cancel queued hover. Tooltip appearance/definitions and all map/data mechanisms unchanged.
 
 TypeScript and proxy-configured production build passed. Production preview restored on:3001. Ignored evidence: artifacts/performance-pass/{before,hover-coalesced}.{json,png}; first-activation CPU profile in artifacts/responsiveness/first-click-cpu.json. Probe also observed repeated24,865-point clustering submissions on Infrastructure re-entry; next focused task. Desktop user interaction review and main-owned integration remain pending. Existing scope deferrals unchanged.
+
+## Desktop performance pass — checkpoint 2 and review handoff, 2026-11-07
+
+### Changes and bounded evidence
+
+Preserved the accepted desktop presentation and mechanisms. Each AtlasMap now reuses its own submitted immutable facility records and write promise instead of rebuilding the same worker source on mode re-entry. Equality checks include every record identity, not just counts/IDs; changed category sets/versions/records still submit. Failed writes invalidate reuse; reset explicitly resubmits; unmount clears the retained map/data reference. Every pane still awaits its own source readiness and the existing comparison gate. Cancellation/generation guards remain. No catalog/acquisition/version/null/comparison/numeric/roof/building changes.
+
+Live map readiness now waits for a category result (or completed source error) rather than staging temporary empty inventory snapshots during revalidation. Partial success, completed empty inventories and all-source failures still stage their actual result; old coverage stays intact while a replacement is pending. No successful-cache bypass of catalog version verification was introduced.
+
+Focused sequential production samples,1440×960, same local backend:
+
+| Workload | Before | Final |
+| --- | ---: | ---: |
+| Controlled120-event hover burst: queries |120|1|
+| Burst elapsed (including frame wait) |4937.5ms|101.5ms|
+| Facility setData feature counts through load + Environment/Infrastructure re-entry |0,0,14919,24865,24865,0,24865|14919,24865|
+
+Final single query99.9ms: hover coalescing removes queued redundant work, but one statewide elevated-polygon pick can still exceed a frame budget. Samples are workload evidence, not statistical/frame-rate/device certification. External tiles, warm caches and OS/GPU load remain uncontrolled. Cold inventory acquisition/network breadth is unchanged; no invented transfer reduction. Original count remains24,865 coordinate-bearing source records.
+
+### Performed checks
+
+- Final `npx tsc --noEmit`, proxy-configured production build and `git diff --check`: passed. Preview restored with ATLAS_BACKEND_ORIGIN on:3001; HTTP200 verified. Main backend was not restarted.
+- `CHECK=1 node tests/ui/desktop-performance.mjs final`: passed. Verifies latest pointer position,1 query for120 events, zero queued queries/tooltips after mouseout, no redundant clustering on re-entry, filters submitting9946 schools /24865 combined records, directory name search → details → Show on map without creating a confirmed address pin, no page errors. Ignored JSON/screenshots: artifacts/performance-pass/. Final statewide screenshot reviewed against earlier checkpoint; presentation retained.
+- Focused automatic-view + geography-readiness selection:5 passed /1 failed initially (29.6s). Both rendered Auto/manual/depth/linked-flight cases passed; readiness/gate source failure/cancellation and framing checks passed. The remaining test harness still injected `setFacility` although baseline11b7391 already called `onMapFacility`; corrected that test-only binding and reran only the affected test:1 passed (361ms). No product routing change was needed. No historical full suite or new mobile/accessibility certification.
+
+### User review and next owner
+
+Ready for hands-on desktop review at http://127.0.0.1:3001 (refresh for final bundle). Suggested short path: hover Landscape tracts, pan/zoom and interrupt City/Flat/3D transitions; switch metrics and inspect saved/amber roof rims; enter/leave Infrastructure, toggle categories, search/open/show a facility; confirm Oakland/Fresno and use linked comparison. Address confirmation, source-qualified evidence, physical Overture buildings/parts, roof rims, compatibility/null/zero safeguards, loading/cancellation and linked readiness remain the behavior contract. This pass changes only the focused frontend paths recorded here, without asserting fresh exhaustive verification of every historical mechanism.
+
+Local commits:512bed3 is hover checkpoint; the following performance checkpoint contains resident-source reuse and this handoff. Generated next-env.d.ts remains unstaged. No backend/API/data/root configuration/dependency edits; no delegation, migration, merge, push or publication. Main must wait for user acceptance and coordinated pause, then review the full frontend diff against frontend-handoff-v1, agree compatibility, merge locally and run combined checks. No integration authorization is inferred here.
+
+Remaining performance follow-ups are evidence-triggered: if normal pointer input still feels slow, profile individual elevated picking and seek an equivalent bounded picker without dropping raised-surface inspection; if cold infrastructure loading is unacceptable, request an additive main-owned compact full-inventory contract preserving source versions/completeness/coordinates/provenance. Do not silently alter coverage or raise acquisition concurrency. Alternatives and mobile remain explicitly deferred; power/routes/fire/remediation keep source gates; terrain/sharing/AI/voice/sponsors stay deferred. No new features or archived investigations were started.
