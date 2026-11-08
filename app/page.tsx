@@ -83,6 +83,8 @@ const letter = (id: string) => String.fromCharCode(64 + Number(id));
 const color = (id: string) =>
   placeColors[(Number(id) - 1) % placeColors.length];
 export default function Page() {
+  const [buildingStatus,setBuildingStatus]=useState("");
+  const [rightBuildingStatus,setRightBuildingStatus]=useState("");
   const [heightScale, setHeightScale] = useState(METRES_PER_PERCENTILE);
   const [rightHeightScale,setRightHeightScale]=useState(METRES_PER_PERCENTILE);
   const [geography,setGeography]=useState(false);
@@ -445,7 +447,7 @@ export default function Page() {
       <div className="map-stage">
         <Map
           overlays={overlays.current}
-          onZoomEnd={onZoomEnd} onTopDown={onTopDown}
+          onZoomEnd={onZoomEnd} onTopDown={onTopDown} onBuildingStatus={setBuildingStatus}
           linked={linked ? {camera:linkedCamera,gate,side:"left",placeId:leftPlace.id,coordinate:leftPlace.selection.coordinate} : undefined}
           overview={flatLandscape}
           onHeightScale={setHeightScale}
@@ -470,7 +472,7 @@ export default function Page() {
         />
       </div>
       {linked && rightPlace && <div className="comparison-map-stage"><Map
-        onZoomEnd={onZoomEnd} onTopDown={onTopDown}
+        onZoomEnd={onZoomEnd} onTopDown={onTopDown} onBuildingStatus={setRightBuildingStatus}
         overlays={overlays.current} linked={{camera:linkedCamera,gate,side:"right",placeId:rightPlace.id,coordinate:rightPlace.selection.coordinate}}
         overview={flatLandscape} landscape={landscape} onHeightScale={setRightHeightScale} onDisplay={()=>{}}
         places={places} collapsed={true} active={rightPlace.id} metric={metric} mode={mode} preview={preview} scenario={scenario}
@@ -842,9 +844,10 @@ export default function Page() {
           </span>
         )}
         {preview && <small>Synthetic examples</small>}
+        {buildingStatus && <p className="tract-context building-status" role="status">{linked ? "Left: " : ""}{buildingStatus}{linked && rightBuildingStatus ? ` Right: ${rightBuildingStatus}` : ""}</p>}
         <details className="map-provenance">
           <summary>Map sources & limits</summary>
-          <p><a href="https://openmaptiles.org/schema/#building" target="_blank" rel="noreferrer">OpenStreetMap buildings</a> via OpenFreeMap. Physical heights are approximate; coverage varies. Tract heights are analytical, not physical measurements.</p>
+          <p><a href="https://openmaptiles.org/schema/#building" target="_blank" rel="noreferrer">OpenStreetMap buildings</a> via OpenFreeMap. Physical heights are approximate; coverage varies. Overture Buildings 2026-10-21.0 supplies neighborhood pilots in Rancho Cucamonga and Oakland. Source heights may be estimates; unknown heights use 3 m per supplied floor, or a schematic 6 m when floors are also unknown. These are footprint extrusions, not precise 3D models. Tract heights are analytical, not physical measurements. <a href="https://docs.overturemaps.org/attribution/" target="_blank" rel="noreferrer">Overture / OSM / Microsoft credits</a> · <a href="https://opendatacommons.org/licenses/odbl/1-0/" target="_blank" rel="noreferrer">ODbL-1.0</a>.</p>
         </details>
       </div>
       <button

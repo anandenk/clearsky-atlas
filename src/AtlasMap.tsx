@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import * as gl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
+import { installBuildings } from "./frontend/buildings";
 import { ramps, placeColors, vectorStyle, rasterStyle } from "./map-theme";
 import { type Place, type Indicator } from "./frontend/provider";
 import { metresPerPercentileAtZoom, landscapeHeightExpression } from "./frontend/landscape";
@@ -13,6 +14,7 @@ type Props = {
   linked?: LinkedPane;
   onZoomEnd?: (zoom: number) => void;
   onTopDown?: () => void;
+  onBuildingStatus?: (message:string) => void;
   overlays?: StatewideOverlays;
   landscape: boolean;
   overview: boolean;
@@ -94,6 +96,7 @@ export default function AtlasMap(p: Props) {
     return () => q.removeEventListener("change", update);
   }, []);
   const growth = useRef(0);
+  const buildings = useRef<ReturnType<typeof installBuildings> | null>(null);
   const [rendered, setRendered] = useState<{metric?: Indicator; mode: string; slot: number}>({mode:"Environment",slot:0});
   const [loading, setLoading] = useState(false);
   const [sourceError, setSourceError] = useState("");
@@ -104,6 +107,15 @@ export default function AtlasMap(p: Props) {
       y: number;
       label: string;
     } | null>(null);
+  useEffect(()=>{
+    const m=map.current;if(!m||!ready||p.raster)return;
+    const controller=installBuildings(m,message=>latest.current.onBuildingStatus?.(message),sourceReady);
+    buildings.current=controller;
+    return()=>{controller.dispose();buildings.current=null;};
+  },[ready,p.raster]);
+  useEffect(()=>{
+    buildings.current?.setEnabled(p.mode === "Infrastructure" || (!p.landscape && !p.overview));
+  },[ready,p.raster,p.landscape,p.overview,p.mode]);
   const reduced = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
   useEffect(() => {
     if (!container.current) return;
@@ -780,7 +792,9 @@ export default function AtlasMap(p: Props) {
       if(rounded!==lastLegend){lastLegend=rounded;latest.current.onHeightScale(rounded);}
       if(amount!==lastOpacity){
         m.setPaintProperty(layer,"fill-extrusion-opacity",rendered.mode!=="Infrastructure" ? .85*amount : 0);
-        if(m.getLayer("city-buildings"))m.setPaintProperty("city-buildings","fill-extrusion-opacity",(p.overview && rendered.mode !== "Infrastructure") ? 0 : .70*(1-amount));
+        const buildingOpacity=(p.overview && rendered.mode !== "Infrastructure") ? 0 : .70*(1-amount);
+        if(buildings.current)buildings.current.setOpacity(buildingOpacity);
+        else if(m.getLayer("city-buildings"))m.setPaintProperty("city-buildings","fill-extrusion-opacity",buildingOpacity);
         lastOpacity=amount;
       }
       if(container.current)container.current.dataset.landscapeProgress=String(amount);

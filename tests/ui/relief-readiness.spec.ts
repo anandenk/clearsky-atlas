@@ -78,11 +78,11 @@ test('a final tile error wakes the stopped height scheduler and cleanup removes 
   const frames = new Map<number, () => void>(), timers = new Map<number, {fn: () => void; at: number}>();
   const run = compile(source.slice(source.indexOf('    const target=p.landscape'),
     source.indexOf('  },[ready,p.landscape')), ['m','p','rendered','growth','performance','reduced',
-      'metresPerPercentileAtZoom','container','latest','requestAnimationFrame','cancelAnimationFrame','window','clearTimeout','landscapeHeightExpression']);
+      'metresPerPercentileAtZoom','container','latest','requestAnimationFrame','cancelAnimationFrame','window','clearTimeout','landscapeHeightExpression','buildings']);
   const cleanup = run(m, {landscape:true,overview:false}, {mode:'Environment',slot:0,metric:{percentileField:'p'}},
     {current:0}, {now:()=>now}, ()=>false, ()=>9, {current:{dataset:{}}}, {current:{onHeightScale:()=>{}}},
     (fn:()=>void)=>{frames.set(++id,fn);return id;}, (n:number)=>frames.delete(n),
-    {setTimeout:(fn:()=>void, delay:number)=>{timers.set(++id,{fn,at:now+delay});return id;}}, (n:number)=>timers.delete(n), landscapeHeightExpression);
+    {setTimeout:(fn:()=>void, delay:number)=>{timers.set(++id,{fn,at:now+delay});return id;}}, (n:number)=>timers.delete(n), landscapeHeightExpression, {current:null});
   m.loaded = false;
   const tick = () => { const due=[...frames.values()]; frames.clear(); due.forEach(fn=>fn()); };
   for(now=16;now<1200;now+=16) tick();
