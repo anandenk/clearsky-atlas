@@ -33,6 +33,14 @@ test("statewide Overture replaces OSM, reuses tiles and honors flat/3D and failu
   await expect(map).toHaveAttribute("data-metric", "pm", { timeout: 30000 });
   await page.getByRole("button", { name: "City", exact: true }).click();
   await page.evaluate(`window.testMap = (${inspectMap.toString()})()`);
+  // The normal zoom path must not show a preliminary OSM cohort at z13,
+  // or while the first Overture request is pending at z14+.
+  await page.evaluate(() => (window as any).testMap.jumpTo({center:[-117.552,34.127],zoom:13}));
+  await expect(page.locator('.building-status')).toContainText('Building detail starts at zoom 14');
+  expect(await page.evaluate(() => (window as any).testMap.getPaintProperty('city-buildings','fill-extrusion-opacity'))).toBe(0);
+  let releaseCatalog!:()=>void;
+  const catalogHeld=new Promise<void>(resolve=>{releaseCatalog=resolve;});
+  await page.route('**/api/buildings/catalog?**',async route=>{await catalogHeld;await route.continue();});
   await page.evaluate(() => {
     (window as any).testMap.jumpTo({
       center: [-117.552, 34.127],
@@ -41,6 +49,9 @@ test("statewide Overture replaces OSM, reuses tiles and honors flat/3D and failu
       bearing: 0,
     });
   });
+  await expect(page.locator('.building-status')).toContainText('Loading Overture buildings + parts');
+  expect(await page.evaluate(() => (window as any).testMap.getPaintProperty('city-buildings','fill-extrusion-opacity'))).toBe(0);
+  releaseCatalog();
   await expect(page.locator(".building-status")).toContainText(
     "Overture · statewide buildings + parts",
     { timeout: 45000 },
@@ -105,8 +116,8 @@ test("statewide Overture replaces OSM, reuses tiles and honors flat/3D and failu
   await page.waitForFunction(() => !(window as any).testMap.isMoving());
   await expect(page.locator(".building-status")).toContainText("Overture · statewide buildings + parts");
   await page.evaluate(() => (window as any).testMap.jumpTo({zoom:13}));
-  await expect(page.locator(".building-status")).toContainText("zoom in for Overture detail");
-  expect(await page.evaluate(() => (window as any).testMap.getPaintProperty("city-buildings", "fill-extrusion-opacity"))).toBeGreaterThan(0);
+  await expect(page.locator(".building-status")).toContainText("Building detail starts at zoom 14");
+  expect(await page.evaluate(() => (window as any).testMap.getPaintProperty("city-buildings", "fill-extrusion-opacity"))).toBe(0);
   await page.evaluate(() => (window as any).testMap.jumpTo({center:[-117.552,34.127],zoom:15.6}));
   await expect(page.locator(".building-status")).toContainText("Overture · statewide buildings + parts");
   const count = requests.length;
@@ -299,7 +310,7 @@ test("Overture reveal uses native opacity fade without rewriting building geomet
     });
     m.jumpTo({zoom:13});
   });
-  await expect(page.locator('.building-status')).toContainText('zoom in for Overture detail');
+  await expect(page.locator('.building-status')).toContainText('Building detail starts at zoom 14');
   await page.evaluate(() => {
     const w=window as any;
     // Exercise the same concurrent opacity updates as the real Auto→City

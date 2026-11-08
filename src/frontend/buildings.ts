@@ -53,6 +53,13 @@ export function installBuildings(
     generation = 0,
     failed = false;
   let revealUntil = 0;
+  let showFallback = false;
+  let notice = "";
+  const notify = (message: string) => {
+    if (notice === message) return;
+    notice = message;
+    report(message);
+  };
   let timer: ReturnType<typeof setTimeout> | undefined,
     request: AbortController | undefined;
   let catalog: Catalog | undefined;
@@ -68,7 +75,7 @@ export function installBuildings(
       m.setPaintProperty(
         "city-buildings",
         "fill-extrusion-opacity",
-        active ? 0 : opacity,
+        !active && showFallback ? opacity : 0,
       );
   };
   const visibility = (visible: boolean) => {
@@ -80,11 +87,21 @@ export function installBuildings(
     for (const id of layers) if (m.getLayer(id)) m.removeLayer(id);
     if (m.getSource(source)) m.removeSource(source);
   };
-  const fallback = (message: string) => {
+  const fallback = (message: string, visible = true) => {
+    const changed = active || showFallback !== visible;
     revealUntil = 0;
     active = false;
-    paint();
-    report(message);
+    showFallback = visible;
+    if (changed) paint();
+    notify(message);
+  };
+  const loading = () => {
+    if (active) return;
+    if (showFallback) {
+      showFallback = false;
+      paint();
+    }
+    notify("Loading Overture buildings + parts…");
   };
   const cancel = () => {
     request?.abort();
@@ -107,13 +124,10 @@ export function installBuildings(
     if (!enabled) return;
     if (m.getZoom() < 14) {
       visibility(false);
-      fallback("OpenStreetMap buildings · zoom in for Overture detail.");
+      fallback("Building detail starts at zoom 14 · zoom in for Overture.", false);
       return;
     }
-    if (!active)
-      report(
-        "Loading Overture detail · showing OpenStreetMap buildings until ready.",
-      );
+    loading();
     try {
       if (!catalog) {
         const response = await fetch(
@@ -215,7 +229,7 @@ export function installBuildings(
         revealUntil = performance.now() + duration;
         paint(duration);
       }
-      report(
+      notify(
         "Overture · statewide buildings + parts. Approximate heights; source coverage varies.",
       );
     } catch (error) {
@@ -232,10 +246,10 @@ export function installBuildings(
     if (enabled) timer = setTimeout(update, 180);
   };
   const enforceLimits = () => {
-    if (!enabled || !active) return;
+    if (!enabled) return;
     let reason: string | undefined;
     if (m.getZoom() < 14)
-      reason = "OpenStreetMap buildings · zoom in for Overture detail.";
+      reason = "Building detail starts at zoom 14 · zoom in for Overture.";
     else if (catalog) {
       const b = m.getBounds(), [w, s, e, n] = catalog.bounds;
       if (b.getWest() < w || b.getEast() > e || b.getSouth() < s || b.getNorth() > n)
@@ -243,8 +257,8 @@ export function installBuildings(
     }
     if (reason) {
       visibility(false);
-      fallback(reason);
-    }
+      fallback(reason, m.getZoom() >= 14);
+    } else if (!failed) loading();
   };
   const moving = () => {
     // Cancel obsolete readiness waits, not the resident vector source. MapLibre
@@ -263,10 +277,11 @@ export function installBuildings(
       cancel();
       active = false;
       revealUntil = 0;
+      showFallback = false;
       paint();
       visibility(value && m.getZoom() >= 14);
-      if (value) schedule();
-      else report("");
+      if (value) { enforceLimits(); schedule(); }
+      else notify("");
     },
     setOpacity(value: number) {
       if (opacity === value) return;
