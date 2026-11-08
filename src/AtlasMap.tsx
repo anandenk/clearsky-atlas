@@ -120,9 +120,14 @@ export default function AtlasMap(p: Props) {
     });
     map.current = m;
     // Only settled zoom changes affect React state; pitch/pan and relief frames do not.
-    const reportZoom = () => latest.current.onZoomEnd?.(m.getZoom());
+    const reportZoom = () => {
+      if (latest.current.linked?.camera.isSynchronizing) return;
+      latest.current.onZoomEnd?.(m.getZoom());
+    };
     m.on("zoomend", reportZoom);
-    reportZoom();
+    // A new right map starts at the default statewide zoom. Its attach jump
+    // reports the shared camera once ready; do not report that temporary zoom.
+    if (latest.current.linked?.side !== "right") reportZoom();
     // Expensive whole-map queries serve browser assertions, not the interface.
     // Tests opt in through their isolated storage state; normal browsing does not.
     let diagnostics = false;
@@ -799,8 +804,26 @@ export default function AtlasMap(p: Props) {
   useEffect(()=>{
     const m=map.current;if(!m || !ready) return;
     if(p.linked?.side === "right")return;
-    if(p.landscape && m.getPitch()<30)m.easeTo({pitch:50,duration:reduced()?0:900});
-    else if(p.overview)m.easeTo({pitch:0,duration:reduced()?0:900});
+    let raf=0;
+    const applyTilt=()=>{
+      cancelAnimationFrame(raf);
+      // zoomend can update Auto immediately before moveend. Yield so the
+      // latest view commits, then recheck it rather than the effect's closure.
+      raf=requestAnimationFrame(()=>{
+        raf=0;
+        if(m.isMoving())return;
+        m.off("moveend",applyTilt);
+        const view=latest.current;
+        if(view.linked?.side === "right")return;
+        if(view.landscape && m.getPitch()<30)m.easeTo({pitch:50,duration:reduced()?0:900});
+        else if(view.overview && m.getPitch()!==0)m.easeTo({pitch:0,duration:reduced()?0:900});
+      });
+    };
+    // Wait only for this requested view, not every future move (Together's
+    // own flat framing must remain intact). Never cancel an address arrival.
+    m.on("moveend",applyTilt);
+    if(!m.isMoving())applyTilt();
+    return()=>{cancelAnimationFrame(raf);m.off("moveend",applyTilt);};
   },[ready,p.landscape,p.overview,p.linked?.camera]);
   return (
     <div className="atlas-map-shell">

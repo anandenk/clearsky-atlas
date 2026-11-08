@@ -469,6 +469,7 @@ export default function Page() {
         />
       </div>
       {linked && rightPlace && <div className="comparison-map-stage"><Map
+        onZoomEnd={onZoomEnd}
         overlays={overlays.current} linked={{camera:linkedCamera,gate,side:"right",placeId:rightPlace.id,coordinate:rightPlace.selection.coordinate}}
         overview={flatLandscape} landscape={landscape} onHeightScale={setRightHeightScale} onDisplay={()=>{}}
         places={places} collapsed={true} active={rightPlace.id} metric={metric} mode={mode} preview={preview} scenario={scenario}

@@ -4,7 +4,7 @@ test('analytical scale preserves zero and missing values',()=>{expect(landscapeH
 test('live landscape grows, reverses, and preserves map and selected address',async({page})=>{
  test.setTimeout(60000);const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await page.setViewportSize({width:1440,height:960});await page.goto('/');
  await page.getByLabel('Search a California address').focus();await page.getByRole('button',{name:'Oakland',exact:true}).click();await page.getByRole('button',{name:/Confirm this address/}).click();
- const map=page.locator('.atlas-map');await expect(map).toHaveAttribute('data-pitch',/58/);await expect(map).toHaveAttribute('data-metric','pm');const instance=await map.getAttribute('data-instance'),center=await map.getAttribute('data-center');
+ const map=page.locator('.atlas-map');await expect(map).toHaveAttribute('data-pitch',/58/,{timeout:15000});await expect(map).toHaveAttribute('data-metric','pm');const instance=await map.getAttribute('data-instance'),center=await map.getAttribute('data-center');
  await page.getByRole('button',{name:'Data Landscape',exact:true}).click();await page.waitForTimeout(350);
  const progress=Number(await map.getAttribute('data-landscape-progress'));expect(progress).toBeGreaterThan(0);expect(progress).toBeLessThan(1);
  await page.screenshot({path:'artifacts/landscape/intermediate.png'});

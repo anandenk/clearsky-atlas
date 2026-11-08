@@ -46,3 +46,24 @@
 
 .view-switch{flex-direction:column}.view-primary{display:flex}.landscape-depth{display:flex;gap:4px;border-top:1px solid #34495b;margin-top:4px;padding-top:4px}.landscape-depth button{flex:1;padding:6px 10px;font-size:11px}
 @media(max-width:759px){.view-switch{top:254px}.view-switch button{font-size:10px;padding:5px 6px}.landscape-depth{margin-top:2px;padding-top:2px}.landscape-depth button{padding:3px 6px}}
+
+/* Keep mobile view and depth controls in one row above the location pins. */
+@media (max-width:759px) {
+  .view-switch {
+    flex-direction:row;
+    flex-wrap:nowrap;
+    align-items:stretch;
+    gap:6px;
+    max-width:calc(100% - 24px);
+  }
+  .view-switch button { white-space:nowrap; }
+  .landscape-depth {
+    margin-top:0;
+    padding-top:0;
+    padding-left:6px;
+    border-top:0;
+    border-left:1px solid #34495b;
+    gap:4px;
+  }
+  .landscape-depth button { padding:5px 6px; }
+}

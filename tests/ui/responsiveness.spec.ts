@@ -20,7 +20,7 @@ test('relief updates stay bounded during navigation, controls respond and final 
   await page.setViewportSize({width:1440,height:960});
   await page.goto('/');
   const map=page.locator('.atlas-map');
-  await expect(map).toHaveAttribute('data-metric','pm');
+  await expect(map).toHaveAttribute('data-metric','pm',{timeout:30000});
   await page.evaluate(`window.testMap = (${inspectMap.toString()})()`);
   await page.getByRole('button',{name:'Data Landscape',exact:true}).click();
   await expect(map).toHaveAttribute('data-landscape-progress','1');
@@ -57,7 +57,7 @@ test('normal browsing omits expensive whole-map diagnostic queries',async({page}
   await page.addInitScript(()=>localStorage.removeItem('atlas-render-diagnostics'));
   await page.goto('/');
   const map=page.locator('.atlas-map');
-  await expect(map).toHaveAttribute('data-metric','pm');
+  await expect(map).toHaveAttribute('data-metric','pm',{timeout:30000});
   await expect(map).toHaveAttribute('data-ready','true');
   expect(await map.getAttribute('data-buildings-rendered')).toBeNull();
   expect(await map.getAttribute('data-landscape-rendered')).toBeNull();

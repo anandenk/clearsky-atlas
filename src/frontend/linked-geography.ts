@@ -6,6 +6,7 @@ export type Side = "left" | "right";
 export class LinkedCamera {
   private maps = new Map<Side, AtlasMap>();
   private applying = false;
+  get isSynchronizing() { return this.applying; }
   enabled = true;
   attach(side: Side, map: AtlasMap, center: LngLatLike) {
     const peer = [...this.maps.values()][0];
