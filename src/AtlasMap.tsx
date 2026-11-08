@@ -12,6 +12,7 @@ import type {LinkedPane} from "./frontend/linked-geography";
 type Props = {
   linked?: LinkedPane;
   onZoomEnd?: (zoom: number) => void;
+  onTopDown?: () => void;
   overlays?: StatewideOverlays;
   landscape: boolean;
   overview: boolean;
@@ -125,6 +126,12 @@ export default function AtlasMap(p: Props) {
       latest.current.onZoomEnd?.(m.getZoom());
     };
     m.on("zoomend", reportZoom);
+    m.on("pitchend", (event) => {
+      // Only deliberate gestures/keyboard/navigation controls select Flat.
+      // Arrival, Together and linked follower updates must not change the choice.
+      if (event.originalEvent && !latest.current.linked?.camera.isSynchronizing
+          && latest.current.landscape && m.getPitch() <= 3) latest.current.onTopDown?.();
+    });
     // A new right map starts at the default statewide zoom. Its attach jump
     // reports the shared camera once ready; do not report that temporary zoom.
     if (latest.current.linked?.side !== "right") reportZoom();

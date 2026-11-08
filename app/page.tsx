@@ -97,6 +97,7 @@ export default function Page() {
   }, []);
   const visualization = viewPreference === "auto" ? zoomView : viewPreference;
   const [landscapeDepth, setLandscapeDepth] = useState<"flat"|"3d">("3d");
+  const onTopDown = useCallback(() => setLandscapeDepth("flat"), []);
   const landscape = visualization === "landscape" && landscapeDepth === "3d";
   const flatLandscape = visualization === "landscape" && landscapeDepth === "flat";
   const [display, setDisplay] = useState<{mode: string; metric?: Indicator}>({mode:"Environment"});
@@ -444,7 +445,7 @@ export default function Page() {
       <div className="map-stage">
         <Map
           overlays={overlays.current}
-          onZoomEnd={onZoomEnd}
+          onZoomEnd={onZoomEnd} onTopDown={onTopDown}
           linked={linked ? {camera:linkedCamera,gate,side:"left",placeId:leftPlace.id,coordinate:leftPlace.selection.coordinate} : undefined}
           overview={flatLandscape}
           onHeightScale={setHeightScale}
@@ -469,7 +470,7 @@ export default function Page() {
         />
       </div>
       {linked && rightPlace && <div className="comparison-map-stage"><Map
-        onZoomEnd={onZoomEnd}
+        onZoomEnd={onZoomEnd} onTopDown={onTopDown}
         overlays={overlays.current} linked={{camera:linkedCamera,gate,side:"right",placeId:rightPlace.id,coordinate:rightPlace.selection.coordinate}}
         overview={flatLandscape} landscape={landscape} onHeightScale={setRightHeightScale} onDisplay={()=>{}}
         places={places} collapsed={true} active={rightPlace.id} metric={metric} mode={mode} preview={preview} scenario={scenario}
