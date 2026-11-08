@@ -4,6 +4,7 @@ import * as gl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { installBuildings } from "./frontend/buildings";
 import { installCaliforniaContext } from "./frontend/california-context";
+import { installRoofEdges } from "./frontend/roof-edges";
 import { ramps, placeColors, vectorStyle, rasterStyle } from "./map-theme";
 import { type Place, type Indicator, format } from "./frontend/provider";
 import { metresPerPercentileAtZoom, landscapeHeightExpression } from "./frontend/landscape";
@@ -99,6 +100,7 @@ export default function AtlasMap(p: Props) {
   }, []);
   const growth = useRef(0);
   const buildings = useRef<ReturnType<typeof installBuildings> | null>(null);
+  const roofEdges = useRef<ReturnType<typeof installRoofEdges> | null>(null);
   const [rendered, setRendered] = useState<{metric?: Indicator; mode: string; slot: number}>({mode:"Environment",slot:0});
   const [loading, setLoading] = useState(false);
   const [sourceError, setSourceError] = useState("");
@@ -254,6 +256,7 @@ export default function AtlasMap(p: Props) {
           before,
         );
       }
+      roofEdges.current=installRoofEdges(m,()=>slot.current);
       m.addSource("facilities", { type: "geojson", data: empty, cluster:true, clusterRadius:42, clusterMaxZoom:13 });
       m.addLayer({id:"facility-clusters",type:"circle",source:"facilities",filter:["has","point_count"],paint:{
         "circle-color":"#375e6c","circle-radius":["step",["get","point_count"],17,100,22,1000,29],
@@ -327,6 +330,7 @@ export default function AtlasMap(p: Props) {
       } else if (f.layer.id === "facilities")
         latest.current.onFacility(f.properties.id);
       else {
+        roofEdges.current?.inspect(String(f.properties.id));
         latest.current.onInspect(f.properties.id);
         m.setFilter("inspection" + slot.current, ["all",
           ["==", ["get", "__atlasFrame"], f.properties.__atlasFrame],
@@ -379,6 +383,7 @@ export default function AtlasMap(p: Props) {
     });
     return () => {
       ro.disconnect();
+      roofEdges.current?.dispose();roofEdges.current=null;
       m.remove();
       map.current = null;
       setReady(false);
@@ -397,6 +402,7 @@ export default function AtlasMap(p: Props) {
     setLoading(p.mode === "Infrastructure" || !!p.metric);
     setError("");
     setHover(null);
+    roofEdges.current?.inspect("");
     if (container.current) delete container.current.dataset.metric;
     async function update() {
       const g = ++generation;
@@ -545,6 +551,7 @@ export default function AtlasMap(p: Props) {
           if(p.linked)m.off("error",gateSourceFailed);
         }
         if (request.signal.aborted || g !== generation || map.current !== m) return;
+        roofEdges.current?.stage(next,data);
         // Keep the previous map intact through fetch + worker + tile readiness.
         // Only now blend both buffers together, without a bare-map interval.
         const outgoing = slot.current;
@@ -614,6 +621,7 @@ export default function AtlasMap(p: Props) {
   useEffect(() => {
     const m = map.current;
     if (!m || !ready) return;
+    roofEdges.current?.select(p.places.map(x=>x.selection.tractId));
     // Selection outlines change independently of statewide source data.
     for (let i = 0; i < 2; i++) {
       const filter = m.getFilter("fill" + i);

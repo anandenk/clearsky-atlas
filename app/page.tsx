@@ -827,6 +827,7 @@ export default function Page() {
 
         {flatLandscape && display.mode !== "Infrastructure" && <p className="analytical-height">Flat landscape: tract shading and boundaries.</p>}
         {landscape && display.mode !== "Infrastructure" && display.metric?.percentileField && <p className="analytical-height">Height exaggerated for visibility: ~{Math.round(heightScale)} m per percentile point at this zoom. Not building height.</p>}
+        {landscape && display.mode !== "Infrastructure" && display.metric?.percentileField && <small className="roof-edge-key">Roof edges: saved tracts in teal; last inspected in amber.</small>}
         {(display.mode !== mode || (mode !== "Infrastructure" && display.metric?.id !== metric?.id)) && <small>Showing last loaded layer</small>}
         <div className="map-key-title">
           <span>
