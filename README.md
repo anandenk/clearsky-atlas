@@ -10,7 +10,7 @@ The verified desktop application is pinned as **MVP Prototype 1** at `mvp-protot
 
 ## Session continuation
 
-Start from [INTEGRATION.md](docs/INTEGRATION.md) for the combined desktop checkpoint. Earlier backend migration records in [SESSION_HANDOFF.md](docs/SESSION_HANDOFF.md) are historical. Recheck worktrees and servers before edits.
+Start from [REFINEMENT_PROGRESS.md](docs/REFINEMENT_PROGRESS.md) for the current branch, runtime, completed work and next-session instructions. Work in `/Users/anand/Projects/hackathon` on `development/prototype-2`; `/Users/anand/Projects/hackathon.frontend` is the frozen reference. [INTEGRATION.md](docs/INTEGRATION.md) documents the earlier integrated base; [SESSION_HANDOFF.md](docs/SESSION_HANDOFF.md) is historical. Recheck worktrees and servers before edits.
 
 ## Start here
 

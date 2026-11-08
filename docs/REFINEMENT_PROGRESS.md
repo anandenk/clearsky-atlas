@@ -4,6 +4,17 @@ Completed locally on `development/prototype-2`. The seven-fix base code checkpoi
 
 The immutable MVP Prototype 1 tag still points to `6dc04f30fe666f11740f236eb686a8156e308140`. Its private repository/release and local backup are unchanged. This refinement was not pushed, published or deployed.
 
+## Next session starting point
+
+- Worktree: `/Users/anand/Projects/hackathon`; branch: `development/prototype-2`. Latest application commit: `f8f2db0` (automatic comparison opening). Later documentation-only commits do not require rebuilding the app.
+- The conversation environment may start in `/Users/anand/Projects/hackathon.frontend`; that checkout is the frozen `e7e64fb` reference. Do not resume development there or merge its generated changes.
+- Read `AGENTS.md`, `README.md`, this record and `docs/STATUS.md`, then the linked product/experience/architecture/build-plan records for scope. The earlier integration and backend handoffs are historical bases.
+- Current app: production :3000, tmux `atlas-local-server`, `ATLAS_BACKEND_ORIGIN` unset. Frozen preview: :3001, tmux `atlas-frontend-preview`, existing API proxy to :3000. Stop the corresponding server before building in its `.next`; retain the other preview.
+- At handoff, both servers listen and both worktrees have only generated `next-env.d.ts` changes. Preserve these outside feature commits; do not hand-edit or reset them. All requested application work is committed. No task worker remains active; all seven worktrees/logs are retained.
+- The refinements and automatic-opening follow-up are **local only**. Prototype 1's private GitHub backup is unchanged; these new commits and ignored raw screenshots/logs have not been pushed/uploaded. Compact benchmark results and artifact hashes are committed.
+- No unfinished action remains for the seven fixes or automatic opening. Remaining product/source follow-ups are listed below; no sponsor, mobile or deployment work is authorized by this handoff.
+- Session lesson: the user questioned the prior hour-long implementation/validation pass. Keep small follow-ups scoped, use proportionate targeted checks, and broaden verification only when changed contracts, failures or unresolved concerns justify it.
+
 ## Delegation and integration
 
 The user requested seven issues, one agent per issue. Seven bounded Worktrunk/Codex CLI workers ran in visible tmux windows, at most three concurrently, with no worker delegation, servers or browser tests. All used `gpt-6.1-sol`; high effort covered address contracts and map timing, medium effort covered the five bounded UI tasks. The integration owner reviewed complete diffs, committed owned paths, merged each branch and performed rendered checks sequentially.
