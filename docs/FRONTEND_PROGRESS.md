@@ -1,8 +1,6 @@
-> **Latest update:** [Responsiveness checkpoint](#responsiveness-checkpoint--measured-workload-reduction-2026-11-07): reduced renderer work, full UI regression pass, and user reports much more responsive. Delegation direction updated there.
-
-> **Previous resume point:** [Responsiveness first, then remaining milestones](#resume-here--responsiveness-first-then-remaining-milestones). The user requested a fresh session to address severe unresponsiveness before more features. Read that section first; earlier entries are dated implementation evidence.
-
-> **Current direction: ClearSky.** Read the final section, **ClearSky implementation handoff for Astra — 2026-11-07**, before continuing. The earlier Common ground/Astra assignments below are historical implementation evidence. Their visual direction and frontend-first preview workflow are superseded by the latest user discussion recorded in that section. AGENTS.md ownership and local-only boundaries still apply.
+> **Start here — new Sol session:** [Sol migration handoff — resume after statewide Overture](#sol-migration-handoff--resume-after-statewide-overture). This is the current resume point; older Astra assignments and debugging-delegation instructions below are historical.
+>
+> **Current user direction:** desktop only; fast direct implementation with focused checks, no routine debug delegation. Main owns statewide Overture acquisition/serving. Resume frontend adoption once the user reports that main is ready, then finish the remaining original milestones. Keep all work local and honor AGENTS.md ownership/integration gates.
 
 # Frontend creative reset — Common ground
 
@@ -543,3 +541,85 @@ New footprints replace the old physical-building layer after source/render readi
 Latest desktop verification: production build passed and5 focused tests passed in28s (real Rancho fill/source replacement/cache reuse/Flat/3D, simulated503 fallback, outside-pilot fallback, linked Oakland versus outside-pilot Fresno, and existing source-readiness checks). Same-camera Rancho screenshot inspected at[-117.552,34.127], zoom15.6/pitch58: residential blocks visibly fill the previous gaps. The recorded load deduplicated9,305 source footprints from12 cell requests,590 with unknown source heights; renderer query returned5,527 fragments, not a unique visible-building inventory. CES metric stayedPM and old-building opacity was0. Repeating that exact view reused the cache without new requests. Artifacts: artifacts/building-coverage/rancho-overture.png and frontend-counts.json. An initial test used an obsolete private GeoJSONSource field and was corrected to the public getData() API; no application failure inferred from that test error. No broad performance/frame-time, mobile or full-suite certification.
 
 Preview:3001 is restored. Full California expansion/parts remain main-owned deferrals under BUILDINGS_HANDOFF.md, with fixed bounded release-keyed serving/acquisition budgets as the expansion trigger. Frontend stays local/unmerged; full coordinated integration gates remain. Mobile remains out of current scope per user.
+
+
+## Sol migration handoff — resume after statewide Overture
+
+### User request and working style
+
+The user is moving subsequent frontend implementation from Astra to a **new primary Sol session**. This is a handoff, not a model/global-config change or a new worker launch. The main session will implement statewide Overture coverage first; it has not yet been verified at this migration checkpoint. Do not implement a competing backend pipeline here.
+
+- Use Sol directly for design, implementation and debugging. The earlier Astra-design/Sol-debug split is superseded: its repeated delegation/review cycles were too slow. No routine subagents or CLI workers unless the user asks again.
+- Keep iterations focused: one meaningful interaction, relevant checks, brief evidence, local checkpoint. Do not repeatedly run broad suites for small UI changes. A final coordinated integration pass still needs appropriate combined checks.
+- **Desktop only.** Mobile integration, bottom sheets and mobile-specific polish/checks are deferred until explicitly requested again. Keep the original inventory recorded rather than marking those items complete.
+- Preserve the accepted ClearSky direction and recent improvements. Do not restart the visual design or archived source investigations. The user reported the performance fixes made the app “Much more responsive now.” The earlier transient fragmented rendering cleared after loading; its cause remains unconfirmed.
+
+### Where to resume and read order
+
+1. Work in `/Users/anand/Projects/hackathon.frontend`, branch `frontend/atlas-interactive`. Read local AGENTS.md and this migration section first.
+2. Read README.md and its four planning links (PRODUCT, EXPERIENCE, ARCHITECTURE, BUILD_PLAN), then docs/FRONTEND_HANDOFF.md for ownership. Older planning descriptions are the original target, not authoritative current implementation state.
+3. Read **current main-worktree** `/Users/anand/Projects/hackathon/docs/BUILDINGS_HANDOFF.md`, BACKEND_CHANGES.md and READINESS_AUDIT.md read-only. They may change after this checkpoint. Inspect the actual statewide endpoint contract and proxy responses before coding; do not assume the pilot's bbox/version/limits remain valid.
+4. Read only the relevant recent sections above for measured evidence and corrections. Installed Next.js guidance lives in node_modules/next/dist/docs/; consult the relevant guide before code changes.
+
+Main/backend: `/Users/anand/Projects/hackathon`, port3000. Frontend: port3001, relative `/api/*` proxy via `ATLAS_BACKEND_ORIGIN=http://127.0.0.1:3000`. At migration the frontend production preview is live in tmux `atlas-frontend-preview`; inspect it and reuse it. Do not restart main. Stop only the frontend process before rebuilding its `.next`, then restore the preview. This tmux pane runs the server directly, so after Ctrl-C it becomes dead; use `tmux respawn-pane -t atlas-frontend-preview -c /Users/anand/Projects/hackathon.frontend 'ATLAS_BACKEND_ORIGIN=http://127.0.0.1:3000 npm run start -- --hostname 127.0.0.1 --port 3001'` after a successful build. Verify HTTP readiness before launching browser checks.
+
+### Saved local state
+
+Latest application checkpoint: **9e0e6b3** (`feat: render Overture building pilots with bounded loading`). This migration adds a documentation-only commit after it. No frontend merge/rebase/cherry-pick into main has been performed. `git status` at preparation showed only generated `next-env.d.ts` churn; do not hand-edit/stage that as feature work. No source edits are knowingly left unsaved.
+
+Useful recent checkpoints:
+- `d2285ae`: desktop map-first compact evidence; body-portaled dialogs fix the old linked facility-detail regression.
+- `abaa4b3`: manual top-down pitch selects Flat.
+- `0330154`: renderer-native smooth zoom-dependent landscape heights.
+- `032918b`: stronger tract colors/boundaries and quieter physical buildings.
+- `8efb8ab` / `8fcbebd`: Auto mode with manual overrides and camera-flight safeguards.
+- `e6ab26e`: linked geographic comparison; subsequent fixes are included in later commits.
+- `f12b10f`: responsiveness work. The earliest probe's test-only MapLibre serialization invalidated its apparent frame-gap results; use the corrected measurements documented above, not the discarded samples.
+
+The existing Sol CLI review worker is finished; its worktree/logs are preserved. Do not resume it just because it exists. All accepted fixes are already in this frontend branch.
+
+### Current implementation to preserve
+
+- **Auto view** defaults on: settled zoom>=12 selects City; zoom<=11 selects Data Landscape; the gap prevents oscillation. Explicit City/Landscape/Flat/3D choices disable Auto until selected again. Flat/3D preference survives City visits. Manual top-down pitch<=3degrees selects Flat without changing the Auto preference. Programmatic arrivals/Together/linked-follower events do not impersonate user choices.
+- **Landscape:** shared percentile heights, real tract geometry, null hatching, zero preservation and source-qualified legend. Native composite zoom interpolation avoids height-expression rewrites during navigation; bounded source updates remain only for growth/reversal. Original integer-zoom heights and9m/point local scale are retained. The smooth fractional-zoom curve differs from the old formula by at most approximately6.025% in display exaggeration, explicitly documented; do not claim exact preservation at every fractional zoom. Measurement values and comparisons are unchanged.
+- **Color:** wider sequential ramps shared by map and legend on the same statewide0–100 scale. Closer-zoom fill opacity0.72, clearer boundaries, neutral physical buildings at0.70 opacity. No local re-ranking or invented within-tract variation.
+- **Desktop shell:** compact evidence summary after first confirmed address; open evidence on demand. An opened panel stays open when adding places. Keyboard open/collapse/Escape focus behavior exists. Opening text has a navy backdrop. The map instance and saved places persist.
+- **Comparison:** multiple saved places, aligned evidence, Together, linked left/right maps sharing zoom/pitch/bearing around independent centers. Two-pane source readiness gates preserve coherent metric changes. The old facility-dialog failure is **fixed and browser-verified**, not an open issue: dialogs now portal outside hidden/inert evidence ancestors.
+- **Correctness:** source units/periods/versions/nulls, same-tract distinct addresses, direction/tiny-gap handling and facility version pinning remain mandatory. Current provider.ts compatible() checks more than comparisonKey, and useFacilities pins/verifies datasetVersion; the old main READINESS_AUDIT findings were against an older snapshot, so inspect current code before reopening them as unresolved.
+
+### Overture: implemented pilot and first new-session task
+
+The frontend currently supports only the main-provided pinned **2026-10-21.0 two-region pilot**. `src/frontend/buildings.ts` hardcodes Rancho/Oakland coverage rectangles and fixed0.01-degree cells, fetches at zoom15+, limits concurrency to2, debounces move-end180ms, aborts superseded work, deduplicates IDs, and caches at most12 cells/12million response-text characters. It validates the response contract/version/truncation. It hides old OSM buildings while the Overture layer is active; no double-stacking. Outside pilot/wider zoom/failure falls back to OSM with disclosure. A partially covered viewport is explicitly labeled, and buildings beyond the pilot are not shown in that view.
+
+Height data remain nullable/unmodified. Rendering uses supplied height; otherwise supplied floors×3m; otherwise disclosed6m schematic height. Known zero stays zero. Underground flags suppress underground buildings. Unknown heights have a distinct neutral tone. These are approximate footprint extrusions, not complete/surveyed/photorealistic models. OSM/Overture/Microsoft/ODbL attribution is linked. Building parts remain absent under the pilot contract.
+
+**First task after main reports statewide ready:**
+1. Inspect the new handoff/contract and live relative-proxy responses. Determine actual geographic coverage, release, tile/cell delivery, limits, height/parts/null semantics, attribution, caching and errors. “Statewide integrated” is a user report until those checks are performed.
+2. Replace the frontend's pilot rectangles/version/query assumptions with the documented statewide interface. Do not just relabel the pilot as statewide or fetch statewide GeoJSON into the browser. Coordinate any root/dependency/config changes through main; do not install unilaterally.
+3. Preserve bounded loading, cancellation, coherent old/new coverage, source failure handling, linked-map independence, City/Flat/Landscape behavior and source-qualified height disclosure. Update UI copy only to the coverage actually supplied.
+4. Verify desktop Rancho, Oakland and a previously outside-pilot location; test mode changes, one failure/stale-request path and linked maps. Measure requests/payload/work sufficiently to catch a new responsiveness regression. Do not repeat a whole historical suite before the first useful rendered checkpoint.
+
+Main handoff reference: `docs/BUILDINGS_HANDOFF.md` **in main**, not this checkout. Frontend integration points: `src/frontend/buildings.ts`, `src/AtlasMap.tsx`, building statuses/provenance in `app/page.tsx`, `tests/ui/buildings.spec.ts`. Do not copy backend source/data into this tree.
+
+### Remaining original milestones, in order
+
+1. **Complete statewide City coverage adoption** as above. Pilot is functional; statewide coverage and any building parts are not yet frontend-complete. Keep camera/selection and CES readability intact.
+2. **Explore Alternatives — largest missing feature, not implemented.** Agree/publish the main-owned query contract before real results: confirmed starting point; explicit geographic radius/distance definition (proposed straight-line); one selected environmental indicator and lower raw-value criterion; matching definition/unit/release/period; stable ordering/ties; null exclusions; bounded limits; empty/error states. Do not create a composite neighborhood grade or implied safety recommendation. Results are tract candidates, never fabricated/confirmed addresses; no centroid substitution for confirmed-coordinate facility APIs. No endpoint was found in BACKEND_CHANGES at migration; recheck current main. Prepare the frontend interaction while main supplies the query if necessary, but do not present synthetic results as live.
+3. **Finish desktop Landscape/X-Ray refinement:** deliberate cross-indicator extrusion transitions, selected-tract/roof-edge inspection clarity and label density; consistent source/loading states; no regression to whole-map queries or source rewrites on every zoom frame. All four categories/23 fields and healthcare/schools already work—do not rebuild them.
+4. **Finish geographic comparison acceptance:** linked maps are implemented, not absent. Review final desktop evidence/camera/source-failure behavior, correct signed differences, same-tract distinct pins and null/incompatible/tiny-gap cases. The facility dialog is already fixed. Further polish should respond to concrete defects/user feedback.
+5. **Integrated desktop refinement and coordinated local integration:** targeted keyboard/focus/reduced-motion/contrast/failure checks, reviewed stable full frontend diff, user-coordinated checkpoint with main, owner commits and main-owned merge, combined backend/UI/build checks. No blanket performance/accessibility claim. Preserve main/frontend separation until that checkpoint.
+
+Mobile/bottom sheet is explicitly deferred by user. Power remains source-gated; fire/remediation/routes need suitable verified source contracts. Terrain/sharing/AI/voice/sponsors remain recorded outside these initial increments. No resurrection of exhausted investigations or scope deletion.
+
+### Evidence, tests and limits
+
+Latest application build passed at9e0e6b3. Latest Overture checks:5 focused tests passed in28s (Rancho source replacement/cache/Flat/3D, simulated503 and outside-coverage fallback, linked Oakland/Fresno, source readiness). Actual Rancho view loaded9,305 deduplicated footprints from12 cell requests,590 unknown heights; renderer returned5,527 fragments, **not unique visible buildings**. Repeated same-view requests reused cache. Screenshot/counts: artifacts/building-coverage/rancho-overture.png and frontend-counts.json. Desktop map-first plus all23 live-measure unit/value/access checks passed2/2 in46.4s; prior linked facility-dialog test passed. Top-down checks passed2/2. Historical full31-test pass predates later changes and is not a current full-suite result.
+
+Useful focused commands (preview must be ready):
+- `PLAYWRIGHT_BASE_URL=http://127.0.0.1:3001 npx playwright test tests/ui/buildings.spec.ts`
+- `PLAYWRIGHT_BASE_URL=http://127.0.0.1:3001 npx playwright test tests/ui/map-first.spec.ts tests/ui/top-down.spec.ts`
+- `PLAYWRIGHT_BASE_URL=http://127.0.0.1:3001 npx playwright test tests/ui/responsiveness.spec.ts tests/ui/relief-readiness.spec.ts`
+
+Select geography/atlas cases with `-g` when relevant; some older tests include mobile passes or assume evidence opens by default. Update obsolete interaction assumptions deliberately, without weakening data/render assertions. Test code may inspect map instances through React internals; never expose those internals in application code or accidentally return a MapLibre instance from page.evaluate (the earlier serialization mistake). The public GeoJSONSource API is getData(); current private _data is not a FeatureCollection.
+
+No backend tests/acquisition should be rerun from this frontend checkout just to satisfy missing ignored datasets. No new memory/global configuration edits are requested. When reporting progress, state what actually changed/tested and any remaining coverage gate; keep the user-facing summary short.
