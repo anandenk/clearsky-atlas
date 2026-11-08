@@ -1,0 +1,27 @@
+.place-ribbon .place-remove {
+  display: grid;
+  place-items: center;
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  min-height: 28px;
+  padding: 0;
+  border-radius: 50%;
+  color: #555b73;
+}
+
+.place-ribbon .place-remove:hover {
+  background: #e8e8f2;
+  color: #252b43;
+}
+
+.place-ribbon .place-remove:focus-visible,
+.place-ribbon .place-focus:focus-visible {
+  outline: 2px solid #4b4e95;
+  outline-offset: 2px;
+}
+
+.place-ribbon .place-focus {
+  border-radius: 22px;
+}
