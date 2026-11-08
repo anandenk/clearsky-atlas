@@ -4,6 +4,8 @@ Authorized: Phase 1 source verification and Phase 2 local implementation; bounde
 
 ## Current combined desktop checkpoint
 
+Completed merge: `634b1a63ec8d5ac54f43437cb86fd8c5de04254e`.
+
 See [INTEGRATION.md](INTEGRATION.md) for frozen inputs, recovery refs, reviewer findings/fixes, runtime, fresh checks, screenshots, measurements and remaining gates. Main combines the selected ClearSky map-first multi-location frontend (`e7e64fb`) with the reviewed building-service checkpoint (`44558b2`). The frozen :3001 preview and all worktrees/caches remain preserved.
 
 All 23 intended scalar/demographic fields, 9,946 schools and 14,919 coordinate-bearing healthcare records remain source-qualified. Statewide Overture buildings/parts use pinned MVT with verified online ranges and successful local caching; complete offline acquisition is unfinished. Power remains source-gated. Optional overview/story/grouped-demographic/nearby-narrative adoption is follow-up work. Mobile and Explore Alternatives remain explicitly user-deferred. Sponsors remain parked.

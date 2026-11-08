@@ -1,5 +1,7 @@
 # Local desktop integration — 2026-11-07
 
+Completed local merge: `634b1a63ec8d5ac54f43437cb86fd8c5de04254e` (parents: reviewed backend `44558b2`, frozen frontend `e7e64fb`).
+
 Current integration record. The user selected the existing desktop experience and authorized this local merge and verification. Optional backend API adoption remains follow-up work. This checkpoint makes no mobile acceptance or publication claim.
 
 ## Frozen inputs and recovery

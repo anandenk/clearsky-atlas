@@ -151,5 +151,6 @@
       "sha256": "12d485c2391d42662b60ffd6f3b10687594f4ea4e69af7d6dfb91c3a20e5049e",
       "bytes": 131938
     }
-  }
+  },
+  "integrationMerge": "634b1a63ec8d5ac54f43437cb86fd8c5de04254e"
 }
