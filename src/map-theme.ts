@@ -1,15 +1,15 @@
 import type { StyleSpecification } from "maplibre-gl";
 export const ramps: Record<string, string[]> = {
   Environment: [
-    "#eeedf8",
-    "#d3cdec",
-    "#b4a9df",
-    "#9581cb",
-    "#775bb5",
-    "#553c91",
+    "#fff3bd",
+    "#b8e0a5",
+    "#58bca9",
+    "#3487ad",
+    "#4450a0",
+    "#391956",
   ],
-  Health: ["#f5eaf0", "#eacddc", "#d8a6c2", "#bd7da5", "#9d5488", "#753164"],
-  Community: ["#e5edf4", "#c5dce7", "#9abed4", "#70a0be", "#467fa5", "#285d86"],
+  Health: ["#fff0c2", "#f4c88a", "#e99578", "#ce617c", "#923e79", "#50235f"],
+  Community: ["#edf8b1", "#b8dfb5", "#6cc4b6", "#359fae", "#326d9c", "#25365e"],
   Infrastructure: [
     "#eeedf8",
     "#d3cdec",

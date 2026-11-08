@@ -152,6 +152,7 @@ export default function AtlasMap(p: Props) {
     m.on("load", () => {
       // The vector style groups ground fills before water. Insert thematic
       // shading here so zoom-dependent land use cannot cover the measurements.
+      if(m.getLayer("city-buildings"))m.setPaintProperty("city-buildings","fill-extrusion-color","#84918f");
       const before = m.getLayer("water") ? "water" : m.getStyle().layers.find((l) => l.type === "symbol")?.id;
       const hatch=new Uint8Array(8*8*4);
       for(let y=0;y<8;y++)for(let x=0;x<8;x++) {const offset=(y*8+x)*4;const stripe=(x+y)%8<2;hatch.set(stripe?[190,198,205,255]:[65,75,85,230],offset);}
@@ -188,7 +189,7 @@ export default function AtlasMap(p: Props) {
             type: "line",
             source: "tracts" + i,
             paint: {
-              "line-color": "#a2b2c1",
+              "line-color": "#e2edf0",
               "line-opacity": 0,
               "line-width": [
                 "interpolate",
@@ -197,7 +198,9 @@ export default function AtlasMap(p: Props) {
                 5,
                 0.25,
                 12,
-                0.7,
+                1.2,
+                16,
+                1.8,
               ],
             },
           },
@@ -508,12 +511,12 @@ export default function AtlasMap(p: Props) {
           for (const layer of ["boundary", "selected", "inspection"])
             m.setPaintProperty(layer + i, "line-opacity-transition", {duration});
         }
-        m.setPaintProperty("fill" + next, "fill-opacity", 0.32);
+        m.setPaintProperty("fill" + next, "fill-opacity", ["interpolate", ["linear"], ["zoom"], 10, 0.32, 13, 0.72]);
         m.setPaintProperty("missing"+next,"fill-opacity",.85);
         m.setPaintProperty("missing"+outgoing,"fill-opacity",0);
         m.setPaintProperty("selected" + next, "line-opacity", 1);
         m.setPaintProperty("inspection" + next, "line-opacity", 1);
-        m.setPaintProperty("boundary" + next, "line-opacity", ["interpolate", ["linear"], ["zoom"], 5, 0.38, 12, 0.22]);
+        m.setPaintProperty("boundary" + next, "line-opacity", ["interpolate", ["linear"], ["zoom"], 5, 0.38, 12, 0.65, 16, 0.85]);
         m.setPaintProperty("fill" + outgoing, "fill-opacity", 0);
         for (const layer of ["boundary", "selected", "inspection"])
           m.setPaintProperty(layer + outgoing, "line-opacity", 0);
@@ -770,7 +773,7 @@ export default function AtlasMap(p: Props) {
       }
       if(amount!==lastOpacity){
         m.setPaintProperty(layer,"fill-extrusion-opacity",rendered.mode!=="Infrastructure" ? .85*amount : 0);
-        if(m.getLayer("city-buildings"))m.setPaintProperty("city-buildings","fill-extrusion-opacity",(p.overview && rendered.mode !== "Infrastructure") ? 0 : .95*(1-amount));
+        if(m.getLayer("city-buildings"))m.setPaintProperty("city-buildings","fill-extrusion-opacity",(p.overview && rendered.mode !== "Infrastructure") ? 0 : .70*(1-amount));
         lastOpacity=amount;
       }
       if(container.current)container.current.dataset.landscapeProgress=String(amount);
