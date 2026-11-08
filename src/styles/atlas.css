@@ -2981,3 +2981,76 @@ button:active {
   .infrastructure-lens { max-height: calc(100vh - 220px); overflow-y: auto; }
 }
 .roof-edge-key { display: block; margin: 5px 0 9px; color: #d4e4e9; font-size: 11px; line-height: 1.5; }
+
+/* Nearby essentials: out-rank the later light-theme comparison rules only here.
+   Opaque navy keeps text contrast independent of the map beneath the panel.
+   Dialogs are portaled outside this subtree and keep their light surface. */
+.atlas-app .comparison-canvas .infrastructure-content {
+  --infrastructure-text: #e2ebf0;
+  --infrastructure-muted: #c3d1dc;
+  --infrastructure-focus: #b9eee5;
+  color: var(--infrastructure-text);
+  background: #101e2a;
+}
+.atlas-app .comparison-canvas .infrastructure-content .facility-comparison > p,
+.atlas-app .comparison-canvas .infrastructure-content .infrastructure-findings,
+.atlas-app .comparison-canvas .infrastructure-content .narrative h2 {
+  color: var(--infrastructure-text);
+}
+.atlas-app .comparison-canvas .infrastructure-content .facility-comparison .distance-context,
+.atlas-app .comparison-canvas .infrastructure-content .facility-compare-head,
+.atlas-app .comparison-canvas .infrastructure-content .facility-location,
+.atlas-app .comparison-canvas .infrastructure-content .narrative > p,
+.atlas-app .comparison-canvas .infrastructure-content .infrastructure-sources,
+.atlas-app .comparison-canvas .infrastructure-content .power-preview p,
+.atlas-app .comparison-canvas .infrastructure-content small {
+  color: var(--infrastructure-muted);
+}
+.atlas-app .comparison-canvas .infrastructure-content .facility-filters button,
+.atlas-app .comparison-canvas .infrastructure-content .facility-list > button,
+.atlas-app .comparison-canvas .infrastructure-content .facility-comparison > button {
+  color: var(--infrastructure-text);
+  background: #243443;
+  border-color: #78909d;
+}
+.atlas-app .comparison-canvas .infrastructure-content .facility-comparison > button {
+  /* Keep a stable selection-marker gutter without shifting distance columns. */
+  box-shadow: inset 3px 0 transparent;
+}
+.atlas-app .comparison-canvas .infrastructure-content .facility-filters button[aria-pressed="true"],
+.atlas-app .comparison-canvas .infrastructure-content .facility-list > button.selected,
+.atlas-app .comparison-canvas .infrastructure-content .facility-comparison > button.selected {
+  background: #31505f;
+  color: #ffffff;
+  border-color: #9bd6ce;
+  box-shadow: inset 3px 0 #b9eee5;
+  font-weight: 600;
+}
+.atlas-app .comparison-canvas .infrastructure-content .facility-symbol,
+.atlas-app .comparison-canvas .infrastructure-content .power-preview button {
+  color: var(--infrastructure-focus);
+}
+.atlas-app .comparison-canvas .infrastructure-content .facility-filters button:hover,
+.atlas-app .comparison-canvas .infrastructure-content .facility-list > button:hover,
+.atlas-app .comparison-canvas .infrastructure-content .facility-comparison > button:hover {
+  background: #395968;
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.atlas-app .comparison-canvas .infrastructure-content .facility-directory > summary {
+  color: var(--infrastructure-text);
+}
+.atlas-app .comparison-canvas .infrastructure-content .facility-directory > summary:hover,
+.atlas-app .comparison-canvas .infrastructure-content .power-preview button:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.atlas-app .comparison-canvas .infrastructure-content .error {
+  color: #ffd0b2;
+}
+.atlas-app .comparison-canvas .infrastructure-content :is(button, summary):focus-visible {
+  outline: 3px solid var(--infrastructure-focus);
+  /* Inset the ring so scroll containers cannot clip it. */
+  outline-offset: -3px;
+}

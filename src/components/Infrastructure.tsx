@@ -107,6 +107,7 @@ export default function Infrastructure({
             {places.map((p) => (
               <button
                 className={p.id === selected?.id ? "selected" : ""}
+                aria-pressed={p.id === selected?.id}
                 key={p.id}
                 onClick={() => onFocus(p.id)}
               >
@@ -145,6 +146,7 @@ export default function Infrastructure({
           {list.map((f) => (
             <button
               className={facility === f.id ? "selected" : ""}
+              aria-haspopup="dialog"
               key={f.id}
               onClick={() => pick(f)}
             >
