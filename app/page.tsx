@@ -25,6 +25,8 @@ import Infrastructure from "../src/components/Infrastructure";
 import { useFacilities, type Facility } from "../src/hooks/useFacilities";
 import { useInfrastructureInventory } from "../src/hooks/useInfrastructureInventory";
 import FacilityDetail from "../src/components/FacilityDetail";
+import FacilityDirectory from "../src/components/FacilityDirectory";
+import "../src/styles/facility-directory.css";
 import ComparisonPanel from "../src/components/ComparisonPanel";
 import GeographyComparison from "../src/components/GeographyComparison";
 import { LinkedCamera, OverlayGate } from "../src/frontend/linked-geography";
@@ -1113,12 +1115,15 @@ export default function Page() {
         </div>
       </Dialog>
       <Dialog open={directoryOpen && !preview} onClose={()=>setDirectoryOpen(false)} title="Find a source-listed facility">
-        <div className="facility-directory-search">
-          <label htmlFor="facility-name">Facility name</label>
-          <input id="facility-name" value={facilityQuery} onChange={e=>setFacilityQuery(e.target.value)} placeholder="Search healthcare or school names" />
-          <p role="status">{directoryResults.length.toLocaleString()} matches in selected categories{directoryResults.length>50 ? "; showing the first 50. Type a name to narrow results." : "."}{inventory.loading ? " Inventories are still loading." : ""}</p>
-          <div className="facility-list">{directoryResults.slice(0,50).map(f=><button key={f.id} onClick={()=>{setDirectoryOpen(false);setMapFacility(f);}}><span><strong>{f.name}</strong><small>{f.category} · {f.status || "Status not supplied"}</small></span></button>)}</div>
-        </div>
+        <FacilityDirectory
+          query={facilityQuery}
+          onQueryChange={setFacilityQuery}
+          results={directoryResults}
+          loading={inventory.loading}
+          partial={inventory.errors.length > 0}
+          onChangeCategories={()=>setDirectoryOpen(false)}
+          onSelect={f=>{setDirectoryOpen(false);setMapFacility(f);}}
+        />
       </Dialog>
       <Dialog open={!!mapFacility && !preview} onClose={()=>setMapFacility(null)} title="About this location">
         {mapFacility && <><FacilityDetail facility={mapFacility} /><div className="facility-locate"><button className="primary" onClick={()=>{setFacilityTarget({coordinate:mapFacility.coordinate,serial:(facilityTarget?.serial || 0)+1});setMapFacility(null);}}>Show on map</button></div></>}

@@ -1,0 +1,119 @@
+/* Scoped to the directory body; nearby lists and shared dialogs keep their styles. */
+.facility-directory-panel {
+  color: var(--ink, #282e49);
+}
+
+.facility-directory-panel .facility-directory-field label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.facility-directory-panel .facility-directory-field input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #9aa9b3;
+  border-radius: 8px;
+  background: #fff;
+  color: #282e49;
+  font: inherit;
+}
+
+.facility-directory-panel .facility-directory-help {
+  margin: 14px 0 0;
+  color: #50596c;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.facility-directory-panel .facility-directory-status {
+  margin: 8px 0 12px;
+  color: #50596c;
+  font-size: 13px;
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+}
+
+.facility-directory-panel .facility-directory-results {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-height: min(42svh, 420px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  scroll-padding-block: 6px;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  border-block: 1px solid #d8dce5;
+}
+
+.facility-directory-panel .facility-directory-results li + li {
+  border-top: 1px solid #d8dce5;
+}
+
+.facility-directory-panel .facility-directory-results button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  width: 100%;
+  padding: 14px 10px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #282e49;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+
+.facility-directory-panel .facility-directory-results strong {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.facility-directory-panel .facility-directory-results span {
+  color: #50596c;
+  font-size: 12px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.facility-directory-panel .facility-directory-results button:hover {
+  background: #eceef5;
+}
+
+.facility-directory-panel input:focus-visible,
+.facility-directory-panel button:focus-visible {
+  outline: 3px solid #5759bb;
+  outline-offset: 3px;
+}
+
+.facility-directory-panel .facility-directory-empty {
+  padding: 20px 16px;
+  border: 1px solid #d8dce5;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.facility-directory-panel .facility-directory-empty p {
+  margin: 6px 0 14px;
+  color: #50596c;
+}
+
+.facility-directory-panel .facility-directory-empty button {
+  padding: 9px 12px;
+  border: 1px solid #9aa9b3;
+  border-radius: 6px;
+  background: #fff;
+  color: #282e49;
+  font: inherit;
+  cursor: pointer;
+}
