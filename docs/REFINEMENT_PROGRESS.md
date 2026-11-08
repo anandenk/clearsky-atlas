@@ -10,7 +10,7 @@ User request: seven issues, one CLI worker per issue, bounded parallel batches. 
 | Unclutter facility directory/search | p2-directory | integrated; rendered check pending |
 | Replace per-place three-dot menu with direct remove X | p2-chips | integrated; rendered check pending |
 | Focused place immediately requests City, without relief lag | p2-city | launching |
-| Hide/park Compare Geography behind explicit opt-in | p2-geography | launching |
+| Hide/park Compare Geography behind explicit opt-in | p2-geography | integrated; rendered check pending |
 
 Workers leave owned changes uncommitted. The integration owner reviews, commits, merges and verifies the combined desktop UI. Running browser tests remains sequential. Final results, limitations and scope adjustments will be recorded here.
 

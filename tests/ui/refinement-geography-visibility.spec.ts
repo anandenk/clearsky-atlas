@@ -40,15 +40,17 @@ test("ordinary multi-place comparison has no geography controls or second map", 
   await expect(maps).toHaveAttribute("data-instance", original!);
 });
 
-for (const launch of ["Compare geography", "Compare maps"]) {
+for (const launch of ["Compare geography"]) {
   test(`developer opt-in can open and close linked geography via ${launch}`, async ({ page }) => {
     test.setTimeout(60000);
     await addPlaces(page, "/?geography=1");
     const maps = page.locator(".atlas-map");
     const original = await maps.getAttribute("data-instance");
     await expect(maps).toHaveCount(1); // Opt-in alone must not allocate a second map.
-    for (const name of ["Compare geography", "Compare maps"])
-      await expect(page.getByRole("button", { name, exact: true })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Compare geography", exact: true })).toBeVisible();
+    // The retained peek launcher was already CSS-hidden in the accepted desktop.
+    // It must be absent by default; the explicit opt-in retains its callback.
+    await expect(page.locator(".peek-compare")).toHaveCount(1);
     await page.getByRole("button", { name: launch, exact: true }).click();
     await expect(maps).toHaveCount(2);
     await expect(page.getByRole("region", { name: "Geographic comparison" })).toBeVisible();

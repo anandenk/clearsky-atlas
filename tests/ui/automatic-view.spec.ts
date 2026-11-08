@@ -68,7 +68,7 @@ function mapsForTest() {
 
 test('Auto waits for a right-pane camera flight to finish before changing relief',async({page})=>{
   test.setTimeout(60000);
-  await page.setViewportSize({width:1440,height:960});await page.goto('/');
+  await page.setViewportSize({width:1440,height:960});await page.goto('/?geography=1');
   await expect(page.locator('.atlas-map')).toHaveAttribute('data-metric','pm',{timeout:30000});
   for(const name of ['Oakland','Fresno']){
     await page.getByLabel('Search a California address').focus();

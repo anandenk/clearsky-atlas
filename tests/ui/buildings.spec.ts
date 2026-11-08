@@ -222,7 +222,7 @@ test("linked Oakland and Fresno maps load statewide buildings and parts independ
   test.setTimeout(60000);
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.setViewportSize({ width: 1440, height: 960 });
-  await page.goto("/");
+  await page.goto("/?geography=1");
   for (const name of ["Oakland", "Fresno"]) {
     await page.getByLabel("Search a California address").focus();
     await page.getByRole("button", { name, exact: true }).click();
@@ -289,7 +289,7 @@ test("Overture reveal uses native opacity fade without rewriting building geomet
   test.setTimeout(60000);
   await page.setViewportSize({width:1440,height:960});
   await page.emulateMedia({reducedMotion:"reduce"});
-  await page.goto('/');
+  await page.goto('/?geography=1');
   await expect(page.locator('.atlas-map')).toHaveAttribute('data-metric','pm',{timeout:30000});
   await page.getByRole('button',{name:'City',exact:true}).click();
   await page.evaluate(`window.testMap = (${inspectMap.toString()})()`);

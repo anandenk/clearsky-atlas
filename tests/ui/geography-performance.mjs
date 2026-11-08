@@ -5,7 +5,7 @@ const b=await chromium.launch({channel:'chrome'});
 try{
  const p=await b.newPage({viewport:{width:1440,height:960}}),errors=[];p.on('pageerror',e=>errors.push(e.message));
  await p.addInitScript(()=>{window.probe={frames:[],long:[],events:[]};let last=performance.now();function f(t){window.probe.frames.push({t,dt:t-last});last=t;requestAnimationFrame(f);}requestAnimationFrame(f);new PerformanceObserver(l=>window.probe.long.push(...l.getEntries().map(e=>({t:e.startTime,dt:e.duration})))).observe({type:'longtask',buffered:true});new PerformanceObserver(l=>window.probe.events.push(...l.getEntries().filter(e=>e.name==='click').map(e=>({dt:e.duration,delay:e.processingStart-e.startTime})))).observe({type:'event',durationThreshold:16,buffered:true});});
- await p.goto(process.env.PLAYWRIGHT_BASE_URL ?? 'http://127.0.0.1:3000');await p.waitForSelector('.atlas-map[data-metric="pm"]');
+ const url=new URL(process.env.PLAYWRIGHT_BASE_URL ?? 'http://127.0.0.1:3000');url.searchParams.set('geography','1');await p.goto(url.href);await p.waitForSelector('.atlas-map[data-metric="pm"]');
  for(const city of ['Oakland','Fresno']){await p.getByLabel('Search a California address').focus();await p.getByRole('button',{name:city,exact:true}).click();await p.getByRole('button',{name:/Confirm this address/}).click();}
  await p.getByRole('button',{name:'Compare geography',exact:true}).click();await p.waitForSelector('.comparison-map-stage .atlas-map[data-metric="pm"]');
  await p.getByRole('button',{name:'Data Landscape',exact:true}).click();await p.waitForTimeout(2500);

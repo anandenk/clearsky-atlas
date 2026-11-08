@@ -7,7 +7,7 @@ test("linked geography keeps both places, shared cameras and measures, and the o
   page.on("pageerror", (e) => errors.push(e.message));
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.setViewportSize({ width: 1440, height: 960 });
-  await page.goto("/");
+  await page.goto("/?geography=1");
   await expect(page.locator(".atlas-map")).toHaveAttribute(
     "data-metric",
     "pm",
@@ -105,7 +105,7 @@ test("paired overlays wait for the slower renderer and retain common evidence on
     if (r.url().includes("/api/map?"))
       requests.push(new URL(r.url()).searchParams.get("indicator")!);
   });
-  await page.goto("/");
+  await page.goto("/?geography=1");
   await expect(page.locator(".atlas-map")).toHaveAttribute(
     "data-metric",
     "pm",
@@ -177,7 +177,7 @@ test("paired overlays wait for the slower renderer and retain common evidence on
 });
 
 test('each linked facility marker opens its own inventory detail without recentering either place',async({page})=>{
- test.setTimeout(60000);await page.emulateMedia({reducedMotion:'reduce'});await page.setViewportSize({width:1440,height:960});await page.goto('/');
+ test.setTimeout(60000);await page.emulateMedia({reducedMotion:'reduce'});await page.setViewportSize({width:1440,height:960});await page.goto('/?geography=1');
  for(const city of ['Oakland','Fresno']){await page.getByLabel('Search a California address').focus();await page.getByRole('button',{name:city,exact:true}).click();await page.getByRole('button',{name:/Confirm this address/}).click();}
  await page.getByRole('button',{name:'Compare geography',exact:true}).click();await page.getByRole('button',{name:'Infrastructure',exact:true}).click();
  const maps=page.locator('.atlas-map');
