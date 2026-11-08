@@ -580,11 +580,26 @@ export default function Page() {
                 setQuery(e.target.value);
                 setSearchOpen(true);
               }}
-              maxLength={240}
-              minLength={preview ? 1 : 6}
+              onPaste={(e) => {
+                const text = e.clipboardData.getData("text");
+                if (!/[\r\n]/.test(text)) return;
+                // Text inputs otherwise delete line breaks and join address words.
+                e.preventDefault();
+                const start = e.currentTarget.selectionStart ?? query.length;
+                const end = e.currentTarget.selectionEnd ?? start;
+                invalidate();
+                setQuery(
+                  (query.slice(0, start) +
+                    text.replace(/[\r\n]+/g, ", ") +
+                    query.slice(end)).slice(0, 1000),
+                );
+                setSearchOpen(true);
+              }}
+              maxLength={1000}
               required
               autoComplete="off"
               aria-describedby="search-help"
+              aria-invalid={!!searchError}
             />
             <button
               className="search-submit"
@@ -645,7 +660,7 @@ export default function Page() {
                   <p id="search-help">
                     {preview
                       ? "Try “Example 1” to explore synthetic evidence."
-                      : "Enter a street address, city and ZIP. Confirm the Census match before exploring."}
+                      : "Type or paste a numbered street address with a city or ZIP; commas are optional. California is assumed when the state is omitted. Confirm the Census match before exploring."}
                   </p>
                   <div className="example-links">
                     {preview ? (
