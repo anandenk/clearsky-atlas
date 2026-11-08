@@ -10,7 +10,7 @@
 }
 @media(max-width:759px){.city-provenance{bottom:4px;left:8px;max-width:calc(100% - 16px);font-size:9px;padding:3px 6px}.atlas-app .map-key{bottom:78px}.atlas-app .domain-dock{background:#0b1520ed;color:#cad5d9;border:1px solid #34495b}.atlas-app .domain-dock button.selected{background:#243443;color:#8bd3ca}}
 /* Environmental X-Ray evidence surfaces share the city's navy/silver palette. */
-.atlas-app .comparison-canvas,.atlas-app .opening-lens,.atlas-app .map-key{background:#101e2aee;color:#e2ebf0;border:1px solid #34495b;box-shadow:0 8px 30px #0003}
+.atlas-app .comparison-canvas,.atlas-app .map-key{background:#101e2aee;color:#e2ebf0;border:1px solid #34495b;box-shadow:0 8px 30px #0003}
 .atlas-app .compass-heading h2{font:600 21px/1.2 "DM Sans",sans-serif;letter-spacing:-.4px}
 .atlas-app .compass-heading p,.atlas-app .compass-heading>button,.atlas-app .index-values>small,.atlas-app .index-range,.atlas-app .place-reading>small,.atlas-app .compass-definition p,.atlas-app .reading-delta,.atlas-app .reading-units,.atlas-app .comparison-canvas small{color:#aebfcb}
 .atlas-app .compass-navigation>button,.atlas-app .compass-navigation select,.atlas-app .single-invitation,.atlas-app .compass-summary{background:#243443;color:#dce8ec;border-color:#42586a}
@@ -37,3 +37,5 @@
 @media(min-width:760px){.atlas-app.has-places .recenter{right:24px;left:auto;bottom:28px;top:auto}}
 @media(max-width:759px){.atlas-app.has-places .recenter{right:12px;left:auto;top:460px;bottom:auto}}
 @media(max-width:759px){.atlas-app.has-multiple:not(.canvas-collapsed){padding-top:700px}.atlas-app.has-multiple:not(.canvas-collapsed) .map-stage{height:700px}.atlas-app.has-multiple .map-key{top:500px}.atlas-app.has-multiple .recenter{top:650px}}
+
+.atlas-app .opening-lens{background:transparent;border:0;box-shadow:none;backdrop-filter:none;color:#e2ebf0}
