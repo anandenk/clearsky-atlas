@@ -1,64 +1,98 @@
 import { NextRequest, NextResponse } from "next/server";
 import { selection } from "../../../src/data";
+import {
+  AddressInputError,
+  planAddressQueries,
+} from "../../../src/contracts/address-input";
+import {
+  isCensusStreetMatch,
+  resolveCensusAddress,
+} from "../../../src/contracts/address-geocoding";
+
+const reply = (body: unknown, status = 200) =>
+  NextResponse.json(body, {
+    status,
+    headers: { "Cache-Control": "no-store" },
+  });
+
 export async function POST(req: NextRequest) {
   try {
-    const { address } = await req.json();
-    if (
-      typeof address !== "string" ||
-      address.length < 6 ||
-      address.length > 240
-    )
-      return NextResponse.json(
-        { error: "Enter a street number, street, and California city or ZIP." },
-        { status: 400 },
+    let body;
+    try {
+      body = await req.json();
+    } catch {
+      return reply(
+        { error: "Send the address as JSON with an address field." },
+        400,
       );
-    const params = new URLSearchParams({
-      address,
-      benchmark: "Public_AR_Current",
-      vintage: "Census2020_Current",
-      format: "json",
-    });
-    const r = await fetch(
-      "https://geocoding.geo.census.gov/geocoder/geographies/onelineaddress?" +
-        params,
-      { signal: AbortSignal.timeout(20000), cache: "no-store" },
+    }
+    const plan = planAddressQueries(body?.address);
+    const { matches, query, requests } = await resolveCensusAddress(
+      plan,
+      req.signal,
     );
-    if (!r.ok)
-      throw new Error(
-        "Census geocoding is unavailable. Try the verified example addresses.",
-      );
-    const body = await r.json();
-    const matches = body.result?.addressMatches ?? [];
+    const interpretation = {
+      normalizedAddress: plan.normalizedAddress,
+      queryAddress: query.address,
+      assumedCalifornia: plan.assumedCalifornia,
+      adjustments: query.adjustments,
+      requests,
+    };
     if (!matches.length)
-      return NextResponse.json(
+      return reply(
         {
           error:
-            "No Census address match. Include a street number and California city or ZIP.",
+            "No Census street-address match. Check the building number and street spelling; add the city or five-digit ZIP. Try removing a building name or unit. Census may not cover this address; a place name, PO box, intersection or map link is not a street address.",
+          interpretation,
         },
-        { status: 404 },
+        404,
       );
-    const candidates = matches.map((m: any) => {
-      if (m.addressComponents.state !== "CA")
+    const candidates = matches.map((m) => {
+      if (!isCensusStreetMatch(m))
+        return {
+          error:
+            "Census did not return a complete street-address range match. Check the numbered street address; no location was assigned.",
+        };
+      if (m.addressComponents.state.toUpperCase() !== "CA")
         return { error: "This address is outside California." };
+      const censusTract = m.geographies?.["Census Tracts"]?.[0]?.GEOID;
+      if (typeof censusTract !== "string" || !/^06\d{9}$/.test(censusTract))
+        return {
+          error:
+            "Census did not supply a California 2020 tract for this address. No indicator was assigned; try again or use a verified example.",
+        };
       try {
-        return selection(
+        const candidate = selection(
           m.matchedAddress,
           [m.coordinates.x, m.coordinates.y],
           false,
-          m.geographies?.["Census Tracts"]?.[0]?.GEOID,
+          censusTract,
         );
+        const notes = [
+          ...(plan.assumedCalifornia
+            ? ["California assumed for this search."]
+            : []),
+          ...query.adjustments,
+        ];
+        return {
+          ...candidate,
+          precision: [candidate.precision, ...notes].join(" "),
+          inputInterpretation: interpretation,
+        };
       } catch (e) {
         return { error: (e as Error).message };
       }
     });
-    return NextResponse.json({ candidates });
-  } catch {
-    return NextResponse.json(
+    return reply({ candidates, interpretation });
+  } catch (error) {
+    if (error instanceof AddressInputError)
+      return reply({ error: error.message }, 400);
+    return reply(
       {
         error:
           "Address lookup is unavailable or timed out. Try again, or use the cached example addresses.",
       },
-      { status: 503 },
+      503,
     );
   }
 }
