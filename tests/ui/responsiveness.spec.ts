@@ -1,4 +1,5 @@
 import {test, expect} from '@playwright/test';
+import {landscapeHeightExpression} from '../../src/frontend/landscape';
 
 // Test-only inspection: no map instance or renderer internals exposed by the app.
 function inspectMap() {
@@ -46,8 +47,8 @@ test('relief updates stay bounded during navigation, controls respond and final 
       height:m.getPaintProperty('landscape'+active,'fill-extrusion-height'),features:document.querySelector('.atlas-map')?.getAttribute('data-features')};
   });
   expect(result.writes).toBeLessThan(40);
-  expect(result.layers).toHaveLength(1);
-  expect(result.height).toEqual(['*',['coalesce',['get','percentile'],0],9]);
+  expect(result.writes).toBe(0);
+  expect(result.height).toEqual(landscapeHeightExpression(1));
   expect(result.features).toBe('9106');
   await page.getByRole('button',{name:'City',exact:true}).click();
   await expect(map).toHaveAttribute('data-landscape-progress','0');

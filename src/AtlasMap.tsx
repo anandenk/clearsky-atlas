@@ -4,7 +4,7 @@ import * as gl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { ramps, placeColors, vectorStyle, rasterStyle } from "./map-theme";
 import { type Place, type Indicator } from "./frontend/provider";
-import { metresPerPercentileAtZoom } from "./frontend/landscape";
+import { metresPerPercentileAtZoom, landscapeHeightExpression } from "./frontend/landscape";
 import { StatewideOverlays } from "./frontend/map-coverage";
 import { value, percentile } from "./frontend/fixtures/preview";
 import type { Facility } from "./hooks/useFacilities";
@@ -467,12 +467,12 @@ export default function AtlasMap(p: Props) {
         m.setPaintProperty("landscape" + next, "fill-extrusion-opacity", 0);
         // Match the current reversible growth, including a City shrink already
         // in progress; the incoming effect continues from this same amount.
-        const incomingHeight = () => metresPerPercentileAtZoom(m.getZoom()) * (p.linked
+        const incomingHeight = () => (p.linked
           ? (latest.current.landscape && metric.percentileField ? 1 : 0)
           : growth.current);
         let stagedHeight = incomingHeight();
         const stageHeight = () => m.setPaintProperty("landscape" + next, "fill-extrusion-height",
-          ["*", ["coalesce", ["get", "percentile"], 0], stagedHeight]);
+          landscapeHeightExpression(stagedHeight));
         stageHeight();
         await (m.getSource("tracts" + next) as gl.GeoJSONSource).setData(tagged);
         // Keep the buffer hidden through style processing AND tile relayout.
@@ -759,18 +759,18 @@ export default function AtlasMap(p: Props) {
       const t=duration ? Math.min(1,(now-began)/duration) : 1;
       const amount=start+(target-start)*(t*t*(3-2*t));growth.current=amount;
       const scale=metresPerPercentileAtZoom(m.getZoom());
-      const height=scale*amount;
+      const height=amount; // Zoom interpolation runs in the renderer; only growth changes this expression.
       const heightChanged=height!==lastHeight;
       // Backpressure keeps only the latest desired height while workers finish.
       // Final and reduced-motion states are exact, as are all submitted scales.
       const canWrite=reduced() || (now-lastWrite>=80 && m.isSourceLoaded(source));
       if(heightChanged && canWrite){
-        m.setPaintProperty(layer,"fill-extrusion-height",["*",["coalesce",["get","percentile"],0],height]);
+        m.setPaintProperty(layer,"fill-extrusion-height",landscapeHeightExpression(height));
         lastHeight=height;lastWrite=now;
-        if(container.current)container.current.dataset.heightScale=String(scale);
-        const rounded=Math.round(scale);
-        if(rounded!==lastLegend){lastLegend=rounded;latest.current.onHeightScale(rounded);}
       }
+      if(container.current)container.current.dataset.heightScale=String(scale);
+      const rounded=Math.round(scale);
+      if(rounded!==lastLegend){lastLegend=rounded;latest.current.onHeightScale(rounded);}
       if(amount!==lastOpacity){
         m.setPaintProperty(layer,"fill-extrusion-opacity",rendered.mode!=="Infrastructure" ? .85*amount : 0);
         if(m.getLayer("city-buildings"))m.setPaintProperty("city-buildings","fill-extrusion-opacity",(p.overview && rendered.mode !== "Infrastructure") ? 0 : .70*(1-amount));
