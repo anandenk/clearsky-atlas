@@ -55,10 +55,14 @@ export function installBuildings(
   let timer: ReturnType<typeof setTimeout> | undefined,
     request: AbortController | undefined;
   let catalog: Catalog | undefined;
-  const paint = () => {
+  const paint = (revealDuration = 0) => {
     for (const id of layers)
-      if (m.getLayer(id))
+      if (m.getLayer(id)) {
+        // Constant opacity transitions run natively; no height/geometry writes
+        // or application animation loop. Fallbacks and relief changes are exact.
+        m.setPaintProperty(id, "fill-extrusion-opacity-transition", {duration:revealDuration});
         m.setPaintProperty(id, "fill-extrusion-opacity", active ? opacity : 0);
+      }
     if (m.getLayer("city-buildings"))
       m.setPaintProperty(
         "city-buildings",
@@ -203,8 +207,10 @@ export function installBuildings(
       visibility(true);
       await ready(m, source, signal, true);
       if (signal.aborted || token !== generation || !enabled || failed) return;
-      active = true;
-      paint();
+      if (!active) {
+        active = true;
+        paint(matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 320);
+      }
       report(
         "Overture · statewide buildings + parts. Approximate heights; source coverage varies.",
       );
@@ -258,6 +264,7 @@ export function installBuildings(
       else report("");
     },
     setOpacity(value: number) {
+      if (opacity === value) return;
       opacity = value;
       paint();
     },

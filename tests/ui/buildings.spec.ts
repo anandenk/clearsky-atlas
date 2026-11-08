@@ -272,3 +272,39 @@ test("linked Oakland and Fresno maps load statewide buildings and parts independ
     )
     .toEqual([0, 0]);
 });
+
+test("Overture reveal uses native opacity fade without rewriting building geometry", async ({page}) => {
+  test.setTimeout(60000);
+  await page.setViewportSize({width:1440,height:960});
+  await page.emulateMedia({reducedMotion:"reduce"});
+  await page.goto('/');
+  await expect(page.locator('.atlas-map')).toHaveAttribute('data-metric','pm',{timeout:30000});
+  await page.getByRole('button',{name:'City',exact:true}).click();
+  await page.evaluate(`window.testMap = (${inspectMap.toString()})()`);
+  await page.evaluate(() => (window as any).testMap.jumpTo({center:[-117.552,34.127],zoom:15.6,pitch:58}));
+  await expect(page.locator('.building-status')).toContainText('Overture · statewide buildings + parts',{timeout:45000});
+  expect(await page.evaluate(() => (window as any).testMap.getPaintProperty('overture-buildings-3d','fill-extrusion-opacity-transition').duration)).toBe(0);
+  await page.emulateMedia({reducedMotion:"no-preference"});
+  await page.evaluate(() => {
+    const w=window as any,m=w.testMap;
+    w.revealSamples=[];w.buildingHeightWrites=0;
+    const set=m.setPaintProperty;
+    m.setPaintProperty=function(...args:any[]){
+      if(args[0].startsWith('overture-') && ['fill-extrusion-height','fill-extrusion-base'].includes(args[1]))w.buildingHeightWrites++;
+      return set.apply(this,args);
+    };
+    m.on('render',()=>{
+      const opacity=m.style.getLayer('overture-buildings-3d').paint.get('fill-extrusion-opacity');
+      w.revealSamples.push({opacity,parts:m.style.getLayer('overture-building-parts-3d').paint.get('fill-extrusion-opacity'),osm:m.style.getLayer('city-buildings').paint.get('fill-extrusion-opacity')});
+    });
+    m.jumpTo({zoom:13});
+  });
+  await expect(page.locator('.building-status')).toContainText('zoom in for Overture detail');
+  await page.evaluate(() => (window as any).testMap.jumpTo({zoom:15.6}));
+  await expect.poll(() => page.evaluate(() => (window as any).revealSamples.some((s:any)=>s.opacity>0 && s.opacity<.7))).toBe(true);
+  await expect.poll(() => page.evaluate(() => (window as any).revealSamples.at(-1)?.opacity)).toBe(.7);
+  const result=await page.evaluate(() => ({samples:(window as any).revealSamples, writes:(window as any).buildingHeightWrites}));
+  expect(result.writes).toBe(0);
+  expect(result.samples.filter((s:any)=>s.opacity>0).every((s:any)=>s.osm===0 && Math.abs(s.parts-s.opacity)<.001)).toBe(true);
+  await test.info().attach('native-building-fade',{body:JSON.stringify(result),contentType:'application/json'});
+});
