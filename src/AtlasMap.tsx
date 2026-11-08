@@ -529,14 +529,18 @@ export default function AtlasMap(p: Props) {
       p.places.forEach((v) => b.extend(v.selection.coordinate));
       m.fitBounds(b, {
         absolutePadding: true,
+        // Together is a geographic overview: remove the arrival perspective
+        // and reserve an inner frame, rather than pinning endpoints to corners.
+        pitch: 0,
+        bearing: 0,
         padding: {
-          top: mobile ? 300 : 190,
-          bottom: mobile ? 110 : deck + 90,
-          left: mobile ? 45 : side + 35,
-          right: mobile ? 45 : 160,
+          top: mobile ? 350 : 230,
+          bottom: mobile ? 280 : 230,
+          left: mobile ? 55 : side + 100,
+          right: mobile ? 80 : 150,
         },
         duration,
-        maxZoom: 12,
+        maxZoom: 11,
       });
     } else if (p.places.length === 1)
       m.flyTo({

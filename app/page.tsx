@@ -393,7 +393,7 @@ export default function Page() {
   const intro = introductions[mode];
   return (
     <main
-      className={`atlas-app ${hasPlaces ? "has-places" : ""} ${collapsed ? "canvas-collapsed" : ""} ${preview ? "is-preview" : ""}`}
+      className={`atlas-app ${places.length > 1 ? "has-multiple" : ""} ${hasPlaces ? "has-places" : ""} ${collapsed ? "canvas-collapsed" : ""} ${preview ? "is-preview" : ""}`}
       data-mode={mode}
       style={
         {
