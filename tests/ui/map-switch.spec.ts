@@ -5,7 +5,7 @@ test('reused overlay never flashes its previous geometry while worker data chang
   test.setTimeout(60000);
   await page.setViewportSize({width:1440,height:960});
   // Test-only blank basemap makes any incorrectly exposed shading measurable.
-  await page.route('**/ui/basemap.json*', route => route.fulfill({json:{version:8,sources:{},layers:[{id:'background',type:'background',paint:{'background-color':'#ffffff'}}]}}));
+  await page.route('**/ui/clearsky-city.json*', route => route.fulfill({json:{version:8,sources:{},layers:[{id:'background',type:'background',paint:{'background-color':'#ffffff'}}]}}));
   const feature = (coordinates: number[][]) => ({type:'Feature',properties:{id:'test-tract',value:10,percentile:100},geometry:{type:'Polygon',coordinates:[coordinates]}});
   await page.route('**/api/map?**', route => {
     const metric = new URL(route.request().url()).searchParams.get('indicator');
@@ -67,7 +67,7 @@ test('reused overlay never flashes its previous geometry while worker data chang
 });
 
 test('overlay loading status stays compact at desktop and mobile widths', async ({page}) => {
-  await page.route('**/ui/basemap.json*', route => route.fulfill({json:{version:8,sources:{},layers:[{id:'background',type:'background',paint:{'background-color':'#ffffff'}}]}}));
+  await page.route('**/ui/clearsky-city.json*', route => route.fulfill({json:{version:8,sources:{},layers:[{id:'background',type:'background',paint:{'background-color':'#ffffff'}}]}}));
   await page.route('**/api/indicators', route => route.fulfill({json:{indicators:previewCatalog()}}));
   let release!: () => void;
   const pending = new Promise<void>(resolve => {release=resolve;});
@@ -95,7 +95,7 @@ test('overlay loading status stays compact at desktop and mobile widths', async 
 
 test('holds the last overlay during delayed, superseded and failed requests, then blends without a blank frame', async ({page}) => {
   await page.setViewportSize({width:1440,height:960});
-  await page.route('**/ui/basemap.json*', r=>r.fulfill({json:{version:8,sources:{},layers:[{id:'background',type:'background',paint:{'background-color':'#ffffff'}}]}}));
+  await page.route('**/ui/clearsky-city.json*', r=>r.fulfill({json:{version:8,sources:{},layers:[{id:'background',type:'background',paint:{'background-color':'#ffffff'}}]}}));
   await page.route('**/api/indicators', r=>r.fulfill({json:{indicators:previewCatalog()}}));
   let release!:()=>void;
   const pending=new Promise<void>(r=>{release=r;});
@@ -139,7 +139,7 @@ test('holds the last overlay during delayed, superseded and failed requests, the
 test('infrastructure waits for its inventory and retains markers until tract replacement is ready', async ({page})=>{
   test.setTimeout(45000);
   await page.setViewportSize({width:1440,height:960});
-  await page.route('**/ui/basemap.json*',r=>r.fulfill({json:{version:8,sources:{},layers:[{id:'background',type:'background',paint:{'background-color':'#ffffff'}}]}}));
+  await page.route('**/ui/clearsky-city.json*',r=>r.fulfill({json:{version:8,sources:{},layers:[{id:'background',type:'background',paint:{'background-color':'#ffffff'}}]}}));
   let releaseFacilities!:()=>void,releaseTracts!:()=>void,holdTracts=false;
   const facilitiesPending=new Promise<void>(r=>{releaseFacilities=r;});
   const tractsPending=new Promise<void>(r=>{releaseTracts=r;});

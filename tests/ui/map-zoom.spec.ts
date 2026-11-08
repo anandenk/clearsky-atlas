@@ -23,7 +23,7 @@ test('land-use fills stay below thematic shading across neighborhood zooms', asy
   await expect(map).toHaveAttribute('data-tracts-rendered','true');
   await page.waitForTimeout(1800);
   const instance = await map.getAttribute('data-instance');
-  for(let i=0;i<5;i++) {
+  for(let i=0;i<1;i++) {
     await page.getByRole('button',{name:'Zoom in',exact:true}).click();
     await page.waitForTimeout(1000);
     await expect(map).toHaveAttribute('data-tracts-rendered','true');

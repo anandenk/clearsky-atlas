@@ -1,1 +1,11 @@
 .city-provenance{position:absolute;bottom:28px;left:12px;max-width:440px;margin:0;padding:6px 10px;background:#0b1520e8;color:#cad5d9;font-size:11px;line-height:1.5;pointer-events:auto}.city-provenance a{color:#8bd3ca}.atlas-map{background:#0b1520}@media(max-width:759px){.city-provenance{bottom:28px;max-width:calc(100% - 80px);font-size:10px}}
+/* ClearSky: the city is the primary surface; navigation stays on one horizon. */
+.brand,.brand small{color:#e2ebf0;text-shadow:0 1px 8px #07111c}
+@media(min-width:760px){
+.atlas-app .domain-dock,.atlas-app.has-places .domain-dock{top:90px;bottom:auto;left:50%;right:auto;transform:translateX(-50%);margin:0;display:flex;flex-direction:row;width:auto;padding:4px;border-radius:12px;background:#0b1520ed;color:#cad5d9;border:1px solid #34495b}
+.atlas-app .domain-dock button,.atlas-app.has-places .domain-dock button{width:auto;min-height:38px;height:38px;padding:0 14px;display:flex;flex-direction:row;gap:7px;border-radius:8px;font-size:12px}
+.atlas-app .domain-dock .domain-icon svg{width:17px;height:17px}
+.atlas-app .domain-dock button.selected{background:#243443;color:#8bd3ca}
+.atlas-app .domain-dock button i{display:none}
+}
+@media(max-width:759px){.city-provenance{bottom:4px;left:8px;max-width:calc(100% - 16px);font-size:9px;padding:3px 6px}.atlas-app .map-key{bottom:78px}.atlas-app .domain-dock{background:#0b1520ed;color:#cad5d9;border:1px solid #34495b}.atlas-app .domain-dock button.selected{background:#243443;color:#8bd3ca}}

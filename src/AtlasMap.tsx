@@ -71,6 +71,7 @@ export default function AtlasMap(p: Props) {
     return () => q.removeEventListener("change", update);
   }, []);
   const [loading, setLoading] = useState(false);
+  const [sourceError, setSourceError] = useState("");
   const [ready, setReady] = useState(false),
     [error, setError] = useState(""),
     [hover, setHover] = useState<{
@@ -81,6 +82,7 @@ export default function AtlasMap(p: Props) {
   const reduced = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
   useEffect(() => {
     if (!container.current) return;
+    setSourceError("");
     gl.setWorkerUrl("/maplibre/maplibre-gl-worker.mjs");
     const m = new gl.Map({
       container: container.current,
@@ -94,10 +96,14 @@ export default function AtlasMap(p: Props) {
     });
     map.current = m;
     container.current.dataset.instance = String(Date.now());
+    m.on("move", () => {
+      if (container.current) container.current.dataset.camera = JSON.stringify({zoom:m.getZoom(),pitch:m.getPitch(),bearing:m.getBearing()});
+    });
     m.on("idle", () => {
       if (container.current && m.getLayer("city-buildings")) {
         container.current.dataset.buildingsRendered = String(m.queryRenderedFeatures({layers:["city-buildings"]}).length);
         container.current.dataset.pitch = String(m.getPitch());
+        container.current.dataset.bearing = String(m.getBearing());
       }
     });
     m.addControl(
@@ -272,7 +278,7 @@ export default function AtlasMap(p: Props) {
       }
     });
     m.on("error", () =>
-      setError(
+      setSourceError(
         "A map source could not load. Evidence is still available. Try the fallback map in the menu.",
       ),
     );
@@ -413,7 +419,7 @@ export default function AtlasMap(p: Props) {
           for (const layer of ["boundary", "selected", "inspection"])
             m.setPaintProperty(layer + i, "line-opacity-transition", {duration});
         }
-        m.setPaintProperty("fill" + next, "fill-opacity", 0.52);
+        m.setPaintProperty("fill" + next, "fill-opacity", 0.32);
         m.setPaintProperty("selected" + next, "line-opacity", 1);
         m.setPaintProperty("inspection" + next, "line-opacity", 1);
         m.setPaintProperty("boundary" + next, "line-opacity", ["interpolate", ["linear"], ["zoom"], 8, 0, 12, 0.12]);
@@ -478,6 +484,7 @@ export default function AtlasMap(p: Props) {
       (panel ? panel.offsetLeft + panel.offsetWidth + 24 : 468);
     const deck = 0;
     const duration = reduced() ? 0 : 1800;
+    if (container.current) container.current.dataset.arrivalDuration = String(duration);
     const focus = p.places.find((v) => v.id === p.active);
     if (focus)
       m.flyTo({
@@ -637,9 +644,9 @@ export default function AtlasMap(p: Props) {
         </div>
       )}
       {loading && !error && <p role="status" className="map-update-status">Changing to {p.mode === "Infrastructure" ? "infrastructure" : p.metric?.label}…</p>}
-      {error && (
+      {(error || sourceError) && (
         <p role="status" className="map-error">
-          {error}
+          {error || sourceError}
         </p>
       )}
     </div>

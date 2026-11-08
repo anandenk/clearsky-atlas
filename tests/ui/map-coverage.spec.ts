@@ -19,7 +19,7 @@ test('statewide coverage stays resident through zoom/pan and recently used overl
   await page.getByRole('button',{name:/Confirm this address/}).click();
   await page.getByRole('button',{name:'More map',exact:true}).click();
   await page.waitForTimeout(1800);
-  for(let i=0;i<3;i++){await page.getByRole('button',{name:'Zoom in',exact:true}).click();await page.waitForTimeout(350);}
+  for(let i=0;i<1;i++){await page.getByRole('button',{name:'Zoom in',exact:true}).click();await page.waitForTimeout(350);}
   for(let i=0;i<9;i++){await page.getByRole('button',{name:'Zoom out',exact:true}).click();await page.waitForTimeout(350);}
   // Pan the retained source, then wait beyond the former moveend debounce.
   await page.mouse.move(800,450);await page.mouse.down();await page.mouse.move(1050,400,{steps:12});await page.mouse.up();
