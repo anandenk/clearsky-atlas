@@ -1,6 +1,6 @@
 # Post-Prototype-1 desktop refinements — 2026-11-08
 
-Completed locally on `development/prototype-2`. Application code checkpoint: `4a11fc4`; later handoff-only commits do not change the running build. The production app runs at **http://127.0.0.1:3000**, with `ATLAS_BACKEND_ORIGIN` unset. The frozen frontend `e7e64fb` remains on :3001 as a comparison reference.
+Completed locally on `development/prototype-2`. The seven-fix base code checkpoint is `4a11fc4`; the automatic comparison-opening follow-up below is included in the current local build. The production app runs at **http://127.0.0.1:3000**, with `ATLAS_BACKEND_ORIGIN` unset. The frozen frontend `e7e64fb` remains on :3001 as a comparison reference.
 
 The immutable MVP Prototype 1 tag still points to `6dc04f30fe666f11740f236eb686a8156e308140`. Its private repository/release and local backup are unchanged. This refinement was not pushed, published or deployed.
 
@@ -41,7 +41,7 @@ Address input supports common formatting variations, not universal postal interp
 
 No test case was excluded. Assertions were adapted to explicit user decisions: removed menus, Advanced tools disclosure and geography opt-in. Fixture corrections wait for current overview/detail state after adding places, explicitly choose the initial active location, scope alerts away from Next's route announcer, inspect visible controls inside a `display:contents` geography wrapper, and use the actual native modal keyboard sequence. The final contrast check measures all visible panel text at **at least 4.5:1** through selection, hover, keyboard focus and modal exit. Mobile widths remain excluded as documented in [INTEGRATION.md](INTEGRATION.md); no mobile or comprehensive accessibility acceptance is claimed.
 
-Logs: `artifacts/refinement/{unit-verified,source-cache,http-smoke,readiness,ui-desktop,ui-affected,ui-final}.log`, build logs and `ui-*-results/`. Initial diagnostics are preserved. The running application uses the final successful `build-verified.log` source checkpoint.
+Logs: `artifacts/refinement/{unit-verified,source-cache,http-smoke,readiness,ui-desktop,ui-affected,ui-final}.log`, build logs and `ui-*-results/`. Initial diagnostics are preserved. The seven-fix checkpoint used `build-verified.log`; the later comparison-opening follow-up uses `auto-comparison-build.log`.
 
 ## Rendered and measured evidence
 
@@ -65,3 +65,7 @@ Compact results, environment and artifact hashes are retained in [refinement-des
 ## Remaining scope
 
 No blocking issue remains for these seven fixes. Provider coverage/typos/incomplete addresses still need explicit correction or a future separately verified provider. Source-gated power, complete offline building acquisition, per-tile arrival animation and optional overview/story/grouped-demographic/nearby-narrative adoption remain follow-ups with their existing triggers. Sponsors remain parked. Mobile, Explore Alternatives, comprehensive accessibility and deployment remain outside this checkpoint. No cleanup, new GitHub push, tag movement, release or publication occurred.
+
+## Automatic comparison opening — 2026-11-08
+
+User-requested follow-up: confirming a second or subsequent location opens the at-a-glance comparison automatically. A single location still starts with evidence collapsed, and More map can close the panel. The change is local to the existing add-location interaction. TypeScript and production build passed; the focused desktop interaction/default-geography/opt-in checks passed 4/4 in `artifacts/refinement/auto-comparison-final.log`. The regression explicitly starts with the panel collapsed, confirms the second address, checks both comparison values, and checks manual dismissal/focus restoration. The retained geography fixture now explicitly closes the automatically opened panel before inspecting its collapsed peek control. No broader suite or performance rerun was needed for this follow-up.

@@ -14,8 +14,15 @@ test('compact desktop evidence keeps the map visible and restores keyboard focus
  await expect(page.getByRole('button',{name:'More map',exact:true})).toBeFocused();
  await expect(panel).toContainText('8.33');await expect(page.locator('.place-pin')).toHaveCount(1);
  await page.screenshot({path:'artifacts/map-first/evidence.png'});
+ // Adding the second confirmed place opens comparison even after manual collapse.
+ await page.getByRole('button',{name:'More map',exact:true}).click();
+ await expect(page.locator('#evidence')).toHaveAttribute('aria-hidden','true');
  await page.getByLabel('Search a California address').focus();await page.getByRole('button',{name:'Fresno',exact:true}).click();await page.getByRole('button',{name:/Confirm this address/}).click();
- await expect(panel).toBeVisible();await expect(page.locator('.place-pin')).toHaveCount(2);
+ await expect(panel).toBeVisible();await expect(page.locator('#evidence')).toHaveAttribute('aria-hidden','false');
+ await expect(panel.getByRole('heading',{name:'Places in perspective',exact:true})).toBeVisible();
+ await expect(panel.locator('.index-measure').first()).toContainText('8.33');
+ await expect(panel.locator('.index-measure').first()).toContainText('12.48');
+ await expect(page.locator('.place-pin')).toHaveCount(2);
  await page.getByRole('button',{name:'More map',exact:true}).focus();await page.keyboard.press('Escape');await expect(page.getByRole('button',{name:'Open evidence',exact:true})).toBeFocused();
  await expect(map).toHaveAttribute('data-instance',instance!);
 });

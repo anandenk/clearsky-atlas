@@ -319,7 +319,10 @@ export default function Page() {
     serial.current = 0;
   }
   function add(s: Selection) {
-    if (!target && places.length > 0) setOverview(true);
+    if (!target && places.length > 0) {
+      setOverview(true);
+      setCollapsed(false);
+    }
     const id = target || String(++serial.current);
     setPlaces((p) =>
       target

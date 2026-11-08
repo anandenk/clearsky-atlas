@@ -31,7 +31,7 @@ test("ordinary multi-place comparison has no geography controls or second map", 
   await expect(page.getByRole("button", { name: /^Compare (geography|maps)$/, includeHidden: true })).toHaveCount(0);
   await expect(page.locator(".comparison-map-stage, .geography-comparison")).toHaveCount(0);
   await expect(maps).toHaveCount(1);
-  await page.getByRole("button", { name: "Open evidence", exact: true }).click();
+  await expect(page.locator("#evidence")).toHaveAttribute("aria-hidden", "false");
   await expect(page.locator(".comparison-compass")).toBeVisible();
   await page.locator(".index-measure").first().click();
   await expect(page.locator(".place-reading")).toHaveCount(2);
@@ -47,6 +47,8 @@ for (const launch of ["Compare geography"]) {
     const maps = page.locator(".atlas-map");
     const original = await maps.getAttribute("data-instance");
     await expect(maps).toHaveCount(1); // Opt-in alone must not allocate a second map.
+    // The comparison now opens on the second place; opt into the peek fixture explicitly.
+    await page.getByRole("button", { name: "More map", exact: true }).click();
     await expect(page.getByRole("button", { name: "Compare geography", exact: true })).toBeVisible();
     // The retained peek launcher was already CSS-hidden in the accepted desktop.
     // It must be absent by default; the explicit opt-in retains its callback.

@@ -4,7 +4,7 @@ Authorized: Phase 1 source verification and Phase 2 local implementation; bounde
 
 ## Current local desktop refinements
 
-Seven user-requested issues were delegated separately, reviewed and integrated on local `development/prototype-2`: readable infrastructure evidence, current menu, flexible Census address input, cleaner facility directory, X removal, immediate City focus and default-hidden linked geography. Code checkpoint `4a11fc4` runs on :3000; the frozen :3001 reference remains unchanged. See [REFINEMENT_PROGRESS.md](REFINEMENT_PROGRESS.md) for worker commits, final rendered checks, live address results, screenshots, measurements and limitations. No new push, release or deployment occurred.
+Seven user-requested issues were delegated separately, reviewed and integrated on local `development/prototype-2`: readable infrastructure evidence, current menu, flexible Census address input, cleaner facility directory, X removal, immediate City focus and default-hidden linked geography. The latest local build runs on :3000 and also opens comparison automatically when a second location is confirmed; the frozen :3001 reference remains unchanged. See [REFINEMENT_PROGRESS.md](REFINEMENT_PROGRESS.md) for worker commits, final rendered checks, live address results, screenshots, measurements and limitations. No new push, release or deployment occurred.
 
 ## Preserved MVP Prototype 1
 
