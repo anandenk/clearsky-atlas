@@ -19,6 +19,9 @@ export type Observation = {
   unit: string;
   measurementPeriod: string;
   comparisonKey: string;
+  datasetVersion?: string;
+  geographicLevel?: string;
+  provenance?: {sha256: string};
   definition: string;
   definitionSource: string;
 };
@@ -137,6 +140,9 @@ export async function bundle(
           measurementPeriod: "Synthetic example period",
           comparisonKey:
             scenario === "incompatible" ? tract : "preview-" + m.id,
+          datasetVersion: "synthetic-preview-v1",
+          geographicLevel: "synthetic-cell",
+          provenance: {sha256: "synthetic-preview-v1"},
           definition: m.definition,
           definitionSource: "",
         },
@@ -147,14 +153,22 @@ export async function bundle(
 export function format(n: number | null | undefined, id = "") {
   return n == null
     ? "Unavailable"
-    : n.toLocaleString("en-US", {
+    : n !== 0 && Math.abs(n) < (id === "ozone" ? 0.0001 : 0.01)
+      ? n.toLocaleString("en-US", {maximumSignificantDigits: 3})
+      : n.toLocaleString("en-US", {
         maximumFractionDigits: id === "ozone" ? 4 : 2,
       });
+}
+export function compatible(a: Observation | undefined, b: Observation | undefined) {
+  return !!(a && b && a.comparisonKey && a.comparisonKey === b.comparisonKey &&
+    a.definition === b.definition && a.provenance?.sha256 && a.provenance.sha256 === b.provenance?.sha256 &&
+    a.indicatorId === b.indicatorId && a.datasetVersion && a.datasetVersion === b.datasetVersion &&
+    a.geographicLevel && a.geographicLevel === b.geographicLevel && a.unit === b.unit && a.measurementPeriod === b.measurementPeriod);
 }
 export function delta(a: Observation | undefined, b: Observation | undefined) {
   return a &&
     b &&
-    a.comparisonKey === b.comparisonKey &&
+    compatible(a, b) &&
     a.rawValue !== null &&
     b.rawValue !== null
     ? b.rawValue - a.rawValue

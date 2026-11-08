@@ -9,3 +9,24 @@
 .atlas-app .domain-dock button i{display:none}
 }
 @media(max-width:759px){.city-provenance{bottom:4px;left:8px;max-width:calc(100% - 16px);font-size:9px;padding:3px 6px}.atlas-app .map-key{bottom:78px}.atlas-app .domain-dock{background:#0b1520ed;color:#cad5d9;border:1px solid #34495b}.atlas-app .domain-dock button.selected{background:#243443;color:#8bd3ca}}
+/* Environmental X-Ray evidence surfaces share the city's navy/silver palette. */
+.atlas-app .comparison-canvas,.atlas-app .opening-lens,.atlas-app .map-key{background:#101e2aee;color:#e2ebf0;border:1px solid #34495b;box-shadow:0 8px 30px #0003}
+.atlas-app .compass-heading h2{font:600 21px/1.2 "DM Sans",sans-serif;letter-spacing:-.4px}
+.atlas-app .compass-heading p,.atlas-app .compass-heading>button,.atlas-app .index-values>small,.atlas-app .index-range,.atlas-app .place-reading>small,.atlas-app .compass-definition p,.atlas-app .reading-delta,.atlas-app .reading-units,.atlas-app .comparison-canvas small{color:#aebfcb}
+.atlas-app .compass-navigation>button,.atlas-app .compass-navigation select,.atlas-app .single-invitation,.atlas-app .compass-summary{background:#243443;color:#dce8ec;border-color:#42586a}
+.atlas-app .compass-navigation>button[aria-pressed=true]{background:#395968;color:#fff}
+.atlas-app .compass-navigation select option{background:#182936;color:#e2ebf0}
+.atlas-app .compass-definition button,.atlas-app .comparison-canvas a{color:#8bd3ca}
+.atlas-app .canvas-topline,.atlas-app .compass-navigation,.atlas-app .compass-definition,.atlas-app .index-measure{border-color:#34495b}
+.atlas-app .reading-track{background:#34495b}
+.atlas-app .map-key-title,.atlas-app .key-ends{color:#cad5d9}
+.atlas-app .opening-lens h1{font:600 27px/1.15 "DM Sans",sans-serif}
+.atlas-app .opening-lens p{color:#b4c5cf}
+.atlas-app .opening-topics button{color:#cad5d9}
+.atlas-app .opening-topics button.selected{background:#243443;color:#8bd3ca}
+@media(min-width:1001px){.atlas-app .comparison-canvas{width:350px}.atlas-app .canvas-content{padding:0 16px 16px}.atlas-app .canvas-topline{padding:0 16px}}
+.atlas-app .comparison-canvas{background:#101e2af7}
+.atlas-app .canvas-topline,.atlas-app .compass-footnote,.atlas-app .compass-scale-label,.atlas-app .index-explanation{color:#b4c5cf}
+.atlas-app .compass-finding{background:#243443;color:#dce8ec}
+.atlas-app .reading-value{color:#dce8ec}
+.atlas-app .compass-finding p,.atlas-app .canvas-topline button{color:#c4d3dd}

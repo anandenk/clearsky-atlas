@@ -8,6 +8,7 @@ import { StatewideOverlays } from "./frontend/map-coverage";
 import { value, percentile } from "./frontend/fixtures/preview";
 import type { Facility } from "./hooks/useFacilities";
 type Props = {
+  onDisplay: (display: {mode: string; metric?: Indicator}) => void;
   collapsed: boolean;
   facilities: Facility[];
   facilitiesReady: boolean;
@@ -439,6 +440,7 @@ export default function AtlasMap(p: Props) {
           m.setPaintProperty("facilities", `${prop}-transition` as const, {duration});
           m.setPaintProperty("facilities", prop, 0);
         }
+        latest.current.onDisplay({mode: p.mode, metric});
         slot.current = next;
         firstReveal = false;
         setLoading(false);
@@ -587,6 +589,7 @@ export default function AtlasMap(p: Props) {
         await sourceReady(m, "facilities", controller.signal);
         await blend.current;
         if (controller.signal.aborted || map.current !== m) return;
+        latest.current.onDisplay({mode: "Infrastructure"});
         m.setFilter("facilities", null);
         for (let i = 0; i < 2; i++) {
           m.setPaintProperty("fill" + i, "fill-opacity-transition", {duration: reduced() ? 0 : 450});

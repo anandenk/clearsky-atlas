@@ -78,6 +78,7 @@ const letter = (id: string) => String.fromCharCode(64 + Number(id));
 const color = (id: string) =>
   placeColors[(Number(id) - 1) % placeColors.length];
 export default function Page() {
+  const [display, setDisplay] = useState<{mode: string; metric?: Indicator}>({mode:"Environment"});
   const [preview, setPreview] = useState(false),
     [scenario, setScenario] = useState("normal"),
     [catalog, setCatalog] = useState<Indicator[]>([]),
@@ -407,6 +408,7 @@ export default function Page() {
       </a>
       <div className="map-stage">
         <Map
+          onDisplay={setDisplay}
           places={places}
           collapsed={collapsed}
           active={active}
@@ -730,11 +732,12 @@ export default function Page() {
         </section>
       )}
       <div className="map-key">
+        {(display.mode !== mode || (mode !== "Infrastructure" && display.metric?.id !== metric?.id)) && <small>Showing last loaded layer</small>}
         <div className="map-key-title">
           <span>
-            {mode === "Infrastructure"
+            {display.mode === "Infrastructure"
               ? "Infrastructure"
-              : metric?.label || "Loading evidence…"}
+              : display.metric?.label || "Loading evidence…"}
           </span>
           <button
             aria-label="About this measure"
@@ -743,18 +746,18 @@ export default function Page() {
             <Icon name="info" size={15} />
           </button>
         </div>
-        {mode !== "Infrastructure" ? (
+        {display.mode !== "Infrastructure" ? (
           <>
             <div
               className="color-ramp"
               style={{
-                background: `linear-gradient(90deg,${ramps[mode].join(",")})`,
+                background: `linear-gradient(90deg,${ramps[display.mode].join(",")})`,
               }}
             />
             <div className="key-ends">
               <span>0</span>
               <span>
-                {metric?.percentileField
+                {display.metric?.percentileField
                   ? "Statewide percentile"
                   : "Population %"}
               </span>

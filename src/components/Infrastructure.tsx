@@ -91,7 +91,7 @@ export default function Infrastructure({
             <div className="infrastructure-findings">
               {["Healthcare", "Public schools"].map(category => {
                 const distances = places.map(p => ({p, f: result(p)?.items.find(f => f.category === category)}));
-                const complete = distances.every(x => x.f?.distance != null);
+                const complete = distances.every(x => x.f?.distance != null && !!x.f.datasetVersion && x.f.datasetVersion === distances[0].f?.datasetVersion);
                 const sorted = complete ? [...distances].sort((a,b) => a.f!.distance! - b.f!.distance!) : [];
                 const first = sorted[0], last = sorted.at(-1);
                 return <p key={category}><strong>{category}</strong>{first && last ? `${format(first.f!.distance)}–${format(last.f!.distance)} km across these places. ${first.p.selection.place} has the nearest listed location in this selection.` : "Complete source coverage is needed to compare these places."}</p>;

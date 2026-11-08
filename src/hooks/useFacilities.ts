@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { type Place, json } from "../frontend/provider";
 import { facilities as examples } from "../frontend/fixtures/preview";
 export type Facility = {
+  datasetVersion: string;
   id: string;
   category: string;
   name: string;
@@ -26,6 +27,8 @@ export function useFacilities(
   useEffect(() => {
     if (!enabled) return;
     const c = new AbortController();
+    const catalog = preview ? null : json("/api/facilities/catalog", c.signal);
+    catalog?.catch(() => {});
     places.forEach((p) => {
       const k = key(p);
       if (preview) {
@@ -34,6 +37,7 @@ export function useFacilities(
           [k]: {
             items: examples(p.selection).map((f) => ({
               ...f,
+              datasetVersion: "synthetic-preview-v1",
               status: "Example status: operating",
               subtype: null,
               period: "Synthetic example period",
@@ -50,13 +54,17 @@ export function useFacilities(
       }
       Promise.allSettled(
         ["healthcare", "schools"].map(async (category) => {
+          const source = (await catalog).categories.find((s: any) => s.id === category && s.backendReady);
+          if (!source?.datasetVersion) throw Error("Source version unavailable");
           const r = await json(
-            `/api/facilities?category=${category}&near=${p.selection.coordinate.join(",")}&limit=6`,
+            `/api/facilities?category=${category}&near=${p.selection.coordinate.join(",")}&limit=6&version=${encodeURIComponent(source.datasetVersion)}`,
             c.signal,
           );
+          if (r.datasetVersion !== source.datasetVersion) throw Error("Source version mismatch");
           return r.facilities.map(
             (f: any) =>
               ({
+                datasetVersion: r.datasetVersion,
                 id: f.id,
                 category:
                   category === "healthcare" ? "Healthcare" : "Public schools",

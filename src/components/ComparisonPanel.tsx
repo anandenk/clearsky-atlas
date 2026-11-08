@@ -4,6 +4,7 @@ import {
   type Place,
   format,
   delta,
+  compatible,
   differenceUnit,
 } from "../frontend/provider";
 import { placeColors } from "../map-theme";
@@ -20,7 +21,7 @@ function extent(
     (e) =>
       e.o?.rawValue != null &&
       !!e.o.comparisonKey &&
-      e.o.comparisonKey === entries[0].o?.comparisonKey,
+      compatible(e.o, entries[0].o),
   );
   const sorted = valid
     ? [...entries].sort((a, b) => a.o!.rawValue! - b.o!.rawValue!)
