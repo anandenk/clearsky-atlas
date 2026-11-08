@@ -79,6 +79,7 @@ const letter = (id: string) => String.fromCharCode(64 + Number(id));
 const color = (id: string) =>
   placeColors[(Number(id) - 1) % placeColors.length];
 export default function Page() {
+  const [regional, setRegional] = useState(true);
   const [landscape, setLandscape] = useState(false);
   const [display, setDisplay] = useState<{mode: string; metric?: Indicator}>({mode:"Environment"});
   const [preview, setPreview] = useState(false),
@@ -410,6 +411,7 @@ export default function Page() {
       </a>
       <div className="map-stage">
         <Map
+          onRegional={setRegional}
           landscape={landscape}
           onDisplay={setDisplay}
           places={places}
@@ -739,7 +741,7 @@ export default function Page() {
         </section>
       )}
       <div className="map-key">
-        {landscape && display.mode !== "Infrastructure" && display.metric?.percentileField && <p className="analytical-height">Analytical height: percentile × {METRES_PER_PERCENTILE} m (0–{100 * METRES_PER_PERCENTILE} m). Not building height. Nulls unscored.</p>}
+        {landscape && display.mode !== "Infrastructure" && display.metric?.percentileField && <p className="analytical-height">{regional ? "Regional overview. Zoom in for full tract heights." : `Analytical height: percentile × ${METRES_PER_PERCENTILE} m (0–${100 * METRES_PER_PERCENTILE} m). Not building height.`}</p>}
         {(display.mode !== mode || (mode !== "Infrastructure" && display.metric?.id !== metric?.id)) && <small>Showing last loaded layer</small>}
         <div className="map-key-title">
           <span>
@@ -771,6 +773,8 @@ export default function Page() {
               </span>
               <span>100</span>
             </div>
+            <div className="missing-key"><i/> Not reported</div>
+            <p className="tract-context">{display.mode === "Health" || display.mode === "Community" ? "Population-level tract data; not conditions at every point." : "One observation per tract; conditions within it may vary."}</p>
           </>
         ) : (
           <span className="key-caption">

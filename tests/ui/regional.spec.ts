@@ -1,0 +1,12 @@
+import {test,expect} from '@playwright/test';
+test('regional landscape stays flat and returns to neighborhood heights without another data request',async({page})=>{
+ test.setTimeout(60000);const requests:string[]=[];page.on('request',r=>{if(r.url().includes('/api/map?'))requests.push(r.url());});await page.emulateMedia({reducedMotion:'reduce'});await page.goto('/');
+ const map=page.locator('.atlas-map');await expect(map).toHaveAttribute('data-metric','pm');await page.getByRole('button',{name:'Data Landscape',exact:true}).click();await expect(map).toHaveAttribute('data-landscape-detail','0');await expect(page.locator('.map-key')).toContainText('Regional overview');await expect(page.locator('.missing-key')).toContainText('Not reported');
+ await page.screenshot({path:'artifacts/regional/statewide.png'});
+ await page.getByLabel('Search a California address').focus();await page.getByRole('button',{name:'Oakland',exact:true}).click();await page.getByRole('button',{name:/Confirm this address/}).click();await expect(map).toHaveAttribute('data-landscape-detail','1');
+ const count=requests.length;for(let i=0;i<6;i++){await page.getByRole('button',{name:'Zoom out',exact:true}).click();await page.waitForTimeout(350);}await expect(map).toHaveAttribute('data-landscape-detail','0');expect(requests.length).toBe(count);await expect(page.locator('.place-pin')).toHaveCount(1);await page.getByRole('button',{name:'Health',exact:true}).click();await page.getByRole('combobox',{name:'Choose a measure'}).selectOption('heart-attacks');await expect(map).toHaveAttribute('data-metric','heart-attacks');await expect(map).toHaveAttribute('data-landscape-detail','0');await expect(page.locator('.tract-context')).toContainText('Population-level');await page.screenshot({path:'artifacts/regional/health-overview.png'});
+ await page.setViewportSize({width:375,height:812});await page.screenshot({path:'artifacts/regional/mobile.png'});
+});
+test('missing observations receive a separate patterned layer',async({page})=>{
+ await page.route('**/api/map?**',r=>r.fulfill({json:{type:'FeatureCollection',features:[{type:'Feature',properties:{id:'null-test',value:null,percentile:null},geometry:{type:'Polygon',coordinates:[[[-125,32],[-114,32],[-114,43],[-125,43],[-125,32]]]}}]}}));await page.goto('/');await expect(page.locator('.atlas-map')).toHaveAttribute('data-metric','pm');await page.screenshot({path:'artifacts/regional/missing-fixture.png'});
+});
