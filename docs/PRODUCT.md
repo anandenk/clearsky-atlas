@@ -8,7 +8,7 @@ The supplied three-page handoff defines the initial concept. Its CES 5.0 coverag
 
 ## Presentation checkpoint
 
-The integrated desktop presentation is ClearSky: a continuous map-first canvas, a collection of confirmed locations, compact evidence with a chosen reference, and optional linked geography for a selected pair. This user-selected checkpoint supersedes the original always-paired, two-address presentation. Shared evidence, comparable legends and original address coordinates remain requirements. Mobile/bottom sheets and Explore Alternatives are explicitly user-deferred; historical narrow-screen results do not establish current mobile acceptance.
+The integrated desktop presentation is ClearSky: a continuous map-first canvas, a collection of confirmed locations, compact evidence using the first remaining place as reference, and direct removal from each place chip. This user-selected checkpoint supersedes the original always-paired, two-address presentation. Shared evidence, comparable legends and original address coordinates remain requirements. In the post-Prototype-1 refinement, linked geography is parked behind explicit developer opt-in (`?geography=1`); it is absent from the normal journey. Per-place reference/reorder/replace menus are removed by user decision; removing the reference promotes the first remaining place. These capabilities remain in the original inventory for a later interaction design review. Mobile/bottom sheets and Explore Alternatives are explicitly user-deferred; historical narrow-screen results do not establish current mobile acceptance.
 
 ## Product promise
 
@@ -47,8 +47,8 @@ Community stories use neutral descriptions. Cross-layer co-occurrence may prompt
 
 1. Explore the California map, then search for a location and confirm its Census match.
 2. Add more locations; keep their original coordinates and identities on the map.
-3. Open compact evidence, choose an indicator and reference, and inspect compatible values or collection ranges.
-4. Optionally compare two selected locations in linked geography; zoom, tilt and rotation share a scale while each retains its own center.
+3. Open compact evidence, choose an indicator, and inspect compatible values or collection ranges.
+4. Focus a selected place to inspect its City view, or use Together to frame the collection. Linked geography remains an experimental opt-in, pending a coherent interaction design and desktop acceptance review.
 5. Open definitions, source qualifications or infrastructure details without replacing the confirmed addresses.
 
 A single-location view is a useful completed state, not a different product. Two addresses in the same tract correctly share tract-level indicators while retaining distinct facility distances.

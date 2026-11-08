@@ -5,9 +5,9 @@ Status: reconciled to the selected integrated desktop ClearSky experience. See I
 
 ## Composition
 
-The continuous map is the main canvas. A compact masthead holds identity, address search and the menu; a place ribbon retains confirmed locations and reference/reorder/replace/remove controls. Four domains remain available without a landing-page detour.
+The continuous map is the main canvas. A compact masthead holds identity, address search and the menu; a place ribbon retains confirmed locations with direct X removal; the first remaining place is the comparison reference. Four domains remain available without a landing-page detour.
 
-Desktop evidence starts collapsed so the map stays prominent. Opening it reveals a compact left-hand measure index or focused readings. Multiple places share one map by default. “Compare geography” opens two selected locations with linked zoom, bearing and pitch while preserving their distinct centers; closing restores the original map.
+Desktop evidence starts collapsed so the map stays prominent. Opening it reveals a compact left-hand measure index or focused readings. Multiple places share one map by default. Linked geography is parked behind `?geography=1` for explicit experiments. Its two-map implementation is retained; public launch controls stay hidden until a coherent integration is reviewed. Clicking a considered address requests City immediately, ahead of camera arrival; Auto resumes its zoom-based behavior afterward.
 
 ClearSky uses dark cartography, local DM Sans/DM Serif fonts, quiet map controls and compact evidence. Place colors identify locations independently of ordered measure ramps. Demographic percentages have no hazard interpretation. A patterned missing-data treatment distinguishes unavailable observations from zero. See design.md and src/styles for the implemented tokens; this document does not prescribe a new redesign.
 
