@@ -42,4 +42,7 @@
 
 .map-provenance{margin-top:8px;border-top:1px solid #34495b;padding-top:7px;font-size:11px;line-height:1.4}.map-provenance summary{cursor:pointer;color:#cad5d9}.map-provenance p{margin:8px 0 0;color:#cad5d9}.map-provenance a{color:#8bd3ca}
 @media(max-width:759px){.atlas-app.has-places .map-key{max-height:180px;overflow-y:auto}.map-provenance{font-size:10px}}
-@media(max-width:759px){.view-switch button{font-size:9px;padding:6px 4px}.view-switch button:last-child{font-size:0}.view-switch button:last-child::after{content:"Landscape";font-size:9px}}
+
+
+.view-switch{flex-direction:column}.view-primary{display:flex}.landscape-depth{display:flex;gap:4px;border-top:1px solid #34495b;margin-top:4px;padding-top:4px}.landscape-depth button{flex:1;padding:6px 10px;font-size:11px}
+@media(max-width:759px){.view-switch{top:254px}.view-switch button{font-size:10px;padding:5px 6px}.landscape-depth{margin-top:2px;padding-top:2px}.landscape-depth button{padding:3px 6px}}

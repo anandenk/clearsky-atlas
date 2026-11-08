@@ -80,8 +80,10 @@ const color = (id: string) =>
   placeColors[(Number(id) - 1) % placeColors.length];
 export default function Page() {
   const [heightScale, setHeightScale] = useState(METRES_PER_PERCENTILE);
-  const [visualization, setVisualization] = useState<"city"|"overview"|"landscape">("city");
-  const landscape = visualization === "landscape";
+  const [visualization, setVisualization] = useState<"city"|"landscape">("city");
+  const [landscapeDepth, setLandscapeDepth] = useState<"flat"|"3d">("3d");
+  const landscape = visualization === "landscape" && landscapeDepth === "3d";
+  const flatLandscape = visualization === "landscape" && landscapeDepth === "flat";
   const [display, setDisplay] = useState<{mode: string; metric?: Indicator}>({mode:"Environment"});
   const [preview, setPreview] = useState(false),
     [scenario, setScenario] = useState("normal"),
@@ -412,7 +414,7 @@ export default function Page() {
       </a>
       <div className="map-stage">
         <Map
-          overview={visualization === "overview"}
+          overview={flatLandscape}
           onHeightScale={setHeightScale}
           landscape={landscape}
           onDisplay={setDisplay}
@@ -665,10 +667,15 @@ export default function Page() {
           )}
         </div>
       )}
-      <div className="view-switch" role="group" aria-label="Visualization">
-        <button aria-pressed={visualization === "city" || mode === "Infrastructure" || (landscape && !metric?.percentileField)} onClick={()=>setVisualization("city")}>City View</button>
-        <button aria-pressed={visualization === "overview" && mode !== "Infrastructure"} disabled={mode === "Infrastructure"} onClick={()=>setVisualization("overview")}>Overview</button>
-        <button aria-pressed={landscape && mode !== "Infrastructure" && !!metric?.percentileField} disabled={mode === "Infrastructure" || !metric?.percentileField || raster} onClick={()=>setVisualization("landscape")}>Data Landscape</button>
+      <div className="view-switch">
+        <div className="view-primary" role="group" aria-label="Visualization">
+          <button aria-pressed={visualization === "city" || mode === "Infrastructure" || !metric?.percentileField} onClick={()=>setVisualization("city")}>City</button>
+          <button aria-pressed={visualization === "landscape" && mode !== "Infrastructure" && !!metric?.percentileField} disabled={mode === "Infrastructure" || !metric?.percentileField || raster} onClick={()=>setVisualization("landscape")}>Data Landscape</button>
+        </div>
+        {visualization === "landscape" && mode !== "Infrastructure" && !!metric?.percentileField && <div className="landscape-depth" role="group" aria-label="Landscape depth">
+          <button aria-pressed={landscapeDepth === "flat"} onClick={()=>setLandscapeDepth("flat")}>Flat</button>
+          <button aria-pressed={landscapeDepth === "3d"} onClick={()=>setLandscapeDepth("3d")}>3D</button>
+        </div>}
       </div>
       <nav className="domain-dock" aria-label="Explore a domain">
         {modes.map((m) => (
@@ -744,7 +751,7 @@ export default function Page() {
         </section>
       )}
       <div className="map-key">
-        {visualization === "overview" && display.mode !== "Infrastructure" && <p className="analytical-height">Overview: flat tract shading and boundaries.</p>}
+        {flatLandscape && display.mode !== "Infrastructure" && <p className="analytical-height">Flat landscape: tract shading and boundaries.</p>}
         {landscape && display.mode !== "Infrastructure" && display.metric?.percentileField && <p className="analytical-height">Height exaggerated for visibility: ~{Math.round(heightScale)} m per percentile point at this zoom. Not building height.</p>}
         {(display.mode !== mode || (mode !== "Infrastructure" && display.metric?.id !== metric?.id)) && <small>Showing last loaded layer</small>}
         <div className="map-key-title">
