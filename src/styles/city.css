@@ -39,3 +39,6 @@
 @media(max-width:759px){.atlas-app.has-multiple:not(.canvas-collapsed){padding-top:700px}.atlas-app.has-multiple:not(.canvas-collapsed) .map-stage{height:700px}.atlas-app.has-multiple .map-key{top:500px}.atlas-app.has-multiple .recenter{top:650px}}
 
 .atlas-app .opening-lens{background:transparent;border:0;box-shadow:none;backdrop-filter:none;color:#e2ebf0}
+
+.map-provenance{margin-top:8px;border-top:1px solid #34495b;padding-top:7px;font-size:11px;line-height:1.4}.map-provenance summary{cursor:pointer;color:#cad5d9}.map-provenance p{margin:8px 0 0;color:#cad5d9}.map-provenance a{color:#8bd3ca}
+@media(max-width:759px){.atlas-app.has-places .map-key{max-height:180px;overflow-y:auto}.map-provenance{font-size:10px}}

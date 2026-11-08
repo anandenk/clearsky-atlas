@@ -784,6 +784,10 @@ export default function Page() {
           </span>
         )}
         {preview && <small>Synthetic examples</small>}
+        <details className="map-provenance">
+          <summary>Map sources & limits</summary>
+          <p><a href="https://openmaptiles.org/schema/#building" target="_blank" rel="noreferrer">OpenStreetMap buildings</a> via OpenFreeMap. Physical heights are approximate; coverage varies. Tract heights are analytical, not physical measurements.</p>
+        </details>
       </div>
       <button
         className="recenter"

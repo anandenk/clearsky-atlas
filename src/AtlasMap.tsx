@@ -685,7 +685,6 @@ export default function AtlasMap(p: Props) {
         className="atlas-map"
         aria-label="Interactive California map"
       />
-      <p className="city-provenance">{p.landscape && rendered.metric?.percentileField && rendered.mode !== "Infrastructure" ? "Data Landscape · Regional shading; heights emerge as you zoom in. " : "City View · "}<a href="https://openmaptiles.org/schema/#building" target="_blank" rel="noreferrer">OpenStreetMap buildings</a> via OpenFreeMap. Heights approximate; coverage varies. Ground colors describe tracts.</p>
       {hover && (
         <div
           className="map-tooltip"
