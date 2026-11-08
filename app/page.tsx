@@ -944,7 +944,7 @@ export default function Page() {
             onOverview={()=>setOverview(true)}
             onChoose={id=>{if(group) setCompositionField(id); else setRemember(r=>({...r,[mode]:id})); setOverview(false);}}
             onTopic={id=>{setRemember(r=>({...r,[mode]:id}));setCompositionField("");setOverview(id==="age"||id==="race");}}
-            onSource={()=>openSource()} onFocus={setActive} reference={reference}
+            onSource={()=>openSource()} onFocus={focusPlace} reference={reference}
             topics={topicIds.map(id=>({id,label:shortLabels[id]||id}))} selectedTopic={selectedMetric}
             preview={preview} mode={mode} errors={Object.values(evidenceErrors)} onRetry={()=>setReset(n=>n+1)}
           />}

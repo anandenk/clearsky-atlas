@@ -87,7 +87,7 @@ test("short invalid input reaches actionable API guidance; editing cancels stale
   const input = page.getByLabel("Search a California address");
   await input.fill("x");
   await page.getByRole("button", { name: "Search", exact: true }).click();
-  await expect(page.getByRole("alert")).toContainText(
+  await expect(page.locator(".search-results").getByRole("alert")).toContainText(
     "building number and street",
   );
   await expect(input).toHaveAttribute("aria-invalid", "true");

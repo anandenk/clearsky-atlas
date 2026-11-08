@@ -69,8 +69,12 @@ test("native disclosure supports keyboard, resets on reopen and preserves modal 
   await expect(trigger).toBeFocused();
   await openMenu(page);
   await expect(menu.locator("details")).not.toHaveAttribute("open");
-  // With Advanced tools closed, native modal tab order cycles back to Close.
-  await page.keyboard.press("Shift+Tab");
+  // Verify the page's modal tab sequence; native browser chrome may be an
+  // intermediate stop when traversing backward from the first control.
+  await expect(close).toBeFocused();
+  await page.keyboard.press("Tab");
+  await expect(menu.getByRole("button", { name: "Clear all places", exact: true })).toBeFocused();
+  await page.keyboard.press("Tab");
   await expect(menu.locator("summary")).toBeFocused();
   await close.click();
   await expect(trigger).toBeFocused();

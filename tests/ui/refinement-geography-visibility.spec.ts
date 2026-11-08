@@ -53,7 +53,8 @@ for (const launch of ["Compare geography"]) {
     await expect(page.locator(".peek-compare")).toHaveCount(1);
     await page.getByRole("button", { name: launch, exact: true }).click();
     await expect(maps).toHaveCount(2);
-    await expect(page.getByRole("region", { name: "Geographic comparison" })).toBeVisible();
+    // The retained region uses display:contents; verify its interactive content.
+    await expect(page.getByRole("button", { name: "One map", exact: true })).toBeVisible();
     for (const map of await maps.all())
       await expect(map).toHaveAttribute("data-metric", "pm", { timeout: 30000 });
     await page.getByRole("button", { name: "One map", exact: true }).click();

@@ -110,7 +110,7 @@ async function prepare(page: Page) {
       });
     });
     document.addEventListener("click", event => {
-      if (!(event.target as Element).closest(".place-focus, .place-pin")) return;
+      if (!(event.target as Element).closest(".place-focus, .place-pin, .compass-places button, .place-reading > button")) return;
       w.focusStarted = performance.now();
       w.focusFrames = []; w.focusRenders = []; w.focusWrites = [];
       w.focusSubmissions = [];
@@ -209,6 +209,13 @@ test("Auto place focus removes real relief on first renders and recovers Landsca
   await page.getByRole("button", { name: "City", exact: true }).click();
   await page.getByRole("button", { name: "Data Landscape", exact: true }).click();
   await expect(page.locator(".atlas-map")).toHaveAttribute("data-landscape-progress", "1");
+  // Focusing the same saved address from evidence follows the same City intent.
+  const open = page.getByRole("button", { name: "Open evidence", exact: true });
+  if (await open.isVisible()) await open.click();
+  await expect.poll(() => page.evaluate(() => !(window as any).focusMap.isMoving())).toBe(true);
+  await page.locator(".compass-places button").first().click();
+  await earlyFrames(page, "evidence-place-focus-first-frames", false);
+  await arrived(page, locations[0].coordinate);
   expect(errors).toEqual([]);
 });
 

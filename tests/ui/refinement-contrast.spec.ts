@@ -98,6 +98,8 @@ test("Nearby essentials keeps labels and contrast across row, filter and keyboar
     await page.getByRole("button", { name, exact: true }).click();
     await page.getByRole("button", { name: /Confirm this address/ }).click();
   }
+  // Adding a second place keeps Together active; select this fixture explicitly.
+  await page.locator(".place-focus").filter({ hasText: "Oakland" }).click();
   const open = page.getByRole("button", { name: "Open evidence", exact: true });
   if (await open.isVisible()) await open.click();
   await page

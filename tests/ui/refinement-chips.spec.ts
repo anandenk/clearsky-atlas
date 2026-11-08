@@ -17,9 +17,11 @@ async function addCached(page: Page, name: "Oakland" | "Fresno") {
 async function openReadings(page: Page) {
   const open = page.getByRole("button", { name: "Open evidence", exact: true });
   if (await open.isVisible()) await open.click();
-  await page.getByRole("button", {
+  const explore = page.getByRole("button", {
     name: "Explore Fine particulate matter", exact: true,
-  }).click();
+  });
+  if (await explore.isVisible()) await explore.click();
+  await expect(page.locator(".reading-value").first()).toBeVisible();
 }
 
 test("direct X removes only its place, retaining identities, active place and evidence", async ({ page }) => {
@@ -81,6 +83,7 @@ test("removing the reference uses the first remaining place without relabeling i
   // Adding another place must not silently promote it after reference removal.
   await addCached(page, "Fresno");
   await expect(page.locator(".place-chip b")).toHaveText(["B", "C", "D"]);
+  await openReadings(page);
   await expect(page.locator(".reading-delta")).toHaveText(["Reference", "-4.15 vs B", "0 vs B"]);
 });
 
