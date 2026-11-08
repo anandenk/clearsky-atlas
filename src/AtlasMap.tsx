@@ -290,18 +290,33 @@ export default function AtlasMap(p: Props) {
       });
       setReady(true);
     });
-    m.on("mousemove", (e) => {
+    // Pointer devices can deliver several events before a paint. Hit-testing
+    // elevated statewide polygons is expensive; only the latest point can be
+    // displayed in that frame. Click picking below remains synchronous.
+    let hoverFrame = 0;
+    let hoverPoint: gl.Point | undefined;
+    const clearHover = () => {
+      cancelAnimationFrame(hoverFrame);
+      hoverFrame = 0;
+      hoverPoint = undefined;
+      m.getCanvas().style.cursor = "";
+      setHover(null);
+    };
+    const updateHover = () => {
+      hoverFrame = 0;
+      const point = hoverPoint;
+      if (!point || map.current !== m) return;
       const layers = [...(latest.current.mode === "Infrastructure" ? ["facility-clusters", "facilities"] : []), ...(container.current?.dataset.metric && container.current.dataset.metric === latest.current.metric?.id ? [...(growth.current > 0.01 ? ["landscape" + slot.current] : []), "fill" + slot.current] : [])].filter(
         (l) => !!m.getLayer(l),
       );
-      if (!layers.length) return;
-      const f = m.queryRenderedFeatures(e.point, { layers })[0];
+      if (!layers.length) return clearHover();
+      const f = m.queryRenderedFeatures(point, { layers })[0];
       m.getCanvas().style.cursor = f ? "pointer" : "";
       setHover(
         f
           ? {
-              x: e.point.x,
-              y: e.point.y,
+              x: point.x,
+              y: point.y,
               label:
                 (f.properties.point_count ? `${f.properties.point_count.toLocaleString()} source-listed locations · click to zoom` : "") || f.properties.name ||
                 f.properties.place ||
@@ -313,8 +328,12 @@ export default function AtlasMap(p: Props) {
             }
           : null,
       );
+    };
+    m.on("mousemove", (e) => {
+      hoverPoint = e.point;
+      if (!hoverFrame) hoverFrame = requestAnimationFrame(updateHover);
     });
-    m.on("mouseout", () => setHover(null));
+    m.on("mouseout", clearHover);
     m.on("click", (e) => {
       const layers = [...(latest.current.mode === "Infrastructure" ? ["facility-clusters", "facilities"] : []), ...(container.current?.dataset.metric && container.current.dataset.metric === latest.current.metric?.id ? [...(growth.current > 0.01 ? ["landscape" + slot.current] : []), "fill" + slot.current] : [])].filter(
         (l) => !!m.getLayer(l),
@@ -382,6 +401,7 @@ export default function AtlasMap(p: Props) {
       );
     });
     return () => {
+      cancelAnimationFrame(hoverFrame);
       ro.disconnect();
       roofEdges.current?.dispose();roofEdges.current=null;
       m.remove();
