@@ -1,12 +1,12 @@
 # Proposed architecture
 
-Original target architecture, retained as design context. Current implementation uses Next.js/TypeScript, MapLibre, a Python preparation pipeline, server-local full lookup geometry, and viewport-filtered display GeoJSON. See STATUS.md for verified behavior and DATA_VERIFICATION.md for source contracts. Tailwind and PMTiles have not been needed for the initial increment; hosting compatibility and hardware performance remain unverified.
+Target architecture reconciled to the integrated desktop checkpoint; optional adapters remain design context. Current implementation uses Next.js/TypeScript, MapLibre, a Python preparation pipeline, server-local full lookup geometry, resident statewide standard display GeoJSON and pinned Overture MVT via a local PMTiles range service. See STATUS.md for verified behavior and DATA_VERIFICATION.md for source contracts. Tailwind is not used; PMTiles backs building tiles; hosting compatibility remains unverified; bounded local device measurements and limits are in INTEGRATION.md.
 
 ## Shape
 
 Source adapters → reproducible normalization → versioned dataset bundle → lookup/query layer → atlas state → map and evidence views.
 
-Proposed frontend: Next.js, TypeScript, Tailwind, MapLibre GL JS. Geospatial preparation: Python tooling chosen after source inspection. PMTiles/vector tiles are the candidate statewide display format, not a proven necessity. Turf is a candidate for bounded browser operations; do not ship every full-resolution boundary just to resolve an address.
+Implemented frontend: Next.js, TypeScript and MapLibre GL JS with local CSS/font assets. Geospatial preparation: Python tooling chosen after source inspection. PMTiles/vector tiles are the candidate statewide display format, not a proven necessity. Turf is a candidate for bounded browser operations; do not ship every full-resolution boundary just to resolve an address.
 
 ## Module boundaries
 
@@ -17,7 +17,7 @@ Proposed frontend: Next.js, TypeScript, Tailwind, MapLibre GL JS. Geospatial pre
 - facilities: category and viewport queries, marker details, deterministic straight-line distances.
 - comparison: paired records, compatibility checks, typed differences, same-tract behavior.
 - stories: curated sequences and deterministic evidence summaries.
-- atlas: shared application state and one reusable map component instantiated once or twice.
+- atlas: shared application state and one reusable map component instantiated once by default or twice for linked geography.
 - optional integrations: separate assistant, voice, analytics-platform, and deployment adapters.
 
 These are logical boundaries; avoid creating a service or package for every item. Default to one application and one preparation pipeline.
@@ -40,9 +40,9 @@ StoryStep: question, indicatorId, optional supporting layer IDs, deterministic t
 
 ## State and rendering
 
-Application state owns A/B location selections, mode, metric, active story step, camera-link setting, evidence drawer, and enabled facility categories. Map instances consume state; they are not competing sources of truth.
+Application state owns the location collection, active/reference place, mode/metric, City/Landscape/Auto choice, Flat/3D depth, linked pair, evidence panel and enabled facility categories. Map instances consume state; they are not competing sources of truth.
 
-Share metric domains across comparison maps. Query and cache by dataset version and tract ID; use cancellation or request IDs to prevent stale responses. A failure in one point source must not break choropleths or the other facility categories.
+Share metric domains across comparison maps. Query and cache by dataset version and tract ID; use cancellation or request IDs to prevent stale responses. A failure in one point source must not break choropleths or the other facility categories. Provider switches clear evidence and remount the map, preventing failed live replacements from retaining synthetic geometry. A two-measure LRU shares immutable standard overlays; independent map sources retain per-pane readiness. Facility inventories are acquired with bounded splitting, source-version validation and independent category failures. Optional overview/story/grouped-demographic/nearby-narrative APIs remain follow-up adoption choices.
 
 ## Spatial correctness
 
@@ -58,4 +58,4 @@ Budgets will be selected and measured during implementation on the actual demo d
 
 ## Open dependencies
 
-CES version/status, field completeness and tract vintage; per-indicator years; facility licensing/status/coverage; basemap and geocoding provider terms and credentials; tile serving and range-request support; sponsor account access; exact framework versions. Resolve these during later authorized verification, not by assumption.
+Current resolved contracts and source qualifications are in DATA_VERIFICATION.md and BACKEND_CHANGES.md. Remaining gates include power reporting-period/retirement-code evidence, complete offline building acquisition, per-tile arrival animation and optional API/sponsor adoption. No hosted deployment or mobile acceptance is implied by local checks.

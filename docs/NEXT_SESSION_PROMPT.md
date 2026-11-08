@@ -1,5 +1,7 @@
 Continue the California Environmental Atlas as backend/data and integration owner in /Users/anand/Projects/hackathon on main.
 
+Current continuation: see [INTEGRATION.md](INTEGRATION.md) for the user-authorized combined desktop checkpoint, preserved refs, corrected findings and fresh checks. The record below describes the earlier separate-session checkpoint and is historical where it differs.
+
 Latest user direction supersedes automatic implementation continuation: backend work is saved through ca4831e, and the user plans a new Astra brainstorming session focused on practical usefulness, product direction and hackathon scope, not merely additional data layers. Preserve the current baseline. The prior regional-context/discovery/report/layer suggestions are unadopted proposals. Discuss target users, problems, useful workflows, differentiation, demo value and feasible execution before choosing new implementation. Do not automatically start expansion or frontend integration; frontend design remains active and separate. Read the latest direction in SESSION_HANDOFF.md first.
 
 Read AGENTS.md, README.md and its four planning links, docs/SESSION_HANDOFF.md, then the latest sections of docs/BACKEND_CHANGES.md and FACILITY_SOURCES.md. Inspect git/worktrees, both servers and frontend progress before edits. The handoff contains historical snapshots; its current-resume note and later sections supersede old pause and source-blocker claims.

@@ -1,5 +1,7 @@
 # Interactive frontend handoff — baseline v1
 
+Current continuation: see [INTEGRATION.md](INTEGRATION.md) for the user-authorized combined desktop checkpoint, preserved refs, corrected findings and fresh checks. The record below describes the earlier separate-session checkpoint and is historical where it differs.
+
 Prepared 2026-11-07 for a user-run interactive frontend session. No frontend worker is launched. Full original target remains in PRODUCT.md; this handoff exposes current evidence without declaring every backend issue resolved.
 
 ## Checkout, baseline and connection

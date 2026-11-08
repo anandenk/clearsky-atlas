@@ -1,0 +1,155 @@
+{
+  "measuredAt": "2026-11-08T04:01:12.528716+00:00",
+  "origin": "http://127.0.0.1:3000",
+  "frontendInput": "e7e64fbbed713fa2897818c4e38210807bd5bcd5",
+  "backendInput": "44558b2b6e81730ade08960c5c54604069f82151",
+  "conditions": {
+    "runtime": "Next production / Node 26.10.0 / Darwin arm64",
+    "browser": "installed Chrome headless, sequential probes",
+    "viewport": [
+      1440,
+      960
+    ],
+    "cache": "warm local source/range and OS/browser caches; upstream tiles uncontrolled",
+    "threshold": "No general performance acceptance threshold was defined. rAF samples are not GPU frame-time certification."
+  },
+  "desktopWorkload": {
+    "label": "integrated",
+    "hover": {
+      "lastPoint": {
+        "x": 729,
+        "y": 459
+      },
+      "events": 120,
+      "queries": 1,
+      "queryMs": 88,
+      "elapsedMs": 98.80000007152557
+    },
+    "cancellation": {
+      "queries": 0,
+      "tooltip": false
+    },
+    "submissions": [
+      14919,
+      24865
+    ],
+    "tooltip": false,
+    "inventory": "24,865 source-listed points loaded. Clusters show point counts; zoom in to inspect.",
+    "interactions": {
+      "pins": 0,
+      "submissions": [
+        9946,
+        24865
+      ]
+    },
+    "errors": []
+  },
+  "singleMap": {
+    "readyMs": 1879.3999999761581,
+    "frames": {
+      "p50": 16.69999999999891,
+      "p95": 16.700000000000728,
+      "max": 16.80000000000291
+    },
+    "longTasks": 2,
+    "longTaskMs": 177,
+    "calls": {
+      "setPaintProperty": 856,
+      "queryRenderedFeatures": 2,
+      "relayout": 145
+    },
+    "heightWrites": 90,
+    "memory": {
+      "used": 92210206,
+      "total": 154798438
+    },
+    "resources": [
+      {
+        "duration": 70.39999997615814,
+        "transfer": 15703291,
+        "decoded": 15702991
+      }
+    ],
+    "errors": []
+  },
+  "twoMap": {
+    "warmFrames": {
+      "p50": 16.69999999999891,
+      "p95": 16.799999999999272,
+      "max": 16.80000000000291
+    },
+    "warmLongTasks": [],
+    "clicks": [
+      {
+        "dt": 40,
+        "delay": 1.600000023841858
+      },
+      {
+        "dt": 32,
+        "delay": 0.7999999523162842
+      },
+      {
+        "dt": 32,
+        "delay": 1
+      },
+      {
+        "dt": 32,
+        "delay": 0.6000000238418579
+      },
+      {
+        "dt": 152,
+        "delay": 0.8999999761581421
+      },
+      {
+        "dt": 32,
+        "delay": 0.9000000953674316
+      }
+    ],
+    "jsHeapSnapshot": 162025799,
+    "mapResources": [
+      {
+        "bytes": 15702991,
+        "duration": 96.70000004768372
+      }
+    ],
+    "cameras": [
+      {
+        "zoom": 13,
+        "pitch": 50,
+        "bearing": 0,
+        "center": [
+          -122.29404686406886,
+          37.79705080708305
+        ]
+      },
+      {
+        "zoom": 13,
+        "pitch": 50,
+        "bearing": 0,
+        "center": [
+          -119.78606099593159,
+          36.740250711975534
+        ]
+      }
+    ],
+    "errors": []
+  },
+  "evidence": {
+    "artifacts/performance-pass/integrated.json": {
+      "sha256": "91e9a220e836683517ecb7d66dbd1c4889c15e6fdb3811df686e540a71fd7a16",
+      "bytes": 531
+    },
+    "artifacts/responsiveness/integrated.json": {
+      "sha256": "84a05a2385916c41308196ce017116fceacd23da304c0c8c3cff704b9faa2550",
+      "bytes": 316146
+    },
+    "artifacts/geography/performance.json": {
+      "sha256": "2c9748007b7719502a121b45cf022312afc214af5d4ed7cb6a815cd3c815b22f",
+      "bytes": 72301
+    },
+    "artifacts/responsiveness/first-click-cpu.json": {
+      "sha256": "12d485c2391d42662b60ffd6f3b10687594f4ea4e69af7d6dfb91c3a20e5049e",
+      "bytes": 131938
+    }
+  }
+}

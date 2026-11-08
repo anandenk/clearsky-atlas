@@ -1,5 +1,7 @@
 # Readiness audit — 2026-11-07
 
+Current continuation: see [INTEGRATION.md](INTEGRATION.md) for the user-authorized combined desktop checkpoint, preserved refs, corrected findings and fresh checks. The record below describes the earlier separate-session checkpoint and is historical where it differs.
+
 The verified backend is ready for a **coordinated integration review of supported data**, not a claim that the full original product is complete. Power activation and combined frontend validation remain open. No frontend file was changed, merged, rebased or cherry-picked during this audit. Both preview servers were preserved.
 
 ## Evidence boundary

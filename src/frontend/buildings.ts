@@ -1,0 +1,306 @@
+import type {
+  Map as AtlasMap,
+  ErrorEvent,
+  ExpressionSpecification,
+} from "maplibre-gl";
+
+export const buildingVersion = "2026-10-21.0";
+const source = "overture-buildings";
+const layers = ["overture-buildings-3d", "overture-building-parts-3d"];
+type Catalog = {
+  tiles: string[];
+  bounds: [number, number, number, number];
+  minzoom: number;
+  maxzoom: number;
+  attribution: string;
+  metadata: {
+    contractVersion: string;
+    datasetVersion: string;
+    scope: string;
+    serving: string;
+    truncated: boolean;
+    sourceLayers: string[];
+  };
+};
+// These are rendering fallbacks only: missing source heights remain unknown.
+export const displayBuildingHeight: ExpressionSpecification = [
+  "case",
+  ["has", "height"],
+  ["get", "height"],
+  ["has", "num_floors"],
+  ["*", ["get", "num_floors"], 3],
+  6,
+];
+const base: ExpressionSpecification = [
+  "min",
+  displayBuildingHeight,
+  ["coalesce", ["get", "min_height"], 0],
+];
+
+export function installBuildings(
+  m: AtlasMap,
+  report: (message: string) => void,
+  ready: (
+    m: AtlasMap,
+    id: string,
+    signal: AbortSignal,
+    afterRender: boolean,
+  ) => Promise<void>,
+) {
+  let enabled = false,
+    opacity = 0.7,
+    active = false,
+    generation = 0,
+    failed = false;
+  let revealUntil = 0;
+  let showFallback = false;
+  let notice = "";
+  const notify = (message: string) => {
+    if (notice === message) return;
+    notice = message;
+    report(message);
+  };
+  let timer: ReturnType<typeof setTimeout> | undefined,
+    request: AbortController | undefined;
+  let catalog: Catalog | undefined;
+  const paint = (revealDuration = 0) => {
+    for (const id of layers)
+      if (m.getLayer(id)) {
+        // Constant opacity transitions run natively; no height/geometry writes
+        // or application animation loop. Fallbacks and settled relief remain exact.
+        m.setPaintProperty(id, "fill-extrusion-opacity-transition", {duration:revealDuration});
+        m.setPaintProperty(id, "fill-extrusion-opacity", active ? opacity : 0);
+      }
+    if (m.getLayer("city-buildings"))
+      m.setPaintProperty(
+        "city-buildings",
+        "fill-extrusion-opacity",
+        !active && showFallback ? opacity : 0,
+      );
+  };
+  const visibility = (visible: boolean) => {
+    for (const id of layers)
+      if (m.getLayer(id))
+        m.setLayoutProperty(id, "visibility", visible ? "visible" : "none");
+  };
+  const remove = () => {
+    for (const id of layers) if (m.getLayer(id)) m.removeLayer(id);
+    if (m.getSource(source)) m.removeSource(source);
+  };
+  const fallback = (message: string, visible = true) => {
+    const changed = active || showFallback !== visible;
+    revealUntil = 0;
+    active = false;
+    showFallback = visible;
+    if (changed) paint();
+    notify(message);
+  };
+  const loading = () => {
+    if (active) return;
+    if (showFallback) {
+      showFallback = false;
+      paint();
+    }
+    notify("Loading Overture buildings + parts…");
+  };
+  const cancel = () => {
+    request?.abort();
+    generation++;
+    clearTimeout(timer);
+  };
+  const onError = (event: ErrorEvent & { sourceId?: string }) => {
+    if (event.sourceId !== source || !enabled) return;
+    failed = true;
+    request?.abort();
+    fallback(
+      "Overture unavailable; showing OpenStreetMap buildings. Move the map to retry.",
+    );
+  };
+  const update = async () => {
+    const token = ++generation;
+    request?.abort();
+    request = new AbortController();
+    const signal = request.signal;
+    if (!enabled) return;
+    if (m.getZoom() < 14) {
+      visibility(false);
+      fallback("Building detail starts at zoom 14 · zoom in for Overture.", false);
+      return;
+    }
+    loading();
+    try {
+      if (!catalog) {
+        const response = await fetch(
+          `/api/buildings/catalog?version=${buildingVersion}`,
+          { signal },
+        );
+        if (!response.ok) throw Error("Building catalog unavailable");
+        const data: Catalog = await response.json();
+        if (
+          data.metadata?.contractVersion !== "atlas-building-tiles-v1" ||
+          data.metadata.datasetVersion !== buildingVersion ||
+          data.metadata.scope !== "statewide-california" ||
+          data.metadata.truncated !== false ||
+          data.minzoom !== 14 ||
+          data.maxzoom !== 14 ||
+          !data.metadata.sourceLayers?.includes("building_part") ||
+          !Array.isArray(data.bounds) ||
+          data.bounds.length !== 4 ||
+          !data.bounds.every(Number.isFinite) ||
+          !Array.isArray(data.tiles) ||
+          data.tiles.length !== 1 ||
+          data.tiles[0] !==
+            `/api/buildings/tiles/{z}/{x}/{y}?version=${buildingVersion}`
+        ) {
+          throw Error("Building source contract mismatch");
+        }
+        if (signal.aborted || token !== generation) return;
+        catalog = data;
+      }
+      const b = m.getBounds(),
+        [w, s, e, n] = catalog.bounds;
+      if (
+        b.getWest() < w ||
+        b.getEast() > e ||
+        b.getSouth() < s ||
+        b.getNorth() > n
+      ) {
+        visibility(false);
+        fallback(
+          "OpenStreetMap buildings · view extends beyond the Overture California envelope.",
+        );
+        return;
+      }
+      if (failed) {
+        remove();
+        failed = false;
+      }
+      if (!m.getSource(source)) {
+        m.addSource(source, {
+          type: "vector",
+          tiles: catalog.tiles.map(
+            (url) => new URL(url, window.location.origin).href.replaceAll("%7B", "{").replaceAll("%7D", "}"),
+          ),
+          minzoom: 14,
+          maxzoom: 14,
+          bounds: catalog.bounds,
+          promoteId: "id",
+          attribution:
+            '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>, <a href="https://docs.overturemaps.org/attribution/">Overture Maps Foundation</a> · <a href="https://github.com/microsoft/GlobalMLBuildingFootprints">Microsoft ML Buildings</a> · <a href="https://opendatacommons.org/licenses/odbl/1-0/">ODbL-1.0</a>',
+        });
+        for (const [i, id] of layers.entries())
+          m.addLayer(
+            {
+              id,
+              type: "fill-extrusion",
+              source,
+              "source-layer": i === 0 ? "building" : "building_part",
+              minzoom: 14,
+              filter:
+                i === 0
+                  ? [
+                      "all",
+                      ["!=", ["get", "is_underground"], true],
+                      ["!=", ["get", "has_parts"], true],
+                    ]
+                  : ["!=", ["get", "is_underground"], true],
+              paint: {
+                "fill-extrusion-color": [
+                  "case",
+                  ["has", "height"],
+                  "#84918f",
+                  "#a8b3ab",
+                ],
+                "fill-extrusion-height": displayBuildingHeight,
+                "fill-extrusion-base": base,
+                "fill-extrusion-opacity": 0,
+                "fill-extrusion-opacity-transition": { duration: 0 },
+              },
+            },
+            m.getStyle().layers.find((l) => l.type === "symbol")?.id,
+          );
+      }
+      visibility(true);
+      await ready(m, source, signal, true);
+      if (signal.aborted || token !== generation || !enabled || failed) return;
+      if (!active) {
+        active = true;
+        const duration = matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 320;
+        revealUntil = performance.now() + duration;
+        paint(duration);
+      }
+      notify(
+        "Overture · statewide buildings + parts. Approximate heights; source coverage varies.",
+      );
+    } catch (error) {
+      if (!signal.aborted && token === generation) {
+        failed = true;
+        fallback(
+          `Overture unavailable; showing OpenStreetMap buildings. ${error instanceof Error ? error.message : "Move the map to retry."}`,
+        );
+      }
+    }
+  };
+  const schedule = () => {
+    clearTimeout(timer);
+    if (enabled) timer = setTimeout(update, 180);
+  };
+  const enforceLimits = () => {
+    if (!enabled) return;
+    let reason: string | undefined;
+    if (m.getZoom() < 14)
+      reason = "Building detail starts at zoom 14 · zoom in for Overture.";
+    else if (catalog) {
+      const b = m.getBounds(), [w, s, e, n] = catalog.bounds;
+      if (b.getWest() < w || b.getEast() > e || b.getSouth() < s || b.getNorth() > n)
+        reason = "OpenStreetMap buildings · view extends beyond the Overture California envelope.";
+    }
+    if (reason) {
+      visibility(false);
+      fallback(reason, m.getZoom() >= 14);
+    } else if (!failed) loading();
+  };
+  const moving = () => {
+    // Cancel obsolete readiness waits, not the resident vector source. MapLibre
+    // keeps loaded tiles while requesting new ones during pan/zoom/rotation.
+    cancel();
+    enforceLimits();
+  };
+  m.on("movestart", moving);
+  m.on("move", enforceLimits);
+  m.on("moveend", schedule);
+  m.on("error", onError);
+  return {
+    setEnabled(value: boolean) {
+      if (enabled === value) return;
+      enabled = value;
+      cancel();
+      active = false;
+      revealUntil = 0;
+      showFallback = false;
+      paint();
+      visibility(value && m.getZoom() >= 14);
+      if (value) { enforceLimits(); schedule(); }
+      else notify("");
+    },
+    setOpacity(value: number) {
+      if (opacity === value) return;
+      opacity = value;
+      // Auto/City relief can still be animating when the vector tiles arrive.
+      // Retarget the native fade over its remaining time instead of snapping
+      // to that animation's current opacity. Never extend the reveal deadline.
+      if (value === 0 || matchMedia("(prefers-reduced-motion: reduce)").matches)
+        revealUntil = 0;
+      paint(active ? Math.max(0, revealUntil - performance.now()) : 0);
+    },
+    dispose() {
+      cancel();
+      m.off("movestart", moving);
+      m.off("move", enforceLimits);
+      m.off("moveend", schedule);
+      m.off("error", onError);
+      remove();
+      notify("");
+    },
+  };
+}

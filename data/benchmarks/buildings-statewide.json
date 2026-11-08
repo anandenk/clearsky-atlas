@@ -13,8 +13,8 @@
       },
       "missingHeight": 110,
       "rawMatches": 3184,
-      "firstMs": 1361.712042,
-      "warmMs": 15.811624999999822,
+      "firstMs": 12.004957999999988,
+      "warmMs": 4.135249999999985,
       "sha256": "54a6edad579291ef833ac5c163495d88360a67989fbf9e76ae72b55d4a827f97"
     },
     {
@@ -30,8 +30,8 @@
       },
       "missingHeight": 1417,
       "rawMatches": 3692,
-      "firstMs": 386.91670799999997,
-      "warmMs": 14.814292000000023,
+      "firstMs": 8.387124999999997,
+      "warmMs": 7.6626660000000015,
       "sha256": "431991bc67906de85a6eb0946833978224da2ff3c205e42d540239ab1a76f7a0"
     },
     {
@@ -47,8 +47,8 @@
       },
       "missingHeight": 247,
       "rawMatches": 0,
-      "firstMs": 364.6770829999998,
-      "warmMs": 18.804541999999856,
+      "firstMs": 5.496167000000014,
+      "warmMs": 3.886917000000011,
       "sha256": "c8d5519dc8d463ab51c2b1d521634698f8c13e5af7be806fc6aa9df62daa5b0d"
     },
     {
@@ -64,8 +64,8 @@
       },
       "missingHeight": 520,
       "rawMatches": 0,
-      "firstMs": 276.360584,
-      "warmMs": 11.61437500000011,
+      "firstMs": 3.5121249999999975,
+      "warmMs": 2.861457999999999,
       "sha256": "18fa0c51678936458d820c967f9cffca99ce698b9aecda37df4cdcd1bc3e62b8"
     },
     {
@@ -81,8 +81,8 @@
       },
       "missingHeight": 795,
       "rawMatches": 0,
-      "firstMs": 315.570917,
-      "warmMs": 15.130832999999711,
+      "firstMs": 5.629041999999998,
+      "warmMs": 5.460000000000008,
       "sha256": "ec747d4c7bd9271915c59a40982505a7358a68dd48441c959a813e5415eb8943"
     },
     {
@@ -98,8 +98,8 @@
       },
       "missingHeight": 512,
       "rawMatches": 0,
-      "firstMs": 359.67279199999984,
-      "warmMs": 15.248042000000169,
+      "firstMs": 6.236584000000022,
+      "warmMs": 8.58850000000001,
       "sha256": "628996bd1aafcd84cd26178775c28418f2adb24cddcf44cc19167298fa6ea985"
     },
     {
@@ -114,8 +114,8 @@
       },
       "missingHeight": 671,
       "rawMatches": 0,
-      "firstMs": 312.89862500000027,
-      "warmMs": 8.997124999999869,
+      "firstMs": 5.848707999999988,
+      "warmMs": 6.981292000000025,
       "sha256": "56200520b7e923d3ed03c5b0e63ad3deddf471749e39523e6732594ec10c20e7"
     },
     {
@@ -128,8 +128,8 @@
       "counts": {},
       "missingHeight": 0,
       "rawMatches": 0,
-      "firstMs": 4.491415999999845,
-      "warmMs": 3.3333330000000387,
+      "firstMs": 2.3577499999999816,
+      "warmMs": 1.1147499999999866,
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     }
   ],

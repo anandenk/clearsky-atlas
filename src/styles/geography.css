@@ -1,0 +1,254 @@
+/* Two places, one orientation and evidence scale. Existing ClearSky tokens. */
+.geography-open {
+  position: absolute;
+  z-index: 10;
+  left: 24px;
+  bottom: 28px;
+  padding: 12px 18px;
+  min-height: 44px;
+  background: #243443;
+  color: #e2ebf0;
+  border: 1px solid #5dbdb0;
+  border-radius: 12px;
+  font-size: 13px;
+}
+.atlas-app.is-linked .map-stage {
+  right: 50%;
+}
+.comparison-map-stage {
+  position: absolute;
+  inset: 0 0 0 50%;
+  border-left: 1px solid #5dbdb0;
+}
+.geography-actions {
+  position: absolute;
+  z-index: 12;
+  top: 160px;
+  left: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #cad5d9;
+  font-size: 12px;
+}
+.geography-actions button {
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid #42586a;
+  background: #101e2af7;
+  border-radius: 8px;
+  color: #e2ebf0;
+}
+.geography-place {
+  position: absolute;
+  z-index: 11;
+  top: 220px;
+  width: calc(50% - 48px);
+  padding: 10px 12px;
+  background: #101e2af2;
+  border: 1px solid #34495b;
+  border-radius: 10px;
+  color: #e2ebf0;
+}
+.geography-left {
+  left: 24px;
+}
+.geography-right {
+  left: calc(50% + 24px);
+}
+.geography-place label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.geography-place label > span {
+  font-size: 22px;
+  font-weight: 700;
+}
+.geography-place select {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  color: #e2ebf0;
+  background: #243443;
+  border-radius: 6px;
+  border: 1px solid #42586a;
+  padding: 8px;
+  font-size: 12px;
+}
+.geography-place p {
+  display: flex;
+  gap: 6px;
+  align-items: baseline;
+  flex-wrap: wrap;
+  margin: 8px 0 0;
+  font-size: 12px;
+}
+.geography-place p > strong {
+  font-size: 20px;
+}
+.geography-place p > span {
+  color: #aebfcb;
+  margin-left: auto;
+}
+.geography-caption {
+  position: absolute;
+  bottom: 26px;
+  left: 24px;
+  z-index: 10;
+  max-width: calc(50% - 100px);
+  color: #cad5d9;
+  background: #101e2af2;
+  border: 1px solid #34495b;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 11px;
+  line-height: 1.5;
+  display: grid;
+  gap: 6px;
+}
+.atlas-app.is-linked .recenter {
+  display: none;
+}
+@media (max-width: 1000px) and (min-width: 760px) {
+  .geography-place {
+    top: 230px;
+  }
+  .geography-actions {
+    top: 170px;
+  }
+  .geography-place p > span {
+    margin-left: 0;
+    width: 100%;
+  }
+  .geography-actions > span {
+    display: none;
+  }
+}
+
+.geography-actions select {
+  min-height: 44px;
+  max-width: 210px;
+  color: #e2ebf0;
+  background: #243443;
+  border: 1px solid #42586a;
+  border-radius: 8px;
+  padding: 8px;
+  font-size: 12px;
+}
+.geography-actions > span {
+  display: none;
+}
+.atlas-app.is-linked {
+  background: #0b1520;
+}
+.atlas-app.is-linked .place-ribbon {
+  top: 150px;
+  max-width: calc(100% - 250px);
+}
+.geography-actions {
+  top: 210px;
+}
+.geography-place {
+  top: 270px;
+}
+.geography-open {
+  left: auto;
+  right: 24px;
+  top: 240px;
+  bottom: auto;
+}
+@media (max-width: 759px) {
+  .geography-open {
+    right: 12px;
+    top: 260px;
+    max-width: 145px;
+    font-size: 11px;
+    padding: 8px;
+  }
+  .atlas-app.is-linked.has-places.canvas-collapsed {
+    height: 1690px;
+    min-height: 1690px;
+    overflow: visible;
+    padding-top: 0;
+  }
+  .atlas-app.is-linked .place-ribbon {
+    top: 210px;
+    left: 12px;
+    right: 12px;
+    max-width: calc(100% - 24px);
+  }
+  .geography-actions {
+    top: 270px;
+    left: 12px;
+    right: 12px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 6px;
+  }
+  .geography-actions select {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+  }
+  .geography-actions button {
+    padding: 8px 10px;
+  }
+  .atlas-app.is-linked .view-switch {
+    top: 326px;
+    right: 12px;
+    left: auto;
+  }
+  .geography-place {
+    left: 12px;
+    width: calc(100% - 24px);
+    padding: 8px 10px;
+  }
+  .geography-left {
+    top: 394px;
+  }
+  .geography-right {
+    top: 886px;
+  }
+  .geography-place select {
+    min-height: 44px;
+  }
+  .geography-place p {
+    margin-top: 3px;
+  }
+  .geography-place p > strong {
+    font-size: 16px;
+  }
+  .geography-place p > span {
+    font-size: 10px;
+  }
+  .atlas-app.is-linked.has-places.canvas-collapsed .map-stage {
+    inset: 510px 0 auto;
+    height: 350px;
+  }
+  .atlas-app.is-linked .comparison-map-stage {
+    inset: 1002px 0 auto;
+    height: 350px;
+    border-left: 0;
+    border-top: 1px solid #5dbdb0;
+  }
+  .atlas-app.is-linked.has-places .map-key {
+    top: 1368px;
+    bottom: auto;
+    left: 12px;
+    max-width: calc(100% - 24px);
+    max-height: 190px;
+  }
+  .geography-caption {
+    top: 1570px;
+    bottom: auto;
+    left: 12px;
+    max-width: calc(100% - 24px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .atlas-app.is-linked .map-stage {
+    transition: none;
+  }
+}
+.geography-place label > span {display:grid;place-items:center;flex:0 0 32px;height:32px;font-size:17px;border-radius:50%;}

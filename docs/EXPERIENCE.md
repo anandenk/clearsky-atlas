@@ -1,21 +1,17 @@
 <!-- Hallmark planning critique: Philosophy 4; Hierarchy 4; Execution 3; Specificity 4; Restraint 4; Variety 4. Planning judgment only; no UI validation performed. -->
 # Experience direction
 
-Status: full design direction retained. Initial Phase 2 editorial comparison interface is rendered and checked at desktop and specified narrow widths; see STATUS.md for exact checks and remaining visual/accessibility work.
+Status: reconciled to the selected integrated desktop ClearSky experience. See INTEGRATION.md for fresh checks and limitations. Historical narrow-screen evidence is not current mobile acceptance; mobile remains user-deferred.
 
 ## Composition
 
-The map is the main canvas. Avoid a marketing landing page before the atlas. Place address A and B controls in a compact top bar, the four modes beneath, and the active metric selector close to a persistent shared legend.
+The continuous map is the main canvas. A compact masthead holds identity, address search and the menu; a place ribbon retains confirmed locations and reference/reorder/replace/remove controls. Four domains remain available without a landing-page detour.
 
-Desktop comparison: two balanced map panes, clearly labeled A and B. A compact evidence rail or bottom comparison band holds aligned values, the distribution strip, and story controls. Sources expand in place rather than competing with the map at all times.
+Desktop evidence starts collapsed so the map stays prominent. Opening it reveals a compact left-hand measure index or focused readings. Multiple places share one map by default. “Compare geography” opens two selected locations with linked zoom, bearing and pitch while preserving their distinct centers; closing restores the original map.
 
-Single-location mode uses the full canvas. On narrow screens, use A/B tabs over one map with both evidence columns still available in a readable stacked comparison. Preserve state when changing layouts.
+ClearSky uses dark cartography, local DM Sans/DM Serif fonts, quiet map controls and compact evidence. Place colors identify locations independently of ordered measure ramps. Demographic percentages have no hazard interpretation. A patterned missing-data treatment distinguishes unavailable observations from zero. See design.md and src/styles for the implemented tokens; this document does not prescribe a new redesign.
 
-## Visual character
-
-Proposed direction: contemporary cartographic atlas with warm paper surfaces, dark ink typography, quiet rules, ample map area, and restrained editorial headings. Avoid floating-card clutter, decorative gradients, oversized dashboards, and numerical decoration without evidence.
-
-Final fonts, tokens, basemap style, and colors will be selected during design implementation. Use semantic tokens rather than scattered values. A/B identity colors must remain distinguishable from choropleth intensity and facility categories. Use perceptually ordered scales, a visibly separate missing-data treatment, and neutral categorical charts for demographics.
+Mobile/bottom-sheet work remains deferred by user direction. Do not infer current responsive acceptance from retained historical CSS or tests.
 
 ## Information hierarchy
 
@@ -27,9 +23,9 @@ Story headlines should answer the selected question using verified values, not i
 
 ## Map behavior
 
-Both maps share metric and scale. Optional camera linking synchronizes zoom, bearing, and pitch around each place's own center; it must not force different addresses to identical coordinates. Independent panning remains possible. Prevent feedback loops between map events.
+Both maps share metric and scale. Linked geography synchronizes zoom, bearing, and pitch around each place's own center; it must not force different addresses to identical coordinates. Independent panning remains possible. Prevent feedback loops between map events.
 
-At analytical zooms favor readable flat shading; pitch can introduce a location and then settle. Terrain or building extrusions must not obscure tract patterns. Display geometry simplification must not determine address membership.
+At analytical zooms favor readable flat shading; pitch can introduce a location and then settle. City uses release-pinned Overture buildings/parts at supported close zooms. Flat and analytical Landscape preserve tract interpretation; exaggerated tract heights are explicitly separate from physical building heights. Overture remains resident during supported navigation; genuine source failure or out-of-envelope views expose the qualified OSM fallback. Normal below-14/loading views have no preliminary OSM cohort. The native reveal fades layer activation/recovery, not every arriving tile. Display geometry simplification must not determine address membership.
 
 Changing a mode preserves addresses, selected tracts, and comparison state. Rapid changes cancel stale requests. Loading never temporarily labels old data as the newly selected metric.
 
@@ -37,7 +33,7 @@ Changing a mode preserves addresses, selected tracts, and comparison state. Rapi
 
 Use purposeful fly-to, layer transition, and panel transition as the main motion families. Honor reduced motion; keep keyboard focus immediate and stable. Offer a readable data alternative to map-only interactions. Do not rely on color alone.
 
-Verify later at 320, 375, 414, 768 pixels and desktop. Test long addresses, long facility names, two unmatched locations, one missing metric, empty facility coverage, network failure, and keyboard-only navigation. No responsive or accessibility result is claimed now.
+The integration verifies desktop keyboard/focus, reduced motion and controlled failure/race paths. Comprehensive screen-reader/accessibility certification and mobile acceptance remain open. Continue testing long names, missing metrics, partial facility failures and network outages when these mechanisms change.
 
 ## Demonstration narrative
 

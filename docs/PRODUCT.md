@@ -8,11 +8,11 @@ The supplied three-page handoff defines the initial concept. Its CES 5.0 coverag
 
 ## Presentation checkpoint
 
-The original two-address/paired-map journey below is the planning baseline. The user-directed frontend now explores a map-first, multi-location Common ground experience in its separate worktree. Reconcile that presentation with EXPERIENCE.md and ARCHITECTURE.md at the coordinated integration checkpoint; this note neither certifies the active UI nor authorizes merging it. Shared evidence, comparable legends and distinct address coordinates remain requirements.
+The integrated desktop presentation is ClearSky: a continuous map-first canvas, a collection of confirmed locations, compact evidence with a chosen reference, and optional linked geography for a selected pair. This user-selected checkpoint supersedes the original always-paired, two-address presentation. Shared evidence, comparable legends and original address coordinates remain requirements. Mobile/bottom sheets and Explore Alternatives are explicitly user-deferred; historical narrow-screen results do not establish current mobile acceptance.
 
 ## Product promise
 
-Explore two California locations through the same evidence, understand their differences, and see exactly what each comparison can and cannot establish.
+Explore California locations through the same evidence, understand their differences, and see exactly what each comparison can and cannot establish.
 
 Proposed primary audience: residents and community advocates exploring neighborhood context. No location recommendation, personal risk prediction, or overall neighborhood ranking is required.
 
@@ -20,16 +20,16 @@ Proposed primary audience: residents and community advocates exploring neighborh
 
 | Area | Intended coverage |
 | --- | --- |
-| Address navigation | California address search; candidate confirmation for ambiguous results; persistent A/B pins; tract outline; precise tract lookup; fly-to; outside-California and unmatched states |
+| Address navigation | California address search; candidate confirmation for ambiguous results; persistent place pins; tract outline; precise tract lookup; fly-to; outside-California and unmatched states |
 | Health | Asthma emergency visits; cardiovascular/heart-attack emergency visits; diabetes prevalence; low birth weight |
 | Environment | PM2.5; ozone; diesel particulates; traffic impacts; toxic air releases; cleanup-site burden |
 | Community | Poverty; educational attainment; housing burden; age and racial/ethnic population breakdowns |
 | Infrastructure | Healthcare facilities; public schools; power plants; source-qualified names/categories/status; straight-line distance |
-| Comparison | Two selected locations; paired maps; shared metric and legend; paired values and percentile positions; per-metric differences; swap/replace/clear locations |
+| Comparison | Multiple selected locations and a reference; optional linked pair of maps; shared metric/legend; raw values and percentile positions; compatible differences; reorder/replace/remove/clear locations |
 | Evidence | Definitions; raw values; units; percentiles where supported; measurement periods; dataset release; source links; null and coverage explanations |
 | Presentation | Polished map transitions; 3D-capable basemap; persistent context panel; readable charts; responsive and keyboard-usable controls; reduced motion |
 
-Conditional extensions retained from handoff: remediation-site markers and fire services only with suitable verified feeds. Nationwide expansion is outside the original scope. Detailed terrain/buildings, shareable views, AI narration, and voice are separately optional.
+Conditional extensions retained from handoff: remediation-site markers and fire services only with suitable verified feeds. Nationwide expansion is outside the original scope. Detailed terrain, shareable views, AI narration, and voice remain optional. Statewide Overture building/part rendering is implemented in the selected desktop experience; source coverage and approximate/unknown heights remain disclosed.
 
 The handoff described comparison as stretch; the user's latest instruction promotes it to the central experience. This plan retains the other original requirements.
 
@@ -45,11 +45,11 @@ Community stories use neutral descriptions. Cross-layer co-occurrence may prompt
 
 ## Primary journey
 
-1. Enter location A; confirm the geocode if necessary; reveal its tract and context.
-2. Add location B; preserve A and show a paired comparison.
-3. Choose a mode and indicator; both maps and the evidence panel update together.
-4. Select a comparison story or inspect individual indicators freely.
-5. Open evidence details or infrastructure markers without losing the comparison.
+1. Explore the California map, then search for a location and confirm its Census match.
+2. Add more locations; keep their original coordinates and identities on the map.
+3. Open compact evidence, choose an indicator and reference, and inspect compatible values or collection ranges.
+4. Optionally compare two selected locations in linked geography; zoom, tilt and rotation share a scale while each retains its own center.
+5. Open definitions, source qualifications or infrastructure details without replacing the confirmed addresses.
 
 A single-location view is a useful completed state, not a different product. Two addresses in the same tract correctly share tract-level indicators while retaining distinct facility distances.
 
@@ -57,4 +57,4 @@ A single-location view is a useful completed state, not a different product. Two
 
 Sponsor services are parked by user decision until near MVP readiness; revisit after the core atlas data and frontend flow are integrated and reviewable. Original atlas scope remains intact.
 
-Deferral means a feature remains in this inventory with a reason and revisit condition. A missing field must produce an explicit coverage decision, never an invented substitute. Power activation is explicitly deferred pending verified reporting-period and retirement-code evidence (or a verified alternative source); staged records remain unavailable. Fire/remediation remain conditional on suitable verified feeds. Optional terrain/buildings, sharing, AI and voice remain unimplemented extensions. See [readiness audit](READINESS_AUDIT.md) for current gates; none of these items is removed from the full target.
+Deferral means a feature remains in this inventory with a reason and revisit condition. A missing field must produce an explicit coverage decision, never an invented substitute. Power activation is explicitly deferred pending verified reporting-period and retirement-code evidence (or a verified alternative source); staged records remain unavailable. Fire/remediation remain conditional on suitable verified feeds. Optional terrain, sharing, AI and voice remain unimplemented extensions. Complete offline building acquisition and per-tile arrival animation remain explicit follow-ups; current statewide buildings use pinned online ranges plus successful local caching. See [readiness audit](READINESS_AUDIT.md) for current gates; none of these items is removed from the full target.

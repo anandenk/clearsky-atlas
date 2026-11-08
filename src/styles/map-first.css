@@ -1,0 +1,18 @@
+/* Keep the map visible by default; evidence expands only when requested. */
+.atlas-app .opening-lens {
+  background:linear-gradient(100deg,#101e2af5 75%,#101e2ae8);
+  padding:22px;border-radius:16px;left:24px;width:310px;
+}
+.atlas-app .opening-lens .lens-name{color:#8bd3ca}
+.atlas-app .opening-topics button{background:#243443;color:#e2ebf0;border:1px solid #42586a}
+.atlas-app .opening-topics button.selected{background:#395968;color:#fff;border-color:#8bd3ca}
+.atlas-app .opening-lens h1{color:#fff}
+.atlas-app .opening-lens p{color:#d5e2e8}
+.evidence-peek{position:absolute;z-index:12;bottom:24px;left:24px;max-width:420px;display:flex;gap:6px}
+.evidence-peek .evidence-reopen{position:static;display:flex;align-items:center;gap:12px;border:1px solid #42586a;border-radius:14px;background:#101e2af7;color:#e2ebf0;padding:14px 16px;min-height:72px;text-align:left;box-shadow:0 6px 24px #0002}
+.evidence-reopen>span{display:grid;gap:5px}.evidence-reopen strong{font-size:13px}.evidence-reopen small{font-size:11px;color:#bdcdd8}.evidence-reopen .peek-action{font-size:11px;white-space:nowrap;color:#8bd3ca;margin-left:12px}
+.peek-compare{display:none}
+@media(min-width:760px){
+  .atlas-app:not(.has-places) .map-key{left:auto;right:164px;bottom:28px;max-width:250px}
+  .atlas-app .building-status{max-height:100px;overflow:auto}
+}

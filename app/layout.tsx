@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "../src/styles/atlas.css";
+import "../src/styles/comparison.css";
+import "../src/styles/city.css";
+import "../src/styles/geography.css";
+import "../src/styles/map-first.css";
 export const metadata: Metadata = {
-  title: "California Environmental Atlas",
+  title: "ClearSky — California Environmental Atlas",
   description:
-    "Compare two California addresses through shared, source-backed tract evidence.",
+    "Explore and compare California addresses through shared, source-backed tract evidence.",
 };
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

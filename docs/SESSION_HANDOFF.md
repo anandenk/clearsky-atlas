@@ -1,5 +1,7 @@
 # Backend session migration — 2026-11-07
 
+Current continuation: see [INTEGRATION.md](INTEGRATION.md) for the user-authorized combined desktop checkpoint, preserved refs, corrected findings and fresh checks. The record below describes the earlier separate-session checkpoint and is historical where it differs.
+
 ## Latest user direction — saved backend checkpoint
 
 Backend work and the readiness audit are committed locally through `ca4831e`; main was clean when checked. The user is moving to a new Astra session to brainstorm **practical usefulness, product direction and hackathon scope**, rather than simply adding data layers. The prior regional-context/discovery/report/layer suggestions were proposals, not adopted scope. Preserve the current implementation as the baseline; discuss concrete users, problems, useful workflows, differentiation, demo value and feasible hackathon execution before selecting further implementation. Do not automatically start the proposed expansion or integration sequence. Frontend design remains active in its separate worktree; its tracked/untracked edits are preserved and are not part of the backend commit. Sponsor implementation remains parked under the existing authorization.
