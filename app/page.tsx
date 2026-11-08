@@ -22,6 +22,9 @@ import Dialog from "../src/components/Dialog";
 import Infrastructure from "../src/components/Infrastructure";
 import { useFacilities } from "../src/hooks/useFacilities";
 import ComparisonPanel from "../src/components/ComparisonPanel";
+import GeographyComparison from "../src/components/GeographyComparison";
+import { LinkedCamera, OverlayGate } from "../src/frontend/linked-geography";
+import { StatewideOverlays } from "../src/frontend/map-coverage";
 const Map = dynamic(() => import("../src/AtlasMap"), {
   ssr: false,
   loading: () => <div className="map-loading">Opening California…</div>,
@@ -80,6 +83,12 @@ const color = (id: string) =>
   placeColors[(Number(id) - 1) % placeColors.length];
 export default function Page() {
   const [heightScale, setHeightScale] = useState(METRES_PER_PERCENTILE);
+  const [rightHeightScale,setRightHeightScale]=useState(METRES_PER_PERCENTILE);
+  const [geography,setGeography]=useState(false);
+  const [pair,setPair]=useState({left:"",right:""});
+  const collapsedBeforeGeography=useRef(false);
+  const overlays=useRef(new StatewideOverlays());
+  const linkedCamera=useMemo(()=>new LinkedCamera(),[geography]);
   const [visualization, setVisualization] = useState<"city"|"landscape">("city");
   const [landscapeDepth, setLandscapeDepth] = useState<"flat"|"3d">("3d");
   const landscape = visualization === "landscape" && landscapeDepth === "3d";
@@ -244,6 +253,7 @@ export default function Page() {
     setBusy(false);
   }
   function switchProvider() {
+    setGeography(false);
     invalidate();
     setPreview((v) => !v);
     setOverview(false);
@@ -348,7 +358,7 @@ export default function Page() {
   function remove(id: string) {
     const remaining = places.filter((x) => x.id !== id);
     setPlaces(remaining);
-    if (remaining.length < 2) setOverview(false);
+    if (remaining.length < 2) {setOverview(false);setGeography(false);setCollapsed(collapsedBeforeGeography.current);}
     if (active === id) setActive("all");
     if (reference === id) setReference("");
   }
@@ -372,6 +382,19 @@ export default function Page() {
       ),
     [facilityResult(selected), filter],
   );
+  const linked = geography && places.length > 1;
+  const leftPlace=places.find(p=>p.id===pair.left) || places[0];
+  const rightPlace=places.find(p=>p.id===pair.right && p.id!==leftPlace?.id) || places.find(p=>p.id!==leftPlace?.id);
+  const gate=useMemo(()=>new OverlayGate(),[linked,metric,mode,reset,preview,scenario,places]);
+  const leftFacilities=useMemo(()=>(facilityResult(leftPlace)?.items||[]).filter(f=>filter.includes(f.category)),[facilityResult(leftPlace),filter]);
+  const rightFacilities=useMemo(()=>(facilityResult(rightPlace)?.items||[]).filter(f=>filter.includes(f.category)),[facilityResult(rightPlace),filter]);
+  const openGeography=()=>{collapsedBeforeGeography.current=collapsed;setCollapsed(true);setPair({left:(places.find(p=>p.id===reference)||places[0]).id,right:(places.find(p=>p.id!==reference && p.id!==places[0].id)||places[1]).id});setGeography(true);};
+  const closeGeography=()=>{setGeography(false);setCollapsed(collapsedBeforeGeography.current);};
+  const geographyEvidence=()=>{closeGeography();setCollapsed(false);};
+  const choosePair=(side:"left"|"right",id:string)=>setPair(current=>{
+    const other=side==="left"?"right":"left";
+    return {...current,[side]:id,[other]:current[other]===id ? (side==="left"?leftPlace.id:rightPlace!.id) : current[other]};
+  });
   const observations = places.map((p) => observation(p));
   const available = observations.filter(
     (o): o is Observation => !!o && o.rawValue !== null,
@@ -396,7 +419,7 @@ export default function Page() {
   const intro = introductions[mode];
   return (
     <main
-      className={`atlas-app ${places.length > 1 ? "has-multiple" : ""} ${hasPlaces ? "has-places" : ""} ${collapsed ? "canvas-collapsed" : ""} ${preview ? "is-preview" : ""}`}
+      className={`atlas-app ${linked ? "is-linked" : ""} ${places.length > 1 ? "has-multiple" : ""} ${hasPlaces ? "has-places" : ""} ${collapsed ? "canvas-collapsed" : ""} ${preview ? "is-preview" : ""}`}
       data-mode={mode}
       style={
         {
@@ -414,6 +437,8 @@ export default function Page() {
       </a>
       <div className="map-stage">
         <Map
+          overlays={overlays.current}
+          linked={linked ? {camera:linkedCamera,gate,side:"left",placeId:leftPlace.id,coordinate:leftPlace.selection.coordinate} : undefined}
           overview={flatLandscape}
           onHeightScale={setHeightScale}
           landscape={landscape}
@@ -426,8 +451,8 @@ export default function Page() {
           preview={preview}
           scenario={scenario}
           categories={filter}
-          facilities={visibleFacilities}
-          facilitiesReady={!selected || !!facilityResult(selected)}
+          facilities={linked ? leftFacilities : visibleFacilities}
+          facilitiesReady={linked ? !!facilityResult(leftPlace) : !selected || !!facilityResult(selected)}
           facility={facility}
           onFacility={setFacility}
           onInspect={setInspection}
@@ -436,6 +461,18 @@ export default function Page() {
           raster={raster}
         />
       </div>
+      {linked && rightPlace && <div className="comparison-map-stage"><Map
+        overlays={overlays.current} linked={{camera:linkedCamera,gate,side:"right",placeId:rightPlace.id,coordinate:rightPlace.selection.coordinate}}
+        overview={flatLandscape} landscape={landscape} onHeightScale={setRightHeightScale} onDisplay={()=>{}}
+        places={places} collapsed={true} active={rightPlace.id} metric={metric} mode={mode} preview={preview} scenario={scenario}
+        categories={filter} facilities={rightFacilities} facilitiesReady={!!facilityResult(rightPlace)} facility={facility}
+        onFacility={setFacility} onInspect={setInspection} onFocus={setActive} reset={reset} raster={raster}
+      /></div>}
+      {linked && rightPlace && <GeographyComparison places={places} left={leftPlace} right={rightPlace} metric={display.metric}
+        observe={observation} onPair={choosePair} onClose={closeGeography} onEvidence={geographyEvidence}
+        matchingRelief={!landscape || heightScale===rightHeightScale}
+        measures={catalog.filter(m=>m.mode===mode.toLowerCase() && m.backendReady)} requestedMetric={metric}
+        onMeasure={id=>{const group=Object.entries(groups).find(([,ids])=>ids.includes(id));setRemember(r=>({...r,[mode]:group?.[0]||id}));setCompositionField(group?id:"");setOverview(false);}}/>} 
       <header className="masthead">
         <button
           className="brand"
@@ -602,7 +639,7 @@ export default function Page() {
         <div className="place-ribbon" aria-label="Your places">
           <button
             className={`all-places ${active === "all" ? "is-active" : ""}`}
-            onClick={() => setActive("all")}
+            onClick={() => {if(linked)closeGeography();setActive("all");}}
           >
             <Icon name="layers" size={17} />
             <span>{places.length > 1 ? "Together" : "Overview"}</span>
@@ -613,7 +650,7 @@ export default function Page() {
               key={p.id}
               style={{ "--place": color(p.id) } as React.CSSProperties}
             >
-              <button className="place-focus" onClick={() => setActive(p.id)}>
+              <button className="place-focus" onClick={() => linked ? choosePair("left",p.id) : setActive(p.id)}>
                 <b>{letter(p.id)}</b>
                 <span>{p.selection.place}</span>
               </button>
@@ -810,7 +847,8 @@ export default function Page() {
       >
         <Icon name="target" size={19} />
       </button>
-      {hasPlaces && collapsed && <button className="evidence-reopen" onClick={()=>setCollapsed(false)}><Icon name="layers" size={17}/>Open evidence</button>}
+      {places.length>1 && !linked && <button className="geography-open" onClick={openGeography}>Compare geography</button>}
+      {hasPlaces && collapsed && !linked && <button className="evidence-reopen" onClick={()=>setCollapsed(false)}><Icon name="layers" size={17}/>Open evidence</button>}
       <section
         id="evidence"
         className="comparison-canvas"

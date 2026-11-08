@@ -8,7 +8,10 @@ import { metresPerPercentileAtZoom } from "./frontend/landscape";
 import { StatewideOverlays } from "./frontend/map-coverage";
 import { value, percentile } from "./frontend/fixtures/preview";
 import type { Facility } from "./hooks/useFacilities";
+import type {LinkedPane} from "./frontend/linked-geography";
 type Props = {
+  linked?: LinkedPane;
+  overlays?: StatewideOverlays;
   landscape: boolean;
   overview: boolean;
   onHeightScale: (scale: number) => void;
@@ -34,20 +37,31 @@ const empty: GeoJSON.FeatureCollection = {
   type: "FeatureCollection",
   features: [],
 };
-const sourceReady = (m: gl.Map, id: string, signal: AbortSignal) => new Promise<void>((resolve, reject) => {
+const sourceReady = (m: gl.Map, id: string, signal: AbortSignal, afterRender = false) => new Promise<void>((resolve, reject) => {
+      let rendered = !afterRender;
       const cleanup = () => {
         m.off("sourcedata", check);
-        m.off("render", check);
+        m.off("render", onRender);
+        m.off("error", onError);
         signal.removeEventListener("abort", abort);
       };
       const abort = () => { cleanup(); reject(new DOMException("Superseded", "AbortError")); };
+      const onError = (event: gl.ErrorEvent & {sourceId?: string}) => {
+        if (event.sourceId !== id) return;
+        cleanup();
+        reject(new Error(`Map source ${id} failed: ${event.error.message}`));
+      };
       const check = () => {
         if (signal.aborted) return abort();
-        if (m.getSource(id) && m.isSourceLoaded(id)) {cleanup(); resolve();}
+        if (rendered && m.getSource(id) && m.isSourceLoaded(id)) {cleanup(); resolve();}
       };
+      // Paint changes do not invalidate isSourceLoaded until the next render.
+      const onRender = () => { rendered = true; check(); };
       m.on("sourcedata", check);
-      m.on("render", check);
+      m.on("render", onRender);
+      m.on("error", onError);
       signal.addEventListener("abort", abort, {once:true});
+      if(afterRender)m.triggerRepaint();
       check();
     });
 
@@ -58,7 +72,8 @@ export default function AtlasMap(p: Props) {
     slot = useRef(0),
     frame = useRef(0),
     blend = useRef<Promise<void>>(Promise.resolve()),
-    coverage = useRef(new StatewideOverlays()),
+    coverage = useRef(p.overlays ?? new StatewideOverlays()),
+    restoredCamera = useRef(false),
     coverageReset = useRef(p.reset);
   latest.current = p;
   const geometryKey = JSON.stringify(
@@ -317,7 +332,7 @@ export default function AtlasMap(p: Props) {
     const m = map.current;
     if (!m || !ready || !m.getLayer("fill0")) return;
     if (coverageReset.current !== p.reset) {
-      coverage.current.clear();
+      coverage.current.clear(p.reset);
       coverageReset.current = p.reset;
     }
     let controller: AbortController | undefined;
@@ -435,8 +450,30 @@ export default function AtlasMap(p: Props) {
           ],
         ]);
         m.setPaintProperty("landscape" + next, "fill-extrusion-color", m.getPaintProperty("fill" + next, "fill-color"));
+        m.setPaintProperty("landscape" + next, "fill-extrusion-opacity", 0);
+        // Match the current reversible growth, including a City shrink already
+        // in progress; the incoming effect continues from this same amount.
+        const incomingHeight = () => metresPerPercentileAtZoom(m.getZoom()) * (p.linked
+          ? (latest.current.landscape && metric.percentileField ? 1 : 0)
+          : growth.current);
+        let stagedHeight = incomingHeight();
+        const stageHeight = () => m.setPaintProperty("landscape" + next, "fill-extrusion-height",
+          ["*", ["coalesce", ["get", "percentile"], 0], stagedHeight]);
+        stageHeight();
         await (m.getSource("tracts" + next) as gl.GeoJSONSource).setData(tagged);
-        await sourceReady(m, "tracts" + next, request.signal);
+        // Keep the buffer hidden through style processing AND tile relayout.
+        // Camera motion/reversal can change the desired height while it loads.
+        for (;;) {
+          await sourceReady(m, "tracts" + next, request.signal, true);
+          const height = incomingHeight();
+          // Release both panes only if both staged heights still match their
+          // shared camera. Recheck together after any slower worker completes.
+          if(p.linked){
+            if(await p.linked.gate.ready(p.linked.side,request.signal,()=>incomingHeight()===stagedHeight))break;
+          } else if (height === stagedHeight) break;
+          stagedHeight = incomingHeight();
+          stageHeight();
+        }
         if (request.signal.aborted || g !== generation || map.current !== m) return;
         // Keep the previous map intact through fetch + worker + tile readiness.
         // Only now blend both buffers together, without a bare-map interval.
@@ -482,6 +519,7 @@ export default function AtlasMap(p: Props) {
         setError("");
       } catch (e) {
         if (!request.signal.aborted && g === generation && map.current === m && (e as Error).name !== "AbortError") {
+          p.linked?.gate.fail(new Error("A comparison overlay could not load. Retry both views from the map menu."));
           setLoading(false);
           setError(
             "Tract layer unavailable. Any last loaded overlay is retained; retry from the map menu.",
@@ -494,7 +532,7 @@ export default function AtlasMap(p: Props) {
       generation++;
       controller?.abort();
     };
-  }, [ready, p.metric, p.preview, p.scenario, p.mode, dataGeometryKey, p.reset]);
+  }, [ready, p.metric, p.preview, p.scenario, p.mode, dataGeometryKey, p.reset, p.linked?.gate]);
   useEffect(() => {
     const m = map.current;
     if (!m || !ready) return;
@@ -509,6 +547,8 @@ export default function AtlasMap(p: Props) {
   useEffect(() => {
     const m = map.current;
     if (!m || !ready) return;
+    if(p.linked)return;
+    if(restoredCamera.current){restoredCamera.current=false;return;}
     m.resize();
     const mobile = innerWidth < 760;
     const panel = document.querySelector<HTMLElement>(".comparison-canvas");
@@ -582,11 +622,17 @@ export default function AtlasMap(p: Props) {
           duration,
         },
       );
-  }, [ready, geometryKey, p.active, p.reset, narrow, p.collapsed]);
+  }, [ready, geometryKey, p.active, p.reset, narrow, p.collapsed, p.linked?.camera]);
+  useEffect(()=>{
+    const m=map.current, linked=p.linked;
+    if(!m || !ready || !linked)return;
+    const detach=linked.camera.attach(linked.side,m,linked.coordinate);
+    return ()=>{detach();if(linked.side==="left")restoredCamera.current=true;};
+  },[ready,p.linked?.camera,p.linked?.placeId,p.linked?.coordinate[0],p.linked?.coordinate[1]]);
   useEffect(() => {
     const m = map.current;
     if (!m || !ready) return;
-    const markers = p.places.map((place) => {
+    const markers = p.places.filter(place=>!p.linked || place.id===p.linked.placeId).map((place) => {
       const el = document.createElement("button");
       el.className = "place-pin";
       el.style.setProperty(
@@ -601,7 +647,7 @@ export default function AtlasMap(p: Props) {
         .addTo(m);
     });
     return () => markers.forEach((m) => m.remove());
-  }, [ready, geometryKey]);
+  }, [ready, geometryKey, p.linked?.placeId]);
   useEffect(() => {
     const m = map.current;
     if (!m || !ready) return;
@@ -621,6 +667,7 @@ export default function AtlasMap(p: Props) {
           : [],
         });
         await sourceReady(m, "facilities", controller.signal);
+        if(p.linked)await p.linked.gate.ready(p.linked.side,controller.signal);
         await blend.current;
         if (controller.signal.aborted || map.current !== m) return;
         latest.current.onDisplay({mode: "Infrastructure"});
@@ -641,12 +688,13 @@ export default function AtlasMap(p: Props) {
           m.setPaintProperty("facilities", prop, p.mode === "Infrastructure" ? 1 : 0);
         }
       } catch (e) {
+        if (!controller.signal.aborted) p.linked?.gate.fail(new Error("A comparison facility layer could not load."));
         if (!controller.signal.aborted) setError("Facility map layer unavailable. The list is still available.");
       }
     };
     void update();
     return () => {controller.abort();};
-  }, [ready, p.mode, p.facilities, p.facilitiesReady]);
+  }, [ready, p.mode, p.facilities, p.facilitiesReady,p.linked?.gate]);
   useEffect(() => {
     const m = map.current;
     if (!m || !ready || !m.getLayer("facilities")) return;
@@ -661,7 +709,7 @@ export default function AtlasMap(p: Props) {
     const m=map.current;
     if(!m || !ready || !m.getLayer("landscape0")) return;
     const target=p.landscape && rendered.mode !== "Infrastructure" && rendered.metric?.percentileField ? 1 : 0;
-    const start=growth.current, began=performance.now(), duration=reduced()?0:1100;
+    const start=growth.current, began=performance.now(), duration=reduced() || p.linked ? 0 : 1100;
     const layer="landscape"+rendered.slot, source="tracts"+rendered.slot;
     let raf=0, timer=0, lastHeight=-1, lastWrite=-Infinity, lastLegend=-1, lastOpacity=-1, pending=false;
     // The hidden buffer does not need animated heights. A feature-dependent
@@ -703,22 +751,34 @@ export default function AtlasMap(p: Props) {
     const sourceChanged=(event: gl.MapSourceDataEvent)=>{
       if(pending && event.sourceId===source && m.isSourceLoaded(source))schedule();
     };
+    const sourceSettled=()=>{
+      if(pending && m.getSource(source) && m.isSourceLoaded(source))schedule();
+    };
+    // The final tile can finish with an error and emit no sourcedata event.
+    // MapLibre counts errored tiles as settled; submit the latest height once
+    // readiness permits. The existing map error notice reports missing tiles.
+    const sourceFailed=(event: gl.ErrorEvent & {sourceId?: string})=>{
+      if(event.sourceId===source)sourceSettled();
+    };
     m.on("zoom",schedule);
     m.on("sourcedata",sourceChanged);
+    m.on("idle",sourceSettled);
+    m.on("error",sourceFailed);
     draw();
-    return()=>{cancelAnimationFrame(raf);clearTimeout(timer);m.off("zoom",schedule);m.off("sourcedata",sourceChanged);};
+    return()=>{cancelAnimationFrame(raf);clearTimeout(timer);m.off("zoom",schedule);m.off("sourcedata",sourceChanged);m.off("idle",sourceSettled);m.off("error",sourceFailed);};
   },[ready,p.landscape,p.overview,rendered]);
   useEffect(()=>{
     const m=map.current;if(!m || !ready) return;
+    if(p.linked?.side === "right")return;
     if(p.landscape && m.getPitch()<30)m.easeTo({pitch:50,duration:reduced()?0:900});
     else if(p.overview)m.easeTo({pitch:0,duration:reduced()?0:900});
-  },[ready,p.landscape,p.overview]);
+  },[ready,p.landscape,p.overview,p.linked?.camera]);
   return (
     <div className="atlas-map-shell">
       <div
         ref={container}
         className="atlas-map"
-        aria-label="Interactive California map"
+        aria-label={p.linked ? `${p.linked.side === "left" ? "Left" : "Right"} comparison map` : "Interactive California map"}
       />
       {hover && (
         <div

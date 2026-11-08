@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "../src/styles/atlas.css";
 import "../src/styles/comparison.css";
 import "../src/styles/city.css";
+import "../src/styles/geography.css";
 export const metadata: Metadata = {
   title: "ClearSky — California Environmental Atlas",
   description:
