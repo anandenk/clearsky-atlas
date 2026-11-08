@@ -418,6 +418,18 @@ export default function Page() {
     const other=side==="left"?"right":"left";
     return {...current,[side]:id,[other]:current[other]===id ? (side==="left"?leftPlace.id:rightPlace!.id) : current[other]};
   });
+  const infrastructureControls = (
+<div className="infrastructure-map-controls">
+          <strong className="infrastructure-control-label">Show on map</strong>
+          <div className="facility-filters" aria-label="Infrastructure map categories">
+            {["Healthcare","Public schools"].map(c=><button key={c} aria-pressed={filter.includes(c)} onClick={()=>setFilter(filter.includes(c)?filter.filter(f=>f!==c):[...filter,c])}><span className="infrastructure-category-label"><Icon name={c === "Healthcare" ? "Health" : "Infrastructure"} size={17}/>{c}</span><span className="infrastructure-category-state">{filter.includes(c) && <Icon name="check" size={13}/>} {filter.includes(c) ? "Shown" : "Hidden"}</span></button>)}
+          </div>
+          <p className="inventory-status" role="status">{inventory.loading ? `Loading source inventories${inventory.ready.length ? " · healthcare ready" : ""}…` : `${inventory.items.length.toLocaleString()} source-listed points loaded${inventory.errors.length ? " · partial source coverage" : ""}`}. Clusters show point counts; zoom in to inspect.</p>
+          {inventory.errors.map(e=><p className="inventory-error" key={e}>{e}</p>)}
+          <div className="inventory-actions"><button onClick={()=>setDirectoryOpen(true)}>Find a facility</button>{inventory.errors.length>0 && <button onClick={()=>setReset(n=>n+1)}>Retry sources</button>}</div>
+          <small>CDPH · 2026-10-16 / CDE · 2025–26. Listed locations do not guarantee current services or access. Power and routes unavailable.</small>
+        </div>
+  );
   const observations = places.map((p) => observation(p));
   const available = observations.filter(
     (o): o is Observation => !!o && o.rawValue !== null,
@@ -758,7 +770,7 @@ export default function Page() {
         ))}
       </nav>
       {!hasPlaces && (
-        <section className={`opening-lens ${lensExpanded ? "expanded" : ""}`}>
+        <section className={`opening-lens ${mode === "Infrastructure" && !preview ? "infrastructure-lens" : ""} ${lensExpanded ? "expanded" : ""}`}>
           <div className="lens-name">
             <Icon name={mode} size={18} />
             {mode}
@@ -778,9 +790,7 @@ export default function Page() {
           )}
           <div className="opening-topics">
             {mode === "Infrastructure" ? (
-              <p className="infrastructure-note">
-                Zoom into a cluster to see individual locations, or find a facility by name. Search an address for nearest-listed distances. Power and routes are not available in the live map.
-              </p>
+              preview ? <p className="infrastructure-note">Synthetic infrastructure examples for interface exploration.</p> : infrastructureControls
             ) : (
               topicIds.map((id) => (
                 <button
@@ -813,15 +823,7 @@ export default function Page() {
         </section>
       )}
       <div className="map-key">
-        {mode === "Infrastructure" && !preview && <div className="infrastructure-map-controls">
-          <div className="facility-filters" aria-label="Infrastructure map categories">
-            {["Healthcare","Public schools"].map(c=><button key={c} aria-pressed={filter.includes(c)} onClick={()=>setFilter(filter.includes(c)?filter.filter(f=>f!==c):[...filter,c])}>{c}</button>)}
-          </div>
-          <p className="inventory-status" role="status">{inventory.loading ? `Loading source inventories${inventory.ready.length ? " · healthcare ready" : ""}…` : `${inventory.items.length.toLocaleString()} source-listed points loaded${inventory.errors.length ? " · partial source coverage" : ""}`}. Clusters show point counts; zoom in to inspect.</p>
-          {inventory.errors.map(e=><p className="inventory-error" key={e}>{e}</p>)}
-          <div className="inventory-actions"><button onClick={()=>setDirectoryOpen(true)}>Find a facility</button>{inventory.errors.length>0 && <button onClick={()=>setReset(n=>n+1)}>Retry sources</button>}</div>
-          <small>CDPH · 2026-10-16 / CDE · 2025–26. Listed locations do not guarantee current services or access. Power and routes unavailable.</small>
-        </div>}
+        {mode === "Infrastructure" && !preview && hasPlaces && infrastructureControls}
 
         {flatLandscape && display.mode !== "Infrastructure" && <p className="analytical-height">Flat landscape: tract shading and boundaries.</p>}
         {landscape && display.mode !== "Infrastructure" && display.metric?.percentileField && <p className="analytical-height">Height exaggerated for visibility: ~{Math.round(heightScale)} m per percentile point at this zoom. Not building height.</p>}

@@ -2964,3 +2964,19 @@ button:active {
 .facility-directory-search .facility-list button { width: 100%; text-align: left; }
 .opening-lens .infrastructure-note { background: transparent; padding: 0; color: #c8d6dd; }
 .facility-locate { padding: 0 28px 24px; }
+
+.infrastructure-control-label { display: block; margin-bottom: 10px; color: #f0f5f6; font-size: 13px; }
+.infrastructure-lens .opening-topics { display: block; }
+.infrastructure-lens .infrastructure-map-controls { margin: 0; padding: 0; border: 0; }
+.infrastructure-lens .facility-filters { display: grid; grid-template-columns: 1fr; gap: 8px; }
+.infrastructure-lens .facility-filters button { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 44px; padding: 11px 13px; font-size: 14px; border-color: #78909d; background: #182c39; }
+.infrastructure-lens .facility-filters button::before { display: none; }
+.infrastructure-lens .facility-filters button[aria-pressed="true"] { color: #effffa; background: #315963; border-color: #9bd6ce; box-shadow: inset 3px 0 #9bd6ce; }
+.infrastructure-category-label, .infrastructure-category-state { display: inline-flex; align-items: center; gap: 8px; }
+.infrastructure-category-state { font-size: 11px; opacity: .9; }
+.infrastructure-lens .inventory-actions { margin: 12px 0; }
+.infrastructure-lens .inventory-actions button { min-height: 40px; padding: 9px 13px; font-size: 13px; color: #f2fbfc; }
+.infrastructure-lens .inventory-status { margin-top: 12px; }
+@media (min-width:760px) {
+  .infrastructure-lens { max-height: calc(100vh - 220px); overflow-y: auto; }
+}
