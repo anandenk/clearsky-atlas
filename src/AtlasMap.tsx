@@ -4,7 +4,7 @@ import * as gl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { installBuildings } from "./frontend/buildings";
 import { ramps, placeColors, vectorStyle, rasterStyle } from "./map-theme";
-import { type Place, type Indicator } from "./frontend/provider";
+import { type Place, type Indicator, format } from "./frontend/provider";
 import { metresPerPercentileAtZoom, landscapeHeightExpression } from "./frontend/landscape";
 import { StatewideOverlays } from "./frontend/map-coverage";
 import { value, percentile } from "./frontend/fixtures/preview";
@@ -106,6 +106,7 @@ export default function AtlasMap(p: Props) {
       x: number;
       y: number;
       label: string;
+      detail?: string;
     } | null>(null);
   useEffect(()=>{
     const m=map.current;if(!m||!ready||p.raster)return;
@@ -290,6 +291,10 @@ export default function AtlasMap(p: Props) {
                 f.properties.name ||
                 f.properties.place ||
                 "Census tract " + f.properties.id,
+              detail: f.layer.id === "facilities" ? undefined :
+                `${latest.current.metric?.label}: ${format(typeof f.properties.value === "number" ? f.properties.value : null, latest.current.metric?.id)} ${latest.current.metric?.unit || ""}` +
+                (typeof f.properties.percentile === "number" ? ` · Statewide percentile ${format(f.properties.percentile)} / 100` : "") +
+                ` · ${latest.current.metric?.measurementPeriod || "Period unavailable"} · Tract-level evidence`,
             }
           : null,
       );
@@ -349,11 +354,12 @@ export default function AtlasMap(p: Props) {
         );
       }
     });
-    m.on("error", () =>
+    m.on("error", (event: gl.ErrorEvent & {sourceId?: string}) => {
+      if (event.sourceId === "overture-buildings") return; // Building controller reports its own fallback.
       setSourceError(
         "A map source could not load. Evidence is still available. Try the fallback map in the menu.",
-      ),
-    );
+      );
+    });
     return () => {
       ro.disconnect();
       m.remove();
@@ -483,6 +489,7 @@ export default function AtlasMap(p: Props) {
           ],
         ]);
         m.setPaintProperty("landscape" + next, "fill-extrusion-color", m.getPaintProperty("fill" + next, "fill-color"));
+        m.setPaintProperty("landscape" + next, "fill-extrusion-opacity-transition", {duration:0});
         m.setPaintProperty("landscape" + next, "fill-extrusion-opacity", 0);
         // Match the current reversible growth, including a City shrink already
         // in progress; the incoming effect continues from this same amount.
@@ -527,6 +534,7 @@ export default function AtlasMap(p: Props) {
         const duration = reduced() || !firstReveal ? 0 : 450;
         for (const i of [outgoing, next]) {
           m.setPaintProperty("fill" + i, "fill-opacity-transition", {duration});
+          m.setPaintProperty("landscape" + i, "fill-extrusion-opacity-transition", {duration});
           for (const layer of ["boundary", "selected", "inspection"])
             m.setPaintProperty(layer + i, "line-opacity-transition", {duration});
         }
@@ -536,13 +544,18 @@ export default function AtlasMap(p: Props) {
         m.setPaintProperty("selected" + next, "line-opacity", 1);
         m.setPaintProperty("inspection" + next, "line-opacity", 1);
         m.setPaintProperty("boundary" + next, "line-opacity", ["interpolate", ["linear"], ["zoom"], 5, 0.38, 12, 0.65, 16, 0.85]);
+        // Crossfade ready tract plateaus as well as the ground. Heights remain
+        // on the shared scale; no per-frame GeoJSON or height-expression work.
+        m.setPaintProperty("landscape" + next, "fill-extrusion-opacity", .85 * stagedHeight);
+        m.setPaintProperty("landscape" + outgoing, "fill-extrusion-opacity", 0);
         m.setPaintProperty("fill" + outgoing, "fill-opacity", 0);
         for (const layer of ["boundary", "selected", "inspection"])
           m.setPaintProperty(layer + outgoing, "line-opacity", 0);
         blend.current = new Promise(resolve => setTimeout(() => {
           if (map.current === m) {
-            for (const layer of ["fill", "missing", "boundary", "selected", "inspection"])
+            for (const layer of ["fill", "missing", "boundary", "selected", "inspection", "landscape"])
               m.setFilter(layer + outgoing, ["==", ["get", "__atlasFrame"], -1]);
+            for (const i of [outgoing,next]) m.setPaintProperty("landscape" + i, "fill-extrusion-opacity-transition", {duration:0});
             if (latest.current.mode !== "Infrastructure")
               m.setFilter("facilities", ["==", ["get", "id"], ""]);
           }
@@ -767,6 +780,14 @@ export default function AtlasMap(p: Props) {
     const target=p.landscape && rendered.mode !== "Infrastructure" && rendered.metric?.percentileField ? 1 : 0;
     const start=growth.current, began=performance.now(), duration=reduced() || p.linked ? 0 : 1100;
     const layer="landscape"+rendered.slot, source="tracts"+rendered.slot;
+    // Keep city/place names for orientation; quiet the local road labels when
+    // reading elevated tract surfaces. Constant opacity changes do not retile.
+    for (const id of ["highway-name-path", "highway-name-minor", "highway-name-major"]) {
+      if (m.getLayer(id)) {
+        m.setPaintProperty(id, "text-opacity-transition", {duration:reduced()?0:350});
+        m.setPaintProperty(id, "text-opacity", target ? .3 : 1);
+      }
+    }
     let raf=0, timer=0, lastHeight=-1, lastWrite=-Infinity, lastLegend=-1, lastOpacity=-1, pending=false;
     // The hidden buffer does not need animated heights. A feature-dependent
     // paint change reloads source tiles; do not queue one for every camera event.
@@ -870,7 +891,8 @@ export default function AtlasMap(p: Props) {
             top: Math.max(10, hover.y - 42),
           }}
         >
-          {hover.label}
+          <strong>{hover.label}</strong>
+          {hover.detail && <span className="map-tooltip-detail">{hover.detail}</span>}
         </div>
       )}
       {loading && !error && <p role="status" className="map-update-status">Changing to {p.mode === "Infrastructure" ? "infrastructure" : p.metric?.label}…</p>}

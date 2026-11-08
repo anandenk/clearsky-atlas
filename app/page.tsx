@@ -844,10 +844,10 @@ export default function Page() {
           </span>
         )}
         {preview && <small>Synthetic examples</small>}
-        {buildingStatus && <p className="tract-context building-status" role="status">{linked ? "Left: " : ""}{buildingStatus}{linked && rightBuildingStatus ? ` Right: ${rightBuildingStatus}` : ""}</p>}
+        {buildingStatus && <p className="tract-context building-status" role="status">{linked ? (buildingStatus === rightBuildingStatus ? "Both views: " : "Left: ") : ""}{buildingStatus}{linked && rightBuildingStatus && buildingStatus !== rightBuildingStatus ? ` Right: ${rightBuildingStatus}` : ""}</p>}
         <details className="map-provenance">
           <summary>Map sources & limits</summary>
-          <p><a href="https://openmaptiles.org/schema/#building" target="_blank" rel="noreferrer">OpenStreetMap buildings</a> via OpenFreeMap. Physical heights are approximate; coverage varies. Overture Buildings 2026-10-21.0 supplies neighborhood pilots in Rancho Cucamonga and Oakland. Source heights may be estimates; unknown heights use 3 m per supplied floor, or a schematic 6 m when floors are also unknown. These are footprint extrusions, not precise 3D models. Tract heights are analytical, not physical measurements. <a href="https://docs.overturemaps.org/attribution/" target="_blank" rel="noreferrer">Overture / OSM / Microsoft credits</a> · <a href="https://opendatacommons.org/licenses/odbl/1-0/" target="_blank" rel="noreferrer">ODbL-1.0</a>.</p>
+          <p><a href="https://openmaptiles.org/schema/#building" target="_blank" rel="noreferrer">OpenStreetMap buildings</a> via OpenFreeMap. Physical heights are approximate; coverage varies. Overture Buildings 2026-10-21.0 supplies tiled buildings and building parts across the California bounding envelope, including adjacent border context. Coverage is not a complete ground inventory; uncached views require the upstream source. Source heights may be estimates; unknown heights use 3 m per supplied floor, or a schematic 6 m when floors are also unknown. These are source-prepared display extrusions, not precise 3D models. Parent extrusions are suppressed where source parts are provided. Tract heights are analytical, not physical measurements. <a href="https://docs.overturemaps.org/attribution/" target="_blank" rel="noreferrer">Overture / OSM / Microsoft credits</a> · <a href="https://opendatacommons.org/licenses/odbl/1-0/" target="_blank" rel="noreferrer">ODbL-1.0</a>.</p>
         </details>
       </div>
       <button

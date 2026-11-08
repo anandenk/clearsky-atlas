@@ -2923,3 +2923,12 @@ button:active {
 @media(max-width:759px) { .infrastructure-findings { grid-template-columns:1fr; } .composition-view .guide-table th:first-child { width:auto; } }
 .map-update-status { position:absolute; inset:150px auto auto 50%; width:max-content; max-width:calc(100% - 32px); margin:0; display:block; transform:translateX(-50%); padding:8px 14px; border-radius:20px; background:#fafbfff2; color:#59627c; font-size:12px; pointer-events:none; box-shadow:0 3px 16px #232d4c0d; }
 @media(max-width:759px) { .map-update-status { top:220px; max-width:85%; width:max-content; } }
+
+.map-tooltip-detail {
+  display: block;
+  max-width: 240px;
+  margin-top: 5px;
+  color: #46566a;
+  font-size: 12px;
+  line-height: 1.5;
+}
