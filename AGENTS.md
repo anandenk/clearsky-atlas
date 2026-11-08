@@ -8,7 +8,9 @@ Bounded Codex CLI workers through `$parallel-worktrees`, Worktrunk worktrees, an
 
 Subsequent user authorization, 2026-11-07: continue backend indicator-contract and layer breadth while the frontend session remains separate. Sponsor services are parked until near MVP readiness; do not work on sponsor accounts/integrations during current backend milestones.
 
-Keep all work local. No push, publication, deployment, purchases, billing/global configuration changes, or revival of archived investigations. If credentials or paid access block a source, finish independent work and document the specific blocker.
+Authorized 2026-11-07: preserve the current verified application as **MVP Prototype 1**. Create the private GitHub repository `anandenk/clearsky-atlas`, push reviewed `main` and the fixed `mvp-prototype-1` tag, upload reviewed source/data/evidence/restore assets to its private release, and verify remote visibility, content and restoration. The tag stays at application checkpoint `6dc04f3`. This is a scoped private backup authorization; it does not authorize public visibility, deployment, other branch/ref uploads, purchases or global changes.
+
+Except for the scoped private Prototype 1 backup above, keep all work local. No other push, public publication, deployment, purchases, billing/global configuration changes, or revival of archived investigations. If credentials or paid access block a source, finish independent work and document the specific blocker.
 
 ## Interactive frontend split — authorized 2026-11-07
 
@@ -26,7 +28,7 @@ The user opens their own frontend session; do not launch a frontend worker. Back
 - Read README.md and the four linked planning documents before substantive work.
 - The prior flood and Earth investigations are archived outside this workspace. Do not import their conclusions or instructions into this project by default.
 - Preserve the source PDF. Distinguish user decisions, proposals, handoff claims, inspected evidence, and measured results.
-- Delegation, worktrees, and local commits/merges are authorized only within the bounded workflow above. Push, deployment, publication, and global configuration changes remain prohibited.
+- Delegation, worktrees, and local commits/merges are authorized only within the bounded workflow above. Other pushes, deployment, public publication, and global configuration changes remain prohibited; the scoped private Prototype 1 backup above is authorized.
 - Keep solo implementation sequential, with one complete interaction working before broadening coverage.
 - Comparison, visual quality, truthful interpretation, and clear provenance are central product requirements.
 - No invented data, causal claims, personal disease probabilities, demographic hazard scores, or facility-access guarantees.

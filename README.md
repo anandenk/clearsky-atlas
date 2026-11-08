@@ -4,6 +4,10 @@ Status: the local desktop ClearSky experience combines the map-first, multi-loca
 
 A map-first California atlas for exploring and comparing environmental conditions, population health, community context, and essential infrastructure.
 
+## Preserved prototype
+
+The verified desktop application is pinned as **MVP Prototype 1** at `mvp-prototype-1` (source `6dc04f3`). See [PROTOTYPE_1.md](docs/PROTOTYPE_1.md) for the private backup, snapshot contents, restore instructions and verification limits.
+
 ## Session continuation
 
 Start from [INTEGRATION.md](docs/INTEGRATION.md) for the combined desktop checkpoint. Earlier backend migration records in [SESSION_HANDOFF.md](docs/SESSION_HANDOFF.md) are historical. Recheck worktrees and servers before edits.
