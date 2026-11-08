@@ -1,0 +1,17 @@
+{
+  "source": "U.S. Census Bureau 2024 cartographic state boundaries, 1:5,000,000",
+  "sourceUrl": "https://www2.census.gov/geo/tiger/GENZ2024/shp/cb_2024_us_state_5m.zip",
+  "documentationUrl": "https://www.census.gov/geographies/mapping-files/2024/geo/carto-boundary-file.html",
+  "retrievedUtc": "2026-11-08T02:53:33.164170+00:00",
+  "sourceSha256": "c9db0e395c11a1f94a8017fde4f4c7cbee1dca6eb37ba8f1ccaab927df70885f",
+  "sourceBytes": 1122055,
+  "sourceCrs": "EPSG:4269",
+  "displayCrs": "EPSG:4326",
+  "selection": "STATEFP='06'",
+  "transforms": [
+    "pyproj always_xy to EPSG:4326",
+    "Shapely world envelope minus source California geometry for exterior display dimming"
+  ],
+  "displaySha256": "0d4625784592e70be9e1806605ddd9bc8783a0095cfcf70bbdb9d57132b8cb1c",
+  "meaning": "Generalized display context only; never exact lookup, facility filtering or source coverage. No metric values changed."
+}

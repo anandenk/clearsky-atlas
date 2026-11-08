@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import * as gl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { installBuildings } from "./frontend/buildings";
+import { installCaliforniaContext } from "./frontend/california-context";
 import { ramps, placeColors, vectorStyle, rasterStyle } from "./map-theme";
 import { type Place, type Indicator, format } from "./frontend/provider";
 import { metresPerPercentileAtZoom, landscapeHeightExpression } from "./frontend/landscape";
@@ -171,6 +172,7 @@ export default function AtlasMap(p: Props) {
     const ro = new ResizeObserver(() => m.resize());
     ro.observe(container.current);
     m.on("load", () => {
+      installCaliforniaContext(m);
       // The vector style groups ground fills before water. Insert thematic
       // shading here so zoom-dependent land use cannot cover the measurements.
       if(m.getLayer("city-buildings"))m.setPaintProperty("city-buildings","fill-extrusion-color","#84918f");
