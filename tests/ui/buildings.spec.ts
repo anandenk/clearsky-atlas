@@ -295,16 +295,35 @@ test("Overture reveal uses native opacity fade without rewriting building geomet
     };
     m.on('render',()=>{
       const opacity=m.style.getLayer('overture-buildings-3d').paint.get('fill-extrusion-opacity');
-      w.revealSamples.push({opacity,parts:m.style.getLayer('overture-building-parts-3d').paint.get('fill-extrusion-opacity'),osm:m.style.getLayer('city-buildings').paint.get('fill-extrusion-opacity')});
+      w.revealSamples.push({opacity,target:m.getPaintProperty('overture-buildings-3d','fill-extrusion-opacity'),parts:m.style.getLayer('overture-building-parts-3d').paint.get('fill-extrusion-opacity'),osm:m.style.getLayer('city-buildings').paint.get('fill-extrusion-opacity')});
     });
     m.jumpTo({zoom:13});
   });
   await expect(page.locator('.building-status')).toContainText('zoom in for Overture detail');
-  await page.evaluate(() => (window as any).testMap.jumpTo({zoom:15.6}));
+  await page.evaluate(() => {
+    const w=window as any;
+    // Exercise the same concurrent opacity updates as the real Auto→City
+    // arrival. The first regression only covered a settled, constant target.
+    const el=document.querySelector('.atlas-map') as any;
+    let fiber=el[Object.keys(el).find(k=>k.startsWith('__reactFiber'))!],controller:any;
+    while(fiber){let hook=fiber.memoizedState;while(hook){
+      if(hook.memoizedState?.current?.setEnabled && hook.memoizedState.current.setOpacity)controller=hook.memoizedState.current;
+      hook=hook.next;
+    }fiber=fiber.return;}
+    if(!controller)throw Error('Building controller unavailable');
+    const start=performance.now();
+    const timer=setInterval(()=>{
+      const t=Math.min(1,(performance.now()-start)/1200);
+      controller.setOpacity(.3+.4*t);
+      if(t===1)clearInterval(timer);
+    },16);
+    w.testMap.jumpTo({zoom:15.6});
+  });
   await expect.poll(() => page.evaluate(() => (window as any).revealSamples.some((s:any)=>s.opacity>0 && s.opacity<.7))).toBe(true);
   await expect.poll(() => page.evaluate(() => (window as any).revealSamples.at(-1)?.opacity)).toBe(.7);
   const result=await page.evaluate(() => ({samples:(window as any).revealSamples, writes:(window as any).buildingHeightWrites}));
   expect(result.writes).toBe(0);
+  expect(result.samples.some((s:any)=>s.opacity>0 && s.target>.25 && s.opacity<s.target*.5)).toBe(true);
   expect(result.samples.filter((s:any)=>s.opacity>0).every((s:any)=>s.osm===0 && Math.abs(s.parts-s.opacity)<.001)).toBe(true);
   await test.info().attach('native-building-fade',{body:JSON.stringify(result),contentType:'application/json'});
 });

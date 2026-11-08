@@ -52,6 +52,7 @@ export function installBuildings(
     active = false,
     generation = 0,
     failed = false;
+  let revealUntil = 0;
   let timer: ReturnType<typeof setTimeout> | undefined,
     request: AbortController | undefined;
   let catalog: Catalog | undefined;
@@ -59,7 +60,7 @@ export function installBuildings(
     for (const id of layers)
       if (m.getLayer(id)) {
         // Constant opacity transitions run natively; no height/geometry writes
-        // or application animation loop. Fallbacks and relief changes are exact.
+        // or application animation loop. Fallbacks and settled relief remain exact.
         m.setPaintProperty(id, "fill-extrusion-opacity-transition", {duration:revealDuration});
         m.setPaintProperty(id, "fill-extrusion-opacity", active ? opacity : 0);
       }
@@ -80,6 +81,7 @@ export function installBuildings(
     if (m.getSource(source)) m.removeSource(source);
   };
   const fallback = (message: string) => {
+    revealUntil = 0;
     active = false;
     paint();
     report(message);
@@ -209,7 +211,9 @@ export function installBuildings(
       if (signal.aborted || token !== generation || !enabled || failed) return;
       if (!active) {
         active = true;
-        paint(matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 320);
+        const duration = matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 320;
+        revealUntil = performance.now() + duration;
+        paint(duration);
       }
       report(
         "Overture · statewide buildings + parts. Approximate heights; source coverage varies.",
@@ -258,6 +262,7 @@ export function installBuildings(
       enabled = value;
       cancel();
       active = false;
+      revealUntil = 0;
       paint();
       visibility(value && m.getZoom() >= 14);
       if (value) schedule();
@@ -266,7 +271,12 @@ export function installBuildings(
     setOpacity(value: number) {
       if (opacity === value) return;
       opacity = value;
-      paint();
+      // Auto/City relief can still be animating when the vector tiles arrive.
+      // Retarget the native fade over its remaining time instead of snapping
+      // to that animation's current opacity. Never extend the reveal deadline.
+      if (value === 0 || matchMedia("(prefers-reduced-motion: reduce)").matches)
+        revealUntil = 0;
+      paint(active ? Math.max(0, revealUntil - performance.now()) : 0);
     },
     dispose() {
       cancel();
