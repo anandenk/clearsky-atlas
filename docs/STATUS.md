@@ -1,12 +1,16 @@
-# Current status — 2026-11-07
+# Current status — 2026-11-08
 
 Authorized: Phase 1 source verification and Phase 2 local implementation; bounded local CLI delegation/commits. No publication, paid services, or global configuration changes. Full PRODUCT.md inventory retained.
 
+## Current local desktop refinements
+
+Seven user-requested issues were delegated separately, reviewed and integrated on local `development/prototype-2`: readable infrastructure evidence, current menu, flexible Census address input, cleaner facility directory, X removal, immediate City focus and default-hidden linked geography. Code checkpoint `4a11fc4` runs on :3000; the frozen :3001 reference remains unchanged. See [REFINEMENT_PROGRESS.md](REFINEMENT_PROGRESS.md) for worker commits, final rendered checks, live address results, screenshots, measurements and limitations. No new push, release or deployment occurred.
+
 ## Preserved MVP Prototype 1
 
-The verified application is frozen at `mvp-prototype-1` / `6dc04f3` and saved in the private repository [anandenk/clearsky-atlas](https://github.com/anandenk/clearsky-atlas), with a private [MVP Prototype 1 release](https://github.com/anandenk/clearsky-atlas/releases/tag/mvp-prototype-1). Source history, a checksummed 1,109-file data/evidence snapshot and restore tools are retained. Independent GitHub readback and fresh local restoration passed; see [PROTOTYPE_1.md](PROTOTYPE_1.md). Application code and the original integration's scope/limits remain unchanged. No public release or deployment occurred.
+The verified application is frozen at `mvp-prototype-1` / `6dc04f3` and saved in the private repository [anandenk/clearsky-atlas](https://github.com/anandenk/clearsky-atlas), with a private [MVP Prototype 1 release](https://github.com/anandenk/clearsky-atlas/releases/tag/mvp-prototype-1). Source history, a checksummed 1,109-file data/evidence snapshot and restore tools are retained. Independent GitHub readback and fresh local restoration passed; see [PROTOTYPE_1.md](PROTOTYPE_1.md). That frozen backup retains the original integration code and scope/limits. No public release or deployment occurred.
 
-## Current combined desktop checkpoint
+## Integrated desktop base
 
 Completed merge: `634b1a63ec8d5ac54f43437cb86fd8c5de04254e`.
 

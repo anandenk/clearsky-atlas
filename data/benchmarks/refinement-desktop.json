@@ -1,0 +1,154 @@
+{
+  "purpose": "Local desktop application verification and performance; not environmental evidence",
+  "applicationCodeCheckpoint": "4a11fc40ce14844149055d6331387686fbc1d888",
+  "date": "2026-11-08",
+  "origin": "http://127.0.0.1:3000",
+  "environment": {
+    "os": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "architecture": "arm64",
+    "node": "v26.10.0",
+    "chrome": "157.0.8103.38",
+    "viewport": [
+      1440,
+      960
+    ],
+    "headless": true,
+    "production": true,
+    "backendProxy": false,
+    "warmSourceCaches": true,
+    "browserProbes": "sequential",
+    "comparisonLimit": "Baseline had three CLI workers active; final samples had no active task workers. Other desktop load was uncontrolled. These are bounded observations, not device-independent thresholds."
+  },
+  "checks": {
+    "nodeUnitPassed": 82,
+    "pythonCachePassed": 4,
+    "httpSuitesPassed": 7,
+    "integrityArtifacts": 179,
+    "integrityFailures": 0,
+    "liveAddressCasesPassed": 12,
+    "playwrightInitial": {
+      "passed": 62,
+      "failed": 7,
+      "selected": 69
+    },
+    "playwrightAffected": {
+      "passed": 21,
+      "failed": 4,
+      "selected": 25
+    },
+    "playwrightFinal": {
+      "passed": 32,
+      "failed": 0,
+      "selected": 32
+    },
+    "uniquePlaywrightCasesWithPassingResultsAcrossRuns": 69,
+    "mobileAccepted": false
+  },
+  "focus": {
+    "baseline": {
+      "citySelectedMs": 1824.7999999523163,
+      "reliefGoneMs": 2941.100000023842
+    },
+    "final": {
+      "citySelectedMs": 12.600000023841858,
+      "reliefGoneMs": 12.600000023841858
+    },
+    "actualFirstRender": "Three rendered regressions verified both analytical buffers and roof-rim opacity are zero on the first post-click renderer frames, with no geometry or height submissions."
+  },
+  "directory": {
+    "baseline": {
+      "statusGap": 0,
+      "status": "11,028 matches in selected categories; showing the first 50. Type a name to narrow results.",
+      "columns": "219px 219px"
+    },
+    "final": {
+      "statusGap": 40.670013427734375,
+      "status": "11,028 matches \u00b7 First 50 shown",
+      "direction": "column"
+    }
+  },
+  "workload": {
+    "label": "refinement-final",
+    "hover": {
+      "lastPoint": {
+        "x": 729,
+        "y": 459
+      },
+      "events": 120,
+      "queries": 1,
+      "queryMs": 81.10000002384186,
+      "elapsedMs": 89.10000002384186
+    },
+    "cancellation": {
+      "queries": 0,
+      "tooltip": false
+    },
+    "submissions": [
+      14919,
+      24865
+    ],
+    "tooltip": false,
+    "inventory": "24,865 source-listed points loaded. Clusters show point counts; zoom in to inspect.",
+    "interactions": {
+      "pins": 0,
+      "submissions": [
+        9946,
+        24865
+      ]
+    },
+    "errors": []
+  },
+  "navigation": {
+    "readyMs": 1949.6999999284744,
+    "frames": {
+      "p50": 16.69999999999891,
+      "p95": 16.700000000000728,
+      "max": 16.80000000000291
+    },
+    "longTasks": 2,
+    "longTaskMs": 182,
+    "memory": {
+      "used": 92996140,
+      "total": 161070196
+    },
+    "errors": []
+  },
+  "artifacts": {
+    "artifacts/refinement/before.json": {
+      "sha256": "8d54fd1b1c5da6ebef8d372e6ca2b4237dad7b6afac0c5dd5e64675dab1de790",
+      "bytes": 27720
+    },
+    "artifacts/refinement/after.json": {
+      "sha256": "bc538840fc4d5e3149e1b7066557d47e288908d44ee561e8c59f625408346416",
+      "bytes": 26703
+    },
+    "artifacts/refinement/ui-desktop.log": {
+      "sha256": "87d85c8f7947b9c7e9158aa931cc04ffc61fc384eceb7c833eafa7381e8fa1de",
+      "bytes": 21923
+    },
+    "artifacts/refinement/ui-affected.log": {
+      "sha256": "98147b045445c819e2e0412971b75339697e8c499df0fa13d77f3020d6af8326",
+      "bytes": 10114
+    },
+    "artifacts/refinement/ui-final.log": {
+      "sha256": "1249c14a1958056a4058e55885c93840741334b8f8f857ce3060f27b3dde8891",
+      "bytes": 5346
+    },
+    "artifacts/refinement/infrastructure-after.png": {
+      "sha256": "e44c047ef247c88c5034027f77a071b31a4c632a5419ecd73b3c956a70379e53",
+      "bytes": 1171900
+    },
+    "artifacts/refinement/directory-after.png": {
+      "sha256": "3159f370ca34984fc3fcf219c190100dc29252bf6ad8de46684e1bc1357feccb",
+      "bytes": 626442
+    },
+    "artifacts/refinement/menu-after.png": {
+      "sha256": "84bf057b1d9a0e6d97ead0c9ffff84ae6ce158dafe2da22724d7b88a20679de2",
+      "bytes": 647862
+    },
+    "artifacts/refinement/workers.json": {
+      "sha256": "04e33fa1add5046c1ef824efa031dc04bf3003137eaafc743702299d5369efc8",
+      "bytes": 2202
+    }
+  }
+}

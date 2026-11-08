@@ -1,6 +1,6 @@
 # California Environmental Atlas
 
-Status: the local desktop ClearSky experience combines the map-first, multi-location frontend with all 23 supported tract measures, schools, healthcare and statewide Overture building tiles. See the [integration checkpoint](docs/INTEGRATION.md), [current status](docs/STATUS.md) and [data verification](docs/DATA_VERIFICATION.md) for performed checks and limits. Power remains source-gated; mobile acceptance is outside this checkpoint.
+Status: the local desktop ClearSky experience combines the map-first, multi-location frontend with all 23 supported tract measures, schools, healthcare and statewide Overture building tiles. See the [post-Prototype-1 desktop refinements](docs/REFINEMENT_PROGRESS.md), [integration checkpoint](docs/INTEGRATION.md), [current status](docs/STATUS.md) and [data verification](docs/DATA_VERIFICATION.md) for performed checks and limits. Power remains source-gated; mobile acceptance is outside this checkpoint.
 
 A map-first California atlas for exploring and comparing environmental conditions, population health, community context, and essential infrastructure.
 
