@@ -32,12 +32,14 @@ async function cached(page: Page, name: string) {
 }
 async function preview(page: Page) {
   await page.getByRole("button", { name: "Atlas menu" }).click();
-  await page.getByRole("button", { name: "Explore full UI preview" }).click();
+  await page.locator(".atlas-menu-advanced > summary").click();
+  await page.getByRole("button", { name: "Explore synthetic preview" }).click();
   await page.getByRole("button", { name: "Add a synthetic example" }).click();
   await page.getByRole("button",{name:"Open evidence",exact:true}).click();
 }
 async function scenario(page: Page, value: string) {
   await page.getByRole("button", { name: "Atlas menu" }).click();
+  await page.locator(".atlas-menu-advanced > summary").click();
   await page.getByLabel("Preview scenario").selectOption(value);
 }
 async function mapMetric(page: Page, id: string) {
@@ -185,13 +187,9 @@ test("six places, reference edits and honest missing/zero/incompatible preview",
     "Difference unavailable",
   );
   await scenario(page, "normal");
-  await page.locator(".place-options summary").nth(1).click();
-  await page.getByRole("button", { name: "Use as reference" }).click();
-  await expect(page.locator(".reading-delta").nth(1)).toContainText(
-    "Reference",
-  );
-  await page.locator(".place-options summary").nth(5).click();
-  await page.getByRole("button", { name: "Remove place", exact: true }).click();
+  // The first remaining place becomes the reference after direct removal.
+  await page.locator(".place-chip").first().getByRole("button", { name: /^Remove / }).click();
+  await expect(page.locator(".reading-delta").first()).toContainText("Reference");
   await expect(page.locator(".place-reading")).toHaveCount(5);
   await page
     .getByRole("button", { name: "Return to live", exact: true })
@@ -385,6 +383,7 @@ test("rendered tract and facility clicks, and independent facility-source failur
     }),
   );
   await page.getByRole("button", { name: "Atlas menu" }).click();
+  await page.locator(".atlas-menu-advanced > summary").click();
   await page.getByRole("button", { name: "Retry map & evidence" }).click();
   await expect(page.locator(".facilities-content .error")).toContainText(
     "School source temporarily unavailable",

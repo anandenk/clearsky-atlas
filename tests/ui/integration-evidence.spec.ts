@@ -12,7 +12,7 @@ async function evidence(page: Page) {
  if(await button.isVisible())await button.click();
 }
 
-test('verified same-tract addresses retain original coordinates through reference, replacement and removal',async({page,request})=>{
+test('verified same-tract addresses retain original coordinates and direct removal recovers the reference',async({page,request})=>{
  test.setTimeout(90000);await page.setViewportSize({width:1440,height:960});await page.emulateMedia({reducedMotion:'reduce'});
  const original=(await (await request.get('/api/demo')).json())[0];
  const match=JSON.parse(fs.readFileSync('data/raw/geocode-oakland-central-near.json','utf8')).result.addressMatches[0];
@@ -37,13 +37,14 @@ test('verified same-tract addresses retain original coordinates through referenc
  await expect.poll(()=>new Set(requests.map(u=>new URL(u).searchParams.get('near'))).size).toBe(2);
  expect(new Set(requests.map(u=>new URL(u).searchParams.get('near')))).toEqual(new Set([coordinate.join(','),original.coordinate.join(',')]));
  await page.getByRole('button',{name:'Environment',exact:true}).click();
- await page.locator('.place-options summary').nth(1).click();await page.getByRole('button',{name:'Use as reference',exact:true}).click();
- await expect(page.locator('.reading-delta').nth(1)).toHaveText('Reference');
- await page.locator('.place-options summary').nth(1).click();await page.getByRole('button',{name:'Replace address',exact:true}).click();
+ // Direct removal replaces the former reference/replacement menu by user decision.
+ await page.locator('.place-chip').first().getByRole('button',{name:/^Remove /}).click();
+ await expect(page.locator('.reading-delta')).toHaveText('Reference');
+ await page.getByLabel('Search a California address').focus();
  await page.getByRole('button',{name:'Fresno',exact:true}).click();await page.getByRole('button',{name:/Confirm this address/}).click();
  await expect(page.locator('.reading-value')).toHaveText(['8.33','12.48']);
- await expect(page.locator('.reading-delta').first()).toHaveText('-4.15 vs B');
- await page.locator('.place-options summary').nth(1).click();await page.getByRole('button',{name:'Remove place',exact:true}).click();
+ await expect(page.locator('.reading-delta').last()).toHaveText('+4.15 vs A');
+ await page.locator('.place-chip').first().getByRole('button',{name:/^Remove /}).click();
  await expect(page.locator('.place-pin')).toHaveCount(1);await expect(page.locator('.reading-delta')).toHaveText('Reference');
  await page.screenshot({path:'artifacts/integration/same-tract-reference.png'});
 });
@@ -69,7 +70,8 @@ test('returning to live after a failed request clears synthetic geography and it
  const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
  await page.goto('/');await expect(page.locator('.atlas-map')).toHaveAttribute('data-provider','live',{timeout:30000});
  await page.getByRole('button',{name:'Atlas menu',exact:true}).click();
- await page.getByRole('button',{name:'Explore full UI preview',exact:true}).click();
+ await page.locator(".atlas-menu-advanced > summary").click();
+ await page.getByRole('button',{name:'Explore synthetic preview',exact:true}).click();
  await page.getByRole('button',{name:'Add a synthetic example',exact:true}).click();
  await expect(page.locator('.atlas-map')).toHaveAttribute('data-provider','preview');
  await expect(page.locator('.atlas-map')).toHaveAttribute('data-tracts-rendered','true');
@@ -92,6 +94,7 @@ test('raster fallback clears the removed Overture status',async({page})=>{
  await page.goto('/');await oakland(page);
  await expect(page.locator('.building-status')).toContainText('Overture · statewide buildings + parts',{timeout:45000});
  await page.getByRole('button',{name:'Atlas menu',exact:true}).click();
+ await page.locator(".atlas-menu-advanced > summary").click();
  await page.getByRole('button',{name:'Use fallback raster basemap',exact:true}).click();
  await expect(page.locator('.building-status')).toHaveCount(0);
  await expect(page.locator('.atlas-map')).toHaveAttribute('data-provider','live',{timeout:30000});
@@ -110,16 +113,19 @@ test('controlled tiny gaps stay nonzero and a same-key definition mismatch suppr
    ? {...o,rawValue:fresno?8.334:8.33,...(incompatible&&fresno?{definition:o.definition+' Test-only incompatible definition.'}:{})}:o);
   await r.fulfill({json:{...data,observations}});
  });
- const selectPair=async()=>{
-  await page.goto('/');await oakland(page);
-  await page.getByLabel('Search a California address').focus();await page.getByRole('button',{name:'Fresno',exact:true}).click();
-  await page.getByRole('button',{name:/Confirm this address/}).click();await evidence(page);
+ const selectPair=async(reverse=false)=>{
+  await page.goto('/');
+  for(const name of reverse?['Fresno','Oakland']:['Oakland','Fresno']){
+   await page.getByLabel('Search a California address').focus();await page.getByRole('button',{name,exact:true}).click();
+   await page.getByRole('button',{name:/Confirm this address/}).click();
+  }
+  await evidence(page);
   await page.getByRole('button',{name:'Explore Fine particulate matter',exact:true}).click();
  };
  await selectPair();await expect(page.locator('.compass-finding')).toContainText('0.004');
  await expect(page.locator('.reading-delta').nth(1)).toHaveText('+0.004 vs A');
- await page.locator('.place-options summary').nth(1).click();await page.getByRole('button',{name:'Use as reference',exact:true}).click();
- await expect(page.locator('.reading-delta').first()).toHaveText('-0.004 vs B');
+ await selectPair(true);
+ await expect(page.locator('.reading-delta').nth(1)).toHaveText('-0.004 vs A');
  incompatible=true;await selectPair();
  await expect(page.locator('.compass-finding')).toContainText('Matching evidence is needed');
  await expect(page.locator('.reading-delta').nth(1)).toHaveText('Difference unavailable');

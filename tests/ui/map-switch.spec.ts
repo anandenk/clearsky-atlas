@@ -172,6 +172,7 @@ test('infrastructure waits for its inventory and retains markers until tract rep
   await page.waitForTimeout(700);
   // Explicit retry invalidates the resident cache, so this checks a real pending handoff.
   await page.getByRole('button',{name:'Atlas menu'}).click();
+  await page.locator(".atlas-menu-advanced > summary").click();
   await page.getByRole('button',{name:'Retry map & evidence'}).click();
   await expect(page.locator('.map-update-status')).toHaveCount(0);
   holdTracts=true;

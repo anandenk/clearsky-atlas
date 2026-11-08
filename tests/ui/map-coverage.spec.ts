@@ -37,6 +37,7 @@ test('statewide coverage stays resident through zoom/pan and recently used overl
   await expect(map).toHaveAttribute('data-metric','pm');
   expect(requests).toHaveLength(initial+1);
   await page.getByRole('button',{name:'Atlas menu'}).click();
+  await page.locator(".atlas-menu-advanced > summary").click();
   await page.getByRole('button',{name:'Retry map & evidence'}).click();
   await expect.poll(()=>requests.length).toBe(initial+2);
   await expect(map).toHaveAttribute('data-metric','pm');
