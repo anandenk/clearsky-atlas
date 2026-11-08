@@ -79,8 +79,9 @@ const letter = (id: string) => String.fromCharCode(64 + Number(id));
 const color = (id: string) =>
   placeColors[(Number(id) - 1) % placeColors.length];
 export default function Page() {
-  const [regional, setRegional] = useState(true);
-  const [landscape, setLandscape] = useState(false);
+  const [heightScale, setHeightScale] = useState(METRES_PER_PERCENTILE);
+  const [visualization, setVisualization] = useState<"city"|"overview"|"landscape">("city");
+  const landscape = visualization === "landscape";
   const [display, setDisplay] = useState<{mode: string; metric?: Indicator}>({mode:"Environment"});
   const [preview, setPreview] = useState(false),
     [scenario, setScenario] = useState("normal"),
@@ -411,7 +412,8 @@ export default function Page() {
       </a>
       <div className="map-stage">
         <Map
-          onRegional={setRegional}
+          overview={visualization === "overview"}
+          onHeightScale={setHeightScale}
           landscape={landscape}
           onDisplay={setDisplay}
           places={places}
@@ -664,8 +666,9 @@ export default function Page() {
         </div>
       )}
       <div className="view-switch" role="group" aria-label="Visualization">
-        <button aria-pressed={!landscape || mode === "Infrastructure" || !metric?.percentileField} onClick={()=>setLandscape(false)}>City View</button>
-        <button aria-pressed={landscape && mode !== "Infrastructure" && !!metric?.percentileField} disabled={mode === "Infrastructure" || !metric?.percentileField || raster} onClick={()=>setLandscape(true)}>Data Landscape</button>
+        <button aria-pressed={visualization === "city" || mode === "Infrastructure" || (landscape && !metric?.percentileField)} onClick={()=>setVisualization("city")}>City View</button>
+        <button aria-pressed={visualization === "overview" && mode !== "Infrastructure"} disabled={mode === "Infrastructure"} onClick={()=>setVisualization("overview")}>Overview</button>
+        <button aria-pressed={landscape && mode !== "Infrastructure" && !!metric?.percentileField} disabled={mode === "Infrastructure" || !metric?.percentileField || raster} onClick={()=>setVisualization("landscape")}>Data Landscape</button>
       </div>
       <nav className="domain-dock" aria-label="Explore a domain">
         {modes.map((m) => (
@@ -741,7 +744,8 @@ export default function Page() {
         </section>
       )}
       <div className="map-key">
-        {landscape && display.mode !== "Infrastructure" && display.metric?.percentileField && <p className="analytical-height">{regional ? "Regional overview. Zoom in for full tract heights." : `Analytical height: percentile × ${METRES_PER_PERCENTILE} m (0–${100 * METRES_PER_PERCENTILE} m). Not building height.`}</p>}
+        {visualization === "overview" && display.mode !== "Infrastructure" && <p className="analytical-height">Overview: flat tract shading and boundaries.</p>}
+        {landscape && display.mode !== "Infrastructure" && display.metric?.percentileField && <p className="analytical-height">Height exaggerated for visibility: ~{Math.round(heightScale)} m per percentile point at this zoom. Not building height.</p>}
         {(display.mode !== mode || (mode !== "Infrastructure" && display.metric?.id !== metric?.id)) && <small>Showing last loaded layer</small>}
         <div className="map-key-title">
           <span>

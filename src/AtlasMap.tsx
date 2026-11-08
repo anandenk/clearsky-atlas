@@ -4,13 +4,14 @@ import * as gl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { ramps, placeColors, vectorStyle, rasterStyle } from "./map-theme";
 import { type Place, type Indicator } from "./frontend/provider";
-import { METRES_PER_PERCENTILE } from "./frontend/landscape";
+import { metresPerPercentileAtZoom } from "./frontend/landscape";
 import { StatewideOverlays } from "./frontend/map-coverage";
 import { value, percentile } from "./frontend/fixtures/preview";
 import type { Facility } from "./hooks/useFacilities";
 type Props = {
   landscape: boolean;
-  onRegional: (regional: boolean) => void;
+  overview: boolean;
+  onHeightScale: (scale: number) => void;
   onDisplay: (display: {mode: string; metric?: Indicator}) => void;
   collapsed: boolean;
   facilities: Facility[];
@@ -655,13 +656,13 @@ export default function AtlasMap(p: Props) {
     const start=growth.current, began=performance.now(), duration=reduced()?0:1100;
     let raf=0;
     const apply=(amount:number)=>{
-      const detail=Math.max(0,Math.min(1,(m.getZoom()-10)/2));
-      latest.current.onRegional(m.getZoom()<12);
+      const scale=metresPerPercentileAtZoom(m.getZoom());
+      latest.current.onHeightScale(scale);
       for(let i=0;i<2;i++){
-        m.setPaintProperty("landscape"+i,"fill-extrusion-height",["*",["coalesce",["get","percentile"],0],METRES_PER_PERCENTILE*amount*detail]);
-        m.setPaintProperty("landscape"+i,"fill-extrusion-opacity",i===rendered.slot && rendered.mode!=="Infrastructure" ? .85*amount*detail : 0);
+        m.setPaintProperty("landscape"+i,"fill-extrusion-height",["*",["coalesce",["get","percentile"],0],scale*amount]);
+        m.setPaintProperty("landscape"+i,"fill-extrusion-opacity",i===rendered.slot && rendered.mode!=="Infrastructure" ? .85*amount : 0);
       }
-      if(container.current)container.current.dataset.landscapeDetail=String(detail);
+      if(container.current)container.current.dataset.heightScale=String(scale);
     };
     const onZoom=()=>apply(growth.current);
     m.on("zoom",onZoom);
@@ -670,14 +671,19 @@ export default function AtlasMap(p: Props) {
       const amount=start+(target-start)*(t*t*(3-2*t));growth.current=amount;
       if(m.getLayer("city-buildings")) {
         m.setPaintProperty("city-buildings","fill-extrusion-opacity-transition",{duration:0});
-        m.setPaintProperty("city-buildings","fill-extrusion-opacity",.95*(1-amount));
+        m.setPaintProperty("city-buildings","fill-extrusion-opacity",(p.overview && rendered.mode !== "Infrastructure") ? 0 : .95*(1-amount));
       }
       apply(amount);
       if(container.current){container.current.dataset.landscapeProgress=String(amount);container.current.dataset.landscapeRendered=String(m.queryRenderedFeatures({layers:["landscape"+rendered.slot]}).length);}
       if(t<1)raf=requestAnimationFrame(draw);
     };
     draw();return()=>{cancelAnimationFrame(raf);m.off("zoom",onZoom);};
-  },[ready,p.landscape,rendered]);
+  },[ready,p.landscape,p.overview,rendered]);
+  useEffect(()=>{
+    const m=map.current;if(!m || !ready) return;
+    if(p.landscape && m.getPitch()<30)m.easeTo({pitch:50,duration:reduced()?0:900});
+    else if(p.overview)m.easeTo({pitch:0,duration:reduced()?0:900});
+  },[ready,p.landscape,p.overview]);
   return (
     <div className="atlas-map-shell">
       <div
