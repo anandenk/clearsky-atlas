@@ -31,6 +31,7 @@ import "../src/styles/facility-directory.css";
 import ComparisonPanel from "../src/components/ComparisonPanel";
 import GeographyComparison from "../src/components/GeographyComparison";
 import { LinkedCamera, OverlayGate } from "../src/frontend/linked-geography";
+import { geographyEnabled } from "../src/frontend/experimental-features";
 import { StatewideOverlays } from "../src/frontend/map-coverage";
 const Map = dynamic(() => import("../src/AtlasMap"), {
   ssr: false,
@@ -98,6 +99,10 @@ export default function Page() {
   const [heightScale, setHeightScale] = useState(METRES_PER_PERCENTILE);
   const [rightHeightScale,setRightHeightScale]=useState(METRES_PER_PERCENTILE);
   const [geography,setGeography]=useState(false);
+  const [allowGeography,setAllowGeography]=useState(false);
+  useEffect(() => {
+    setAllowGeography(geographyEnabled(window.location.search));
+  }, []);
   const [pair,setPair]=useState({left:"",right:""});
   const collapsedBeforeGeography=useRef(true);
   const overlays=useRef(new StatewideOverlays());
@@ -429,13 +434,13 @@ export default function Page() {
       ),
     [facilityResult(selected), filter],
   );
-  const linked = geography && places.length > 1;
+  const linked = allowGeography && geography && places.length > 1;
   const leftPlace=places.find(p=>p.id===pair.left) || places[0];
   const rightPlace=places.find(p=>p.id===pair.right && p.id!==leftPlace?.id) || places.find(p=>p.id!==leftPlace?.id);
   const gate=useMemo(()=>new OverlayGate(),[linked,metric,mode,reset,preview,scenario,places]);
   const leftFacilities=useMemo(()=>(facilityResult(leftPlace)?.items||[]).filter(f=>filter.includes(f.category)),[facilityResult(leftPlace),filter]);
   const rightFacilities=useMemo(()=>(facilityResult(rightPlace)?.items||[]).filter(f=>filter.includes(f.category)),[facilityResult(rightPlace),filter]);
-  const openGeography=()=>{collapsedBeforeGeography.current=collapsed;setCollapsed(true);setPair({left:(places.find(p=>p.id===reference)||places[0]).id,right:(places.find(p=>p.id!==reference && p.id!==places[0].id)||places[1]).id});setGeography(true);};
+  const openGeography=()=>{if(!allowGeography || places.length<2)return;collapsedBeforeGeography.current=collapsed;setCollapsed(true);setPair({left:(places.find(p=>p.id===reference)||places[0]).id,right:(places.find(p=>p.id!==reference && p.id!==places[0].id)||places[1]).id});setGeography(true);};
   const closeGeography=()=>{setGeography(false);setCollapsed(collapsedBeforeGeography.current);};
   const geographyEvidence=()=>{closeGeography();setCollapsed(false);};
   const choosePair=(side:"left"|"right",id:string)=>setPair(current=>{
@@ -857,13 +862,13 @@ export default function Page() {
       >
         <Icon name="target" size={19} />
       </button>
-      {places.length>1 && !linked && <button className="geography-open" onClick={openGeography}>Compare geography</button>}
+      {allowGeography && places.length>1 && !linked && <button className="geography-open" onClick={openGeography}>Compare geography</button>}
       {hasPlaces && collapsed && !linked && <div className="evidence-peek">
         <button className="evidence-reopen" aria-label="Open evidence" aria-expanded={false} aria-controls="evidence" onClick={()=>{setCollapsed(false);requestAnimationFrame(()=>document.querySelector<HTMLButtonElement>(".canvas-topline button")?.focus());}}>
           <Icon name="layers" size={19}/><span><strong>{mode === "Infrastructure" ? "Nearby essentials" : metric?.label || "Place evidence"}</strong>
           <small>{places.length > 1 ? `${places.length} places to compare` : selected?.selection.place}{mode !== "Infrastructure" && selected && observation(selected) ? ` · ${format(observation(selected)?.rawValue, metric?.id)} ${observation(selected)?.unit || ""}` : ""}</small></span><span className="peek-action">Open evidence ↑</span>
         </button>
-        {places.length>1 && <button className="peek-compare" onClick={openGeography}>Compare maps</button>}
+        {allowGeography && places.length>1 && <button className="peek-compare" onClick={openGeography}>Compare maps</button>}
       </div>}
       <section
         id="evidence"
