@@ -1,0 +1,17 @@
+{
+  "release": "2026-10-21.0",
+  "bbox": [
+    -117.572,
+    34.107,
+    -117.532,
+    34.147
+  ],
+  "retrievedAt": "2026-11-08T02:04:00.032286+00:00",
+  "sha256": "b0436075aec597458327e9473379a0a807b6ac67abc3526627c41a4576607903",
+  "count": 12079,
+  "source": "s3://overturemaps-us-west-2/release/2026-10-21.0/theme=buildings/type=building/",
+  "client": "overturemaps==2.1.0",
+  "license": "ODbL-1.0",
+  "schema": "https://docs.overturemaps.org/schema/reference/buildings/building/",
+  "licenseUrl": "https://docs.overturemaps.org/attribution/"
+}

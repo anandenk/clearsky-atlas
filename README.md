@@ -18,6 +18,8 @@ For backend migration, read [SESSION_HANDOFF.md](docs/SESSION_HANDOFF.md); [NEXT
 
 The full original scope is the target. Build in complete increments so constraints can lead to explicit feature deferrals without redesigning the foundation. Comparison is the centerpiece. AI and voice are optional extensions.
 
+Statewide building rendering is available through the [Overture tile service](docs/BUILDINGS_STATEWIDE.md). It serves pinned tiles across California with verified byte-range caching and optional full offline acquisition; frontend adoption remains separate.
+
 ## Interactive frontend session
 
 See [FRONTEND_HANDOFF.md](docs/FRONTEND_HANDOFF.md) for ownership, baseline, sample and the :3001 frontend → :3000 backend proxy. Backend interface updates are recorded in [BACKEND_CHANGES.md](docs/BACKEND_CHANGES.md). Do not merge active frontend work without a user-coordinated checkpoint.

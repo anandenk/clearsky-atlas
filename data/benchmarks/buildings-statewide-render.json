@@ -1,0 +1,27 @@
+{
+  "acceptance": [
+    {
+      "rendered": 3003,
+      "missingHeight": 408,
+      "parts": 0
+    },
+    {
+      "rendered": 3333,
+      "missingHeight": 4188,
+      "parts": 287
+    }
+  ],
+  "statewide": [
+    {
+      "rendered": 738,
+      "missingHeight": 945,
+      "parts": 2
+    },
+    {
+      "rendered": 1659,
+      "missingHeight": 325,
+      "parts": 132
+    }
+  ],
+  "pageErrors": []
+}

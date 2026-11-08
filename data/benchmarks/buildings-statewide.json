@@ -1,0 +1,138 @@
+{
+  "serving": "upstream-ranges-with-local-success-cache",
+  "samples": [
+    {
+      "name": "rancho",
+      "z": 14,
+      "x": 2842,
+      "y": 6537,
+      "status": 200,
+      "bytes": 358201,
+      "counts": {
+        "building": 3269
+      },
+      "missingHeight": 110,
+      "rawMatches": 3184,
+      "firstMs": 1361.712042,
+      "warmMs": 15.811624999999822,
+      "sha256": "54a6edad579291ef833ac5c163495d88360a67989fbf9e76ae72b55d4a827f97"
+    },
+    {
+      "name": "oakland",
+      "z": 14,
+      "x": 2627,
+      "y": 6330,
+      "status": 200,
+      "bytes": 1595761,
+      "counts": {
+        "building": 3692,
+        "building_part": 115
+      },
+      "missingHeight": 1417,
+      "rawMatches": 3692,
+      "firstMs": 386.91670799999997,
+      "warmMs": 14.814292000000023,
+      "sha256": "431991bc67906de85a6eb0946833978224da2ff3c205e42d540239ab1a76f7a0"
+    },
+    {
+      "name": "san-diego",
+      "z": 14,
+      "x": 2859,
+      "y": 6614,
+      "status": 200,
+      "bytes": 697756,
+      "counts": {
+        "building": 1502,
+        "building_part": 147
+      },
+      "missingHeight": 247,
+      "rawMatches": 0,
+      "firstMs": 364.6770829999998,
+      "warmMs": 18.804541999999856,
+      "sha256": "c8d5519dc8d463ab51c2b1d521634698f8c13e5af7be806fc6aa9df62daa5b0d"
+    },
+    {
+      "name": "fresno",
+      "z": 14,
+      "x": 2740,
+      "y": 6392,
+      "status": 200,
+      "bytes": 367569,
+      "counts": {
+        "building": 1311,
+        "building_part": 1
+      },
+      "missingHeight": 520,
+      "rawMatches": 0,
+      "firstMs": 276.360584,
+      "warmMs": 11.61437500000011,
+      "sha256": "18fa0c51678936458d820c967f9cffca99ce698b9aecda37df4cdcd1bc3e62b8"
+    },
+    {
+      "name": "sacramento",
+      "z": 14,
+      "x": 2662,
+      "y": 6286,
+      "status": 200,
+      "bytes": 960321,
+      "counts": {
+        "building": 2275,
+        "building_part": 31
+      },
+      "missingHeight": 795,
+      "rawMatches": 0,
+      "firstMs": 315.570917,
+      "warmMs": 15.130832999999711,
+      "sha256": "ec747d4c7bd9271915c59a40982505a7358a68dd48441c959a813e5415eb8943"
+    },
+    {
+      "name": "eureka",
+      "z": 14,
+      "x": 2541,
+      "y": 6154,
+      "status": 200,
+      "bytes": 675315,
+      "counts": {
+        "building": 1627,
+        "building_part": 1
+      },
+      "missingHeight": 512,
+      "rawMatches": 0,
+      "firstMs": 359.67279199999984,
+      "warmMs": 15.248042000000169,
+      "sha256": "628996bd1aafcd84cd26178775c28418f2adb24cddcf44cc19167298fa6ea985"
+    },
+    {
+      "name": "tahoe",
+      "z": 14,
+      "x": 2732,
+      "y": 6265,
+      "status": 200,
+      "bytes": 215403,
+      "counts": {
+        "building": 986
+      },
+      "missingHeight": 671,
+      "rawMatches": 0,
+      "firstMs": 312.89862500000027,
+      "warmMs": 8.997124999999869,
+      "sha256": "56200520b7e923d3ed03c5b0e63ad3deddf471749e39523e6732594ec10c20e7"
+    },
+    {
+      "name": "rural-desert",
+      "z": 14,
+      "x": 2924,
+      "y": 6489,
+      "status": 204,
+      "bytes": 0,
+      "counts": {},
+      "missingHeight": 0,
+      "rawMatches": 0,
+      "firstMs": 4.491415999999845,
+      "warmMs": 3.3333330000000387,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "rawHeightAndFloorMatches": 6876,
+  "partFeatures": 295
+}

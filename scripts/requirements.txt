@@ -10,3 +10,11 @@ pyshp==3.1.7
 requests==2.34.2
 shapely==2.2.0
 urllib3==2.8.0
+# Optional bounded building-source acquisition
+click==8.5.1
+colorama==0.4.6
+orjson==3.13.0
+pyarrow==26.0.1
+pyfiglet==1.0.4
+tqdm==4.70.1
+overturemaps==2.1.0

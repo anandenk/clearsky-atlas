@@ -1,0 +1,22 @@
+[
+  {
+    "url": "https://docs.overturemaps.org/guides/buildings/",
+    "file": "guide.html",
+    "sha256": "2892448d9c5385b55e90bfd6b947d31729b7a39a698041c84f094155008f7364"
+  },
+  {
+    "url": "https://docs.overturemaps.org/schema/reference/buildings/building/",
+    "file": "schema.html",
+    "sha256": "c86a530f8bdc807494c1544f69e678432f3128b20dc3bb9883e3bf483a37e991"
+  },
+  {
+    "url": "https://docs.overturemaps.org/attribution/",
+    "file": "attribution.html",
+    "sha256": "95dafe36193495560ee775eddaff69aa263b37087c19beb3caad0bedc540eef6"
+  },
+  {
+    "url": "https://opendatacommons.org/licenses/odbl/1-0/",
+    "file": "license.html",
+    "sha256": "b8d8aebb21bf405f93f6e21bbf0d8f0a749844f9812ec58692f189add6402b47"
+  }
+]

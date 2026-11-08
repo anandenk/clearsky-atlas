@@ -13,3 +13,10 @@ playwright-report/
 
 __pycache__/
 *.pyc
+
+# Reproducible bounded Overture caches; provenance/contracts remain tracked.
+data/raw/buildings/**/*.geojson
+data/raw/buildings/**/*.partial*
+data/raw/buildings/**/*.state
+data/buildings/
+.tools/

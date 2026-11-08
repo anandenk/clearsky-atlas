@@ -1,0 +1,35 @@
+{
+  "datasetVersion": "2026-10-21.0",
+  "cellSize": 0.002,
+  "regions": [
+    {
+      "id": "rancho",
+      "bbox": [
+        -117.572,
+        34.107,
+        -117.532,
+        34.147
+      ],
+      "count": 12079,
+      "missingHeight": 1553,
+      "sourceSha256": "b0436075aec597458327e9473379a0a807b6ac67abc3526627c41a4576607903",
+      "artifactSha256": "e5cee893c1b54c0c0ca83225692541d645c9e769d1a73bf58e81a07071833023",
+      "artifactBytes": 10540450
+    },
+    {
+      "id": "oakland",
+      "bbox": [
+        -122.29,
+        37.79,
+        -122.25,
+        37.83
+      ],
+      "count": 13847,
+      "missingHeight": 5384,
+      "sourceSha256": "91f579991cccef3eef67235abd1d89b1916b83a05a073a2dfa1685c10b2db6e7",
+      "artifactSha256": "9484a336b09f47eca3fd1b41ed560405dc81f02b77cf604945f5c3c8703efcf8",
+      "artifactBytes": 14381278
+    }
+  ],
+  "preparedAt": "2026-11-08T02:06:14.639686+00:00"
+}

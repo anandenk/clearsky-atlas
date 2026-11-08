@@ -86,3 +86,13 @@ Migration availability check at 20:46 UTC: both pages/health/catalog responded s
 ## Backend facility increment — 2026-11-07
 
 Verified complete CDE 2025–26 source inventory (9,946 unique schools) and additive viewport/nearby API implemented; schools reuse gap resolved from cached state catalog rights. All published coordinates validated against unsimplified CES coverage; historical Active/Closed status preserved. Source completeness is separate from real-world completeness. See latest BACKEND_CHANGES.md and data/facilities/schools-validation.json. Healthcare/power remain unavailable; their evidence gates are next. Frontend worktree preserved with no integration. Sponsor services remain parked. Validation: 31 backend tests, four Python cache tests, TypeScript/build, facility HTTP smoke both ports; no new rendered UI claim.
+
+## 2026-11-07 — building source pilot
+
+Main completed the additive Overture Buildings backend pilot requested by FRONTEND_PROGRESS.md:507 in the separate frontend worktree. See [BUILDINGS_HANDOFF.md](BUILDINGS_HANDOFF.md) for the exact API, pinned release, cached bounds, verified source/null behavior, desktop rendering evidence and explicit statewide/parts expansion triggers. This does not claim frontend adoption or statewide building coverage. Existing CES/infrastructure scope remains intact. User's subsequent direction: do not work on mobile integration going forward; focus desktop checks.
+
+## 2026-11-07 — statewide building implementation replaces pilot-only rendering
+
+The user explicitly requested statewide implementation. [BUILDINGS_STATEWIDE.md](BUILDINGS_STATEWIDE.md) is the current frontend adoption contract: release-pinned vector tiles work across the California envelope, with parts and truthful missing-height semantics. Live endpoint and isolated desktop render verification cover northern/southern California and an empty rural tile; source heights/floors agree on 6,876 overlapping records. Tests 68/68 and TypeScript pass. Full ~1.4 GB offline acquisition is optional and still in progress at this entry; online statewide range serving is functional, cache-provenanced and bounded. Source completeness/height accuracy is not guaranteed. Pilot GeoJSON bounds apply only to the old exact-source inspection route. Frontend adoption remains with the separate user-run session; no mobile integration.
+
+Statewide final verification update: 69/69 tests, TypeScript and production build passed. Network-disabled cached replay succeeds; an uncached/network-disabled request fails explicitly with 503. Main :3000 restarted after build. Archive identity/metadata recorded in data/contracts/buildings-statewide-source.json; full offline optional download/finalization remains separate and is not asserted complete.
