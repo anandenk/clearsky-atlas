@@ -396,7 +396,7 @@ export default function Page() {
     setPlaces(remaining);
     if (remaining.length < 2) {setOverview(false);setGeography(false);setCollapsed(collapsedBeforeGeography.current);}
     if (active === id) setActive("all");
-    if (reference === id) setReference("");
+    if (reference === id) setReference(remaining[0]?.id || "");
   }
   function chooseMode(m: string) {
     setMode(m);

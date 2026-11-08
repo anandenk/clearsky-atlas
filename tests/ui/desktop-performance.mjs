@@ -47,7 +47,7 @@ try {
  await page.waitForFunction(()=>window.work.submissions.at(-1)===24865);
  await page.getByRole('button',{name:'Find a facility',exact:true}).click();
  await page.getByLabel('Facility name',{exact:true}).fill('hospital');
- await page.locator('.facility-list button').first().click();
+ await page.locator('.facility-directory-results button').first().click();
  await page.getByRole('button',{name:'Show on map',exact:true}).click();
  await page.waitForFunction(()=>Math.abs(window.testMap.getZoom()-15.6)<.01);
  const interactions=await page.evaluate(()=>({pins:document.querySelectorAll('.place-pin').length,submissions:window.work.submissions.slice(-2)}));

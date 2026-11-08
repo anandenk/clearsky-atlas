@@ -139,7 +139,7 @@ test("all 23 live measures remain accessible with accurate units and values", as
   }
 });
 
-test("six places, reference edits and honest missing/zero/incompatible preview", async ({
+test("six places, reference recovery and honest missing/zero/incompatible preview", async ({
   page,
 }) => {
   await open(page);

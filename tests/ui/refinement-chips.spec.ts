@@ -78,6 +78,10 @@ test("removing the reference uses the first remaining place without relabeling i
   await expect(page.locator(".place-chip b")).toHaveText(["B", "C"]);
   await expect(page.locator(".reading-value")).toHaveText(["12.48", "8.33"]);
   await expect(page.locator(".reading-delta")).toHaveText(["Reference", "-4.15 vs B"]);
+  // Adding another place must not silently promote it after reference removal.
+  await addCached(page, "Fresno");
+  await expect(page.locator(".place-chip b")).toHaveText(["B", "C", "D"]);
+  await expect(page.locator(".reading-delta")).toHaveText(["Reference", "-4.15 vs B", "0 vs B"]);
 });
 
 test("last-place removal clears the ribbon, map pins and evidence and returns focus to search", async ({ page }) => {
