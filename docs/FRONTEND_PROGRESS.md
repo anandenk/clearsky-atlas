@@ -1,4 +1,6 @@
-> **Latest resume point:** [Responsiveness first, then remaining milestones](#resume-here--responsiveness-first-then-remaining-milestones). The user requested a fresh session to address severe unresponsiveness before more features. Read that section first; earlier entries are dated implementation evidence.
+> **Latest update:** [Responsiveness checkpoint](#responsiveness-checkpoint--measured-workload-reduction-2026-11-07): reduced renderer work, full UI regression pass, and user reports much more responsive. Delegation direction updated there.
+
+> **Previous resume point:** [Responsiveness first, then remaining milestones](#resume-here--responsiveness-first-then-remaining-milestones). The user requested a fresh session to address severe unresponsiveness before more features. Read that section first; earlier entries are dated implementation evidence.
 
 > **Current direction: ClearSky.** Read the final section, **ClearSky implementation handoff for Astra — 2026-11-07**, before continuing. The earlier Common ground/Astra assignments below are historical implementation evidence. Their visual direction and frontend-first preview workflow are superseded by the latest user discussion recorded in that section. AGENTS.md ownership and local-only boundaries still apply.
 
@@ -413,3 +415,45 @@ Test command: `PLAYWRIGHT_BASE_URL=http://127.0.0.1:3001 npm run test:ui`. Targe
 6. Integrated refinement: performance first now, then lighting/motion/mobile/accessibility/failure and visual quality; full stable diff and user-coordinated main integration followed by combined backend/UI checks. No blanket performance/accessibility claim until measured.
 
 Power remains blocked on documented reporting-period/retired-code evidence or a verified alternative. Fire/remediation need suitable sources; routes need a routing contract. Terrain, sharing, AI/voice and sponsors stay retained but outside these initial increments. Do not silently delete scope or resume exhausted investigations. Continue independent authorized frontend work; document specific owner requests and triggers.
+
+## Responsiveness checkpoint — measured workload reduction, 2026-11-07
+
+**Latest user feedback:** after trying the production preview with this change, the user reported **“Much more responsive now.”** This is user-observed improvement, separately from the bounded browser measurements below. The earlier fragmented surfaces remain a transient loading observation with no confirmed cause. No claim of permanent corruption, a MapLibre defect, or universal device performance is made.
+
+### Changes and preserved behavior
+
+Inspected the installed Next.js client-component guide and MapLibre 6.16 implementation. Feature-dependent paint-expression updates request layer relayout (`style_layer.ts` / `style.ts`); native transitions to data-driven heights are explicitly unsupported (`properties.ts`). The previous effect rewrote both buffers during zoom and animation, queried rendered extrusion geometry every animation frame, and sent unrounded scale changes into React.
+
+The visible buffer now receives at most one submitted height per 80ms, with source-readiness backpressure and only the latest desired height retained. It stops polling after the animation and resumes on relevant source readiness or camera events. Hidden-buffer height rewrites are removed, opacity writes are deduplicated, and the legend receives rounded display values only when changed. Whole-map test diagnostics run on idle only and require `atlas-render-diagnostics=1` in local storage; Playwright opts in through its isolated storage state. Normal browsing does not execute those diagnostic queries. Ordinary picking still works.
+
+The accepted **exact** `metresPerPercentileAtZoom` formula, stronger distant peaks, 9 m/point at zoom10+, zero/null distinction, 1,100ms reversible growth/opacity timeline, City / Data Landscape with Flat / 3D, persistent map, statewide 9,106-feature standard geometry, source-qualified evidence and outgoing-layer retention are unchanged. Worker throughput can limit intermediate height cadence; input/opacity/camera animation are not gated on the worker. No native zoom-expression approximation or geometry-detail substitution was introduced.
+
+### Reproducible measurements and limitations
+
+`node tests/ui/performance-probe.mjs <label>` runs two statewide→Los Angeles zoom/pan/rotation→statewide cycles with City/Landscape reversals, recording frame intervals, long tasks, Event Timing, calls/relayout requests, JS heap snapshot and map resource timing. It uses test-only inspection; application renderer internals are not exposed. `performance-first-click.mjs` captures an optional CPU profile of first activation. Results/screenshots are ignored under `artifacts/responsiveness/`.
+
+| Corrected sample | Before, development | First candidate, development | Before, production | Final candidate, production |
+| --- | ---: | ---: | ---: | ---: |
+| Height expression writes | 2,356 | 72 | 2,354 | 81 |
+| Layer relayout requests | 1,578 | 75 | 1,576 | 84 |
+| Rendered-feature queries | 263 | 27 | 255 | 2 |
+| Frame interval p95 | 16.8ms | 16.8ms | 16.8ms | 16.7ms |
+| Largest sampled frame gap | 183ms | 117ms | 133ms | 367ms |
+| All-session long-task time | 492ms | 653ms | 1,056ms | 643ms |
+| First Landscape click event duration | 144ms | 128ms | 168ms | 392ms |
+
+Final production height/relayout requests fell about **96.6% / 94.7%**. Later production candidate click events were 24–32ms, but first activation remains variable and was worse in this single candidate sample. Cold navigation-to-data-ready was 3.89s before / 2.51s after in these production samples, with unchanged 4,127,256 transferred / 15,702,991 decoded map bytes. These are sequential local samples with uncontrolled external tiles, OS/browser caching, GC and background activity; not statistically controlled speedup claims. Heap snapshots are recorded but are not peak browser/GPU/worker memory measurements. The first-click CPU profile did not isolate a dominant JS function, so no shader/GPU or network root cause is claimed.
+
+**Discarded measurement artifact:** `before-dev`, `after-backpressure`, and `frozen-diagnostic` returned the entire map instance from one Playwright evaluation, inducing test-only serialization. Their multi-second gaps must not be cited as product stalls. Corrected labels are `baseline-corrected`, `candidate-corrected`, `baseline-production`, `candidate-production`. Frozen-height diagnostic is deliberately not accepted visual behavior. A backup source file initially had a `.tsx` extension under artifacts and failed build typechecking; renamed to `.txt`, then baseline and final production builds passed.
+
+### Verification and next work
+
+Final production build passed. **All 24 existing UI tests passed (3.1m)**, including all 23 live fields, comparison units/compatibility/tiny gaps, six-place null/zero scenarios, source-version failures, confirmation, Together framing, responsive layouts, keyboard/reduced motion, real map/facility inspection and retained delayed/failed overlays. **Two new responsiveness regressions passed (21.5s):** a disclosure responds during an ongoing camera flight, only the active buffer receives bounded height updates, settled local height is exactly percentile×9, all 9,106 features remain; normal browsing omits expensive test diagnostics. Statewide/neighborhood/mobile render artifacts were produced by the tests. No combined main integration or backend test rerun is claimed.
+
+The preview is temporarily production mode on :3001 with the unchanged :3000 proxy. Only the frontend server was restarted. No dependencies, backend data, shared root configuration or source PDF changed; generated next-env.d.ts is framework churn. No merge into main, push or publication.
+
+The next independent milestone is connected/linked geographic comparison, following review of this checkpoint. Explore Alternatives remains blocked on an agreed backend query contract: radius and distance meaning, per-indicator criteria, ordering/limits, source compatibility, null exclusions and no-match/failure behavior. A proposal was explained to the user; it has **not** been sent to or accepted by the backend owner. Tract candidates must never become invented confirmed addresses. Power/fire/remediation/routes and the other optional deferrals above retain their stated triggers.
+
+### Updated delegation direction from the user
+
+From this point forward, the user requested initial frontend design by the primary Astra session and later debugging delegated to Sol (or another necessary model). This explicitly updates the prior no-frontend-worker instruction for bounded debugging. Use the authorized isolated Worktrunk/tmux Codex CLI workflow, normally one worker; no worker delegation, shared-file edits, main integration or publication. Primary session retains design, review and integration responsibility. Main-worktree integration still requires the user-coordinated paused checkpoint. Record actual worker model/effort, scope and results rather than treating a worker exit as verification.

@@ -102,13 +102,17 @@ export default function AtlasMap(p: Props) {
       minZoom: 3.3,
     });
     map.current = m;
+    // Expensive whole-map queries serve browser assertions, not the interface.
+    // Tests opt in through their isolated storage state; normal browsing does not.
+    let diagnostics = false;
+    try { diagnostics = localStorage.getItem("atlas-render-diagnostics") === "1"; } catch { /* storage may be unavailable */ }
     container.current.dataset.instance = String(Date.now());
     m.on("move", () => {
       if (container.current) container.current.dataset.camera = JSON.stringify({zoom:m.getZoom(),pitch:m.getPitch(),bearing:m.getBearing()});
     });
     m.on("idle", () => {
       if (container.current && m.getLayer("city-buildings")) {
-        container.current.dataset.buildingsRendered = String(m.queryRenderedFeatures({layers:["city-buildings"]}).length);
+        if(diagnostics)container.current.dataset.buildingsRendered = String(m.queryRenderedFeatures({layers:["city-buildings"]}).length);
         container.current.dataset.pitch = String(m.getPitch());
         container.current.dataset.bearing = String(m.getBearing());
       }
@@ -267,6 +271,7 @@ export default function AtlasMap(p: Props) {
         container.current.dataset.center = JSON.stringify(
           m.getCenter().toArray(),
         );
+        if (!diagnostics) return;
         const facilityFeature = m.getLayer("facilities")
           ? m.queryRenderedFeatures({ layers: ["facilities"] })[0]
           : undefined;
@@ -284,6 +289,9 @@ export default function AtlasMap(p: Props) {
           m.getLayer("facilities")
             ? m.queryRenderedFeatures({ layers: ["facilities"] }).length
             : 0,
+        );
+        container.current.dataset.landscapeRendered = String(
+          m.getLayer("landscape"+slot.current) ? m.queryRenderedFeatures({layers:["landscape"+slot.current]}).length : 0,
         );
         container.current.dataset.tractsRendered = String(
           m.getLayer("fill" + slot.current)
@@ -654,30 +662,51 @@ export default function AtlasMap(p: Props) {
     if(!m || !ready || !m.getLayer("landscape0")) return;
     const target=p.landscape && rendered.mode !== "Infrastructure" && rendered.metric?.percentileField ? 1 : 0;
     const start=growth.current, began=performance.now(), duration=reduced()?0:1100;
-    let raf=0;
-    const apply=(amount:number)=>{
-      const scale=metresPerPercentileAtZoom(m.getZoom());
-      latest.current.onHeightScale(scale);
-      for(let i=0;i<2;i++){
-        m.setPaintProperty("landscape"+i,"fill-extrusion-height",["*",["coalesce",["get","percentile"],0],scale*amount]);
-        m.setPaintProperty("landscape"+i,"fill-extrusion-opacity",i===rendered.slot && rendered.mode!=="Infrastructure" ? .85*amount : 0);
-      }
-      if(container.current)container.current.dataset.heightScale=String(scale);
-    };
-    const onZoom=()=>apply(growth.current);
-    m.on("zoom",onZoom);
+    const layer="landscape"+rendered.slot, source="tracts"+rendered.slot;
+    let raf=0, timer=0, lastHeight=-1, lastWrite=-Infinity, lastLegend=-1, lastOpacity=-1, pending=false;
+    // The hidden buffer does not need animated heights. A feature-dependent
+    // paint change reloads source tiles; do not queue one for every camera event.
+    m.setPaintProperty("landscape"+(1-rendered.slot),"fill-extrusion-opacity",0);
+    if(m.getLayer("city-buildings"))m.setPaintProperty("city-buildings","fill-extrusion-opacity-transition",{duration:0});
     const draw=()=>{
-      const t=duration ? Math.min(1,(performance.now()-began)/duration) : 1;
+      raf=0;
+      const now=performance.now();
+      const t=duration ? Math.min(1,(now-began)/duration) : 1;
       const amount=start+(target-start)*(t*t*(3-2*t));growth.current=amount;
-      if(m.getLayer("city-buildings")) {
-        m.setPaintProperty("city-buildings","fill-extrusion-opacity-transition",{duration:0});
-        m.setPaintProperty("city-buildings","fill-extrusion-opacity",(p.overview && rendered.mode !== "Infrastructure") ? 0 : .95*(1-amount));
+      const scale=metresPerPercentileAtZoom(m.getZoom());
+      const height=scale*amount;
+      const heightChanged=height!==lastHeight;
+      // Backpressure keeps only the latest desired height while workers finish.
+      // Final and reduced-motion states are exact, as are all submitted scales.
+      const canWrite=reduced() || (now-lastWrite>=80 && m.isSourceLoaded(source));
+      if(heightChanged && canWrite){
+        m.setPaintProperty(layer,"fill-extrusion-height",["*",["coalesce",["get","percentile"],0],height]);
+        lastHeight=height;lastWrite=now;
+        if(container.current)container.current.dataset.heightScale=String(scale);
+        const rounded=Math.round(scale);
+        if(rounded!==lastLegend){lastLegend=rounded;latest.current.onHeightScale(rounded);}
       }
-      apply(amount);
-      if(container.current){container.current.dataset.landscapeProgress=String(amount);container.current.dataset.landscapeRendered=String(m.queryRenderedFeatures({layers:["landscape"+rendered.slot]}).length);}
+      if(amount!==lastOpacity){
+        m.setPaintProperty(layer,"fill-extrusion-opacity",rendered.mode!=="Infrastructure" ? .85*amount : 0);
+        if(m.getLayer("city-buildings"))m.setPaintProperty("city-buildings","fill-extrusion-opacity",(p.overview && rendered.mode !== "Infrastructure") ? 0 : .95*(1-amount));
+        lastOpacity=amount;
+      }
+      if(container.current)container.current.dataset.landscapeProgress=String(amount);
+      pending=heightChanged && !canWrite;
       if(t<1)raf=requestAnimationFrame(draw);
+      else if(pending && m.isSourceLoaded(source)){
+        clearTimeout(timer);
+        timer=window.setTimeout(schedule,Math.max(0,80-(now-lastWrite)));
+      }
     };
-    draw();return()=>{cancelAnimationFrame(raf);m.off("zoom",onZoom);};
+    const schedule=()=>{if(!raf)raf=requestAnimationFrame(draw);};
+    const sourceChanged=(event: gl.MapSourceDataEvent)=>{
+      if(pending && event.sourceId===source && m.isSourceLoaded(source))schedule();
+    };
+    m.on("zoom",schedule);
+    m.on("sourcedata",sourceChanged);
+    draw();
+    return()=>{cancelAnimationFrame(raf);clearTimeout(timer);m.off("zoom",schedule);m.off("sourcedata",sourceChanged);};
   },[ready,p.landscape,p.overview,rendered]);
   useEffect(()=>{
     const m=map.current;if(!m || !ready) return;
