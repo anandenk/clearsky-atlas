@@ -33,6 +33,8 @@ import GeographyComparison from "../src/components/GeographyComparison";
 import { LinkedCamera, OverlayGate } from "../src/frontend/linked-geography";
 import { geographyEnabled } from "../src/frontend/experimental-features";
 import { StatewideOverlays } from "../src/frontend/map-coverage";
+import AskClearSky from "../src/components/AskClearSky";
+import type { DiscoveryResult } from "../src/contracts/discovery";
 const Map = dynamic(() => import("../src/AtlasMap"), {
   ssr: false,
   loading: () => <div className="map-loading">Opening California…</div>,
@@ -90,6 +92,9 @@ const letter = (id: string) => String.fromCharCode(64 + Number(id));
 const color = (id: string) =>
   placeColors[(Number(id) - 1) % placeColors.length];
 export default function Page() {
+  const [mapBounds,setMapBounds]=useState<[number,number,number,number]>();
+  const [discoveryCandidates,setDiscoveryCandidates]=useState<DiscoveryResult["candidates"]>([]);
+  const [areaTarget,setAreaTarget]=useState<{bbox:[number,number,number,number];serial:number}>();
   const [mapFacility,setMapFacility]=useState<Facility | null>(null);
   const [facilityTarget,setFacilityTarget]=useState<{coordinate:[number,number];serial:number}>();
   const [directoryOpen,setDirectoryOpen]=useState(false);
@@ -290,6 +295,7 @@ export default function Page() {
     setBusy(false);
   }
   function switchProvider() {
+    setDiscoveryCandidates([]);setAreaTarget(undefined);
     setGeography(false);
     invalidate();
     setPreview((v) => !v);
@@ -318,19 +324,20 @@ export default function Page() {
     cache.current = {};
     serial.current = 0;
   }
-  function add(s: Selection) {
-    if (!target && places.length > 0) {
+  function add(s: Selection, append = false) {
+    const replaceId = append ? "" : target;
+    if (!replaceId && places.length > 0) {
       setOverview(true);
       setCollapsed(false);
     }
-    const id = target || String(++serial.current);
+    const id = replaceId || String(++serial.current);
     setPlaces((p) =>
-      target
-        ? p.map((x) => (x.id === target ? { ...x, selection: s } : x))
+      replaceId
+        ? p.map((x) => (x.id === replaceId ? { ...x, selection: s } : x))
         : [...p, { id, selection: s }],
     );
     if (!reference) setReference(id);
-    setActive(target || (!places.length ? id : "all"));
+    setActive(replaceId || (!places.length ? id : "all"));
     setTarget("");
     setQuery("");
     setCandidates([]);
@@ -521,6 +528,7 @@ export default function Page() {
       </a>
       <div className="map-stage">
         <Map
+          onBoundsChange={setMapBounds} discoveryCandidates={discoveryCandidates} areaTarget={areaTarget}
           key={preview ? "preview" : "live"}
           overlays={overlays.current}
           facilityTarget={facilityTarget}
@@ -720,6 +728,20 @@ export default function Page() {
             </div>
           )}
         </div>
+        <div className="masthead-tools"><div className="assistant-dock"><AskClearSky places={places} disabled={preview} bounds={mapBounds} onClearHighlights={()=>{setDiscoveryCandidates([]);setAreaTarget(undefined);}} onDiscovery={data=>{setDiscoveryCandidates(data.candidates);if(data.profile.criteria[0]){const first=data.profile.criteria[0].indicator;const family=catalog.find(c=>c.id===first)?.mode;const nextMode=family==="health"?"Health":family==="community"?"Community":"Environment";setMode(nextMode);setRemember(r=>({...r,[nextMode]:first}));}setOverview(false);}} onExplore={candidate=>{setDiscoveryCandidates(current=>current.length?current:[candidate]);setCollapsed(true);setActive("all");setViewPreference("landscape");setLandscapeDepth("flat");setAreaTarget({bbox:candidate.bbox,serial:Date.now()});}} onConfirm={s=>add(s,true)} onComparison={()=>{setActive("all");setOverview(true);setCollapsed(false);}} />
+      <div className="view-switch">
+        <div className="view-primary" role="group" aria-label="Visualization">
+          <button aria-pressed={viewPreference === "auto"} title="Automatically choose City nearby and Data Landscape farther out" onClick={()=>setViewPreference("auto")}>Auto</button>
+          <button aria-pressed={visualization === "city" || mode === "Infrastructure" || !metric?.percentileField} onClick={()=>setViewPreference("city")}>City</button>
+          <button aria-pressed={visualization === "landscape" && mode !== "Infrastructure" && !!metric?.percentileField} disabled={mode === "Infrastructure" || !metric?.percentileField || raster} onClick={()=>setViewPreference("landscape")}>Data Landscape</button>
+        </div>
+        {visualization === "landscape" && mode !== "Infrastructure" && !!metric?.percentileField && <div className="landscape-depth" role="group" aria-label="Landscape depth">
+          <button aria-pressed={landscapeDepth === "flat"} onClick={()=>{setLandscapeDepth("flat");setViewPreference("landscape");}}>Flat</button>
+          <button aria-pressed={landscapeDepth === "3d"} onClick={()=>{setLandscapeDepth("3d");setViewPreference("landscape");}}>3D</button>
+        </div>}
+      </div>
+        </div>
+
         <button
           className="about-button"
           onClick={() => setAbout(true)}
@@ -727,7 +749,9 @@ export default function Page() {
         >
           <Icon name="more" />
         </button>
+        </div>
       </header>
+      {discoveryCandidates.length>0&&<div className="discovery-map-note">Discovery results · tract outlines and reference points<button onClick={()=>{setDiscoveryCandidates([]);setAreaTarget(undefined);}}>Clear highlights</button></div>}
       {preview && (
         <div className="preview-status">
           <span>Preview data · synthetic examples</span>
@@ -754,17 +778,6 @@ export default function Page() {
           onAddExample={preview ? () => add(example(places.length)) : undefined}
         />
       )}
-      <div className="view-switch">
-        <div className="view-primary" role="group" aria-label="Visualization">
-          <button aria-pressed={viewPreference === "auto"} title="Automatically choose City nearby and Data Landscape farther out" onClick={()=>setViewPreference("auto")}>Auto</button>
-          <button aria-pressed={visualization === "city" || mode === "Infrastructure" || !metric?.percentileField} onClick={()=>setViewPreference("city")}>City</button>
-          <button aria-pressed={visualization === "landscape" && mode !== "Infrastructure" && !!metric?.percentileField} disabled={mode === "Infrastructure" || !metric?.percentileField || raster} onClick={()=>setViewPreference("landscape")}>Data Landscape</button>
-        </div>
-        {visualization === "landscape" && mode !== "Infrastructure" && !!metric?.percentileField && <div className="landscape-depth" role="group" aria-label="Landscape depth">
-          <button aria-pressed={landscapeDepth === "flat"} onClick={()=>{setLandscapeDepth("flat");setViewPreference("landscape");}}>Flat</button>
-          <button aria-pressed={landscapeDepth === "3d"} onClick={()=>{setLandscapeDepth("3d");setViewPreference("landscape");}}>3D</button>
-        </div>}
-      </div>
       <nav className="domain-dock" aria-label="Explore a domain">
         {modes.map((m) => (
           <button

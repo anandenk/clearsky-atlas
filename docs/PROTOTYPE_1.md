@@ -1,5 +1,7 @@
 # ClearSky — MVP Prototype 1
 
+Publication update, 2026-11-08: the user authorized public repository visibility. The private-backup statements below describe the original preservation event; the fixed tag and original release assets remain unchanged and become publicly accessible with the repository.
+
 The verified integrated desktop application is frozen at annotated tag
 `mvp-prototype-1`, source commit `6dc04f30fe666f11740f236eb686a8156e308140`.
 Integration merge: `634b1a63ec8d5ac54f43437cb86fd8c5de04254e`.

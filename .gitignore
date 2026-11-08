@@ -7,9 +7,14 @@ artifacts/
 data/lookup.json
 data/display.json
 data/observations.json
+data/discovery/index.json
 *.tsbuildinfo
 test-results/
 playwright-report/
+
+# Local provider credentials. Only the empty example belongs in source control.
+.env*
+!.env.example
 
 __pycache__/
 *.pyc

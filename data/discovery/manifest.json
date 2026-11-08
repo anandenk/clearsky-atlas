@@ -1,0 +1,46 @@
+{
+  "activeStatus": {
+    "exactValue": "Active",
+    "field": "Status",
+    "fieldDescription": "The operational status of the school that identifies whether the school is active, closed or pending.  ",
+    "note": "Source-listed historical status; not current operation, eligibility or access."
+  },
+  "audit": {
+    "ambiguous": [],
+    "associatedStatusCounts": {
+      "Active": 9944,
+      "Closed": 2
+    },
+    "sourceSchools": 9946,
+    "tracts": 9106,
+    "uniquelyAssociatedSchools": 9946,
+    "unmatched": []
+  },
+  "cesVersion": "ces-5.0-final-2026-07-01",
+  "contractVersion": "atlas-discovery-index-v2",
+  "healthcareMethod": "Shapely representative_point inside full tract geometry; nearest source-listed OPEN GACH hospital or explicit clinic subtype set, spherical great-circle km (IUGG radius 6371.0088); no home location, travel time, capacity or access guarantee",
+  "healthcareVersion": "cdph-licensed-certified-2026-10-16-73188cdc553c",
+  "inputs": {
+    "data/facilities/healthcare.json": {
+      "sha256": "f3e0d5165a8d87cc69ab2938365264fdaaaff14d4b1f2c483ee699351a800528"
+    },
+    "data/facilities/schools.json": {
+      "sha256": "8aab1ab71c85982ef9b595d6ba905158e63cae2f45e880d0f4ad96ad608225b9"
+    },
+    "data/lookup.json": {
+      "sha256": "6ae343ae1b7dd13dd5c80e9dd434ed2a917d0af793d6fdc75fe3c7ed3baab696"
+    },
+    "data/observations.json": {
+      "sha256": "c5d2f2ec17bae65a06088d5ba03191556900304022e5b620076b2ce3692ab7fe"
+    },
+    "data/raw/schools-full-metadata.json": {
+      "sha256": "8a045cb13f0548ca4ddf1044de9f3af1bd31f62beee16d8c34818a2abb278431"
+    }
+  },
+  "membership": "Shapely STRtree intersects with full unsimplified WGS84 CES geometry; unique membership only; no forced boundary assignment",
+  "output": {
+    "path": "data/discovery/index.json",
+    "sha256": "91b106dc0f00e3b2db97e294016659e8fc7c683509ef310967fc33382d428cb6"
+  },
+  "schoolVersion": "cde-schools-2025-26-afab827833d2"
+}

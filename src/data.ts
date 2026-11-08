@@ -1,14 +1,14 @@
 import "server-only";
 import fs from "node:fs";
 import path from "node:path";
-import { containingTracts } from "./spatial";
+import { containingTracts, intersectsTractBounds } from "./spatial";
 import type {
   Feature,
   Polygon,
   MultiPolygon,
   FeatureCollection,
 } from "geojson";
-import { Selection } from "./domain";
+import type { Selection } from "./domain";
 import {
   readyIndicator,
   sourceNumber,
@@ -33,6 +33,10 @@ const read = (f: string) =>
 export function lookup(coordinate: [number, number]) {
   exact ??= read("lookup.json").features;
   return containingTracts(coordinate, exact) as Tract[];
+}
+export function exactTractsInBounds(bbox:[number,number,number,number]) {
+  exact ??= read("lookup.json").features;
+  return new Set(exact.filter(f=>f.bbox[0]<=bbox[2]&&f.bbox[2]>=bbox[0]&&f.bbox[1]<=bbox[3]&&f.bbox[3]>=bbox[1]&&intersectsTractBounds(f,bbox)).map(f=>f.properties.id));
 }
 export function selection(
   label: string,
@@ -105,6 +109,10 @@ export function demos() {
 export function tractRecord(id: string) {
   observations ??= read("observations.json");
   return observations[id] ?? null;
+}
+export function displayTracts(ids:string[]) {
+  display ??= read("display.json").features;
+  return {type:"FeatureCollection" as const,features:display.filter(f=>ids.includes(f.properties.id))};
 }
 
 // Enrich only the requested metric. Keep legacy display payloads and lookup geometry unchanged.

@@ -1,5 +1,9 @@
 # California Environmental Atlas
 
+## Publication authorization — 2026-11-08
+
+The user explicitly requests uploading the latest product version to GitHub and making `anandenk/clearsky-atlas` public. This supersedes earlier private-only/no-push restrictions for this publication, including existing repository history and release assets. Preserve the fixed `mvp-prototype-1` tag, local credentials and generated-file churn. Deployment and new paid integrations are not part of this request.
+
 ## Current authorization
 
 Authorized 2026-11-07: advance through Phase 1 data-source verification and Phase 2 local implementation, including data-service queries, successful-download caching with provenance, dependency installation, and meaningful spatial, comparison, and rendered-interface verification. Continue without routine approvals. Full original scope remains the target; record deferrals and concrete triggers explicitly.

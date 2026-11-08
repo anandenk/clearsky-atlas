@@ -1,16 +1,20 @@
-# California Environmental Atlas
+# ClearSky — California Environmental Atlas
 
 Status: the local desktop ClearSky experience combines the map-first, multi-location frontend with all 23 supported tract measures, schools, healthcare and statewide Overture building tiles. See the [post-Prototype-1 desktop refinements](docs/REFINEMENT_PROGRESS.md), [integration checkpoint](docs/INTEGRATION.md), [current status](docs/STATUS.md) and [data verification](docs/DATA_VERIFICATION.md) for performed checks and limits. Power remains source-gated; mobile acceptance is outside this checkpoint.
 
 A map-first California atlas for exploring and comparing environmental conditions, population health, community context, and essential infrastructure.
 
+Source publication does not deploy the application. Gemini credentials stay local; generated data can be rebuilt with the commands below. See [publication checks](docs/PUBLICATION.md).
+
 ## Preserved prototype
 
-The verified desktop application is pinned as **MVP Prototype 1** at `mvp-prototype-1` (source `6dc04f3`). See [PROTOTYPE_1.md](docs/PROTOTYPE_1.md) for the private backup, snapshot contents, restore instructions and verification limits.
+The verified desktop application is pinned as **MVP Prototype 1** at `mvp-prototype-1` (source `6dc04f3`). See [PROTOTYPE_1.md](docs/PROTOTYPE_1.md) for the original backup, snapshot contents, restore instructions and verification limits.
 
 ## Session continuation
 
-Start from [REFINEMENT_PROGRESS.md](docs/REFINEMENT_PROGRESS.md) for the current branch, runtime, completed work and next-session instructions. Work in `/Users/anand/Projects/hackathon` on `development/prototype-2`; `/Users/anand/Projects/hackathon.frontend` is the frozen reference. [INTEGRATION.md](docs/INTEGRATION.md) documents the earlier integrated base; [SESSION_HANDOFF.md](docs/SESSION_HANDOFF.md) is historical. Recheck worktrees and servers before edits.
+**The desktop MVP, including Gemini integration, is complete for demo preparation. Start the next session from [DEMO_PREP_HANDOFF.md](docs/DEMO_PREP_HANDOFF.md).** The desktop MVP source, including Ask ClearSky and discovery, is included in the published repository.
+
+Start from [REFINEMENT_PROGRESS.md](docs/REFINEMENT_PROGRESS.md) for the current branch, runtime, completed work and next-session instructions. Work in `/Users/anand/Projects/hackathon` on `development/prototype-2`; `/Users/anand/Projects/hackathon.frontend` is the frozen reference. [INTEGRATION.md](docs/INTEGRATION.md) documents the earlier integrated base; [SESSION_HANDOFF.md](docs/SESSION_HANDOFF.md) is historical. Recheck worktrees and servers before edits. [Ask ClearSky is integrated](docs/GEMINI_INTEGRATION.md): Gemini-assisted address comparison and deterministic statewide tract discovery, including direction-aware ranking and labeled healthcare proximity. See the [use-case evaluation](docs/GEMINI_EVALUATION.md) for coverage and limits. The [original four-milestone plan](docs/GEMINI_IMPLEMENTATION_PLAN.md) remains preserved verbatim.
 
 ## Start here
 
@@ -20,7 +24,7 @@ Start from [REFINEMENT_PROGRESS.md](docs/REFINEMENT_PROGRESS.md) for the current
 - [Build plan](docs/BUILD_PLAN.md): solo sequence, acceptance gates, independent deferrals, sponsor strategy.
 - [Original handoff](docs/source/california-environmental-atlas-handoff.pdf).
 
-The full original scope is the target. Build in complete increments so constraints can lead to explicit feature deferrals without redesigning the foundation. Comparison is the centerpiece. AI and voice are optional extensions.
+The full original scope is the target. Build in complete increments so constraints can lead to explicit feature deferrals without redesigning the foundation. Comparison is the centerpiece. Ask ClearSky is an optional Gemini-assisted way into the same evidence; voice remains a future extension.
 
 Statewide building rendering is available through the [Overture tile service](docs/BUILDINGS_STATEWIDE.md). It serves pinned tiles across California with verified byte-range caching and optional full offline acquisition; the desktop frontend consumes this service. Uncached views need the upstream source; complete offline acquisition remains unfinished.
 
@@ -30,7 +34,7 @@ The frozen frontend checkpoint `e7e64fb` is preserved at :3001 as a comparison r
 
 ## Run locally
 
-Use Node 26 (tested) and Python 3.14 (tested). No credentials required.
+Use Node 26 (tested) and Python 3.14 (tested). The atlas needs no credentials. Ask ClearSky additionally uses a server-side Gemini key in `.env.local`; see the empty [.env.example](.env.example) and [setup/verification notes](docs/GEMINI_INTEGRATION.md).
 
 ```sh
 npm ci
@@ -40,6 +44,7 @@ python3 -m venv .venv
 .venv/bin/python scripts/prepare_data.py
 .venv/bin/python scripts/cache_demo.py
 .venv/bin/python scripts/write_derived_manifest.py
+.venv/bin/python scripts/prepare_discovery.py
 npm run dev
 ```
 

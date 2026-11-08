@@ -1,5 +1,11 @@
 # Backend interface updates
 
+## 2026-11-08 — Ask ClearSky and deterministic discovery
+
+Added `POST /api/assistant`, `POST /api/discovery` and `GET /api/discovery/geometry`, documented in [GEMINI_INTEGRATION.md](GEMINI_INTEGRATION.md). The assistant reuses the versioned comparison/facility contracts, accepts application-confirmed context outside model arguments, and validates tools/final actions under explicit budgets. Discovery uses a reproducible full-resolution school-membership index, accepted environmental constraints, deterministic Pareto alternatives, exact county/map filters and transparent exclusions. Credentials remain server-side and optional for ordinary atlas use.
+
+Extracted the existing geocode implementation to `src/geocode.ts` for reuse without changing its wire contract, providers, normalization, precision, confirmation semantics or lookup rules. New exact rectangle intersection helpers do not replace point lookup or simplified display geometry. No frozen frontend-worktree edits or breaking existing API changes were made. Verification: 94 Node tests, Python spatial fixture, all 9,946 independently checked school memberships, production build, 14 focused desktop cases, seven final live prompts and both real-provider production journeys. Sources, preserved scopes and limits are in the linked integration record.
+
 ## 2026-11-07 — frontend handoff baseline v1
 
 - Frozen existing /api/demo, /api/geocode and /api/map shapes; documented their current limitations in FRONTEND_HANDOFF.md.
@@ -439,3 +445,21 @@ Final verification: 69/69 tests including network-disabled cache replay and cold
 ## 2026-11-07 — authorized combined desktop integration
 
 The frozen frontend `e7e64fb` is integrated locally with building-service checkpoint `44558b2`. No existing backend API shape, dependency version, source definition, unit, version pin or exact lookup boundary changed. Main runs the combined production UI/APIs on :3000 with no backend-origin proxy; :3001 remains a frozen reference. See [INTEGRATION.md](INTEGRATION.md) for recovery refs, contract review, four frontend correctness fixes, fresh combined checks, desktop test adjustments, screenshot/keyboard evidence and bounded performance measurements. Complete offline buildings remain unfinished; optional API adoption and power/source gates remain explicit follow-ups. All work stays local.
+
+### 2026-11-08 — Direction-aware conversational discovery
+
+Additive `criteria[].direction` accepts `highest` or `lowest`; omission retains the prior lowest behavior. Server selection respects mixed directions while retaining original evidence values. `discover_areas` now accepts a validated inferred profile directly; empty arguments remain supported only with an application-supplied profile. User-requested manual forms remain available, but acceptance is no longer required for natural-language searches. UI shows the actual search interpretation. Highest/lowest statewide and county extrema independently verified; 96 backend tests passed. Address confirmation, provenance, null handling and exact spatial filtering are unchanged.
+
+### 2026-11-08 — Assistant breadth and accuracy audit
+
+Additive discovery fields: `criteria[].minRaw`, optional `limit` (1–10) and `healthcare: {kind: hospital|clinic, maxDistanceKm?}`. Health/community scalar extrema are descriptive only; age/race fields remain excluded from discovery. A single dimension with limit sorts all eligible records; multiple dimensions retain direction-aware Pareto selection without weights. Empty environmental criteria are allowed for healthcare-only searches. Current map bounds and discovered tract IDs are validated assistant context. Tool `compare_tracts` returns tract evidence without address confirmation; street-address tools retain explicit confirmation. Address facility tools now support explicit OPEN hospital/clinic subtype filters and disclose them in cards.
+
+Reproducible discovery index v2 adds full-geometry interior representative points and nearest valid healthcare facilities, with source hashes/versions in its manifest. Independent scans validate extrema, top lists, healthcare distances and subtype exclusion. Tests and performed live/browser checks are recorded in `docs/GEMINI_EVALUATION.md`; original fixed Prototype 1 is untouched.
+
+### 2026-11-08 — Interpreted discovery summaries
+
+Additive assistant response `insights[]` carries `{evidenceId, tractId, text}`. Discovery finish calls must explain every candidate in the latest result; IDs must refer to server-generated evidence and actual candidates, without duplicates. Numerical evidence remains server-owned. Narrative validation covers the observed unsupported cause/exposure-category patterns, named findings before methodology, and historical qualification for current-data questions. Main comparisons retain the existing message field. Build/TypeScript, 108 backend tests, 12 assistant UI tests and 8 live summary scenarios passed. See `artifacts/assistant-summary/`.
+
+### 2026-11-08 — Discovery display points
+
+Each discovery candidate now exposes `representativePoint` from the prepared full-geometry interior point (null only for older/artificial indices without it). This is an additive display reference, not a geocoded or confirmed address. School anchors are returned only when active-school presence was requested. Selected observations retain their existing units, definitions, periods, nulls and source percentiles. The map hover card uses those observations directly without a new service/model query. Backend suite passed 109/109; targeted rendered checks passed 21/21.

@@ -12,7 +12,12 @@ import { StatewideOverlays } from "./frontend/map-coverage";
 import { value, percentile } from "./frontend/fixtures/preview";
 import type { Facility } from "./hooks/useFacilities";
 import type {LinkedPane} from "./frontend/linked-geography";
+import { DiscoveryHoverCard } from "./components/DiscoveryHoverCard";
+import type { DiscoveryResult } from "./contracts/discovery";
 type Props = {
+  onBoundsChange?:(bounds:[number,number,number,number])=>void;
+  discoveryCandidates?:DiscoveryResult["candidates"];
+  areaTarget?:{bbox:[number,number,number,number];serial:number};
   placeFocus?: {id: string; serial: number};
   facilityTarget?: {coordinate:[number,number];serial:number};
   linked?: LinkedPane;
@@ -85,6 +90,9 @@ export default function AtlasMap(p: Props) {
     linkedViewport = useRef<{width: number; height: number} | null>(null),
     coverageReset = useRef(p.reset);
   latest.current = p;
+  const hoverDismiss = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const hoverCardActive = useRef(false);
+  const discoveryHoverVisible = useRef(false);
   const geometryKey = JSON.stringify(
     p.places
       .map((x) => [x.id, x.selection.tractId, ...x.selection.coordinate])
@@ -122,7 +130,10 @@ export default function AtlasMap(p: Props) {
       y: number;
       label: string;
       detail?: string;
+      discovery?: DiscoveryResult["candidates"][number];
+      anchor?: {name:string; kind:string};
     } | null>(null);
+  useEffect(()=>{hoverCardActive.current=false;discoveryHoverVisible.current=false;if(hoverDismiss.current)clearTimeout(hoverDismiss.current);setHover(current=>current?.discovery ? null : current);},[p.discoveryCandidates]);
   useEffect(()=>{
     const m=map.current;if(!m||!ready||p.raster)return;
     const controller=installBuildings(m,message=>latest.current.onBuildingStatus?.(message),sourceReady);
@@ -307,22 +318,36 @@ export default function AtlasMap(p: Props) {
     let hoverFrame = 0;
     let hoverPoint: gl.Point | undefined;
     const clearHover = () => {
+      if (hoverDismiss.current) clearTimeout(hoverDismiss.current);
+      hoverCardActive.current=false;
+      discoveryHoverVisible.current=false;
       cancelAnimationFrame(hoverFrame);
       hoverFrame = 0;
       hoverPoint = undefined;
       m.getCanvas().style.cursor = "";
       setHover(null);
     };
+    const showDiscovery = (f: gl.MapGeoJSONFeature, point: gl.Point) => {
+      if (!["discovery-candidate-points","discovery-school-anchors"].includes(f.layer.id)) return false;
+      const candidate=latest.current.discoveryCandidates?.find(c=>c.tractId===String(f.properties.tractId));
+      if(!candidate)return false;
+      discoveryHoverVisible.current=true;
+      setHover({x:point.x,y:point.y,label:candidate.place,discovery:candidate,...(f.properties.kind !== "candidate" ? {anchor:{name:String(f.properties.name || "Unnamed source record"),kind:String(f.properties.kind)}} : {})});
+      return true;
+    };
     const updateHover = () => {
       hoverFrame = 0;
       const point = hoverPoint;
-      if (!point || map.current !== m) return;
-      const layers = [...(latest.current.mode === "Infrastructure" ? ["facility-clusters", "facilities"] : []), ...(container.current?.dataset.metric && container.current.dataset.metric === latest.current.metric?.id ? [...(growth.current > 0.01 ? ["landscape" + slot.current] : []), "fill" + slot.current] : [])].filter(
+      if (!point || map.current !== m || hoverCardActive.current) return;
+      const layers = [...(latest.current.discoveryCandidates?.length ? ["discovery-candidate-points","discovery-school-anchors"] : []), ...(latest.current.mode === "Infrastructure" ? ["facility-clusters", "facilities"] : []), ...(container.current?.dataset.metric && container.current.dataset.metric === latest.current.metric?.id ? [...(growth.current > 0.01 ? ["landscape" + slot.current] : []), "fill" + slot.current] : [])].filter(
         (l) => !!m.getLayer(l),
       );
       if (!layers.length) return clearHover();
-      const f = m.queryRenderedFeatures(point, { layers })[0];
+      const hits=m.queryRenderedFeatures(point,{layers});
+      const f=hits.find(f=>["discovery-candidate-points","discovery-school-anchors"].includes(f.layer.id)) ?? hits[0];
       m.getCanvas().style.cursor = f ? "pointer" : "";
+      if(f && showDiscovery(f,point))return;
+      discoveryHoverVisible.current=false;
       setHover(
         f
           ? {
@@ -341,17 +366,26 @@ export default function AtlasMap(p: Props) {
       );
     };
     m.on("mousemove", (e) => {
+      if (hoverDismiss.current) clearTimeout(hoverDismiss.current);
       hoverPoint = e.point;
       if (!hoverFrame) hoverFrame = requestAnimationFrame(updateHover);
     });
-    m.on("mouseout", clearHover);
+    m.on("mouseout", () => {
+      cancelAnimationFrame(hoverFrame);hoverFrame=0;hoverPoint=undefined;
+      if(!discoveryHoverVisible.current)return clearHover();
+      if (hoverDismiss.current) clearTimeout(hoverDismiss.current);
+      hoverDismiss.current=setTimeout(()=>{if(!hoverCardActive.current)clearHover();},120);
+    });
+    m.on("movestart",clearHover);
     m.on("click", (e) => {
-      const layers = [...(latest.current.mode === "Infrastructure" ? ["facility-clusters", "facilities"] : []), ...(container.current?.dataset.metric && container.current.dataset.metric === latest.current.metric?.id ? [...(growth.current > 0.01 ? ["landscape" + slot.current] : []), "fill" + slot.current] : [])].filter(
+      const layers = [...(latest.current.discoveryCandidates?.length ? ["discovery-candidate-points","discovery-school-anchors"] : []), ...(latest.current.mode === "Infrastructure" ? ["facility-clusters", "facilities"] : []), ...(container.current?.dataset.metric && container.current.dataset.metric === latest.current.metric?.id ? [...(growth.current > 0.01 ? ["landscape" + slot.current] : []), "fill" + slot.current] : [])].filter(
         (l) => !!m.getLayer(l),
       );
       if (!layers.length) return;
-      const f = m.queryRenderedFeatures(e.point, { layers })[0];
+      const hits=m.queryRenderedFeatures(e.point,{layers});
+      const f=hits.find(f=>["discovery-candidate-points","discovery-school-anchors"].includes(f.layer.id)) ?? hits[0];
       if (!f) return;
+      if (showDiscovery(f,e.point)) return;
       if (f.layer.id === "facility-clusters" && f.geometry.type === "Point") {
         const coordinate=f.geometry.coordinates as [number,number];
         void (m.getSource("facilities") as gl.GeoJSONSource).getClusterExpansionZoom(f.properties.cluster_id).then(zoom=>{
@@ -376,6 +410,8 @@ export default function AtlasMap(p: Props) {
           m.getCenter().toArray(),
         );
         if (!diagnostics) return;
+        container.current.dataset.discoveryRendered=String(m.getLayer("discovery-tract-outline")?m.queryRenderedFeatures({layers:["discovery-tract-outline"]}).length:0);
+        container.current.dataset.discoverySchoolsRendered=String(m.getLayer("discovery-school-anchors")?m.queryRenderedFeatures({layers:["discovery-school-anchors"]}).length:0);
         const facilityFeature = m.getLayer("facilities")
           ? m.queryRenderedFeatures({ layers: ["facilities"] })[0]
           : undefined;
@@ -412,6 +448,7 @@ export default function AtlasMap(p: Props) {
       );
     });
     return () => {
+      if (hoverDismiss.current) clearTimeout(hoverDismiss.current);
       cancelAnimationFrame(hoverFrame);
       ro.disconnect();
       facilitySubmission.current = null;
@@ -973,6 +1010,33 @@ export default function AtlasMap(p: Props) {
     if(!m || !ready || !target)return;
     m.flyTo({center:target.coordinate,zoom:15.6,pitch:p.raster?0:58,duration:reduced()?0:1000,essential:false});
   },[ready,p.facilityTarget]);
+  useEffect(()=>{
+    const m=map.current;if(!m||!ready||!p.onBoundsChange)return;
+    const update=()=>{const b=m.getBounds();latest.current.onBoundsChange?.([b.getWest(),b.getSouth(),b.getEast(),b.getNorth()]);};
+    update();m.on("moveend",update);return()=>{m.off("moveend",update);};
+  },[ready,p.onBoundsChange]);
+  useEffect(()=>{
+    const m=map.current;if(!m||!ready)return;
+    const candidates=p.discoveryCandidates??[],controller=new AbortController();
+    if(!m.getSource("discovery-tracts")){
+      m.addSource("discovery-tracts",{type:"geojson",data:empty});
+      m.addLayer({id:"discovery-tract-fill",type:"fill",source:"discovery-tracts",paint:{"fill-color":"#b7a3ee","fill-opacity":0.13}});
+      m.addLayer({id:"discovery-tract-outline",type:"line",source:"discovery-tracts",paint:{"line-color":"#d7c2ff","line-width":3,"line-dasharray":[3,2]}});
+      m.addSource("discovery-tract-points",{type:"geojson",data:empty});
+      m.addLayer({id:"discovery-candidate-points",type:"circle",source:"discovery-tract-points",paint:{"circle-color":"#d7c2ff","circle-radius":7,"circle-stroke-color":"#312343","circle-stroke-width":2}});
+      m.addSource("discovery-schools",{type:"geojson",data:empty});
+      m.addLayer({id:"discovery-school-anchors",type:"circle",source:"discovery-schools",paint:{"circle-color":["match",["get","kind"],"healthcare","#9ed9d2","#e2bfff"],"circle-radius":6,"circle-stroke-color":"#312343","circle-stroke-width":2}});
+    }
+    (m.getSource("discovery-tracts") as gl.GeoJSONSource).setData(empty);
+    (m.getSource("discovery-tract-points") as gl.GeoJSONSource).setData({type:"FeatureCollection",features:candidates.flatMap(c=>c.representativePoint?[{type:"Feature" as const,geometry:{type:"Point" as const,coordinates:c.representativePoint},properties:{tractId:c.tractId,name:c.place,kind:"candidate"}}]:[])});
+    (m.getSource("discovery-schools") as gl.GeoJSONSource).setData({type:"FeatureCollection",features:candidates.flatMap(c=>[...c.schoolAnchors.map(s=>({type:"Feature" as const,geometry:{type:"Point" as const,coordinates:s.coordinate},properties:{id:s.id,name:s.name,tractId:c.tractId,kind:"school"}})),...(c.healthcare?.facility.coordinate?[{type:"Feature" as const,geometry:{type:"Point" as const,coordinates:c.healthcare.facility.coordinate},properties:{id:c.healthcare.facility.id,name:c.healthcare.facility.name,tractId:c.tractId,kind:"healthcare"}}]:[])])});
+    if(candidates.length)fetch("/api/discovery/geometry?tractIds="+candidates.map(c=>c.tractId).join(","),{signal:controller.signal}).then(r=>{if(!r.ok)throw Error("geometry unavailable");return r.json();}).then(data=>{if(!controller.signal.aborted&&map.current===m)(m.getSource("discovery-tracts") as gl.GeoJSONSource).setData(data);}).catch(()=>{if(!controller.signal.aborted)setSourceError("Discovery outlines could not load. Candidate evidence remains available.");});
+    return()=>controller.abort();
+  },[ready,p.discoveryCandidates]);
+  useEffect(()=>{
+    const m=map.current,target=p.areaTarget;if(!m||!ready||!target)return;
+    m.fitBounds([[target.bbox[0],target.bbox[1]],[target.bbox[2],target.bbox[3]]],{padding:{top:140,left:80,right:500,bottom:160},maxZoom:13,pitch:0,duration:reduced()?0:1000});
+  },[ready,p.areaTarget]);
   return (
     <div className="atlas-map-shell">
       <div
@@ -980,7 +1044,8 @@ export default function AtlasMap(p: Props) {
         className="atlas-map"
         aria-label={p.linked ? `${p.linked.side === "left" ? "Left" : "Right"} comparison map` : "Interactive California map"}
       />
-      {hover && (
+      {hover?.discovery && <DiscoveryHoverCard candidate={hover.discovery} x={hover.x} y={hover.y} width={container.current?.clientWidth || 600} height={container.current?.clientHeight || 800} anchor={hover.anchor} onEnter={()=>{hoverCardActive.current=true;if(hoverDismiss.current)clearTimeout(hoverDismiss.current);}} onLeave={()=>{hoverCardActive.current=false;discoveryHoverVisible.current=false;setHover(null);if(map.current)map.current.getCanvas().style.cursor="";}} />}
+      {hover && !hover.discovery && (
         <div
           className="map-tooltip"
           style={{

@@ -1,6 +1,12 @@
 # Current status — 2026-11-08
 
-Authorized: Phase 1 source verification and Phase 2 local implementation; bounded local CLI delegation/commits. No publication, paid services, or global configuration changes. Full PRODUCT.md inventory retained.
+Authorized: Phase 1 source verification and Phase 2 local implementation; bounded local CLI delegation/commits. The latest user authorization adds local Gemini integration using their supplied key and reported credits. No publication, account/billing changes, or global configuration changes. Full PRODUCT.md inventory retained.
+
+## Desktop MVP complete — next: demo preparation
+
+Gemini integration and its requested desktop refinements are complete for this MVP. The user is moving to a new session for demo preparation. Start from [DEMO_PREP_HANDOFF.md](DEMO_PREP_HANDOFF.md), preserve the uncommitted main worktree, and defer feature expansion unless a demonstrable demo blocker appears. Main :3000 responded successfully at handoff. This is a local feature-complete checkpoint, not a new commit/tag, remote backup or deployment.
+
+Ask ClearSky includes inferred natural-language discovery, extrema/top-N and geographic/numeric constraints, labeled healthcare proximity, explicit new-address confirmation, automatic comparisons and map actions, interpreted Gemini summaries, query-specific hover evidence, highlight cleanup and view controls beneath the composer. See [GEMINI_INTEGRATION.md](GEMINI_INTEGRATION.md), [GEMINI_EVALUATION.md](GEMINI_EVALUATION.md) and the handoff for actual checks and limits. Historical snapshots, actual healthcare access, exact city boundaries, power, mobile and offline acquisition retain their documented limits. The full original product backlog remains intact.
 
 ## Current local desktop refinements
 
@@ -16,7 +22,7 @@ Completed merge: `634b1a63ec8d5ac54f43437cb86fd8c5de04254e`.
 
 See [INTEGRATION.md](INTEGRATION.md) for frozen inputs, recovery refs, reviewer findings/fixes, runtime, fresh checks, screenshots, measurements and remaining gates. Main combines the selected ClearSky map-first multi-location frontend (`e7e64fb`) with the reviewed building-service checkpoint (`44558b2`). The frozen :3001 preview and all worktrees/caches remain preserved.
 
-All 23 intended scalar/demographic fields, 9,946 schools and 14,919 coordinate-bearing healthcare records remain source-qualified. Statewide Overture buildings/parts use pinned MVT with verified online ranges and successful local caching; complete offline acquisition is unfinished. Power remains source-gated. Optional overview/story/grouped-demographic/nearby-narrative adoption is follow-up work. Mobile and Explore Alternatives remain explicitly user-deferred. Sponsors remain parked.
+All 23 intended scalar/demographic fields, 9,946 schools and 14,919 coordinate-bearing healthcare records remain source-qualified. Statewide Overture buildings/parts use pinned MVT with verified online ranges and successful local caching; complete offline acquisition is unfinished. Power remains source-gated. Optional overview/story/grouped-demographic/nearby-narrative adoption is follow-up work. Mobile remains user-deferred. The later Ask ClearSky authorization supersedes the alternative-discovery deferral for its accepted-profile tract search. Other sponsors remain parked.
 
 The earlier readiness findings about active comparison compatibility, tiny nonzero gaps and facility source versions are corrected in the frozen frontend. Integration additionally fixes synthetic geometry surviving a failed return to live and stale Overture status after raster fallback. Fresh verification: 69 Node tests, four Python cache tests, TypeScript/build, seven HTTP suites, 179 artifact checks, eight building endpoint samples, all 44 existing desktop cases plus five new integration cases across combined/affected runs, and four sequential performance probes. Exact diagnostics, reruns and limitations are recorded in INTEGRATION.md; `/api/health` still means baseline file presence, not scientific/interface certification.
 
