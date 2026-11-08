@@ -88,6 +88,27 @@ test("statewide Overture replaces OSM, reuses tiles and honors flat/3D and failu
   });
   expect(requests.every((url) => url.includes("/tiles/14/"))).toBe(true);
   expect(requests.length).toBeLessThan(25);
+  // Reproduce a held mouse drag: ready Overture must remain the only visible
+  // building source throughout movement and after release, even across tiles.
+  await page.mouse.move(1000, 450);
+  await page.mouse.down();
+  await page.mouse.move(850, 480, {steps:8});
+  const duringDrag = await page.evaluate(() => {
+    const m = (window as any).testMap;
+    return {moving:m.isMoving(), osm:m.getPaintProperty("city-buildings", "fill-extrusion-opacity"),
+      overture:m.getPaintProperty("overture-buildings-3d", "fill-extrusion-opacity"),
+      parts:m.getPaintProperty("overture-building-parts-3d", "fill-extrusion-opacity")};
+  });
+  expect(duringDrag).toEqual({moving:true, osm:0, overture:.7, parts:.7});
+  await expect(page.locator(".building-status")).toContainText("Overture · statewide buildings + parts");
+  await page.mouse.up();
+  await page.waitForFunction(() => !(window as any).testMap.isMoving());
+  await expect(page.locator(".building-status")).toContainText("Overture · statewide buildings + parts");
+  await page.evaluate(() => (window as any).testMap.jumpTo({zoom:13}));
+  await expect(page.locator(".building-status")).toContainText("zoom in for Overture detail");
+  expect(await page.evaluate(() => (window as any).testMap.getPaintProperty("city-buildings", "fill-extrusion-opacity"))).toBeGreaterThan(0);
+  await page.evaluate(() => (window as any).testMap.jumpTo({center:[-117.552,34.127],zoom:15.6}));
+  await expect(page.locator(".building-status")).toContainText("Overture · statewide buildings + parts");
   const count = requests.length;
   await page
     .getByRole("button", { name: "Data Landscape", exact: true })

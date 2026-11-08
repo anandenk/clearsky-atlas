@@ -104,9 +104,10 @@ export function installBuildings(
       fallback("OpenStreetMap buildings · zoom in for Overture detail.");
       return;
     }
-    report(
-      "Loading Overture detail · showing OpenStreetMap buildings until ready.",
-    );
+    if (!active)
+      report(
+        "Loading Overture detail · showing OpenStreetMap buildings until ready.",
+      );
     try {
       if (!catalog) {
         const response = await fetch(
@@ -220,14 +221,29 @@ export function installBuildings(
     clearTimeout(timer);
     if (enabled) timer = setTimeout(update, 180);
   };
+  const enforceLimits = () => {
+    if (!enabled || !active) return;
+    let reason: string | undefined;
+    if (m.getZoom() < 14)
+      reason = "OpenStreetMap buildings · zoom in for Overture detail.";
+    else if (catalog) {
+      const b = m.getBounds(), [w, s, e, n] = catalog.bounds;
+      if (b.getWest() < w || b.getEast() > e || b.getSouth() < s || b.getNorth() > n)
+        reason = "OpenStreetMap buildings · view extends beyond the Overture California envelope.";
+    }
+    if (reason) {
+      visibility(false);
+      fallback(reason);
+    }
+  };
   const moving = () => {
+    // Cancel obsolete readiness waits, not the resident vector source. MapLibre
+    // keeps loaded tiles while requesting new ones during pan/zoom/rotation.
     cancel();
-    if (enabled)
-      fallback(
-        "Loading Overture detail · showing OpenStreetMap buildings until ready.",
-      );
+    enforceLimits();
   };
   m.on("movestart", moving);
+  m.on("move", enforceLimits);
   m.on("moveend", schedule);
   m.on("error", onError);
   return {
@@ -248,6 +264,7 @@ export function installBuildings(
     dispose() {
       cancel();
       m.off("movestart", moving);
+      m.off("move", enforceLimits);
       m.off("moveend", schedule);
       m.off("error", onError);
       remove();
