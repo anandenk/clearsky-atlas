@@ -3,6 +3,7 @@ import { type FacilityResult, type Facility } from "../hooks/useFacilities";
 import { categories } from "../frontend/fixtures/preview";
 import { placeColors } from "../map-theme";
 import Dialog from "./Dialog";
+import FacilityDetail from "./FacilityDetail";
 import { Icon } from "./Icon";
 export default function Infrastructure({
   places,
@@ -195,36 +196,7 @@ export default function Infrastructure({
           title="About this location"
         >
           {chosen && (
-            <div className="facility-detail">
-              <strong>{chosen.name}</strong>
-              <span>
-                {chosen.status || "Status not provided"} ·{" "}
-                {chosen.period || "Date not provided"}
-              </span>
-              <span>
-                {chosen.coordinate.map((v) => v.toFixed(4)).join(", ")} ·{" "}
-                {format(chosen.distance)} km straight-line
-              </span>
-              {chosen.flags.length > 0 && <p>{chosen.flags.join("; ")}</p>}
-              <p>
-                {chosen.category === "Healthcare"
-                  ? "CDPH includes hospitals, clinics, laboratories, home-health agencies and other licensed or certified services. A marker does not mean walk-in care."
-                  : "A published location does not establish current operation, attendance eligibility or capacity."}
-              </p>
-              <details>
-                <summary>Source & limitations</summary>
-                {chosen.limitations.map((l) => (
-                  <p key={l}>{l}</p>
-                ))}
-                {chosen.sourceUrl && (
-                  <a href={chosen.sourceUrl} target="_blank" rel="noreferrer">
-                    {chosen.category === "Healthcare"
-                      ? "CDPH healthcare source"
-                      : "CDE school source"}
-                  </a>
-                )}
-              </details>
-            </div>
+            <FacilityDetail facility={chosen} />
           )}
         </Dialog>
       </div>

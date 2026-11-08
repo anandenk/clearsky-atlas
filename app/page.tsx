@@ -21,7 +21,9 @@ import { placeColors, ramps } from "../src/map-theme";
 import { Icon, BrandMark } from "../src/components/Icon";
 import Dialog from "../src/components/Dialog";
 import Infrastructure from "../src/components/Infrastructure";
-import { useFacilities } from "../src/hooks/useFacilities";
+import { useFacilities, type Facility } from "../src/hooks/useFacilities";
+import { useInfrastructureInventory } from "../src/hooks/useInfrastructureInventory";
+import FacilityDetail from "../src/components/FacilityDetail";
 import ComparisonPanel from "../src/components/ComparisonPanel";
 import GeographyComparison from "../src/components/GeographyComparison";
 import { LinkedCamera, OverlayGate } from "../src/frontend/linked-geography";
@@ -45,8 +47,8 @@ const introductions: Record<string, [string, string]> = {
     "Understand the communities behind the geography.",
   ],
   Infrastructure: [
-    "A place to connect.",
-    "Explore the schools, healthcare and energy infrastructure around a place.",
+    "Infrastructure across California.",
+    "Explore source-listed healthcare and public schools, from the statewide pattern to an individual location.",
   ],
 };
 const shortLabels: Record<string, string> = {
@@ -83,6 +85,10 @@ const letter = (id: string) => String.fromCharCode(64 + Number(id));
 const color = (id: string) =>
   placeColors[(Number(id) - 1) % placeColors.length];
 export default function Page() {
+  const [mapFacility,setMapFacility]=useState<Facility | null>(null);
+  const [facilityTarget,setFacilityTarget]=useState<{coordinate:[number,number];serial:number}>();
+  const [directoryOpen,setDirectoryOpen]=useState(false);
+  const [facilityQuery,setFacilityQuery]=useState("");
   const [buildingStatus,setBuildingStatus]=useState("");
   const [rightBuildingStatus,setRightBuildingStatus]=useState("");
   const [heightScale, setHeightScale] = useState(METRES_PER_PERCENTILE);
@@ -384,6 +390,14 @@ export default function Page() {
     mode === "Infrastructure",
     reset,
   );
+  const inventory = useInfrastructureInventory(mode === "Infrastructure" && !preview,reset);
+  const statewideFacilities = useMemo(()=>inventory.items.filter(f=>filter.includes(f.category)),[inventory.items,filter]);
+  const inventoryById = useMemo(()=>new globalThis.Map(inventory.items.map(f=>[f.id,f])),[inventory.items]);
+  const directoryResults = useMemo(()=>statewideFacilities.filter(f=>!facilityQuery.trim() || f.name.toLocaleLowerCase().includes(facilityQuery.trim().toLocaleLowerCase())),[statewideFacilities,facilityQuery]);
+  const onMapFacility = (id:string) => {
+    const f=inventoryById.get(id);
+    if (!preview && f) setMapFacility(f); else setFacility(id);
+  };
   const visibleFacilities = useMemo(
     () =>
       (facilityResult(selected)?.items || []).filter((f) =>
@@ -447,6 +461,7 @@ export default function Page() {
       <div className="map-stage">
         <Map
           overlays={overlays.current}
+          facilityTarget={facilityTarget}
           onZoomEnd={onZoomEnd} onTopDown={onTopDown} onBuildingStatus={setBuildingStatus}
           linked={linked ? {camera:linkedCamera,gate,side:"left",placeId:leftPlace.id,coordinate:leftPlace.selection.coordinate} : undefined}
           overview={flatLandscape}
@@ -461,10 +476,10 @@ export default function Page() {
           preview={preview}
           scenario={scenario}
           categories={filter}
-          facilities={linked ? leftFacilities : visibleFacilities}
-          facilitiesReady={linked ? !!facilityResult(leftPlace) : !selected || !!facilityResult(selected)}
-          facility={facility}
-          onFacility={id=>{if(linked)setActive(leftPlace.id);setFacility(id);}}
+          facilities={preview ? (linked ? leftFacilities : visibleFacilities) : statewideFacilities}
+          facilitiesReady={!preview || (linked ? !!facilityResult(leftPlace) : !selected || !!facilityResult(selected))}
+          facility={mapFacility?.id || facility}
+          onFacility={id=>{if(linked)setActive(leftPlace.id);onMapFacility(id);}}
           onInspect={setInspection}
           onFocus={setActive}
           reset={reset}
@@ -476,8 +491,8 @@ export default function Page() {
         overlays={overlays.current} linked={{camera:linkedCamera,gate,side:"right",placeId:rightPlace.id,coordinate:rightPlace.selection.coordinate}}
         overview={flatLandscape} landscape={landscape} onHeightScale={setRightHeightScale} onDisplay={()=>{}}
         places={places} collapsed={true} active={rightPlace.id} metric={metric} mode={mode} preview={preview} scenario={scenario}
-        categories={filter} facilities={rightFacilities} facilitiesReady={!!facilityResult(rightPlace)} facility={facility}
-        onFacility={id=>{setActive(rightPlace.id);setFacility(id);}} onInspect={setInspection} onFocus={setActive} reset={reset} raster={raster}
+        categories={filter} facilities={preview ? rightFacilities : statewideFacilities} facilitiesReady={!preview || !!facilityResult(rightPlace)} facility={mapFacility?.id || facility}
+        onFacility={id=>{setActive(rightPlace.id);onMapFacility(id);}} onInspect={setInspection} onFocus={setActive} reset={reset} raster={raster}
       /></div>}
       {linked && rightPlace && <GeographyComparison places={places} left={leftPlace} right={rightPlace} metric={display.metric}
         observe={observation} onPair={choosePair} onClose={closeGeography} onEvidence={geographyEvidence}
@@ -764,9 +779,7 @@ export default function Page() {
           <div className="opening-topics">
             {mode === "Infrastructure" ? (
               <p className="infrastructure-note">
-                Healthcare and public schools, from verified source inventories.
-                Enter an address to explore nearby locations. Power plants
-                remain in a separate synthetic preview.
+                Zoom into a cluster to see individual locations, or find a facility by name. Search an address for nearest-listed distances. Power and routes are not available in the live map.
               </p>
             ) : (
               topicIds.map((id) => (
@@ -800,6 +813,16 @@ export default function Page() {
         </section>
       )}
       <div className="map-key">
+        {mode === "Infrastructure" && !preview && <div className="infrastructure-map-controls">
+          <div className="facility-filters" aria-label="Infrastructure map categories">
+            {["Healthcare","Public schools"].map(c=><button key={c} aria-pressed={filter.includes(c)} onClick={()=>setFilter(filter.includes(c)?filter.filter(f=>f!==c):[...filter,c])}>{c}</button>)}
+          </div>
+          <p className="inventory-status" role="status">{inventory.loading ? `Loading source inventories${inventory.ready.length ? " · healthcare ready" : ""}…` : `${inventory.items.length.toLocaleString()} source-listed points loaded${inventory.errors.length ? " · partial source coverage" : ""}`}. Clusters show point counts; zoom in to inspect.</p>
+          {inventory.errors.map(e=><p className="inventory-error" key={e}>{e}</p>)}
+          <div className="inventory-actions"><button onClick={()=>setDirectoryOpen(true)}>Find a facility</button>{inventory.errors.length>0 && <button onClick={()=>setReset(n=>n+1)}>Retry sources</button>}</div>
+          <small>CDPH · 2026-10-16 / CDE · 2025–26. Listed locations do not guarantee current services or access. Power and routes unavailable.</small>
+        </div>}
+
         {flatLandscape && display.mode !== "Infrastructure" && <p className="analytical-height">Flat landscape: tract shading and boundaries.</p>}
         {landscape && display.mode !== "Infrastructure" && display.metric?.percentileField && <p className="analytical-height">Height exaggerated for visibility: ~{Math.round(heightScale)} m per percentile point at this zoom. Not building height.</p>}
         {(display.mode !== mode || (mode !== "Infrastructure" && display.metric?.id !== metric?.id)) && <small>Showing last loaded layer</small>}
@@ -1102,6 +1125,17 @@ export default function Page() {
             Definition & source
           </button>
         </div>
+      </Dialog>
+      <Dialog open={directoryOpen && !preview} onClose={()=>setDirectoryOpen(false)} title="Find a source-listed facility">
+        <div className="facility-directory-search">
+          <label htmlFor="facility-name">Facility name</label>
+          <input id="facility-name" value={facilityQuery} onChange={e=>setFacilityQuery(e.target.value)} placeholder="Search healthcare or school names" />
+          <p role="status">{directoryResults.length.toLocaleString()} matches in selected categories{directoryResults.length>50 ? "; showing the first 50. Type a name to narrow results." : "."}{inventory.loading ? " Inventories are still loading." : ""}</p>
+          <div className="facility-list">{directoryResults.slice(0,50).map(f=><button key={f.id} onClick={()=>{setDirectoryOpen(false);setMapFacility(f);}}><span><strong>{f.name}</strong><small>{f.category} · {f.status || "Status not supplied"}</small></span></button>)}</div>
+        </div>
+      </Dialog>
+      <Dialog open={!!mapFacility && !preview} onClose={()=>setMapFacility(null)} title="About this location">
+        {mapFacility && <><FacilityDetail facility={mapFacility} /><div className="facility-locate"><button className="primary" onClick={()=>{setFacilityTarget({coordinate:mapFacility.coordinate,serial:(facilityTarget?.serial || 0)+1});setMapFacility(null);}}>Show on map</button></div></>}
       </Dialog>
     </main>
   );

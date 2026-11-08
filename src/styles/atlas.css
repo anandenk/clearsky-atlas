@@ -2932,3 +2932,35 @@ button:active {
   font-size: 12px;
   line-height: 1.5;
 }
+
+.infrastructure-map-controls {
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #91b3bf40;
+}
+.infrastructure-map-controls .facility-filters { display: flex; gap: 6px; margin: 0 0 8px; flex-wrap: wrap; }
+.infrastructure-map-controls .facility-filters button,
+.inventory-actions button {
+  border: 1px solid #91b3bf55;
+  border-radius: 7px;
+  background: #243443;
+  color: #e5eef1;
+  padding: 7px 8px;
+  font-size: 11px;
+  cursor: pointer;
+}
+.infrastructure-map-controls .facility-filters button[aria-pressed="true"] { border-color: #9bd6ce; background: #365965; }
+.infrastructure-map-controls .facility-filters button:first-child::before { content: ""; display: inline-block; width: 7px; height: 7px; margin-right: 5px; border-radius: 50%; background: #c68bda; }
+.infrastructure-map-controls .facility-filters button:nth-child(2)::before { content: ""; display: inline-block; width: 7px; height: 7px; margin-right: 5px; border-radius: 50%; background: #70b9e9; }
+.inventory-status { font-size: 12px; line-height: 1.5; margin: 8px 0; color: #e5eef1; }
+.inventory-error { font-size: 12px; color: #ffd0b2; }
+.inventory-actions { display: flex; gap: 8px; margin-bottom: 8px; }
+.infrastructure-map-controls > small { display: block; font-size: 11px; line-height: 1.5; color: #c1d1d8; }
+.facility-directory-search { padding: 20px 28px 28px; }
+.facility-directory-search label { display: block; font-weight: 600; margin-bottom: 8px; }
+.facility-directory-search input { width: 100%; padding: 12px; border: 1px solid #9aa9b3; border-radius: 8px; font: inherit; }
+.facility-directory-search > p { font-size: 13px; line-height: 1.5; }
+.facility-directory-search .facility-list { max-height: 45vh; overflow-y: auto; }
+.facility-directory-search .facility-list button { width: 100%; text-align: left; }
+.opening-lens .infrastructure-note { background: transparent; padding: 0; color: #c8d6dd; }
+.facility-locate { padding: 0 28px 24px; }

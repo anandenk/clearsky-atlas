@@ -11,6 +11,7 @@ import { value, percentile } from "./frontend/fixtures/preview";
 import type { Facility } from "./hooks/useFacilities";
 import type {LinkedPane} from "./frontend/linked-geography";
 type Props = {
+  facilityTarget?: {coordinate:[number,number];serial:number};
   linked?: LinkedPane;
   onZoomEnd?: (zoom: number) => void;
   onTopDown?: () => void;
@@ -251,15 +252,24 @@ export default function AtlasMap(p: Props) {
           before,
         );
       }
-      m.addSource("facilities", { type: "geojson", data: empty });
+      m.addSource("facilities", { type: "geojson", data: empty, cluster:true, clusterRadius:42, clusterMaxZoom:13 });
+      m.addLayer({id:"facility-clusters",type:"circle",source:"facilities",filter:["has","point_count"],paint:{
+        "circle-color":"#375e6c","circle-radius":["step",["get","point_count"],17,100,22,1000,29],
+        "circle-opacity":0,"circle-stroke-opacity":0,"circle-stroke-color":"#91cbc5","circle-stroke-width":2,
+      }});
+      m.addLayer({id:"facility-cluster-count",type:"symbol",source:"facilities",filter:["has","point_count"],
+        layout:{"text-field":["get","point_count_abbreviated"],"text-size":12,"text-font":["Noto Sans Regular"],"text-allow-overlap":true},
+        paint:{"text-color":"#ffffff","text-opacity":0},
+      });
       m.addLayer({
         id: "facilities",
         type: "circle",
         source: "facilities",
+        filter:["!",["has","point_count"]],
         paint: {
           "circle-opacity": 0,
           "circle-stroke-opacity": 0,
-          "circle-radius": ["case", ["==", ["get", "id"], ""], 12, 8],
+          "circle-radius": ["case", ["==", ["get", "id"], ""], 12, 6],
           "circle-color": [
             "match",
             ["get", "category"],
@@ -276,7 +286,7 @@ export default function AtlasMap(p: Props) {
       setReady(true);
     });
     m.on("mousemove", (e) => {
-      const layers = [...(latest.current.mode === "Infrastructure" ? ["facilities"] : []), ...(container.current?.dataset.metric && container.current.dataset.metric === latest.current.metric?.id ? [...(growth.current > 0.01 ? ["landscape" + slot.current] : []), "fill" + slot.current] : [])].filter(
+      const layers = [...(latest.current.mode === "Infrastructure" ? ["facility-clusters", "facilities"] : []), ...(container.current?.dataset.metric && container.current.dataset.metric === latest.current.metric?.id ? [...(growth.current > 0.01 ? ["landscape" + slot.current] : []), "fill" + slot.current] : [])].filter(
         (l) => !!m.getLayer(l),
       );
       if (!layers.length) return;
@@ -288,10 +298,10 @@ export default function AtlasMap(p: Props) {
               x: e.point.x,
               y: e.point.y,
               label:
-                f.properties.name ||
+                (f.properties.point_count ? `${f.properties.point_count.toLocaleString()} source-listed locations · click to zoom` : "") || f.properties.name ||
                 f.properties.place ||
                 "Census tract " + f.properties.id,
-              detail: f.layer.id === "facilities" ? undefined :
+              detail: f.layer.id === "facilities" || f.layer.id === "facility-clusters" ? undefined :
                 `${latest.current.metric?.label}: ${format(typeof f.properties.value === "number" ? f.properties.value : null, latest.current.metric?.id)} ${latest.current.metric?.unit || ""}` +
                 (typeof f.properties.percentile === "number" ? ` · Statewide percentile ${format(f.properties.percentile)} / 100` : "") +
                 ` · ${latest.current.metric?.measurementPeriod || "Period unavailable"} · Tract-level evidence`,
@@ -301,13 +311,18 @@ export default function AtlasMap(p: Props) {
     });
     m.on("mouseout", () => setHover(null));
     m.on("click", (e) => {
-      const layers = [...(latest.current.mode === "Infrastructure" ? ["facilities"] : []), ...(container.current?.dataset.metric && container.current.dataset.metric === latest.current.metric?.id ? [...(growth.current > 0.01 ? ["landscape" + slot.current] : []), "fill" + slot.current] : [])].filter(
+      const layers = [...(latest.current.mode === "Infrastructure" ? ["facility-clusters", "facilities"] : []), ...(container.current?.dataset.metric && container.current.dataset.metric === latest.current.metric?.id ? [...(growth.current > 0.01 ? ["landscape" + slot.current] : []), "fill" + slot.current] : [])].filter(
         (l) => !!m.getLayer(l),
       );
       if (!layers.length) return;
       const f = m.queryRenderedFeatures(e.point, { layers })[0];
       if (!f) return;
-      if (f.layer.id === "facilities")
+      if (f.layer.id === "facility-clusters" && f.geometry.type === "Point") {
+        const coordinate=f.geometry.coordinates as [number,number];
+        void (m.getSource("facilities") as gl.GeoJSONSource).getClusterExpansionZoom(f.properties.cluster_id).then(zoom=>{
+          if(map.current===m && latest.current.mode==="Infrastructure")m.easeTo({center:coordinate,zoom:Math.min(16,zoom),duration:reduced()?0:600});
+        }).catch(()=>{});
+      } else if (f.layer.id === "facilities")
         latest.current.onFacility(f.properties.id);
       else {
         latest.current.onInspect(f.properties.id);
@@ -564,7 +579,9 @@ export default function AtlasMap(p: Props) {
         for (const prop of ["circle-opacity", "circle-stroke-opacity"] as const) {
           m.setPaintProperty("facilities", `${prop}-transition` as const, {duration});
           m.setPaintProperty("facilities", prop, 0);
+          m.setPaintProperty("facility-clusters", prop, 0);
         }
+        m.setPaintProperty("facility-cluster-count", "text-opacity", 0);
         latest.current.onDisplay({mode: p.mode, metric});
         slot.current = next;
         setRendered({mode:p.mode,metric,slot:next});
@@ -741,7 +758,7 @@ export default function AtlasMap(p: Props) {
         if (controller.signal.aborted || map.current !== m) return;
         latest.current.onDisplay({mode: "Infrastructure"});
         setRendered({mode:"Infrastructure",slot:slot.current});
-        m.setFilter("facilities", null);
+        m.setFilter("facilities", ["!",["has","point_count"]]);
         for (let i = 0; i < 2; i++) {
           m.setPaintProperty("fill" + i, "fill-opacity-transition", {duration: reduced() ? 0 : 450});
           m.setPaintProperty("fill" + i, "fill-opacity", 0);
@@ -755,7 +772,10 @@ export default function AtlasMap(p: Props) {
         for (const prop of ["circle-opacity", "circle-stroke-opacity"] as const) {
           m.setPaintProperty("facilities", `${prop}-transition` as const, {duration: reduced() ? 0 : 450});
           m.setPaintProperty("facilities", prop, p.mode === "Infrastructure" ? 1 : 0);
+          m.setPaintProperty("facility-clusters", `${prop}-transition` as const, {duration:reduced()?0:450});
+          m.setPaintProperty("facility-clusters", prop, 1);
         }
+        m.setPaintProperty("facility-cluster-count", "text-opacity", 1);
       } catch (e) {
         if (!controller.signal.aborted) p.linked?.gate.fail(new Error("A comparison facility layer could not load."));
         if (!controller.signal.aborted) setError("Facility map layer unavailable. The list is still available.");
@@ -771,7 +791,7 @@ export default function AtlasMap(p: Props) {
       "case",
       ["==", ["get", "id"], p.facility],
       12,
-      8,
+      6,
     ]);
   }, [ready, p.facility]);
   useEffect(() => {
@@ -870,6 +890,11 @@ export default function AtlasMap(p: Props) {
     if(!m.isMoving())applyTilt();
     return()=>{cancelAnimationFrame(raf);m.off("moveend",applyTilt);};
   },[ready,p.landscape,p.overview,p.linked?.camera]);
+  useEffect(()=>{
+    const m=map.current,target=p.facilityTarget;
+    if(!m || !ready || !target)return;
+    m.flyTo({center:target.coordinate,zoom:15.6,pitch:p.raster?0:58,duration:reduced()?0:1000,essential:false});
+  },[ready,p.facilityTarget]);
   return (
     <div className="atlas-map-shell">
       <div
