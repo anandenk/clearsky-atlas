@@ -11,6 +11,7 @@ import type { Facility } from "./hooks/useFacilities";
 import type {LinkedPane} from "./frontend/linked-geography";
 type Props = {
   linked?: LinkedPane;
+  onZoomEnd?: (zoom: number) => void;
   overlays?: StatewideOverlays;
   landscape: boolean;
   overview: boolean;
@@ -74,6 +75,7 @@ export default function AtlasMap(p: Props) {
     blend = useRef<Promise<void>>(Promise.resolve()),
     coverage = useRef(p.overlays ?? new StatewideOverlays()),
     restoredCamera = useRef(false),
+    linkedViewport = useRef<{width: number; height: number} | null>(null),
     coverageReset = useRef(p.reset);
   latest.current = p;
   const geometryKey = JSON.stringify(
@@ -117,6 +119,10 @@ export default function AtlasMap(p: Props) {
       minZoom: 3.3,
     });
     map.current = m;
+    // Only settled zoom changes affect React state; pitch/pan and relief frames do not.
+    const reportZoom = () => latest.current.onZoomEnd?.(m.getZoom());
+    m.on("zoomend", reportZoom);
+    reportZoom();
     // Expensive whole-map queries serve browser assertions, not the interface.
     // Tests opt in through their isolated storage state; normal browsing does not.
     let diagnostics = false;
@@ -463,16 +469,29 @@ export default function AtlasMap(p: Props) {
         await (m.getSource("tracts" + next) as gl.GeoJSONSource).setData(tagged);
         // Keep the buffer hidden through style processing AND tile relayout.
         // Camera motion/reversal can change the desired height while it loads.
-        for (;;) {
-          await sourceReady(m, "tracts" + next, request.signal, true);
-          const height = incomingHeight();
-          // Release both panes only if both staged heights still match their
-          // shared camera. Recheck together after any slower worker completes.
-          if(p.linked){
-            if(await p.linked.gate.ready(p.linked.side,request.signal,()=>incomingHeight()===stagedHeight))break;
-          } else if (height === stagedHeight) break;
-          stagedHeight = incomingHeight();
-          stageHeight();
+        const incomingSource = "tracts" + next;
+        const current = () => !!m.getSource(incomingSource) && m.isSourceLoaded(incomingSource)
+          && incomingHeight() === stagedHeight;
+        // sourceReady removes its error listener when it resolves. Keep errors
+        // covered while this pane waits for its peer, including later pan loads.
+        const gateSourceFailed = (event: gl.ErrorEvent & {sourceId?: string}) => {
+          if(event.sourceId === incomingSource)
+            p.linked?.gate.fail(new Error(`Comparison source failed: ${event.error.message}`));
+        };
+        if(p.linked)m.on("error",gateSourceFailed);
+        try {
+          for (;;) {
+            await sourceReady(m, incomingSource, request.signal, true);
+            // Both panes must still have ready tiles AND the staged height
+            // when the slower peer arrives; otherwise both return to staging.
+            if(p.linked){
+              if(await p.linked.gate.ready(p.linked.side,request.signal,current))break;
+            } else if (current()) break;
+            stagedHeight = incomingHeight();
+            stageHeight();
+          }
+        } finally {
+          if(p.linked)m.off("error",gateSourceFailed);
         }
         if (request.signal.aborted || g !== generation || map.current !== m) return;
         // Keep the previous map intact through fetch + worker + tile readiness.
@@ -548,7 +567,10 @@ export default function AtlasMap(p: Props) {
     const m = map.current;
     if (!m || !ready) return;
     if(p.linked)return;
-    if(restoredCamera.current){restoredCamera.current=false;return;}
+    const preserveRestoredCamera = restoredCamera.current;
+    restoredCamera.current=false;
+    linkedViewport.current=null;
+    if(preserveRestoredCamera)return;
     m.resize();
     const mobile = innerWidth < 760;
     const panel = document.querySelector<HTMLElement>(".comparison-canvas");
@@ -626,8 +648,15 @@ export default function AtlasMap(p: Props) {
   useEffect(()=>{
     const m=map.current, linked=p.linked;
     if(!m || !ready || !linked)return;
+    // Keep the session's entry dimensions across linked place replacements.
+    if(linked.side==="left" && !linkedViewport.current)
+      linkedViewport.current={width:innerWidth,height:innerHeight};
     const detach=linked.camera.attach(linked.side,m,linked.coordinate);
-    return ()=>{detach();if(linked.side==="left")restoredCamera.current=true;};
+    return ()=>{
+      detach();
+      if(linked.side==="left")restoredCamera.current=linkedViewport.current?.width===innerWidth
+        && linkedViewport.current?.height===innerHeight;
+    };
   },[ready,p.linked?.camera,p.linked?.placeId,p.linked?.coordinate[0],p.linked?.coordinate[1]]);
   useEffect(() => {
     const m = map.current;

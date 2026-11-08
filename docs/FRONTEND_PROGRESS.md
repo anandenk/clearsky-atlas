@@ -457,3 +457,13 @@ The next independent milestone is connected/linked geographic comparison, follow
 ### Updated delegation direction from the user
 
 From this point forward, the user requested initial frontend design by the primary Astra session and later debugging delegated to Sol (or another necessary model). This explicitly updates the prior no-frontend-worker instruction for bounded debugging. Use the authorized isolated Worktrunk/tmux Codex CLI workflow, normally one worker; no worker delegation, shared-file edits, main integration or publication. Primary session retains design, review and integration responsibility. Main-worktree integration still requires the user-coordinated paused checkpoint. Record actual worker model/effort, scope and results rather than treating a worker exit as verification.
+
+## Paused checkpoint — 2026-11-07
+
+Paused at the user's request after feedback that this cycle was taking too long. Do not resume implementation until the user addresses their next topic.
+
+- Responsiveness checkpoint is committed locally as `f12b10f`; the user reports “Much more responsive now.” The transient fragmented rendering cause remains unconfirmed.
+- Linked geographic comparison is committed locally as `e6ab26e`. Subsequent Sol-reviewed readiness, facility-selection, viewport-restoration and presentation fixes remain saved in the working tree, with new verification files. No integration into main has occurred.
+- Latest production build passed. The earlier full 31-test production suite passed before the latest fixes. The latest targeted run completed with **16 passed, 1 failed**: linked facility-marker detail did not expose the expected dialog (`tests/ui/geography.spec.ts:188`). Its cause remains unconfirmed; this is the concrete next debugging item, not a verified-complete milestone. Mobile exit framing and linked readiness tests passed in that run.
+- Frontend production preview remains at :3001; backend :3000 was not changed. The Sol review worker has finished. Generated `next-env.d.ts` churn is not feature work.
+- Preserve ownership and integration gates on resume. Initial design remains with the primary session; subsequent debugging is delegated to Sol as requested. Explore Alternatives still requires the backend-owned contract; no acceptance by the backend owner has been established. All remaining scope and prior deferrals remain applicable.

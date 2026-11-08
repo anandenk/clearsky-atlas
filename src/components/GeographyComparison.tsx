@@ -70,7 +70,8 @@ export default function GeographyComparison({
           <label>
             <span
               style={{
-                color: placeColors[(+place.id - 1) % placeColors.length],
+                background: placeColors[(+place.id - 1) % placeColors.length],
+                  color: "#fff",
               }}
             >
               {String.fromCharCode(64 + +place.id)}

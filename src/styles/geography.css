@@ -251,3 +251,4 @@
     transition: none;
   }
 }
+.geography-place label > span {display:grid;place-items:center;flex:0 0 32px;height:32px;font-size:17px;border-radius:50%;}

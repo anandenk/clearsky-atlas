@@ -69,6 +69,12 @@ test("linked geography keeps both places, shared cameras and measures, and the o
   await page.getByRole("button", { name: "One map", exact: true }).click();
   await expect(maps).toHaveCount(1);
   await expect(maps.first()).toHaveAttribute("data-instance", original!);
+  await page.screenshot({path:'artifacts/geography/closed-mobile.png',fullPage:true});
+  for(const pin of await page.locator('.place-pin').all()){
+    const box=(await pin.boundingBox())!;
+    expect(box.x).toBeGreaterThanOrEqual(0);
+    expect(box.x+box.width).toBeLessThanOrEqual(320);
+  }
   expect(errors).toEqual([]);
 });
 
@@ -167,4 +173,21 @@ test("paired overlays wait for the slower renderer and retain common evidence on
   for (const map of await page.locator(".atlas-map").all())
     await expect(map).toHaveAttribute("data-metric", "pm", { timeout: 30000 });
   expect(requests.filter((x) => x === "pm")).toHaveLength(1);
+});
+
+test('each linked facility marker opens its own inventory detail without recentering either place',async({page})=>{
+ test.setTimeout(60000);await page.emulateMedia({reducedMotion:'reduce'});await page.setViewportSize({width:1440,height:960});await page.goto('/');
+ for(const city of ['Oakland','Fresno']){await page.getByLabel('Search a California address').focus();await page.getByRole('button',{name:city,exact:true}).click();await page.getByRole('button',{name:/Confirm this address/}).click();}
+ await page.getByRole('button',{name:'Compare geography',exact:true}).click();await page.getByRole('button',{name:'Infrastructure',exact:true}).click();
+ const maps=page.locator('.atlas-map');
+ for(const index of [1,0]){
+  const map=maps.nth(index);await expect(map).toHaveAttribute('data-facility-hit',/"id"/,{timeout:30000});
+  const centers=await maps.evaluateAll(es=>es.map(e=>(e as HTMLElement).dataset.center));
+  const hit=JSON.parse((await map.getAttribute('data-facility-hit'))!),box=(await map.boundingBox())!;
+  await page.mouse.click(box.x+hit.x,box.y+hit.y);
+  await expect(page.getByRole('dialog')).toBeVisible();
+  await expect(page.getByRole('dialog')).toContainText(/source|Source/);
+  await page.getByRole('button',{name:'Close dialog',exact:true}).click();
+  expect(await maps.evaluateAll(es=>es.map(e=>(e as HTMLElement).dataset.center))).toEqual(centers);
+ }
 });

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import type { Selection } from "../src/domain";
 import {
@@ -15,6 +15,7 @@ import {
   differenceUnit,
 } from "../src/frontend/provider";
 import { example, categories } from "../src/frontend/fixtures/preview";
+import { automaticView, type MapView } from "../src/frontend/automatic-view";
 import { METRES_PER_PERCENTILE } from "../src/frontend/landscape";
 import { placeColors, ramps } from "../src/map-theme";
 import { Icon, BrandMark } from "../src/components/Icon";
@@ -89,7 +90,12 @@ export default function Page() {
   const collapsedBeforeGeography=useRef(false);
   const overlays=useRef(new StatewideOverlays());
   const linkedCamera=useMemo(()=>new LinkedCamera(),[geography]);
-  const [visualization, setVisualization] = useState<"city"|"landscape">("city");
+  const [viewPreference, setViewPreference] = useState<"auto" | MapView>("auto");
+  const [zoomView, setZoomView] = useState<MapView>("landscape");
+  const onZoomEnd = useCallback((zoom: number) => {
+    setZoomView(previous => automaticView(zoom, previous));
+  }, []);
+  const visualization = viewPreference === "auto" ? zoomView : viewPreference;
   const [landscapeDepth, setLandscapeDepth] = useState<"flat"|"3d">("3d");
   const landscape = visualization === "landscape" && landscapeDepth === "3d";
   const flatLandscape = visualization === "landscape" && landscapeDepth === "flat";
@@ -438,6 +444,7 @@ export default function Page() {
       <div className="map-stage">
         <Map
           overlays={overlays.current}
+          onZoomEnd={onZoomEnd}
           linked={linked ? {camera:linkedCamera,gate,side:"left",placeId:leftPlace.id,coordinate:leftPlace.selection.coordinate} : undefined}
           overview={flatLandscape}
           onHeightScale={setHeightScale}
@@ -454,7 +461,7 @@ export default function Page() {
           facilities={linked ? leftFacilities : visibleFacilities}
           facilitiesReady={linked ? !!facilityResult(leftPlace) : !selected || !!facilityResult(selected)}
           facility={facility}
-          onFacility={setFacility}
+          onFacility={id=>{if(linked)setActive(leftPlace.id);setFacility(id);}}
           onInspect={setInspection}
           onFocus={setActive}
           reset={reset}
@@ -466,13 +473,13 @@ export default function Page() {
         overview={flatLandscape} landscape={landscape} onHeightScale={setRightHeightScale} onDisplay={()=>{}}
         places={places} collapsed={true} active={rightPlace.id} metric={metric} mode={mode} preview={preview} scenario={scenario}
         categories={filter} facilities={rightFacilities} facilitiesReady={!!facilityResult(rightPlace)} facility={facility}
-        onFacility={setFacility} onInspect={setInspection} onFocus={setActive} reset={reset} raster={raster}
+        onFacility={id=>{setActive(rightPlace.id);setFacility(id);}} onInspect={setInspection} onFocus={setActive} reset={reset} raster={raster}
       /></div>}
       {linked && rightPlace && <GeographyComparison places={places} left={leftPlace} right={rightPlace} metric={display.metric}
         observe={observation} onPair={choosePair} onClose={closeGeography} onEvidence={geographyEvidence}
         matchingRelief={!landscape || heightScale===rightHeightScale}
         measures={catalog.filter(m=>m.mode===mode.toLowerCase() && m.backendReady)} requestedMetric={metric}
-        onMeasure={id=>{const group=Object.entries(groups).find(([,ids])=>ids.includes(id));setRemember(r=>({...r,[mode]:group?.[0]||id}));setCompositionField(group?id:"");setOverview(false);}}/>} 
+        onMeasure={id=>{const group=Object.entries(groups).find(([,ids])=>ids.includes(id));setRemember(r=>({...r,[mode]:group?.[0]||id}));setCompositionField(group?id:"");setOverview(false);}}/>}
       <header className="masthead">
         <button
           className="brand"
@@ -706,12 +713,13 @@ export default function Page() {
       )}
       <div className="view-switch">
         <div className="view-primary" role="group" aria-label="Visualization">
-          <button aria-pressed={visualization === "city" || mode === "Infrastructure" || !metric?.percentileField} onClick={()=>setVisualization("city")}>City</button>
-          <button aria-pressed={visualization === "landscape" && mode !== "Infrastructure" && !!metric?.percentileField} disabled={mode === "Infrastructure" || !metric?.percentileField || raster} onClick={()=>setVisualization("landscape")}>Data Landscape</button>
+          <button aria-pressed={viewPreference === "auto"} title="Automatically choose City nearby and Data Landscape farther out" onClick={()=>setViewPreference("auto")}>Auto</button>
+          <button aria-pressed={visualization === "city" || mode === "Infrastructure" || !metric?.percentileField} onClick={()=>setViewPreference("city")}>City</button>
+          <button aria-pressed={visualization === "landscape" && mode !== "Infrastructure" && !!metric?.percentileField} disabled={mode === "Infrastructure" || !metric?.percentileField || raster} onClick={()=>setViewPreference("landscape")}>Data Landscape</button>
         </div>
         {visualization === "landscape" && mode !== "Infrastructure" && !!metric?.percentileField && <div className="landscape-depth" role="group" aria-label="Landscape depth">
-          <button aria-pressed={landscapeDepth === "flat"} onClick={()=>setLandscapeDepth("flat")}>Flat</button>
-          <button aria-pressed={landscapeDepth === "3d"} onClick={()=>setLandscapeDepth("3d")}>3D</button>
+          <button aria-pressed={landscapeDepth === "flat"} onClick={()=>{setLandscapeDepth("flat");setViewPreference("landscape");}}>Flat</button>
+          <button aria-pressed={landscapeDepth === "3d"} onClick={()=>{setLandscapeDepth("3d");setViewPreference("landscape");}}>3D</button>
         </div>}
       </div>
       <nav className="domain-dock" aria-label="Explore a domain">
